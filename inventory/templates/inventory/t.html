@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 
   <script src="http://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap4.min.js"></script>
@@ -88,31 +89,29 @@
       }
 
       function processrequest(id, decesion, value) {
-          /*var xhttp = new XMLHttpRequest();
+          var xhttp = new XMLHttpRequest();
           xhttp.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 200) {
               //document.getElementById("demo").innerHTML = this.responseText;
               //document.getElementById("demo").innerHTML =document.getElementById("demo").innerHTML;
               }
             };
-          xhttp.open("POST", "placerequest/", true);
+          xhttp.open("POST", "processrequest/", true);
           var csrftoken = getCookie('csrftoken');
                     
           xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
           xhttp.setRequestHeader("X-CSRFToken", csrftoken);
-          query="requested_item_name_dropdown=";
-          query+=document.getElementById("requested_item_name_dropdown").value;
-          query+="&requested_quantity="+document.getElementById("item_quantity_dropdown").value;
-          query+="&requestee="+document.getElementById("requestee").value;
-          query+="&description="+document.getElementById("description").value;
-                    
-                    
+          query="requested_id="+id;
+          query+="&decesion="+decesion;
+          query+="&value="+value;
+          xhttp.send(query);
 
-
-          xhttp.send(query);*/
           console.log(id);
           console.log(decesion);
           console.log(value);
+
+          toclose="#req_panel"+id;
+          $(toclose).hide("drop", { direction: "up" }, "slow");
       }
   </script>
 
@@ -149,6 +148,9 @@
             right:5%;
             margin-left:auto;
             margin-right:auto; 
+          }
+          panel-default{
+            width=5%;
           }
 
         </style>
@@ -207,7 +209,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-8">
+      <div class="col-sm-6">
         <div class="container">
           <!--h2>Dynamic Tabs</h2-->
           <ul class="nav nav-tabs">
@@ -279,7 +281,7 @@
                       </div>
                       <div class="modal-body">
                         <!--form for request is starting-->
-                        <input type='hidden' name='csrfmiddlewaretoken' value='EisMNd9dkCrrJt9WXO1Zgq7bG7OTdfDQuMtPv1PzkxyqxYRidJ8O6imjbfi4eCws' />
+                        
                         Item name:
                         <select name="requested_item_name_dropdown" id="requested_item_name_dropdown" onchange="showQuantity(this.value)">
                           <option value="">Select..
@@ -313,7 +315,7 @@
                   <!---->
                   <div id="request_panel">
                     {%for p in pending%}
-                    <div>
+                    <div id="req_panel{{p.id_no}}">
                       <div class="panel panel-default">
                         <div class="panel-heading">
                           <div class="row">
@@ -348,16 +350,50 @@
                           <p>Description:{{p.description}}            
                           </p>
                           <button type="button" class="btn btn-default" onclick="processrequest('{{p.id_no}}','approve',
-                                                                                 document.getElementById('{{p.id_no}}').value)">Approve
+                                                                                 document.getElementById('approved_item_qty_dropdown{{p.id_no}}').value)">Approve
                           </button>
-                          <button type="button" class="btn btn-default" onclick="processrequest('{{p.id_no}}','reject')" data-dismiss="modal">Reject
+                          <button type="button" class="btn btn-default" onclick="processrequest('{{p.id_no}}','reject','0')" data-dismiss="modal">Reject
                           </button>
                         </div>
                       </div>
                     </div>
                     {% endfor %}
                     
-                <div>Processed Requests
+                <div>
+                  <h2>Processed Requests</h2>
+                  <div id="processed_panel">
+                  {% for p in processed %}
+                    <div id="req_panel{{p.id_no}}">
+                        <div class="panel panel-default" width="20%">
+                          
+                          <div class="panel-body">
+                            <div class="row">
+                              <div class="col-sm-4">Requested of:{{p.item_name}}
+                              </div>
+                              <div class="col-sm-4">Request for:{{p.requestee}}
+                              </div>
+                              <div class="col-sm-4">Status:{{p.action}}
+                              </div>
+                              
+                            
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-6">is {{p.action}}ed on {{p.date_of_process}}
+                            </div>
+                            <div class="col-sm-6" align="right">
+                                  <button type="button" class="btn btn-default">Okay
+                                  </button>
+                            </div>
+                            
+                            
+                        </div>
+                      </div>
+                    </div>
+                    
+                    
+                    
+                  </div>
+                  {% endfor %}
                 </div>
               </div>
             </div>

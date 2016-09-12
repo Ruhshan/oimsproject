@@ -9,7 +9,7 @@ from django.template import loader
 #from django.core.urlresolvers import reverse
 #imported models
 
-from .models import InventoryTable, PendingRequest
+from .models import InventoryTable, PendingRequest, ProcessedRequest
 # Create your views here.
 def user_login(request):
 	#context=RequestContext(request)
@@ -36,6 +36,8 @@ def view_home(request):
 		g=request.user.groups.all()
 		item_names=InventoryTable.objects.values('item_name')
 
+		processed=ProcessedRequest.objects.all()
+
 		pending=PendingRequest.objects.raw('''select inventory_pendingrequest.id_no, 
 													quantity_inside,
 													requested_quantity,
@@ -48,7 +50,7 @@ def view_home(request):
 													inventory_pendingrequest on
 													inventory_inventorytable.item_name=inventory_pendingrequest.item_name''')
 		
-		return render(request, 'inventory/t.html',{'inv':inv, 'item_names':item_names,'pending':pending})
+		return render(request, 'inventory/t.html',{'inv':inv, 'item_names':item_names,'pending':pending,'processed':processed})
 	else:
 		return render(request, 'inventory/home2.html',)
 
@@ -98,7 +100,34 @@ def place_request(request):
 	#request.user.groups.all()[0]
 @login_required
 def process_request(request):
-	print "yeas"
+	if request.method=='POST':
+		req_id=request.POST['requested_id']
+		decesion=request.POST['decesion']
+		value=request.POST['value']
+
+		p=PendingRequest.objects.get(id_no=req_id)
+
+		nid_no=req_id
+		nitem_name=p.item_name
+		nrequested_quantity=p.requested_quantity
+		nrequestee=p.requestee
+		nstore_manager=p.store_manager
+		ndescription=p.store_manager
+		ndate_of_request=p.date_of_request
+
+		nprocessed_by=request.user.username
+		
+
+		q=ProcessedRequest(id_no=nid_no, requestee=nrequestee, item_name=nitem_name, requested_quantity=nrequested_quantity, store_manager=nstore_manager, description=ndescription, date_of_request=ndate_of_request,processed_by = nprocessed_by,action=decesion)
+		q.save()
+
+		p.delete()
+
+		print nrequestee
+
+
+
+
 
 @login_required
 def availqty(request):

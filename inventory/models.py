@@ -32,3 +32,26 @@ class PendingRequest(models.Model):
 
 	def __str__(self):
 		return str(self.id_no)
+
+
+class ProcessedRequest(models.Model):
+	id_no=models.UUIDField(primary_key=True,default=0, editable=False)
+	item_name=models.CharField(max_length=100,blank=False,null=False)
+	requested_quantity=models.IntegerField()
+	requestee=models.CharField(max_length=100,blank=False,null=False)
+	store_manager=models.CharField(max_length=100,blank=False,null=False)
+	description=models.TextField()
+	date_of_request=models.DateField()
+
+	processed_by=models.CharField(max_length=100,blank=False,null=False)
+	date_of_process=models.DateField(auto_now=True)
+	action=models.CharField(max_length=10, blank=False, null=False)
+	acknowledgement=models.IntegerField(default=0)
+
+	def update(self):
+		self.save()
+
+	def __str__(self):
+		return str(self.id_no)
+
+

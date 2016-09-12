@@ -9,6 +9,6 @@ urlpatterns = [
     url(r'^home/itemqty/$',views.itemqty,name='itemqty'),
     url(r'^home/availableqty/$',views.availqty,name='availqty'),
     url(r'^home/placerequest/$',views.place_request,name='placerequest'),
-    url(r'^processrequest/$',views.process_request,name='processrequest'),
+    url(r'^home/processrequest/$',views.process_request,name='processrequest'),
     url(r'^home/generateoptions/$',views.generateoptions,name='generateoptions'),
 ]
