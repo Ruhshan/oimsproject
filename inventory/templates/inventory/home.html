@@ -13,6 +13,108 @@
   <script src="http://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap4.min.js"></script>
   <link rel="stylesheet" href="http://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+  <script type="text/javascript">
+    function generateOptions(id,qty){
+        var xhttp;
+        if (qty == "") {
+            document.getElementById(id).innerHTML = "";
+            return;
+            }
+        xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById(id).innerHTML = this.responseText;
+            }
+          };
+        xhttp.open("GET", "generateoptions?given_qty="+qty, true);
+        xhttp.send();
+      };
+
+        function showQuantity(str) {
+                  var xhttp;
+                      if (str == "") {
+                          document.getElementById("item_quantity_dropdown").innerHTML = "";
+                          return;
+                        }
+                    xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("item_quantity_dropdown").innerHTML = this.responseText;
+                    }
+                };
+              xhttp.open("GET", "itemqty?requested_name="+str, true);
+            xhttp.send();
+            };
+
+        function getCookie(name) {
+                var cookieValue = null;
+                if (document.cookie && document.cookie != '') {
+                    var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = jQuery.trim(cookies[i]);
+                          // Does this cookie string begin with the name we want?
+                          if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                      }
+                    }
+                  }
+                return cookieValue;
+              }
+
+            function placerequest() {
+              var xhttp = new XMLHttpRequest();
+              xhttp.onreadystatechange = function() {
+              if (this.readyState == 4 && this.status == 200) {
+                  //document.getElementById("demo").innerHTML = this.responseText;
+                  document.getElementById("request_panel").innerHTML = this.responseText+document.getElementById("request_panel").innerHTML;
+                  }
+                };
+              xhttp.open("POST", "placerequest/", true);
+              var csrftoken = getCookie('csrftoken');
+              
+              xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+              xhttp.setRequestHeader("X-CSRFToken", csrftoken);
+              query="requested_item_name_dropdown=";
+              query+=document.getElementById("requested_item_name_dropdown").value;
+              query+="&requested_quantity="+document.getElementById("item_quantity_dropdown").value;
+              query+="&requestee="+document.getElementById("requestee").value;
+              query+="&description="+document.getElementById("description").value;
+              
+              
+
+
+              xhttp.send(query);
+            }
+    function processrequest(id, decesion, value) {
+              /*var xhttp = new XMLHttpRequest();
+              xhttp.onreadystatechange = function() {
+              if (this.readyState == 4 && this.status == 200) {
+                  //document.getElementById("demo").innerHTML = this.responseText;
+                  //document.getElementById("demo").innerHTML =document.getElementById("demo").innerHTML;
+                  }
+                };
+              xhttp.open("POST", "placerequest/", true);
+              var csrftoken = getCookie('csrftoken');
+              
+              xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+              xhttp.setRequestHeader("X-CSRFToken", csrftoken);
+              query="requested_item_name_dropdown=";
+              query+=document.getElementById("requested_item_name_dropdown").value;
+              query+="&requested_quantity="+document.getElementById("item_quantity_dropdown").value;
+              query+="&requestee="+document.getElementById("requestee").value;
+              query+="&description="+document.getElementById("description").value;
+              
+              
+
+
+              xhttp.send(query);*/
+              console.log(id);
+              console.log(decesion);
+              console.log(value);
+            }
+
+  </script>
 
 <style type="text/css">
 	/* make sidebar nav vertical */ 
@@ -138,8 +240,8 @@ body .modal-dialog {
           <h4 class="modal-title">Request Data</h4>
         </div>
         <div class="modal-body">
-        <!--form for request is starting-->
-          {% csrf_token %}
+        
+          
           Item name:
           <select name="requested_item_name_dropdown" id="requested_item_name_dropdown" onchange="showQuantity(this.value)">
             <option value="">Select..</option>
@@ -152,42 +254,7 @@ body .modal-dialog {
           <select id="item_quantity_dropdown" name="requested_quantity">  
           </select>
 
-          <script type="text/javascript">
-            function showQuantity(str) {
-                  var xhttp;
-                      if (str == "") {
-                          document.getElementById("item_quantity_dropdown").innerHTML = "";
-                          return;
-                        }
-                    xhttp = new XMLHttpRequest();
-                    xhttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("item_quantity_dropdown").innerHTML = this.responseText;
-                    }
-                };
-              xhttp.open("GET", "itemqty?requested_name="+str, true);
-            xhttp.send();
-            };
-
-
-            function generateOptions(id,qty){
-        var xhttp;
-        if (qty == "") {
-            document.getElementById(id).innerHTML = "";
-            return;
-            }
-        xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            document.getElementById(id).innerHTML = this.responseText;
-            }
-          };
-        xhttp.open("GET", "generateoptions?given_qty="+qty, true);
-        xhttp.send();
-      };
-
-
-          </script>
+          
           
             Requestee:
             <datalist id="requestee_names">
@@ -205,48 +272,7 @@ body .modal-dialog {
         <!--input type="submit" value="Place Request" /-->
         <button type="button" class="btn btn-default" onclick="placerequest()" data-dismiss="modal">Place Request</button>
         <!--form for request has ended-->
-        <script>
-            /*function getCookie(name) {
-                var cookieValue = null;
-                if (document.cookie && document.cookie != '') {
-                    var cookies = document.cookie.split(';');
-                    for (var i = 0; i < cookies.length; i++) {
-                        var cookie = jQuery.trim(cookies[i]);
-                          // Does this cookie string begin with the name we want?
-                          if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                      }
-                    }
-                  }
-                return cookieValue;
-              }
-
-            function placerequest() {
-              var xhttp = new XMLHttpRequest();
-              xhttp.onreadystatechange = function() {
-              if (this.readyState == 4 && this.status == 200) {
-                  //document.getElementById("demo").innerHTML = this.responseText;
-                  document.getElementById("request_panel").innerHTML = this.responseText;
-                  }
-                };
-              xhttp.open("POST", "placerequest/", true);
-              var csrftoken = getCookie('csrftoken');
-              
-              xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-              xhttp.setRequestHeader("X-CSRFToken", csrftoken);
-              query="requested_item_name_dropdown=";
-              query+=document.getElementById("requested_item_name_dropdown").value;
-              query+="&requested_quantity="+document.getElementById("item_quantity_dropdown").value;
-              query+="&requestee="+document.getElementById("requestee").value;
-              query+="&description="+document.getElementById("description").value;
-              
-              
-
-
-              xhttp.send(query);
-            }*/
-          </script>
+        
 
         
         </div>
@@ -275,13 +301,14 @@ body .modal-dialog {
       <div class="panel-body">
         <div class="row">
             <div class="col-sm-4">Requested Quantity:{{p.requested_quantity}}</div>
-            <div class="col-sm-4" id="available_qty">Available:{{p.quantity_inside}}</div>
+            <div class="col-sm-4">Available:{{p.quantity_inside}}</div>
             <div class="col-sm-4">Approve:
                 <select id="approved_item_qty_dropdown{{p.id_no}}" name="approved_quantity{{p.id_no}}">
                     <option value="{{p.requested_quantity}}">{{p.requested_quantity}}</option>
                     <option value="">more..</option>
                 </select>
-                <script type="text/javascript" id="approved_item_qty_dropdown{{p.id_no}}">
+                <script type="text/javascript">
+                  //removed id here
                   generateOptions("approved_item_qty_dropdown{{p.id_no}}",{{p.requested_quantity}});
                 </script>
             </div>
@@ -300,75 +327,9 @@ body .modal-dialog {
   {% endfor %}
   </div>
     <script type="text/javascript">
-        function processrequest(id, decesion, value) {
-              /*var xhttp = new XMLHttpRequest();
-              xhttp.onreadystatechange = function() {
-              if (this.readyState == 4 && this.status == 200) {
-                  //document.getElementById("demo").innerHTML = this.responseText;
-                  //document.getElementById("demo").innerHTML =document.getElementById("demo").innerHTML;
-                  }
-                };
-              xhttp.open("POST", "placerequest/", true);
-              var csrftoken = getCookie('csrftoken');
-              
-              xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-              xhttp.setRequestHeader("X-CSRFToken", csrftoken);
-              query="requested_item_name_dropdown=";
-              query+=document.getElementById("requested_item_name_dropdown").value;
-              query+="&requested_quantity="+document.getElementById("item_quantity_dropdown").value;
-              query+="&requestee="+document.getElementById("requestee").value;
-              query+="&description="+document.getElementById("description").value;
-              
-              
+        
 
-
-              xhttp.send(query);*/
-              console.log(id);
-              console.log(decesion);
-              console.log(value);
-            }
-
-            function getCookie(name) {
-                var cookieValue = null;
-                if (document.cookie && document.cookie != '') {
-                    var cookies = document.cookie.split(';');
-                    for (var i = 0; i < cookies.length; i++) {
-                        var cookie = jQuery.trim(cookies[i]);
-                          // Does this cookie string begin with the name we want?
-                          if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                      }
-                    }
-                  }
-                return cookieValue;
-              }
-
-            function placerequest() {
-              var xhttp = new XMLHttpRequest();
-              xhttp.onreadystatechange = function() {
-              if (this.readyState == 4 && this.status == 200) {
-                  //document.getElementById("demo").innerHTML = this.responseText;
-                  document.getElementById("request_panel").innerHTML = this.responseText+document.getElementById("request_panel").innerHTML;
-                  }
-                };
-              xhttp.open("POST", "placerequest/", true);
-              var csrftoken = getCookie('csrftoken');
-              
-              xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-              xhttp.setRequestHeader("X-CSRFToken", csrftoken);
-              query="requested_item_name_dropdown=";
-              query+=document.getElementById("requested_item_name_dropdown").value;
-              query+="&requested_quantity="+document.getElementById("item_quantity_dropdown").value;
-              query+="&requestee="+document.getElementById("requestee").value;
-              query+="&description="+document.getElementById("description").value;
-              
-              
-
-
-              xhttp.send(query);
-            }
-    
+            
     </script>
 
   </div>

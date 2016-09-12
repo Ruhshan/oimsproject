@@ -48,7 +48,7 @@ def view_home(request):
 													inventory_pendingrequest on
 													inventory_inventorytable.item_name=inventory_pendingrequest.item_name''')
 		
-		return render(request, 'inventory/home.html',{'inv':inv, 'item_names':item_names,'pending':pending})
+		return render(request, 'inventory/t.html',{'inv':inv, 'item_names':item_names,'pending':pending})
 	else:
 		return render(request, 'inventory/home2.html',)
 
