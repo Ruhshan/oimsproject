@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^home/placerequest/$',views.place_request,name='placerequest'),
     url(r'^home/processrequest/$',views.process_request,name='processrequest'),
     url(r'^home/generateoptions/$',views.generateoptions,name='generateoptions'),
+    url(r'^login/isadmin/$',views.isadmin,name='isadmin'),
 ]

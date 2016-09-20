@@ -1,5 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
+from django.contrib.auth.models import Group
+
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render_to_response
@@ -16,15 +19,29 @@ def user_login(request):
 	if request.method=='POST':
 		email=request.POST['email']
 		password=request.POST['password']
+		password2=request.POST['password2']
 
-		user=authenticate(username=email,password=password)
+		u=User.objects.get(username=email)
+		g=str(u.groups.all()[0])
+
+		
+
+		if g=="head":
+			if password2=="9800":
+				user=authenticate(username=email,password=password)
+			else:
+				return HttpResponse("Invalid Seccondary password")
+		else:
+			user=authenticate(username=email,password=password)
+
+		
 
 		if user is not None:
 			if user.is_active:
 				login(request,user)
 				return HttpResponseRedirect("/home/")	
 			else:
-				return HttpResponse("Your Rango account is disabled.")
+				return HttpResponse("Your OIMS account is disabled.")
 		else:
 			return HttpResponse("Invalid login")
 	else:
@@ -144,3 +161,14 @@ def generateoptions(request):
 	for i in range(qty,0,-1):
 		s+="""<option value="{}">{}</option>\n""".format(i,i)
 	return HttpResponse(s)
+
+def isadmin(request):
+	if request.method=='POST':
+		email=request.POST["query_email"]
+		u=User.objects.get(username=email)
+		g=str(u.groups.all()[0])
+		if g=='head':
+			return HttpResponse(1)
+		else:
+			return HttpResponse(0)
+
