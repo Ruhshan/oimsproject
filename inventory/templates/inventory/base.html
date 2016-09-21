@@ -113,6 +113,11 @@
           toclose="#req_panel"+id;
           $(toclose).hide("drop", { direction: "up" }, "slow");
       }
+
+      function acknowledge(id){
+        tovanish="#"+id;
+        $(tovanish).hide("drop",{direction:"down"},"slow");
+      }
   </script>
 
           <style type="text/css">
@@ -235,9 +240,11 @@
             
             <div id="requests" class="tab-pane fade">
             <!--new request button-->
-            {% block newrequests %}
+            {% if group|stringformat:"s" == "manager" %}
+              {% block newrequests %}
                 
-            {% endblock newrequests %}
+              {% endblock newrequests %}
+            {% endif %}
 
             <!--pending request panels-->
             {% block pendingrequests %}

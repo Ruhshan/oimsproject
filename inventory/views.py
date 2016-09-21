@@ -50,7 +50,7 @@ def user_login(request):
 def view_home(request):
 	if request.user.is_authenticated():
 		inv=InventoryTable.objects.all()
-		g=request.user.groups.all()
+		g=request.user.groups.all()[0]
 		item_names=InventoryTable.objects.values('item_name')
 
 		processed=ProcessedRequest.objects.all()
@@ -68,7 +68,7 @@ def view_home(request):
 													inventory_inventorytable.item_name=inventory_pendingrequest.item_name''')
 		
 		#return render(request, 'inventory/t.html',{'inv':inv, 'item_names':item_names,'pending':pending,'processed':processed})
-		return render(request, 'inventory/temp.html',{'inv':inv,'item_names':item_names,'pending':pending,'processed':processed})
+		return render(request, 'inventory/temp.html',{'inv':inv,'item_names':item_names,'pending':pending,'processed':processed, 'group':g})
 	else:
 		return render(request, 'inventory/home2.html',)
 
@@ -164,7 +164,7 @@ def generateoptions(request):
 
 def isadmin(request):
 	if request.method=='POST':
-		email=request.POST["query_email"]
+		email=request.POST["email"]
 		u=User.objects.get(username=email)
 		g=str(u.groups.all()[0])
 		if g=='head':

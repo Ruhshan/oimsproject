@@ -78,8 +78,10 @@
 
 
 {% block pendingrequests %}
-
+	
     <div id="request_panel">
+    <h2>Pending Requests:</h2>
+    {% if group|stringformat:"s" == "head" %}
     {%for p in pending%}
     <div id="req_panel{{p.id_no}}">
       <div class="panel panel-default">
@@ -124,12 +126,47 @@
       </div>
     </div>
     {% endfor %}
-  </div>
+    {% endif %}
+    
+    {% if group|stringformat:"s" == "manager" %}
+    {%for p in pending%}
+    <div id="req_panel{{p.id_no}}">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="row">
+            <div class="col-sm-4">Request of {{p.item_name}}
+            </div>
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-4">Request for {{p.requestee}}
+            </div>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-sm-4">Requested Quantity:{{p.requested_quantity}}
+            </div>
+            <div class="col-sm-4">Available:{{p.quantity_inside}}
+            </div>
+            
+          </div>
+          <p>Description:{{p.description}}            
+          </p>
+          
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    
+    {% endif %}
+    
+  	</div>
                   
 {% endblock pendingrequests %}
 
 
 {% block processedrequest %}
+<h2>Processed Requests:</h2>
 {% for p in processed %}
 <div id="processed_req_panel{{p.id_no}}">
 	<div class="panel panel-default" width="20%">
@@ -147,8 +184,11 @@
 				<div class="col-sm-6">is {{p.action}}ed on {{p.date_of_process}}
 				</div>
 				<div class="col-sm-6" align="right">
-					<button type="button" class="btn btn-default">Okay
+					{% if group|stringformat:"s" == "manager" %}
+					<button type="button" class="btn btn-default" 
+					onclick="acknowledge('processed_req_panel{{p.id_no}}')">Okay
 					</button>
+					{% endif %}
 				</div>
 
 			</div>
