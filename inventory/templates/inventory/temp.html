@@ -78,11 +78,12 @@
 
 
 {% block pendingrequests %}
-	
     <div id="request_panel">
-    <h2>Pending Requests:</h2>
     {% if group|stringformat:"s" == "head" %}
     {%for p in pending%}
+    {% if forloop.first %}
+    	<h2>Pending Requests</h2>
+    {% endif %}
     <div id="req_panel{{p.id_no}}">
       <div class="panel panel-default">
         <div class="panel-heading">

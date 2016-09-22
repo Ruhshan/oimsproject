@@ -53,7 +53,7 @@ def view_home(request):
 		g=request.user.groups.all()[0]
 		item_names=InventoryTable.objects.values('item_name')
 
-		processed=ProcessedRequest.objects.all()
+		processed=ProcessedRequest.objects.filter(acknowledgement=0)
 
 		pending=PendingRequest.objects.raw('''select inventory_pendingrequest.id_no, 
 													quantity_inside,
@@ -141,6 +141,12 @@ def process_request(request):
 
 		p.delete()
 
+		if decesion=="approve":
+			i=InventoryTable.objects.get(item_name=nitem_name)
+			i.quantity_inside-=int(value)
+			i.quantity_outside+=int(value)
+			i.save()
+
 		print nrequestee
 
 
@@ -161,6 +167,19 @@ def generateoptions(request):
 	for i in range(qty,0,-1):
 		s+="""<option value="{}">{}</option>\n""".format(i,i)
 	return HttpResponse(s)
+
+@login_required
+def acknowledge(request):
+	if request.method=='POST':
+		req_id=request.POST['requested_id']
+		req_id=req_id.replace("processed_req_panel","")
+
+		p=ProcessedRequest.objects.get(id_no=req_id)
+		p.acknowledgement=1
+		p.save()
+
+
+
 
 def isadmin(request):
 	if request.method=='POST':
