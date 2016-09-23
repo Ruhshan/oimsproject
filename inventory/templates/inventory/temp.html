@@ -59,16 +59,22 @@
     		</select>
 
     		Requested quantity:
-    		<select id="item_quantity_dropdown" name="requested_quantity"></select>
+    		<select id="item_quantity_dropdown" name="requested_quantity">
+    			<option >1</option>
+    		</select>
     		Requestee:
     		<datalist id="requestee_names">
+    		{% for name in requestee %}
+    			<option value="{{name}}">
+    		{% endfor %}
     		</datalist>
     		<input type="text" list="requestee_names" name="requestee" id="requestee"/>
-    		<textarea placeholder="Describe yourself here..." rows="4" cols="50" name="description" id="description">
+    		<textarea placeholder="Describe your request here..." rows="4" cols="50" name="description" id="description">
     		</textarea>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" onclick="placerequest()" data-dismiss="modal">Place Request</button>
+          <button type="button" class="btn btn-default" onclick="placerequest()" >Place Request</button>
+          <!--button type="button" class="btn btn-default" onclick="placerequest()" data-dismiss="modal">Place Request</button-->
         </div>
       </div>
       

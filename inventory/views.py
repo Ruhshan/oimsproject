@@ -55,6 +55,8 @@ def view_home(request):
 
 		processed=ProcessedRequest.objects.filter(acknowledgement=0)
 
+		requestee_suggestion=ProcessedRequest.objects.values_list('requestee',flat=True)
+
 		pending=PendingRequest.objects.raw('''select inventory_pendingrequest.id_no, 
 													quantity_inside,
 													requested_quantity,
@@ -68,7 +70,7 @@ def view_home(request):
 													inventory_inventorytable.item_name=inventory_pendingrequest.item_name''')
 		
 		#return render(request, 'inventory/t.html',{'inv':inv, 'item_names':item_names,'pending':pending,'processed':processed})
-		return render(request, 'inventory/temp.html',{'inv':inv,'item_names':item_names,'pending':pending,'processed':processed, 'group':g})
+		return render(request, 'inventory/temp.html',{'inv':inv,'item_names':item_names,'pending':pending,'processed':processed, 'group':g, 'requestee':requestee_suggestion})
 	else:
 		return render(request, 'inventory/home2.html',)
 

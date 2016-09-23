@@ -69,6 +69,7 @@
               if (this.readyState == 4 && this.status == 200) {
                   //document.getElementById("demo").innerHTML = this.responseText;
                   document.getElementById("request_panel").innerHTML = this.responseText + document.getElementById("request_panel").innerHTML;
+                  
               }
           };
           xhttp.open("POST", "placerequest/", true);
@@ -82,10 +83,19 @@
           query += "&requestee=" + document.getElementById("requestee").value;
           query += "&description=" + document.getElementById("description").value;
 
+          var req=document.getElementById("requestee").value;
+          var item=document.getElementById("requested_item_name_dropdown").value;
+          
 
+          if(req.length>0 & item!='Select..'){
+            xhttp.send(query);
+            $('#myModal').modal('hide');
+          }
+          else{
+            $('#myModal').effect('shake');
 
-
-          xhttp.send(query);
+          }
+          
       }
 
       function processrequest(id, decesion, value) {
