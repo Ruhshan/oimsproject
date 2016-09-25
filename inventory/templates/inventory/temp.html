@@ -46,13 +46,16 @@
       
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+          <button type="button" id="modal-close" onclick="req_close()" class="close" data-dismiss="modal">&times;</button>
+          
+
           <h4 class="modal-title">New Request</h4>
         </div>
         <div class="modal-body">
           Item name:
     		<select name="requested_item_name_dropdown" id="requested_item_name_dropdown" onchange="showQuantity(this.value)">
-      				<option value="">Select..</option>
+      				<option selected="selected">Select..</option>
       				{%for item in item_names%}
       				<option value="{{item.item_name}}">{{item.item_name}}</option>
       				{% endfor %}
@@ -73,7 +76,15 @@
     		</textarea>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" onclick="placerequest()" >Place Request</button>
+        	<!--h5>error in fields</h5-->
+        	<div class="row">
+  				<div class="col-sm-8"><h4 id="modal_error">Error in Request</h4></div>
+  				<div class="col-sm-4">
+  					<button type="button" class="btn btn-default" onclick="placerequest()">Place Request</button>
+          
+  				</div>
+  				
+			</div>
           <!--button type="button" class="btn btn-default" onclick="placerequest()" data-dismiss="modal">Place Request</button-->
         </div>
       </div>
