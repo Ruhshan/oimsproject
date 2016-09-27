@@ -38,6 +38,7 @@ class ProcessedRequest(models.Model):
 	id_no=models.UUIDField(primary_key=True,default=0, editable=False)
 	item_name=models.CharField(max_length=100,blank=False,null=False)
 	requested_quantity=models.IntegerField()
+	approved_quantity=models.IntegerField()
 	requestee=models.CharField(max_length=100,blank=False,null=False)
 	store_manager=models.CharField(max_length=100,blank=False,null=False)
 	description=models.TextField()

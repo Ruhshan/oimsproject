@@ -70,9 +70,9 @@ def view_home(request):
 													inventory_inventorytable.item_name=inventory_pendingrequest.item_name''')
 		
 		#return render(request, 'inventory/t.html',{'inv':inv, 'item_names':item_names,'pending':pending,'processed':processed})
-		return render(request, 'inventory/temp.html',{'inv':inv,'item_names':item_names,'pending':pending,'processed':processed, 'group':g, 'requestee':requestee_suggestion})
+		return render(request, 'inventory/home.html',{'inv':inv,'item_names':item_names,'pending':pending,'processed':processed, 'group':g, 'requestee':requestee_suggestion})
 	else:
-		return render(request, 'inventory/home2.html',)
+		return render(request, 'inventory/unloggedhome.html',)
 
 @login_required
 def user_logout(request):
@@ -132,13 +132,13 @@ def process_request(request):
 		nrequested_quantity=p.requested_quantity
 		nrequestee=p.requestee
 		nstore_manager=p.store_manager
-		ndescription=p.store_manager
+		ndescription=p.description
 		ndate_of_request=p.date_of_request
 
 		nprocessed_by=request.user.username
 		
 
-		q=ProcessedRequest(id_no=nid_no, requestee=nrequestee, item_name=nitem_name, requested_quantity=nrequested_quantity, store_manager=nstore_manager, description=ndescription, date_of_request=ndate_of_request,processed_by = nprocessed_by,action=decesion)
+		q=ProcessedRequest(id_no=nid_no, requestee=nrequestee, item_name=nitem_name, requested_quantity=nrequested_quantity, approved_quantity=value,store_manager=nstore_manager, description=ndescription, date_of_request=ndate_of_request,processed_by = nprocessed_by,action=decesion)
 		q.save()
 
 		p.delete()
@@ -180,7 +180,18 @@ def acknowledge(request):
 		p.acknowledgement=1
 		p.save()
 
+@login_required
+def item_details(request, name):
 
+	item=InventoryTable.objects.get(item_name=name)
+
+	remaining= ((float(item.quantity_inside)-float(item.quantity_outside))/item.quantity_inside)*100
+
+	details=ProcessedRequest.objects.filter(item_name=name, action='approve', acknowledgement=1)
+
+
+
+	return render(request, 'inventory/item_details.html',{'item':item, 'details':details, 'remaining':int(remaining)})
 
 
 def isadmin(request):

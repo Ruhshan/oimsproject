@@ -89,6 +89,11 @@
           
 
           if(req.length>0 & item!='Select..'){
+            document.getElementById('requested_item_name_dropdown').value="Select..";
+            document.getElementById('item_quantity_dropdown').value="1";
+            document.getElementById("requestee").value="";
+            document.getElementById("description").value="";
+            
             xhttp.send(query);
             $('#myModal').modal('hide');
           }

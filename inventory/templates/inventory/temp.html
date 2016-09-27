@@ -17,7 +17,9 @@
 	    </thead>
         {% for items in inv %}
         <tr>
-            <td >{{items.item_name}}</td>
+            <td >
+              <a href="{% url 'item_details' name=items.item_name %}">{{items.item_name}}</a>
+            </td>
             <td>{{items.quantity_inside}}</td>
             <td>{{items.quantity_outside}}</td>
             <td>{{items.unit_price}}</td>
