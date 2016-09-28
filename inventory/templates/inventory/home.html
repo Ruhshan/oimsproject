@@ -56,26 +56,31 @@
         </div>
         <div class="modal-body">
           Item name:
-    		<select name="requested_item_name_dropdown" id="requested_item_name_dropdown" onchange="showQuantity(this.value)">
-      				<option selected="selected">Select..</option>
-      				{%for item in item_names%}
-      				<option value="{{item.item_name}}">{{item.item_name}}</option>
-      				{% endfor %}
-    		</select>
+        		<select name="requested_item_name_dropdown" id="requested_item_name_dropdown" onchange="showQuantity(this.value)">
+          				<option selected="selected">Select..</option>
+          				{%for item in item_names%}
+          				<option value="{{item.item_name}}">{{item.item_name}}</option>
+          				{% endfor %}
+        		</select>
 
-    		Requested quantity:
-    		<select id="item_quantity_dropdown" name="requested_quantity">
-    			<option >1</option>
-    		</select>
-    		Requestee:
-    		<datalist id="requestee_names">
-    		{% for name in requestee %}
-    			<option value="{{name}}">
-    		{% endfor %}
-    		</datalist>
-    		<input type="text" list="requestee_names" name="requestee" id="requestee"/>
-    		<textarea placeholder="Describe your request here..." rows="4" cols="50" name="description" id="description" value="">
-    		</textarea>
+        		Requested quantity:
+        		<select id="item_quantity_dropdown" name="requested_quantity">
+        			<option >1</option>
+        		</select>
+        		Requestee:
+        		<datalist id="requestee_names">
+        		{% for name in requestee %}
+        			<option value="{{name}}">
+        		{% endfor %}
+        		</datalist>
+        		<input type="text" list="requestee_names" name="requestee" id="requestee"/>
+
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea placeholder="Describe your request here..." class="form-control" rows="5"
+                 id="description" value=" "></textarea>
+            </div>
+    		
         </div>
         <div class="modal-footer">
         	<!--h5>error in fields</h5-->
@@ -150,6 +155,9 @@
     
     {% if group|stringformat:"s" == "manager" %}
     {%for p in pending%}
+    {% if forloop.first %}
+      <h2>Pending Requests</h2>
+    {% endif %}
     <div id="req_panel{{p.id_no}}">
       <div class="panel panel-default">
         <div class="panel-heading">

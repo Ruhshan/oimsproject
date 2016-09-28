@@ -2,6 +2,7 @@
       $( document ).ready(function() {
           console.log( "ready!" );
           $('#modal_error').hide();
+          $('#alert-success').hide();
 
 
       });
@@ -11,6 +12,7 @@
         document.getElementById('requested_item_name_dropdown').value="Select..";
         document.getElementById('item_quantity_dropdown').value="1";
         document.getElementById("requestee").value="";
+        document.getElementById("description").value=" ";
         $('#modal_error').hide();
       };
 
@@ -92,10 +94,16 @@
             document.getElementById('requested_item_name_dropdown').value="Select..";
             document.getElementById('item_quantity_dropdown').value="1";
             document.getElementById("requestee").value="";
-            document.getElementById("description").value="";
+            document.getElementById("description").value=" ";
             
             xhttp.send(query);
             $('#myModal').modal('hide');
+            /*$('#alert-success').show("drop", { direction: "up" }, "slow");
+            
+            setTimeout(function(){
+              $("#alert-success").alert("close");
+            },2000);*/
+            
           }
           else{
             $('#modal_error').show();

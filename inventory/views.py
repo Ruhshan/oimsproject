@@ -187,7 +187,7 @@ def item_details(request, name):
 
 	remaining= ((float(item.quantity_inside)-float(item.quantity_outside))/item.quantity_inside)*100
 
-	details=ProcessedRequest.objects.filter(item_name=name, action='approve', acknowledgement=1)
+	details=ProcessedRequest.objects.filter(item_name=name, action='approve')
 
 
 
@@ -204,3 +204,21 @@ def isadmin(request):
 		else:
 			return HttpResponse(0)
 
+
+@login_required
+def updatepersonalinfo(request):
+	if request.method == 'POST':
+		fname = request.POST['fname']
+		lname = request.POST['lname']
+		newpassword=request.POST["npassword"]
+		
+		uname = request.user.username
+		user = User.objects.get(username = uname)
+
+		user.first_name=fname
+		user.last_name=lname
+		user.set_password(str(newpassword))
+
+		user.save()
+
+		return HttpResponse("okay")

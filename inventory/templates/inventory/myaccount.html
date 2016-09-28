@@ -15,10 +15,12 @@
   <script src="http://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap4.min.js"></script>
   <link rel="stylesheet" href="http://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
-  <script type="text/javascript" src="{% static "scripts.js" %}"></script>
+  <script type="text/javascript" src="{% static "account.js" %}"></script>
   <script type="text/javascript">
-    
+
   </script>
+  
+
           <style type="text/css">
            /* make sidebar nav vertical */ 
            @media (min-width: 0px) {
@@ -54,18 +56,12 @@
             margin-right:auto; 
           }
           
-          #modal_error{
-            color:red;
-            text-align: center;
-          }
-            
-
+}
 
         </style>
       </head>
 <body>
-
-  <div class="container">
+  <!--div class="container"-->
     <div class="row">
       <div class="col-sm-2">
         <div class="sidebar-nav">
@@ -87,7 +83,7 @@
             <div class="navbar-collapse collapse sidebar-navbar-collapse">
               <ul class="nav navbar-nav">
                 <li>
-                  <a href="/home/">Home
+                  <a href="#">Menu Item 1
                   </a>
                 </li>
                 <li>
@@ -122,64 +118,16 @@
       </div>
       <div class="col-sm-10">
         <div class="container-fluid">
-          <!--h2>Dynamic Tabs</h2-->
-          <ul class="nav nav-tabs">
-            <!--li class="active"><a data-toggle="tab" href="#home">Home</a></li-->
-            <li>
-              <a data-toggle="tab" href="#inventory">Inventory
-              </a>
-            </li>
-            <li>
-              <a data-toggle="tab" href="#requests">Requests
-              </a>
-            </li>
-            <li>
-              <a data-toggle="tab" href="#search">Search
-              </a>
-            </li>
-          </ul>
-          <div class="tab-content">
-            <div id="inventory" class="tab-pane fade in active">
-            {% block table %}      
-            {%endblock table %}
-               
-            </div>
-            
-            <div id="requests" class="tab-pane fade">
-            <!--div class="alert alert-success" id="alert-success">
-              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-              <strong>Success!</strong> Request Places Successfully!.
-            </div-->
-            <!--new request button-->
-            {% if group|stringformat:"s" == "manager" %}
-              {% block newrequests %}
-                
-              {% endblock newrequests %}
-            {% endif %}
-
-            <!--pending request panels-->
-            
-            {% block pendingrequests %}
-                
-            {% endblock pendingrequests %}
-            
-
-
-            {% block processedrequest %}
-                
-            {% endblock processedrequest %}
-            </div>
-
-            <div id="search" class="tab-pane fade">
-              <p>This will show search/report generation
-              </p>
-            </div>
-          </div>
+          First Name: <input type="text" id="fname" value='{{user.first_name}}'> <br> <br>
+          Last Name: <input type="text" id="lname" value='{{user.last_name}}'> <br> <br>
+          New Password: <input type="password" id="npassword" value=''><br> <br>
+          <a id="error"></a>
+          <button onclick = 'updateinformation()'>Update</button>
         </div>
       </div>
     </div>
-<!--top containner-->
-  </div->
+
+  <!--/div-->
   <script type="text/javascript">
   </script>
 
