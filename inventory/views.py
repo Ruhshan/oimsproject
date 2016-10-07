@@ -12,7 +12,7 @@ from django.template import loader
 #from django.core.urlresolvers import reverse
 #imported models
 
-from .models import InventoryTable, PendingRequest, ProcessedRequest
+from .models import InventoryTable, PendingRequest, ProcessedRequest, UserProfile
 # Create your views here.
 def user_login(request):
 	#context=RequestContext(request)
@@ -203,6 +203,13 @@ def isadmin(request):
 			return HttpResponse(1)
 		else:
 			return HttpResponse(0)
+@login_required
+def myaccount(request):
+	uname = request.user.username
+	user = User.objects.get(username = uname)
+	profile=UserProfile.objects.get(uname=user)
+	return 	render (request ,'inventory/myaccount.html',{'user':user,'profile':profile})
+
 
 
 @login_required
@@ -210,15 +217,25 @@ def updatepersonalinfo(request):
 	if request.method == 'POST':
 		fname = request.POST['fname']
 		lname = request.POST['lname']
-		newpassword=request.POST["npassword"]
+		phone = request.POST['phone_number']
+		mpost = request.POST['mypost']
+		alt_email = request.POST['alternate_email']
+
+		print "*****",alt_email
 		
 		uname = request.user.username
 		user = User.objects.get(username = uname)
 
 		user.first_name=fname
 		user.last_name=lname
-		user.set_password(str(newpassword))
+
+		profile= UserProfile.objects.get(uname=user)
+		
+		profile.alternate_email=alt_email
+		profile.mypost= mpost
+		profile.phone_number=phone
 
 		user.save()
+		profile.save()
 
-		return HttpResponse("okay")
+		return HttpResponseRedirect("/myaccount/")

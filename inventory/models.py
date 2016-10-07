@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-
+from django.contrib.auth.models import User
 from django.db import models
 import uuid
 # Create your models here.
@@ -54,5 +54,17 @@ class ProcessedRequest(models.Model):
 
 	def __str__(self):
 		return str(self.id_no)
+
+class UserProfile(models.Model):
+	uname = models.OneToOneField(User)
+
+	alternate_email = models.CharField(max_length=50,blank=False,null=False)
+	mypost = models.CharField(max_length=100,blank=False,null=False)
+	phone_number =models.CharField(max_length=20,blank=False,null=False)
+
+	def __str__(self):
+		return self.uname.username
+
+
 
 
