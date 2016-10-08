@@ -70,7 +70,16 @@ def view_home(request):
 													inventory_inventorytable.item_name=inventory_pendingrequest.item_name''')
 		
 		#return render(request, 'inventory/t.html',{'inv':inv, 'item_names':item_names,'pending':pending,'processed':processed})
-		return render(request, 'inventory/home.html',{'inv':inv,'item_names':item_names,'pending':pending,'processed':processed, 'group':g, 'requestee':requestee_suggestion})
+		#finding date range for history display
+		acknowledged=ProcessedRequest.objects.filter(acknowledgement=1)
+		l=acknowledged.count()
+		s=str(acknowledged[0].date_of_process).split('-')
+		e=str(acknowledged[l-1].date_of_process).split('-')
+		date_range={'start':'/'.join([s[1],s[2],s[0]]),
+		             'end':'/'.join([e[1],e[2],e[0]])}
+
+		
+		return render(request, 'inventory/home.html',{'inv':inv,'item_names':item_names,'pending':pending,'processed':processed, 'group':g, 'requestee':requestee_suggestion,'date_range':date_range, 'history':acknowledged})
 	else:
 		return render(request, 'inventory/unloggedhome.html',)
 
@@ -208,7 +217,8 @@ def myaccount(request):
 	uname = request.user.username
 	user = User.objects.get(username = uname)
 	profile=UserProfile.objects.get(uname=user)
-	return 	render (request ,'inventory/myaccount.html',{'user':user,'profile':profile})
+	g=request.user.groups.all()[0]
+	return 	render (request ,'inventory/myaccount.html',{'user':user,'profile':profile,'group':g})
 
 
 
@@ -237,5 +247,31 @@ def updatepersonalinfo(request):
 
 		user.save()
 		profile.save()
+		g=request.user.groups.all()[0]
 
 		return HttpResponseRedirect("/myaccount/")
+@login_required
+def users(request):
+	g=request.user.groups.all()[0]
+	if str(g)=="head":
+		return HttpResponse("you can")
+	else:
+		return HttpResponse("You don't have permission!")
+
+
+@login_required
+def historybydate(request):
+	if request.method=="POST":
+		s,e=str(request.POST["range"]).split('-')
+
+		s=s.split('/')
+		e=e.split('/')
+
+		s='-'.join([s[2].replace(' ',''),s[0],s[1]])
+		e='-'.join([e[2],e[0].replace(' ',''),e[1]])
+
+		history=ProcessedRequest.objects.filter(date_of_process__range=[s,e])
+
+		return render(request,'inventory/historytable.html',{"history":history})
+
+

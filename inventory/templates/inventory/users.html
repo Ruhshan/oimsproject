@@ -16,15 +16,8 @@
   <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap4.min.js"></script>
   <link rel="stylesheet" href="http://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
   <script type="text/javascript" src="{% static "scripts.js" %}"></script>
-
-  
-  <!--datepicker depends on moment-->
-  <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript">
     
-  <!--datepicker-->
-  <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
-  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css">
-
   </script>
           <style type="text/css">
            /* make sidebar nav vertical */ 
@@ -103,7 +96,7 @@
                 </li>
                 {% if group|stringformat:"s" == "head" %}
                 <li>
-                  <a href="/users/">User 
+                  <a href="#">User 
                   </a>
                 </li>
                 {% endif %}
@@ -141,7 +134,7 @@
               </a>
             </li>
             <li>
-              <a data-toggle="tab" href="#history">History
+              <a data-toggle="tab" href="#search">Search
               </a>
             </li>
           </ul>
@@ -177,11 +170,9 @@
             {% endblock processedrequest %}
             </div>
 
-            <div id="history" class="tab-pane fade">
-             {% block history %}
-                 
-             {% endblock history %}
-              
+            <div id="search" class="tab-pane fade">
+              <p>This will show search/report generation
+              </p>
             </div>
           </div>
         </div>

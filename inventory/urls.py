@@ -13,10 +13,12 @@ urlpatterns = [
     url(r'^home/processrequest/$',views.process_request,name='processrequest'),
     url(r'^home/generateoptions/$',views.generateoptions,name='generateoptions'),
     url(r'^home/acknowledge/$',views.acknowledge,name='acknowledge'),
+    url(r'^home/historybydate/$',views.historybydate,name='historybydate'),
     url(r'^login/isadmin/$',views.isadmin,name='isadmin'),
     url(r'^myaccount/$',views.myaccount,name='myaccount'),
     url(r'^updatepersonalinfo/$',views.updatepersonalinfo,name='updatepersonalinfo'),
     url(r'^myaccount/login/$',views.user_login,name='user_login'),
+    url(r'^users/$', views.users,name='users'),
     
 
 ]

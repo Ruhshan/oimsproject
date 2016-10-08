@@ -162,5 +162,39 @@
 
       };
 
+      $(function() {
+    	$('input[name="daterange"]').daterangepicker();
+		});
+
+      function showhistory(){
+      	range=document.getElementById("daterange").value;
+      	console.log(range);
+
+      	var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+              document.getElementById("historytable").innerHTML = this.responseText;
+              		htable.destroy();
+              
+        			htable=$('#historytable').DataTable({
+          			select: true}
+                                      );
+      				
+              
+              //document.getElementById("demo").innerHTML =document.getElementById("demo").innerHTML;
+              //console.log(this.responseText);
+              }
+            };
+          xhttp.open("POST", "historybydate/", true);
+          var csrftoken = getCookie('csrftoken');
+                    
+          xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+          xhttp.setRequestHeader("X-CSRFToken", csrftoken);
+          query="range="+range;
+          
+          xhttp.send(query)
+      }
+
+
 
   

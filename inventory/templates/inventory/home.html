@@ -228,3 +228,69 @@
 
     
 {% endblock processedrequest %}
+
+{% block history %}
+
+<div class="well well-sm">
+  <div class="row">
+    <div class="col-sm-8">
+      <form class="form-horizontal">
+        <div class="form-group">
+          <label for="daterange" class="control-label col-sm-5">Specify Date Range:</label>
+          <div class="col-sm-7">
+            <input type="text" name="daterange" class="form-control" id="daterange" value="{{date_range.start}} - {{date_range.end}}" />  
+          </div>
+          
+        
+        </div>
+      </form>
+    </div>
+    
+    <div class="col-sm-4">
+      <div class="btn-group btn-group-justified">
+        <a href="#" class="btn btn-primary" onclick="showhistory()">Show</a>
+        <a href="#" class="btn btn-default">Reset</a>
+      </div>
+      
+    </div>
+  </div>
+</div>
+<table id="historytable">
+  <thead>
+    <tr>
+    <th >Date
+    </th>
+    <th>Item Name
+    </th>
+    <th>Quantity
+    </th>
+    <th>Action
+    </th>
+    <th>Requestee
+    </th>
+    </tr>
+  </thead>
+  {% for entry in history %}
+  <tr>
+    <td >
+      {{entry.date_of_process}}
+    </td>
+    <td>{{entry.item_name}}</td>
+    <td>{{entry.approved_quantity}}</td>
+    <td>{{entry.action}}</td>
+    <td>{{entry.requestee}}</td>
+  </tr>
+  {% endfor %}
+</table>  
+
+
+<script type="text/javascript">
+      $(document).ready(function(){
+        htable=$('#historytable').DataTable({
+          select: true}
+                                      );
+      }
+                       );
+</script>
+
+{% endblock history %}
