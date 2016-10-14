@@ -58,9 +58,9 @@ class ProcessedRequest(models.Model):
 class UserProfile(models.Model):
 	uname = models.OneToOneField(User)
 
-	alternate_email = models.CharField(max_length=50,blank=False,null=False)
-	mypost = models.CharField(max_length=100,blank=False,null=False)
-	phone_number =models.CharField(max_length=20,blank=False,null=False)
+	alternate_email = models.CharField(max_length=50,blank=False,null=True)
+	mypost = models.CharField(max_length=100,blank=False,null=True)
+	phone_number =models.CharField(max_length=20,blank=False,null=True)
 
 	def __str__(self):
 		return self.uname.username

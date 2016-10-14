@@ -17,6 +17,50 @@
   <link rel="stylesheet" href="http://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
   <script type="text/javascript" src="{% static "scripts.js" %}"></script>
   <script type="text/javascript">
+    function getCookie(name) {
+          var cookieValue = null;
+          if (document.cookie && document.cookie != '') {
+              var cookies = document.cookie.split(';');
+              for (var i = 0; i < cookies.length; i++) {
+                  var cookie = jQuery.trim(cookies[i]);
+                  // Does this cookie string begin with the name we want?
+                  if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                      break;
+                  }
+              }
+          }
+          return cookieValue;
+      };
+
+    function createuser(){
+      console.log("i'm called");
+      type=document.getElementById('usertype').value;
+      email=document.getElementById('email').value;
+      password=document.getElementById('password').value;
+
+      console.log(type, email,password); 
+
+      var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+                console.log(this.responseText);                      
+              
+              
+              
+              }
+            };
+          xhttp.open("POST", "adduser/", true);
+          var csrftoken = getCookie('csrftoken');
+                    
+          xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+          xhttp.setRequestHeader("X-CSRFToken", csrftoken);
+          query="type="+type;
+          query+="&email="+email;
+          query+="&password="+password;
+          
+          xhttp.send(query);
+    }
     
   </script>
           <style type="text/css">
@@ -122,59 +166,37 @@
       </div>
       <div class="col-sm-10">
         <div class="container-fluid">
-          <!--h2>Dynamic Tabs</h2-->
-          <ul class="nav nav-tabs">
-            <!--li class="active"><a data-toggle="tab" href="#home">Home</a></li-->
-            <li>
-              <a data-toggle="tab" href="#inventory">Inventory
-              </a>
-            </li>
-            <li>
-              <a data-toggle="tab" href="#requests">Requests
-              </a>
-            </li>
-            <li>
-              <a data-toggle="tab" href="#search">Search
-              </a>
-            </li>
-          </ul>
-          <div class="tab-content">
-            <div id="inventory" class="tab-pane fade in active">
-            {% block table %}      
-            {%endblock table %}
-               
-            </div>
-            
-            <div id="requests" class="tab-pane fade">
-            <!--div class="alert alert-success" id="alert-success">
-              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-              <strong>Success!</strong> Request Places Successfully!.
-            </div-->
-            <!--new request button-->
-            {% if group|stringformat:"s" == "manager" %}
-              {% block newrequests %}
-                
-              {% endblock newrequests %}
-            {% endif %}
+          <div id="newuserModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
 
-            <!--pending request panels-->
-            
-            {% block pendingrequests %}
-                
-            {% endblock pendingrequests %}
-            
+              <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                  </div>
+                  <div class="modal-body">
 
+                    <select id="usertype">
+                      <option value="">User Type</option>
+                      <option value="head">Head</option>
+                      <option value="manager">Manager</option>
+                    </select>
 
-            {% block processedrequest %}
-                
-            {% endblock processedrequest %}
-            </div>
+                    <input id="email" type="text" name="">
+                    <input id="password" type="text" name="">
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="createuser()">Create</button>
+                  </div>
+                </div>
 
-            <div id="search" class="tab-pane fade">
-              <p>This will show search/report generation
-              </p>
             </div>
           </div>
+          <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#newuserModal"> Create New User </button>
+
+
+
         </div>
       </div>
     </div>

@@ -19,6 +19,8 @@ urlpatterns = [
     url(r'^updatepersonalinfo/$',views.updatepersonalinfo,name='updatepersonalinfo'),
     url(r'^myaccount/login/$',views.user_login,name='user_login'),
     url(r'^users/$', views.users,name='users'),
+    url(r'^users/adduser/$',views.adduser, name='adduser'),
+    # url(r'^vendor/$',views.vendor_view,name='vendor_view'),
     
 
 ]

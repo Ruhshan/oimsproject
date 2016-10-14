@@ -39,6 +39,7 @@ def user_login(request):
 		if user is not None:
 			if user.is_active:
 				login(request,user)
+				 
 				return HttpResponseRedirect("/home/")	
 			else:
 				return HttpResponse("Your OIMS account is disabled.")
@@ -254,7 +255,7 @@ def updatepersonalinfo(request):
 def users(request):
 	g=request.user.groups.all()[0]
 	if str(g)=="head":
-		return HttpResponse("you can")
+		return render(request,"inventory/users.html")
 	else:
 		return HttpResponse("You don't have permission!")
 
@@ -274,4 +275,38 @@ def historybydate(request):
 
 		return render(request,'inventory/historytable.html',{"history":history})
 
+@login_required
+def adduser(request):
+	if request.method=="POST":
+		nusertype = request.POST['type']
+		nuseremail= request.POST['email']
+		npassword = request.POST['password']
 
+		#createuser
+		newuser= User.objects.create_user(username=nuseremail, email=nuseremail, password=npassword,is_staff=True)
+		newuser.save()
+
+		#assigning group
+		if str(nusertype)=='head':
+			g = Group.objects.get(name='head')
+		else:
+			g = Group.objects.get(name='manager')
+		u = User.objects.get(username=nuseremail)
+		g.user_set.add(u)
+
+
+		#creating empty profile
+		profile=UserProfile(uname=u)
+		profile.save()
+
+
+		print nusertype, nuseremail, npassword
+
+		return HttpResponse("okay")
+
+
+
+# @login_required
+# def vendor_view(request):
+# 	vendor_data = Vendor.objects.all()
+# 	return render (request ,'inventory/vendor.html',{"vendor_data":vendor_data })

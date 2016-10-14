@@ -26,6 +26,32 @@
   <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css">
 
   </script>
+
+  <script type="text/javascript">
+    
+          
+               //for the session timeout
+               session_timeout = 300;
+               page_load_time = new Date().getTime();
+
+
+               function check_session_timeout(){
+
+                   // check timeout
+                   active_seconds = (new Date().getTime() - page_load_time) / 1000;
+                   if (active_seconds >= session_timeout){
+                       window.location = '/logout/';
+                   }else{
+                       setTimeout('check_session_timeout()', 5000)
+                   }
+
+               }
+
+               //Start checking for session timeout
+               check_session_timeout();
+          
+           
+  </script>
           <style type="text/css">
            /* make sidebar nav vertical */ 
            @media (min-width: 0px) {
@@ -108,7 +134,7 @@
                 </li>
                 {% endif %}
                 <li>
-                  <a href="#">Vendor
+                  <a href="/vendor/">Vendor
                   </a>
                 </li>
                 <li>

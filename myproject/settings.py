@@ -48,6 +48,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #'inventory.middleware.SessionIdleTimeout',
+    #'inventory.middleware.AutoLogout',
 ]
 
 ROOT_URLCONF = 'myproject.urls'
@@ -120,7 +122,17 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
- 
+
 LOGIN_REDIRECT_URL = 'home'
 
+#for SessionIdleTimeout
+# TIME= 60  #four hours  or your time
+# SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+# SESSION_EXPIRE_AT_BROWSER_CLOSE= True
+# SESSION_COOKIE_AGE = TIME    #change expired session
+# SESSION_IDLE_TIMEOUT = TIME 
 
+#for autologout
+#Handle session is not Json Serializable
+# SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+# AUTO_LOGOUT_DELAY = 1
