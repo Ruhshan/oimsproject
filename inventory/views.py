@@ -12,7 +12,7 @@ from django.template import loader
 #from django.core.urlresolvers import reverse
 #imported models
 
-from .models import InventoryTable, PendingRequest, ProcessedRequest, UserProfile
+from .models import InventoryTable, PendingRequest, ProcessedRequest, UserProfile, Vendor
 # Create your views here.
 def user_login(request):
 	#context=RequestContext(request)
@@ -306,7 +306,35 @@ def adduser(request):
 
 
 
-# @login_required
-# def vendor_view(request):
-# 	vendor_data = Vendor.objects.all()
-# 	return render (request ,'inventory/vendor.html',{"vendor_data":vendor_data })
+@login_required
+def vendor_view(request):
+	vendor_data = Vendor.objects.all()
+	g=request.user.groups.all()[0]
+	return render (request ,'inventory/vendor.html',{"vendor_data":vendor_data ,'group':g})
+
+@login_required
+def addvendor(request):
+	if request.method =="POST":
+		vname=request.POST['name']
+		vaddress=request.POST['address']
+		vcontact=request.POST['contact']
+		vemail=request.POST['email']
+		vdescription=request.POST['description']
+
+		vadded_by=request.user.username
+
+		newvendor=Vendor(name=vname,address=vaddress,contact=vcontact, email=vemail,description=vdescription, added_by=vadded_by,modified_by=vadded_by)
+		newvendor.save()
+
+		new_row='''
+				<tr>
+						<td>{}</td>
+						<td>{}</td> 
+						<td>{}</td> 
+						<td>{}</td> 
+						<td>{}</td> 
+						<td>{}</td>  
+
+					</tr>'''.format(vname,vcontact,vemail,vaddress,vdescription,"1/2/3")
+
+		return HttpResponse(new_row)

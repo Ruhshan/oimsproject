@@ -66,5 +66,20 @@ class UserProfile(models.Model):
 		return self.uname.username
 
 
+class Vendor(models.Model):
+	name = models.CharField(max_length=100,blank=False,null=False)
+	address = models.CharField(max_length=200,blank=False,null=False)
+	contact = models.CharField(max_length=50,blank=False,null=False)
+	email = models.CharField(max_length=100,blank=False,null=False)
+	description = models.TextField()
+	date_added = models.DateField(auto_now_add= True)
+	date_modified = models.DateField(auto_now= True)
+	added_by = models.CharField(max_length=50,blank=False,null=False)
+	modified_by = models.CharField(max_length=50,blank=False,null=False)
+	is_active = models.IntegerField(default=1)
+	vendor_id = models.AutoField(primary_key=True)
+
+	def __str__(self):
+		return str(self.vendor_id)
 
 
