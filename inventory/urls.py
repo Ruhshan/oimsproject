@@ -22,6 +22,10 @@ urlpatterns = [
     url(r'^users/adduser/$',views.adduser, name='adduser'),
     url(r'^vendor/$',views.vendor_view,name='vendor_view'),
     url(r'^vendor/addvendor/$',views.addvendor,name='addvendor'),
+    url(r'^item/$',views.item_view, name='item_view'),
+    url(r'^item/additem/$',views.add_item,name='add_tem'),
+    url(r'^item.addvendor/$',views.addvendor,name='addvendor'),
+
     
 
 ]

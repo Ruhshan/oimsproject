@@ -338,3 +338,25 @@ def addvendor(request):
 					</tr>'''.format(vname,vcontact,vemail,vaddress,vdescription,"1/2/3")
 
 		return HttpResponse(new_row)
+
+@login_required
+def item_view(request):
+	vendor_list=Vendor.objects.values_list('name',flat=True)
+	return render(request, 'inventory/item.html',{'vendor_list':vendor_list})
+
+@login_required
+def add_item(request):
+	if request.method=="POST":
+		name=request.POST['name']
+		quantity=request.POST['quantity']
+		minquant=request.POST['minquant']
+		price=request.POST['price']
+		ndescription=request.POST['description']
+		nvendor=request.POST['vendor']
+
+		i=InventoryTable(item_name=name,quantity_inside=quantity, 
+			quantity_outside=0,minimum_quantity=minquant,unit_price=price,
+			description=ndescription,vendor=nvendor)
+		i.save()
+
+		return HttpResponse("oka")
