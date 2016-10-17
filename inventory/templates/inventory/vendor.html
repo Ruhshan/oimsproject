@@ -239,6 +239,7 @@
 						<tr>
 							<th data-sortable="true">Name</th>
 							<th>Contact</th>
+							<th>Contact Person</th>
 							<th>Email</th>
 							<th>Address</th>
 							<th>Description</th>
@@ -249,7 +250,8 @@
 					{% for vendor in vendor_data %}
 					<tr>
 						<td>{{vendor.name}}</td>
-						<td>{{vendor.contact}}</td> 
+						<td>{{vendor.contact}}</td>
+						<td>{{vendor.contact_person}}</td> 
 						<td>{{vendor.email}}</td> 
 						<td>{{vendor.address}}</td> 
 						<td>{{vendor.description}}</td> 

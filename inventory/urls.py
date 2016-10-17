@@ -24,7 +24,8 @@ urlpatterns = [
     url(r'^vendor/addvendor/$',views.addvendor,name='addvendor'),
     url(r'^item/$',views.item_view, name='item_view'),
     url(r'^item/additem/$',views.add_item,name='add_tem'),
-    url(r'^item.addvendor/$',views.addvendor,name='addvendor'),
+    url(r'^item/addvendor/$',views.addvendor,name='addvendor'),
+    url(r'^item/information/$',views.getinfo,name='getinfo'),
 
     
 

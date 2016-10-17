@@ -342,7 +342,9 @@ def addvendor(request):
 @login_required
 def item_view(request):
 	vendor_list=Vendor.objects.values_list('name',flat=True)
-	return render(request, 'inventory/item.html',{'vendor_list':vendor_list})
+	item_list=InventoryTable.objects.values_list('item_name',flat=True)
+	print item_list
+	return render(request, 'inventory/item.html',{'vendor_list':vendor_list,'item_list':item_list})
 
 @login_required
 def add_item(request):
@@ -360,3 +362,10 @@ def add_item(request):
 		i.save()
 
 		return HttpResponse("oka")
+
+@login_required
+def getinfo(request):
+	name=request.GET['item_name']
+	blob=InventoryTable.objects.get(item_name=name)
+	r="{}-{}-{}-{}".format(blob.quantity_inside,blob.minimum_quantity, blob.unit_price,blob.vendor)
+	return HttpResponse(r)

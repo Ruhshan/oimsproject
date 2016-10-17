@@ -124,6 +124,9 @@
 
         
         else{
+          if(vendor.length==0){
+            alert("Proceed with empty vendor name??");
+          }
           send();
         }
 
@@ -131,6 +134,25 @@
 
 
 
+      };
+
+      function information(name){
+        if(name!='Select..'){
+          xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+              if (this.readyState == 4 && this.status == 200) {
+                  val=this.responseText.split('-');
+                  console.log(val);
+                  document.getElementById('qty').innerHTML="Add Item(Existing "+val[0]+"):";
+                  document.getElementById('alert').innerHTML="Alert Quantity(Previous "+val[1]+"):";
+                  document.getElementById('price').innerHTML="Price (Previous "+val[2]+"):";
+                  document.getElementById('vendor2').innerHTML="Vendor:"+val[3];
+
+              }
+          };
+          xhttp.open("GET", "information/?item_name=" + name, true);
+          xhttp.send();
+        }
       };
 
     
@@ -299,7 +321,21 @@
 
             </div>
           </div>
+          <ul class="nav nav-tabs">
+            <!--li class="active"><a data-toggle="tab" href="#home">Home</a></li-->
+            <li>
+              <a data-toggle="tab" href="#new">Add new Item
+              </a>
+            </li>
+            <li>
+              <a data-toggle="tab" href="#existing">Update existing Items
+              </a>
+            </li>
             
+          </ul>
+          <div class="tab-content">
+            <div id="new" class="tab-pane fade in active">
+
             <div class="form-group">
               <label for="iname">Item Name:</label>
               <input type="text" class="form-control" name="iname" id="iname" placeholder="Enter Item name" maxlength="50">
@@ -328,9 +364,10 @@
             <div class="form-group">
                 <label for="vendor">Vendor Name:</label>
                 <datalist id="vendor_list">
+                  <option value="">
                   {% for name in vendor_list %}
                   <option value="{{name}}">
-                  {% endfor %}
+d                  {% endfor %}
                 </datalist>
 
                 <input type="text" class="form-control" name="vendor" id="vendor" list="vendor_list" maxlength="50">
@@ -339,9 +376,63 @@
             
 
 
-          </form>
-          <button onclick="additem()">Add</button>
-        	
+            </form>
+            <button onclick="additem()">Add</button>
+
+              
+            </div>
+            <div id="existing" class="tab-pane fade in">
+              <div class="form-group">
+              <label for="iname">Item Name:</label>
+              <select class="form-control" id="iname" name="iname" onchange="information(this.value)">
+                <option>Select..</option>
+                {% for name in item_list %}
+                <option>{{name}}</option>
+                {% endfor %}
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="iquantity2" id="qty">Add Quantity:</label>
+              <input type="text" class="form-control" name="iquantity2" id="iquantity2" placeholder="Enter Item quantity" maxlength="50">
+            </div>
+
+            <div class="form-group">
+              <label for="minquant2" id="alert">Alert Quantity:</label>
+              <input type="text" class="form-control" name="minquant2" id="minquant2" placeholder="Enter minimum quantity for alert" maxlength="50">
+            </div>
+
+            <div class="form-group">
+              <label for="uprice2" id="price">Unit Price(Previous Price:):</label>
+              <input type="text" class="form-control" name="uprice2" id="uprice2" placeholder="Enter Unit price of this item" maxlength="50">
+            </div>
+
+            <div class="form-group">
+              <label for="description2">Description:</label>
+              <textarea type="text" class="form-control" name="description2" id="description2" placeholder="Enter Item name" maxlength="50" rows="5"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label id="vendor2">Vendor Name:</label>
+                <!--datalist id="vendor_list">
+                  <option value="">
+                  {% for name in vendor_list %}
+                  <option value="{{name}}">
+                  {% endfor %}
+                </datalist>
+
+                <input type="text" class="form-control" name="vendor" id="vendor" list="vendor_list" maxlength="50"-->
+
+            </div>
+
+            
+
+
+            </form>
+            <button onclick="updateitem()">Update</button>
+            </div>
+          </div>
+                  	
 
         </div>
       </div>

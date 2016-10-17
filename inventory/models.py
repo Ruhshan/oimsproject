@@ -10,7 +10,7 @@ class InventoryTable(models.Model):
 	minimum_quantity=models.IntegerField()
 	unit_price=models.DecimalField(max_digits=10, decimal_places=5)
 	description=models.TextField()
-	vendor=models.CharField(max_length=100,blank=False,null=False)
+	vendor=models.CharField(max_length=100,blank=True,null=True)
 
 	def update(self):
 		self.save()
@@ -68,6 +68,7 @@ class UserProfile(models.Model):
 
 class Vendor(models.Model):
 	name = models.CharField(max_length=100,blank=False,null=False)
+	contact_person=models.CharField(max_length=100, blank=False, null=False)
 	address = models.CharField(max_length=200,blank=False,null=False)
 	contact = models.CharField(max_length=50,blank=False,null=False)
 	email = models.CharField(max_length=100,blank=False,null=False)
