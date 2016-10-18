@@ -22,6 +22,11 @@
   
 
           <style type="text/css">
+          #log {
+
+            position:absolute;
+            right:0;
+          }
            /* make sidebar nav vertical */ 
            @media (min-width: 0px) {
             .sidebar-nav .navbar .navbar-collapse {
@@ -97,17 +102,11 @@
                 </li>
                 {% endif %}
                 <li>
-                  <a href="#">Vendor
+                  <a href="/vendor/">Vendor
                   </a>
                 </li>
                 <li>
-                  <a href="/logout/">Logout
-                  </a>
-                </li>
-                <li>
-                  <a href="#">Notification
-                    <span class="badge">1,118
-                    </span>
+                  <a href="/item/">Item
                   </a>
                 </li>
               </ul>
@@ -116,9 +115,16 @@
           </div>
         </div>
       </div>
+      <div id="log">
+            <a href="#">Notification
+              <span class="badge">1,118
+              </span>
+            </a>
+            <a href="/logout/">Logout</a>  
+      </div>
       <div class="col-sm-6">
         <div class="container-fluid">
-          <form action="/updatepersonalinfo/" method="post" onsubmit="return validateForm()" name="myForm">
+                  <form action="/updatepersonalinfo/" method="post" onsubmit="return validateForm()" name="myForm">
           {% csrf_token %}
             <div class="form-group">
               <label for="fname">First Name:</label>
@@ -139,6 +145,16 @@
             <div class="form-group">
               <label for="alt_email">Alternate Email:</label>
               <input type="text" class="form-control" name="alternate_email" id="alt_email" value='{{profile.alternate_email}}'>
+              
+            </div>
+            <div class="form-group">
+              <label for="newp">New Password:</label>
+              <input type="password" class="form-control" name="newp" id="newp" value=''>
+              
+            </div>
+            <div class="form-group">
+              <label for="oldp">Old Password:</label>
+              <input type="password" class="form-control" name="oldp" id="oldp" value=''>
               
             </div>
             <button type="submit" class="btn btn-default">Update</button>

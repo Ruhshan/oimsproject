@@ -39,6 +39,7 @@
 
     function createvendor(){
     	name=document.getElementById('vname').value;
+    	cperson=document.getElementById('cperson').value;
     	address=document.getElementById('vaddress').value;
     	contact=document.getElementById('vcontact').value;
     	email=document.getElementById('vemail').value;
@@ -59,6 +60,7 @@
       xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       xhttp.setRequestHeader("X-CSRFToken", csrftoken);
       query="name="+name;
+      query+="&cperson="+cperson;
       query+="&address="+address;
       query+="&contact="+contact;
       query+="&email="+email;
@@ -71,6 +73,11 @@
     
   </script>
           <style type="text/css">
+          #log {
+
+            position:absolute;
+            right:0;
+          }
            /* make sidebar nav vertical */ 
            @media (min-width: 0px) {
             .sidebar-nav .navbar .navbar-collapse {
@@ -159,7 +166,7 @@
                   <a href="/item/">Additem
                   </a>
                 </li>
-                <li>
+                <!--li>
                   <a href="/logout/">Logout
                   </a>
                 </li>
@@ -168,7 +175,7 @@
                     <span class="badge">1,118
                     </span>
                   </a>
-                </li>
+                </li-->
               </ul>
             </div>
             <!--/.nav-collapse -->
@@ -177,6 +184,13 @@
       </div>
       <div class="col-sm-10">
         <div class="container-fluid">
+        <div id="log">
+            <a href="#">Notification
+              <span class="badge">1,118
+              </span>
+            </a>
+            <a href="/logout/">Logout</a>  
+        </div>
         <div id="newvendorModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
 
@@ -192,6 +206,12 @@
                   		    <label class="control-label col-sm-2" for="vname">Name:</label>
                   		    <div class="col-sm-10">
                   		      <input type="text" class="form-control" id="vname" placeholder="Enter Name">
+                  		    </div>
+                  		</div>
+                  		<div class="form-group">
+                  		    <label class="control-label col-sm-2" for="cperson">Contact Person:</label>
+                  		    <div class="col-sm-10">
+                  		      <input type="text" class="form-control" id="cperson" placeholder="Enter Name of contact person">
                   		    </div>
                   		</div>
                   		<div class="form-group">

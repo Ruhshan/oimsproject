@@ -26,6 +26,8 @@ urlpatterns = [
     url(r'^item/additem/$',views.add_item,name='add_tem'),
     url(r'^item/addvendor/$',views.addvendor,name='addvendor'),
     url(r'^item/information/$',views.getinfo,name='getinfo'),
+    url(r'^item/updateitem/$',views.updateitem,name='updateitem'),
+    url(r'^/accounts/login/$',views.user_login,name='login'),
 
     
 

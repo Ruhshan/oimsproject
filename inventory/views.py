@@ -231,26 +231,32 @@ def updatepersonalinfo(request):
 		phone = request.POST['phone_number']
 		mpost = request.POST['mypost']
 		alt_email = request.POST['alternate_email']
+		newp = request.POST['newp']
+		oldp = request.POST['oldp']
 
 		print "*****",alt_email
 		
 		uname = request.user.username
 		user = User.objects.get(username = uname)
+		if user.check_password(oldp)==True:
 
-		user.first_name=fname
-		user.last_name=lname
+			user.first_name=fname
+			user.last_name=lname
 
-		profile= UserProfile.objects.get(uname=user)
-		
-		profile.alternate_email=alt_email
-		profile.mypost= mpost
-		profile.phone_number=phone
+			profile= UserProfile.objects.get(uname=user)
+			
+			profile.alternate_email=alt_email
+			profile.mypost= mpost
+			profile.phone_number=phone
+			user.set_password(str(newp))
 
-		user.save()
-		profile.save()
-		g=request.user.groups.all()[0]
+			user.save()
+			profile.save()
+			g=request.user.groups.all()[0]
 
-		return HttpResponseRedirect("/myaccount/")
+			return HttpResponseRedirect("/login/")
+		else:
+			return HttpResponse("wrong password")
 @login_required
 def users(request):
 	g=request.user.groups.all()[0]
@@ -316,6 +322,7 @@ def vendor_view(request):
 def addvendor(request):
 	if request.method =="POST":
 		vname=request.POST['name']
+		cperson=request.POST['cperson']
 		vaddress=request.POST['address']
 		vcontact=request.POST['contact']
 		vemail=request.POST['email']
@@ -323,7 +330,7 @@ def addvendor(request):
 
 		vadded_by=request.user.username
 
-		newvendor=Vendor(name=vname,address=vaddress,contact=vcontact, email=vemail,description=vdescription, added_by=vadded_by,modified_by=vadded_by)
+		newvendor=Vendor(name=vname,contact_person=cperson,address=vaddress,contact=vcontact, email=vemail,description=vdescription, added_by=vadded_by,modified_by=vadded_by)
 		newvendor.save()
 
 		new_row='''
@@ -369,3 +376,24 @@ def getinfo(request):
 	blob=InventoryTable.objects.get(item_name=name)
 	r="{}-{}-{}-{}".format(blob.quantity_inside,blob.minimum_quantity, blob.unit_price,blob.vendor)
 	return HttpResponse(r)
+
+
+@login_required
+def updateitem(request):
+	if request.method=="POST":
+		name=request.POST['name']
+		quant=request.POST['quantity']
+		minquant=request.POST['minquant']
+		price=request.POST['price']
+		desc=request.POST['description']
+
+		i=InventoryTable.objects.get(item_name=name)
+
+		i.quantity_inside+=int(quant)
+		i.minimum_quantity=int(minquant)
+		i.unit_price=int(price)
+		i.description=desc
+
+		i.save()
+
+		return HttpResponse("okay")

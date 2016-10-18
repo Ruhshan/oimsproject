@@ -155,10 +155,51 @@
         }
       };
 
+      function updateitem(){
+        name=document.getElementById('iname2').value;
+        quant=document.getElementById('iquantity2').value;
+        minquant=document.getElementById('minquant2').value;
+        price=document.getElementById('uprice2').value;
+        description=document.getElementById('description2').value;
+
+        var xhttp = new XMLHttpRequest();
+          
+          xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                  if(this.responseText=="okay"){
+                    document.getElementById('existing').innerHTML="<b>"+name+" successfully updated </b>";
+
+                  }  
+                     
+                
+                }
+              };
+          xhttp.open("POST", "updateitem/", true);
+          var csrftoken = getCookie('csrftoken');
+                    
+          xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+          xhttp.setRequestHeader("X-CSRFToken", csrftoken);
+          query="name="+name;
+          query+="&quantity="+quant;
+          query+="&minquant="+minquant;
+          query+="&price="+price;
+          query+="&description="+description;
+          
+          
+          xhttp.send(query);
+        
+
+      };
+
     
     
   </script>
           <style type="text/css">
+          #log {
+
+            position:absolute;
+            right:0;
+          }
            /* make sidebar nav vertical */ 
            @media (min-width: 0px) {
             .sidebar-nav .navbar .navbar-collapse {
@@ -247,7 +288,7 @@
                   <a href="/item/">Add Item
                   </a>
                 </li>
-                <li>
+                <!--li>
                   <a href="/logout/">Logout
                   </a>
                 </li>
@@ -256,7 +297,7 @@
                     <span class="badge">1,118
                     </span>
                   </a>
-                </li>
+                </li-->
               </ul>
             </div>
             <!--/.nav-collapse -->
@@ -265,6 +306,13 @@
       </div>
       <div class="col-sm-10">
         <div class="container-fluid" id="main">
+        <div id="log">
+            <a href="#">Notification
+              <span class="badge">1,118
+              </span>
+            </a>
+            <a href="/logout/">Logout</a>  
+        </div>
           <form class="form-horizontal">
           <div id="newvendorModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
@@ -383,8 +431,8 @@ d                  {% endfor %}
             </div>
             <div id="existing" class="tab-pane fade in">
               <div class="form-group">
-              <label for="iname">Item Name:</label>
-              <select class="form-control" id="iname" name="iname" onchange="information(this.value)">
+              <label for="iname2">Item Name:</label>
+              <select class="form-control" id="iname2" name="iname2" onchange="information(this.value)">
                 <option>Select..</option>
                 {% for name in item_list %}
                 <option>{{name}}</option>
