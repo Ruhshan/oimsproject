@@ -9,10 +9,39 @@ from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
 from django.template import loader
+from django.core.exceptions import ObjectDoesNotExist
 #from django.core.urlresolvers import reverse
 #imported models
 
-from .models import InventoryTable, PendingRequest, ProcessedRequest, UserProfile, Vendor
+from .models import InventoryTable, PendingRequest, ProcessedRequest, UserProfile, Vendor, Temp,ItemHistory
+
+def alert_count():
+	quan=InventoryTable.objects.values('quantity_inside')
+	minq=InventoryTable.objects.values('minimum_quantity')
+	   
+	
+	
+	count =0
+	for i,j in zip(quan,minq):
+		i=i['quantity_inside']
+		j=j['minimum_quantity']
+		if i<=j:
+			
+			count+=1		
+							
+
+
+	return count
+def alert_content():
+	val=InventoryTable.objects.values('item_name','quantity_inside','minimum_quantity')
+
+	content=""
+	for v in val:
+		if int(v['quantity_inside'])<=int(v['minimum_quantity']):
+			content+=v['item_name']+" is left "+str(v['quantity_inside'])+"<br>"
+	return content
+
+
 # Create your views here.
 def user_login(request):
 	#context=RequestContext(request)
@@ -58,6 +87,9 @@ def view_home(request):
 
 		requestee_suggestion=ProcessedRequest.objects.values_list('requestee',flat=True)
 
+		passwordreq = Temp.objects.values_list('name',flat=True) 
+		historyitems=ItemHistory.objects.all()
+
 		pending=PendingRequest.objects.raw('''select inventory_pendingrequest.id_no, 
 													quantity_inside,
 													requested_quantity,
@@ -80,7 +112,11 @@ def view_home(request):
 		             'end':'/'.join([e[1],e[2],e[0]])}
 
 		
-		return render(request, 'inventory/home.html',{'inv':inv,'item_names':item_names,'pending':pending,'processed':processed, 'group':g, 'requestee':requestee_suggestion,'date_range':date_range, 'history':acknowledged})
+		return render(request, 'inventory/home.html',{'inv':inv,'item_names':item_names,'pending':pending,
+			'processed':processed, 'group':g, 'requestee':requestee_suggestion,
+			'date_range':date_range, 'history':acknowledged,'passwordreq':passwordreq,
+			'alert_count':alert_count(),'alert_content':alert_content(),
+			'historyitems':historyitems})
 	else:
 		return render(request, 'inventory/unloggedhome.html',)
 
@@ -235,7 +271,7 @@ def updatepersonalinfo(request):
 		oldp = request.POST['oldp']
 
 		print "*****",alt_email
-		
+		print newp
 		uname = request.user.username
 		user = User.objects.get(username = uname)
 		if user.check_password(oldp)==True:
@@ -248,13 +284,26 @@ def updatepersonalinfo(request):
 			profile.alternate_email=alt_email
 			profile.mypost= mpost
 			profile.phone_number=phone
-			user.set_password(str(newp))
+			if newp:
+				#if new password is submitted it is temporariy stored in db but other fields are updated
+				#and user is deactivated and logged out
+				try:
+					t=Temp.objects.get(name=uname)
+					t.tp=newp
+					t.save()
+				except ObjectDoesNotExist:
+					t=Temp(name=uname, tp=newp)
+					t.save()
+				user.is_active=False
+				user.save()
+				profile.save()
+				return HttpResponseRedirect("/login/")
 
 			user.save()
 			profile.save()
 			g=request.user.groups.all()[0]
 
-			return HttpResponseRedirect("/login/")
+			return HttpResponseRedirect("/myaccount/")
 		else:
 			return HttpResponse("wrong password")
 @login_required
@@ -316,7 +365,7 @@ def adduser(request):
 def vendor_view(request):
 	vendor_data = Vendor.objects.all()
 	g=request.user.groups.all()[0]
-	return render (request ,'inventory/vendor.html',{"vendor_data":vendor_data ,'group':g})
+	return render (request ,'inventory/vendor.html',{"vendor_data":vendor_data ,'group':g, 'alert_count':alert_count(),'alert_content':alert_content()})
 
 @login_required
 def addvendor(request):
@@ -351,7 +400,7 @@ def item_view(request):
 	vendor_list=Vendor.objects.values_list('name',flat=True)
 	item_list=InventoryTable.objects.values_list('item_name',flat=True)
 	print item_list
-	return render(request, 'inventory/item.html',{'vendor_list':vendor_list,'item_list':item_list})
+	return render(request, 'inventory/item.html',{'vendor_list':vendor_list,'item_list':item_list,'alert_count':alert_count(),'alert_content':alert_content()})
 
 @login_required
 def add_item(request):
@@ -367,6 +416,8 @@ def add_item(request):
 			quantity_outside=0,minimum_quantity=minquant,unit_price=price,
 			description=ndescription,vendor=nvendor)
 		i.save()
+		h=ItemHistory(name=name,action="create", quantity=quantity,added_by=request.user.username, approved_by="admin")
+		h.save()
 
 		return HttpResponse("oka")
 
@@ -388,12 +439,46 @@ def updateitem(request):
 		desc=request.POST['description']
 
 		i=InventoryTable.objects.get(item_name=name)
-
-		i.quantity_inside+=int(quant)
-		i.minimum_quantity=int(minquant)
-		i.unit_price=int(price)
-		i.description=desc
-
+		if quant:
+			i.quantity_inside+=int(quant)
+		if minquant:
+			i.minimum_quantity=int(minquant)
+		if price:
+			i.unit_price=int(price)
+		if desc:
+			i.description=desc
+		if quant:
+			if int(quant)>0:
+				action="add"
+			else:
+				action="remove"
+			h=ItemHistory(name=name, action=action, quantity=quant, added_by=request.user.username, approved_by="admin")
+			h.save()
 		i.save()
 
 		return HttpResponse("okay")
+
+@login_required
+def passwordchange(request):
+	if request.method=="POST":
+		if str(request.user.groups.all()[0])=="head":
+			uname=request.POST["name"]
+			action=request.POST["action"]
+			if str(action)=="ok":
+				u=User.objects.get(username=uname)
+				t=Temp.objects.get(name=uname)
+				u.is_active=True
+				u.set_password(t.tp)
+				u.save()
+				t.delete()
+
+				return HttpResponse("okay")
+			if str(action)=="cancel":
+				u=User.objects.get(username=uname)
+				t=Temp.objects.get(name=uname)
+				u.is_active=True
+				u.save()
+				t.delete()
+
+				return HttpResponse("cancel")
+

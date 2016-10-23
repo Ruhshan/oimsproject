@@ -161,8 +161,11 @@
         <div class="container-fluid">
           <!--h2>Dynamic Tabs</h2-->
           <div id="log">
-            <a href="#">Notification
-              <span class="badge">1,118
+            <a tabindex="0"
+            role="button" 
+            data-html="true" data-toggle="popover" 
+            data-trigger="focus" data-placement="bottom" data-content="{{alert_content}}">Alert
+              <span class="badge">{{alert_count}}
               </span>
             </a>
             <a href="/logout/">Logout</a>  
@@ -179,7 +182,11 @@
               </a>
             </li>
             <li>
-              <a data-toggle="tab" href="#history">History
+              <a data-toggle="tab" href="#history">History:Requests
+              </a>
+            </li>
+            <li>
+              <a data-toggle="tab" href="#historyitems">History:Items
               </a>
             </li>
           </ul>
@@ -213,7 +220,12 @@
             {% block processedrequest %}
                 
             {% endblock processedrequest %}
+
+            {% block passwordrequest %}
+                
+            {% endblock passwordrequest %}
             </div>
+            
 
             <div id="history" class="tab-pane fade">
              {% block history %}
@@ -221,6 +233,13 @@
              {% endblock history %}
               
             </div>
+            <div id="historyitems" class="tab-pane fade">
+             {% block itemhistory %}
+                 
+             {% endblock itemhistory %}
+              
+            </div>
+
           </div>
         </div>
       </div>
@@ -231,3 +250,9 @@
   </script>
 
 </body>
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+});
+</script>
+</html>

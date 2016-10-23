@@ -84,3 +84,20 @@ class Vendor(models.Model):
 		return str(self.vendor_id)
 
 
+class Temp(models.Model):
+	name = models.CharField(max_length=100,blank=False,null=False)
+	tp= models.CharField(max_length=100,blank=False,null=False)
+
+	def __str__(self):
+		return str(self.name)
+
+class ItemHistory(models.Model):
+	name=models.CharField(max_length=100,blank=False,null=False)
+	action=models.CharField(max_length=100,blank=False,null=False)
+	quantity=models.IntegerField()
+	date_added = models.DateField(auto_now_add= True)
+	added_by = models.CharField(max_length=50,blank=False,null=False)
+	approved_by = models.CharField(max_length=50,blank=False,null=False)
+
+	def __str__(self):
+		return str(self.name)

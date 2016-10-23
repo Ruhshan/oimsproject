@@ -195,6 +195,54 @@
           xhttp.send(query)
       }
 
+      function resethistory(range){
+        document.getElementById("daterange").value=range;
+      }
 
-
+function passwordchangeok(uname,count){
   
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+      console.log(this.responseText);
+      }
+    };
+  xhttp.open("POST", "passwordchange/", true);
+  var csrftoken = getCookie('csrftoken');
+            
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.setRequestHeader("X-CSRFToken", csrftoken);
+  query="name="+uname;
+  query+="&action=ok";
+  
+  xhttp.send(query);
+  
+  toclose="#passwordreq_req_panel"+count;
+  console.log(toclose);
+  $(toclose).hide("drop", { direction: "up" }, "slow");
+
+}
+
+function passwordchangecancel(uname,count){
+  
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+      console.log(this.responseText);
+      }
+    };
+  xhttp.open("POST", "passwordchange/", true);
+  var csrftoken = getCookie('csrftoken');
+            
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.setRequestHeader("X-CSRFToken", csrftoken);
+  query="name="+uname;
+  query+="&action=cancel";
+  
+  xhttp.send(query);
+  
+  toclose="#passwordreq_req_panel"+count;
+  console.log(toclose);
+  $(toclose).hide("drop", { direction: "up" }, "slow");
+
+}  

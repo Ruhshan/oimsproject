@@ -196,8 +196,13 @@
 
 
 {% block processedrequest %}
-<h2>Processed Requests:</h2>
+
+
 {% for p in processed %}
+
+{% if forloop.first %}
+      <h2>Processed Requests:</h2>
+{% endif %}
 <div id="processed_req_panel{{p.id_no}}">
 	<div class="panel panel-default" width="20%">
 
@@ -251,7 +256,7 @@
     <div class="col-sm-4">
       <div class="btn-group btn-group-justified">
         <a href="#" class="btn btn-primary" onclick="showhistory()">Show</a>
-        <a href="#" class="btn btn-default">Reset</a>
+        <a href="#" class="btn btn-default" onclick="resethistory('{{date_range.start}} - {{date_range.end}}')">Reset</a>
       </div>
       
     </div>
@@ -297,3 +302,79 @@
 </script>
 
 {% endblock history %}
+
+
+{% block passwordrequest %}
+{% if group|stringformat:"s" == "head" %}
+{% for u in passwordreq %}
+{% if forloop.first %}
+      <h2>Password Change Requests:</h2>
+{% endif %}
+ <div id="passwordreq_req_panel{{forloop.counter}}">
+  <div class="panel panel-default" width="20%">
+
+    <div class="panel-body">
+      
+      <div class="row">
+        <div class="col-sm-8">{{u}} requested for password change
+        </div>
+        <div class="col-sm-4" align="right">
+          
+          <button type="button" class="btn btn-default" onclick="passwordchangeok('{{u}}','{{forloop.counter}}')">Okay
+          </button>
+          
+          <button type="button" class="btn btn-default" onclick="passwordchangecancel('{{u}}','{{forloop.counter}}')">Cancel
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div> 
+{% endfor %}
+{% endif %}
+{% endblock passwordrequest %}
+
+
+{% block itemhistory %}
+<table id="historyitemtable">
+  <thead>
+    <tr>
+    <th >Date
+    </th>
+    <th>Item Name
+    </th>
+    <th>Quantity
+    </th>
+    <th>Action
+    </th>
+    <th>Added by
+    </th>
+    <th>Approved by
+    </th>
+    </tr>
+  </thead>
+  {% for entry in historyitems %}
+  <tr>
+    <td>{{entry.date_added}}</td>
+    <td>{{entry.name}}</td>
+    <td>{{entry.quantity}}</td>
+    <td>{{entry.action}}</td>
+    <td>{{entry.added_by}}</td>
+    <td>{{entry.approved_by}}</td>
+  </tr>
+  {% endfor %}
+</table>  
+
+
+<script type="text/javascript">
+      $(document).ready(function(){
+        htable=$('#historyitemtable').DataTable({
+          select: true}
+                                      );
+      }
+                       );
+</script>
+
+
+{% endblock itemhistory %}

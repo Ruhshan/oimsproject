@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^home/generateoptions/$',views.generateoptions,name='generateoptions'),
     url(r'^home/acknowledge/$',views.acknowledge,name='acknowledge'),
     url(r'^home/historybydate/$',views.historybydate,name='historybydate'),
+    url(r'^home/passwordchange/$',views.passwordchange,name='passwordchange'),
     url(r'^login/isadmin/$',views.isadmin,name='isadmin'),
     url(r'^myaccount/$',views.myaccount,name='myaccount'),
     url(r'^updatepersonalinfo/$',views.updatepersonalinfo,name='updatepersonalinfo'),
@@ -23,11 +24,10 @@ urlpatterns = [
     url(r'^vendor/$',views.vendor_view,name='vendor_view'),
     url(r'^vendor/addvendor/$',views.addvendor,name='addvendor'),
     url(r'^item/$',views.item_view, name='item_view'),
-    url(r'^item/additem/$',views.add_item,name='add_tem'),
+    url(r'^item/additem/$',views.add_item,name='add_item'),
     url(r'^item/addvendor/$',views.addvendor,name='addvendor'),
     url(r'^item/information/$',views.getinfo,name='getinfo'),
     url(r'^item/updateitem/$',views.updateitem,name='updateitem'),
-    url(r'^/accounts/login/$',views.user_login,name='login'),
 
     
 

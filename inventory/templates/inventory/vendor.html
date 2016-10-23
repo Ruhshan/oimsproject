@@ -185,8 +185,11 @@
       <div class="col-sm-10">
         <div class="container-fluid">
         <div id="log">
-            <a href="#">Notification
-              <span class="badge">1,118
+            <a tabindex="0"
+            role="button" 
+            data-html="true" data-toggle="popover" 
+            data-trigger="focus" data-placement="bottom" data-content="{{alert_content}}">Alert
+              <span class="badge">{{alert_count}}
               </span>
             </a>
             <a href="/logout/">Logout</a>  
@@ -203,7 +206,7 @@
                   <div class="modal-body">
                   	<form class="form-horizontal">
                   		<div class="form-group">
-                  		    <label class="control-label col-sm-2" for="vname">Name:</label>
+                  		    <label class="control-label col-sm-2" for="vname">Organization Name:</label>
                   		    <div class="col-sm-10">
                   		      <input type="text" class="form-control" id="vname" placeholder="Enter Name">
                   		    </div>
@@ -257,7 +260,7 @@
         		<table class="table table-stripped" data-toggle="table" id="vendor_table">
 					<thead>
 						<tr>
-							<th data-sortable="true">Name</th>
+							<th data-sortable="true">Organization Name</th>
 							<th>Contact</th>
 							<th>Contact Person</th>
 							<th>Email</th>
@@ -291,6 +294,10 @@
 
 
 
-
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+});
+</script>
 
 </html>
