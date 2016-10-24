@@ -246,3 +246,99 @@ function passwordchangecancel(uname,count){
   $(toclose).hide("drop", { direction: "up" }, "slow");
 
 }  
+
+function itemactionok(req_id){
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+      console.log(this.responseText);
+      }
+    };
+  xhttp.open("POST", "itemadminaction/", true);
+  var csrftoken = getCookie('csrftoken');
+            
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.setRequestHeader("X-CSRFToken", csrftoken);
+  query="req_id="+req_id;
+  query+="&action=ok";
+  
+  xhttp.send(query);
+  
+  toclose="#createitem_req_panel"+req_id;
+  console.log(toclose);
+  $(toclose).hide("drop", { direction: "up" }, "slow");
+
+}
+
+function itemactioncancel(req_id){
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+      console.log(this.responseText);
+      }
+    };
+  xhttp.open("POST", "itemadminaction/", true);
+  var csrftoken = getCookie('csrftoken');
+            
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.setRequestHeader("X-CSRFToken", csrftoken);
+  query="req_id="+req_id;
+  query+="&action=cancel";
+  
+  xhttp.send(query);
+  
+  toclose="#createitem_req_panel"+req_id;
+  console.log(toclose);
+  $(toclose).hide("drop", { direction: "up" }, "slow");
+
+}
+
+function itemactionadd(req_id){
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+      console.log(this.responseText);
+      }
+    };
+  xhttp.open("POST", "itemadminaction/", true);
+  var csrftoken = getCookie('csrftoken');
+            
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.setRequestHeader("X-CSRFToken", csrftoken);
+  query="req_id="+req_id;
+  query+="&action=add";
+  
+  xhttp.send(query);
+  
+  toclose="#createitem_req_panel"+req_id;
+  console.log(toclose);
+  $(toclose).hide("drop", { direction: "up" }, "slow");
+
+}
+
+function itemactionremove(req_id){
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+      console.log(this.responseText);
+      }
+    };
+  xhttp.open("POST", "itemadminaction/", true);
+  var csrftoken = getCookie('csrftoken');
+            
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.setRequestHeader("X-CSRFToken", csrftoken);
+  query="req_id="+req_id;
+  query+="&action=remove";
+  
+  xhttp.send(query);
+  
+  toclose="#createitem_req_panel"+req_id;
+  console.log(toclose);
+  $(toclose).hide("drop", { direction: "up" }, "slow");
+
+}

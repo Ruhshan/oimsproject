@@ -5,9 +5,9 @@
 	      <tr>
 	        <th style="width:15%">Item Name
 	        </th>
-	        <th style="width:10%">Inside
+	        <th style="width:10%">Stock
 	        </th>
-	        <th style="width:10%">Outside
+	        <th style="width:10%">Delivered
 	        </th>
 	        <th style="width:15%">Unit Price
 	        </th>
@@ -369,7 +369,7 @@
 
 <script type="text/javascript">
       $(document).ready(function(){
-        htable=$('#historyitemtable').DataTable({
+        hitable=$('#historyitemtable').DataTable({
           select: true}
                                       );
       }
@@ -378,3 +378,44 @@
 
 
 {% endblock itemhistory %}
+
+
+{% block createitemrequest %}
+{% for i in itemcreate %}
+{% if forloop.first %}
+      <h2>Item Requests</h2>
+{% endif %}
+<div id="createitem_req_panel{{i.id}}">
+  <div class="panel panel-default" width="20%">
+
+    <div class="panel-body">
+      
+      <div class="row">
+        <div class="col-sm-8">Item:{{i.item_name}} Quantity:{{i.quantity_inside}} is requested to {{i.action}} by {{i.creator}}
+        </div>
+        <div class="col-sm-4" align="right">
+          {% if group|stringformat:"s" == "head" %}
+            {% if i.action|stringformat:"s" == "create" %}
+            <button type="button" class="btn btn-default" onclick="itemactionok('{{i.id}}')">Okay
+            </button>
+            {% endif %}
+            {% if i.action|stringformat:"s" == "add" %}
+            <button type="button" class="btn btn-default" onclick="itemactionadd('{{i.id}}')">Okay
+            </button>
+            {% endif %}
+            {% if i.action|stringformat:"s" == "remove" %}
+            <button type="button" class="btn btn-default" onclick="itemactionremove('{{i.id}}')">Okay
+            </button>
+            {% endif %}
+            
+            <button type="button" class="btn btn-default" onclick="itemactioncancel('{{i.id}}')">Cancel
+            </button>
+          {% endif %}
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div> 
+{% endfor %}                
+{% endblock createitemrequest %}

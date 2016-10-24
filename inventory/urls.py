@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^home/acknowledge/$',views.acknowledge,name='acknowledge'),
     url(r'^home/historybydate/$',views.historybydate,name='historybydate'),
     url(r'^home/passwordchange/$',views.passwordchange,name='passwordchange'),
+    url(r'^home/itemadminaction/$',views.itemadminaction,name='itemadminaction'),
     url(r'^login/isadmin/$',views.isadmin,name='isadmin'),
     url(r'^myaccount/$',views.myaccount,name='myaccount'),
     url(r'^updatepersonalinfo/$',views.updatepersonalinfo,name='updatepersonalinfo'),

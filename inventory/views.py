@@ -14,7 +14,7 @@ from django.core.exceptions import ObjectDoesNotExist
 #imported models
 
 from .models import InventoryTable, PendingRequest, ProcessedRequest, UserProfile, Vendor, Temp,ItemHistory
-
+from .models import InventoryTableTemp
 def alert_count():
 	quan=InventoryTable.objects.values('quantity_inside')
 	minq=InventoryTable.objects.values('minimum_quantity')
@@ -89,6 +89,7 @@ def view_home(request):
 
 		passwordreq = Temp.objects.values_list('name',flat=True) 
 		historyitems=ItemHistory.objects.all()
+		itemcreate=InventoryTableTemp.objects.all()
 
 		pending=PendingRequest.objects.raw('''select inventory_pendingrequest.id_no, 
 													quantity_inside,
@@ -116,7 +117,7 @@ def view_home(request):
 			'processed':processed, 'group':g, 'requestee':requestee_suggestion,
 			'date_range':date_range, 'history':acknowledged,'passwordreq':passwordreq,
 			'alert_count':alert_count(),'alert_content':alert_content(),
-			'historyitems':historyitems})
+			'historyitems':historyitems,'itemcreate':itemcreate})
 	else:
 		return render(request, 'inventory/unloggedhome.html',)
 
@@ -412,12 +413,12 @@ def add_item(request):
 		ndescription=request.POST['description']
 		nvendor=request.POST['vendor']
 
-		i=InventoryTable(item_name=name,quantity_inside=quantity, 
+		i=InventoryTableTemp(item_name=name,quantity_inside=quantity, 
 			quantity_outside=0,minimum_quantity=minquant,unit_price=price,
-			description=ndescription,vendor=nvendor)
+			description=ndescription,vendor=nvendor,creator=request.user.username)
 		i.save()
-		h=ItemHistory(name=name,action="create", quantity=quantity,added_by=request.user.username, approved_by="admin")
-		h.save()
+		# h=ItemHistory(name=name,action="create", quantity=quantity,added_by=request.user.username, approved_by="admin")
+		# h.save()
 
 		return HttpResponse("oka")
 
@@ -438,9 +439,9 @@ def updateitem(request):
 		price=request.POST['price']
 		desc=request.POST['description']
 
-		i=InventoryTable.objects.get(item_name=name)
+		i=InventoryTableTemp(item_name=name,creator=request.user.username)
 		if quant:
-			i.quantity_inside+=int(quant)
+			i.quantity_inside=int(quant)
 		if minquant:
 			i.minimum_quantity=int(minquant)
 		if price:
@@ -450,10 +451,10 @@ def updateitem(request):
 		if quant:
 			if int(quant)>0:
 				action="add"
-			else:
+			if int(quant)<0:
 				action="remove"
-			h=ItemHistory(name=name, action=action, quantity=quant, added_by=request.user.username, approved_by="admin")
-			h.save()
+				i.quantity_inside=int(quant)*(-1)
+			i.action=action
 		i.save()
 
 		return HttpResponse("okay")
@@ -481,4 +482,57 @@ def passwordchange(request):
 				t.delete()
 
 				return HttpResponse("cancel")
+
+@login_required
+def itemadminaction(request):
+	if request.method=="POST":
+		if str(request.user.groups.all()[0])=="head":
+
+			if request.POST['action']=="ok":
+				t=InventoryTableTemp.objects.get(id=request.POST['req_id'])
+				i=InventoryTable(item_name=t.item_name,quantity_inside=t.quantity_inside, 
+				quantity_outside=t.quantity_outside,minimum_quantity=t.minimum_quantity,unit_price=t.unit_price,
+				description=t.description,vendor=t.vendor)
+				h=ItemHistory(name=i.item_name,action="create", quantity=i.quantity_inside,
+					added_by=t.creator, approved_by=request.user.username)
+				h.save()
+
+				i.save()
+				t.delete()
+
+				return HttpResponse("create_ok")
+			if request.POST['action']=="cancel":
+				t=InventoryTableTemp.objects.get(id=request.POST['req_id'])
+				t.delete()
+
+				
+
+				return HttpResponse("canceled")
+
+			if request.POST['action']=='add':
+				t=InventoryTableTemp.objects.get(id=request.POST['req_id'])
+				i=InventoryTable.objects.get(item_name=t.item_name)
+				i.quantity_inside+=int(t.quantity_inside)
+
+				h=ItemHistory(name=i.item_name,action="add", quantity=t.quantity_inside,
+					added_by=t.creator, approved_by=request.user.username)
+				t.delete()
+				h.save()
+				i.save()
+				return HttpResponse("added")
+			if request.POST['action']=='remove':
+				t=InventoryTableTemp.objects.get(id=request.POST['req_id'])
+				i=InventoryTable.objects.get(item_name=t.item_name)
+				i.quantity_inside-=int(t.quantity_inside)
+
+				h=ItemHistory(name=i.item_name,action="remove", quantity=t.quantity_inside,
+					added_by=t.creator, approved_by=request.user.username)
+				t.delete()
+				h.save()
+				i.save()
+
+				return HttpResponse("removed")
+
+
+
 

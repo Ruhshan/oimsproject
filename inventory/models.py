@@ -17,6 +17,22 @@ class InventoryTable(models.Model):
 
 	def __str__(self):
 		return self.item_name
+class InventoryTableTemp(models.Model):
+	item_name=models.CharField(max_length=100,blank=False,null=False)
+	quantity_inside=models.IntegerField(blank=True,null=True)
+	quantity_outside=models.IntegerField(blank=True,null=True)
+	minimum_quantity=models.IntegerField(blank=True,null=True)
+	unit_price=models.DecimalField(max_digits=10, blank=True,decimal_places=5,null=True)
+	description=models.TextField(blank=True)
+	creator=models.CharField(max_length=100,blank=True)
+	action=models.CharField(max_length=100,blank=True)
+	vendor=models.CharField(max_length=100,blank=True,null=True)
+
+	def update(self):
+		self.save()
+
+	def __str__(self):
+		return self.item_name
 
 class PendingRequest(models.Model):
 	id_no=models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
