@@ -157,9 +157,10 @@
                   val=this.responseText.split('-');
                   console.log(val);
                   document.getElementById('qty').innerHTML="Add Item(Existing "+val[0]+"):";
-                  document.getElementById('alert').innerHTML="Alert Quantity(Previous "+val[1]+"):";
-                  document.getElementById('price').innerHTML="Price (Previous "+val[2]+"):";
-                  document.getElementById('vendor2').innerHTML="Vendor:"+val[3];
+                  document.getElementById('minquant2').value=val[1];
+                  document.getElementById('uprice2').value=val[2];
+                  document.getElementById('vendor2').value=val[3];
+                  document.getElementById('description2').value=val[4];
 
               }
           };
@@ -174,6 +175,7 @@
         minquant=document.getElementById('minquant2').value;
         price=document.getElementById('uprice2').value;
         description=document.getElementById('description2').value;
+        vendor=document.getElementById('vendor2').value;
 
         var xhttp = new XMLHttpRequest();
           
@@ -197,6 +199,7 @@
           query+="&minquant="+minquant;
           query+="&price="+price;
           query+="&description="+description;
+          query+="&vendor="+vendor;
           
           
           xhttp.send(query);
@@ -468,15 +471,16 @@ d                  {% endfor %}
             <div class="form-group">
               <label for="iquantity2" id="qty">Add Quantity:</label>
               <input type="text" class="form-control" name="iquantity2" id="iquantity2" placeholder="Enter Item quantity" maxlength="50">
+            <br>
+            <br>
             </div>
 
+
+            <h1 style="text-align:center">Update if required</h1>
             <div class="form-group">
               <label for="minquant2" id="alert">Alert Quantity:</label>
               <input type="text" class="form-control" name="minquant2" id="minquant2" placeholder="Enter minimum quantity for alert" maxlength="50">
-            <br>
-            <br>
             </div>
-            <h1 style="text-align:center">Update if required</h1>
 
             <div class="form-group">
               <label for="uprice2" id="price">Unit Price(Previous Price:):</label>
@@ -489,15 +493,16 @@ d                  {% endfor %}
             </div>
 
             <div class="form-group">
-                <label id="vendor2">Vendor Name:</label>
-                <!--datalist id="vendor_list">
+                <label for="vendor2">Vendor Name:</label>
+                
+                <datalist id="vendor_list">
                   <option value="">
                   {% for name in vendor_list %}
                   <option value="{{name}}">
-                  {% endfor %}
+d                  {% endfor %}
                 </datalist>
 
-                <input type="text" class="form-control" name="vendor" id="vendor" list="vendor_list" maxlength="50"-->
+                <input type="text" class="form-control" name="vendor2" id="vendor2" list="vendor_list" maxlength="50">
 
             </div>
 

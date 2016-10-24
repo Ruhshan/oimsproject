@@ -426,7 +426,7 @@ def add_item(request):
 def getinfo(request):
 	name=request.GET['item_name']
 	blob=InventoryTable.objects.get(item_name=name)
-	r="{}-{}-{}-{}".format(blob.quantity_inside,blob.minimum_quantity, blob.unit_price,blob.vendor)
+	r="{}-{}-{}-{}-{}".format(blob.quantity_inside,blob.minimum_quantity, blob.unit_price,blob.vendor,blob.description)
 	return HttpResponse(r)
 
 
@@ -438,16 +438,21 @@ def updateitem(request):
 		minquant=request.POST['minquant']
 		price=request.POST['price']
 		desc=request.POST['description']
+		vendor=request.POST['vendor']
 
+		m=InventoryTable.objects.get(item_name=name)
 		i=InventoryTableTemp(item_name=name,creator=request.user.username)
 		if quant:
+			i=InventoryTableTemp(item_name=name,creator=request.user.username)
 			i.quantity_inside=int(quant)
 		if minquant:
-			i.minimum_quantity=int(minquant)
+			m.minimum_quantity=int(minquant)
 		if price:
-			i.unit_price=int(price)
+			m.unit_price=int(price)
 		if desc:
-			i.description=desc
+			m.description=desc
+		if vendor:
+			m.vendor=vendor
 		if quant:
 			if int(quant)>0:
 				action="add"
@@ -456,6 +461,7 @@ def updateitem(request):
 				i.quantity_inside=int(quant)*(-1)
 			i.action=action
 		i.save()
+		m.save()
 
 		return HttpResponse("okay")
 
