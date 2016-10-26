@@ -357,7 +357,7 @@
   {% for entry in historyitems %}
   <tr>
     <td>{{entry.date_added}}</td>
-    <td>{{entry.name}}</td>
+    <td><a href="{% url 'item_details' name=entry.name %}">{{entry.name}}</a></td>
     <td>{{entry.quantity}}</td>
     <td>{{entry.action}}</td>
     <td>{{entry.added_by}}</td>

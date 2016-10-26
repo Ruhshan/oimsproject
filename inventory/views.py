@@ -60,6 +60,11 @@ def user_login(request):
 				user=authenticate(username=email,password=password)
 			else:
 				return HttpResponse("Invalid Seccondary password")
+		if g=="temporary-head":
+			if password2=="8900":
+				user=authenticate(username=email,password=password)
+			else:
+				return HttpResponse("Invalid Seccondary password")
 		else:
 			user=authenticate(username=email,password=password)
 
@@ -246,7 +251,8 @@ def isadmin(request):
 		email=request.POST["email"]
 		u=User.objects.get(username=email)
 		g=str(u.groups.all()[0])
-		if g=='head':
+		print u, g
+		if g=='head' or g=="temporary-head":
 			return HttpResponse(1)
 		else:
 			return HttpResponse(0)
@@ -345,8 +351,10 @@ def adduser(request):
 		#assigning group
 		if str(nusertype)=='head':
 			g = Group.objects.get(name='head')
-		else:
+		elif str(nusertype)=="manager":
 			g = Group.objects.get(name='manager')
+		else:
+			g = Group.objects.get(name="temporary-head")
 		u = User.objects.get(username=nuseremail)
 		g.user_set.add(u)
 
@@ -441,14 +449,14 @@ def updateitem(request):
 		vendor=request.POST['vendor']
 
 		m=InventoryTable.objects.get(item_name=name)
-		i=InventoryTableTemp(item_name=name,creator=request.user.username)
+		
 		if quant:
 			i=InventoryTableTemp(item_name=name,creator=request.user.username)
 			i.quantity_inside=int(quant)
 		if minquant:
 			m.minimum_quantity=int(minquant)
 		if price:
-			m.unit_price=int(price)
+			m.unit_price=float(price)
 		if desc:
 			m.description=desc
 		if vendor:
@@ -460,7 +468,7 @@ def updateitem(request):
 				action="remove"
 				i.quantity_inside=int(quant)*(-1)
 			i.action=action
-		i.save()
+			i.save()
 		m.save()
 
 		return HttpResponse("okay")
