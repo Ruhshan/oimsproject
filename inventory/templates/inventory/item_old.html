@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <title>OIMS</title>
+  {% load static %}
+  <meta charset="utf-8">
+  <meta http-equiv="refresh" content="60" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+
+  <script src="http://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap4.min.js"></script>
+  <link rel="stylesheet" href="http://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+<script type="text/javascript" src="{% static 'item_scripts.js' %}"></script>
+
+          <style type="text/css">
+          #log {
+
+            position:absolute;
+            right:0;
+          }
+           /* make sidebar nav vertical */ 
+           @media (min-width: 0px) {
+            .sidebar-nav .navbar .navbar-collapse {
+              padding: 0;
+              max-height: none;
+
+
+            }
+            .sidebar-nav .navbar ul {
+              float: none;
+              display: block;
+            }
+            .sidebar-nav .navbar li {
+              float: none;
+              display: block;
+            }
+            .sidebar-nav .navbar li a {
+              padding-top: 10px;
+              padding-bottom: 12px;
+              padding-left: 10px;
+              border-color: black;
+
+            }
+          }
+
+          body .modal-dialog {
+            width: 70%; /* desired relative width */
+            left: 5%; /* (100%-width)/2 */
+            /* place center */
+            right:5%;
+            margin-left:auto;
+            margin-right:auto; 
+          }
+          
+          #modal_error{
+            color:red;
+            text-align: center;
+          }
+            
+
+
+        </style>
+      </head>
+<body >
+
+  <!--div class="container"-->
+    <div class="row">
+      <div class="col-sm-2">
+        <div class="sidebar-nav">
+          <div class="navbar navbar-default" role="navigation">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
+                <span class="sr-only">Toggle navigation
+                </span>
+                <span class="icon-bar">
+                </span>
+                <span class="icon-bar">
+                </span>
+                <span class="icon-bar">
+                </span>
+              </button>
+              <span class="visible-xs navbar-brand">Sidebar menu
+              </span>
+            </div>
+            <div class="navbar-collapse collapse sidebar-navbar-collapse">
+              <ul class="nav navbar-nav">
+                <li>
+                  <a href="/home/">Home
+                  </a>
+                </li>
+                <li>
+                  <a href="/myaccount">My Account
+                  </a>
+                </li>
+                {% if group|stringformat:"s" == "head" %}
+                <li>
+                  <a href="/users/">User 
+                  </a>
+                </li>
+                {% endif %}
+                {% if group|stringformat:"s" == "temporary-head" %}
+                <li>
+                  <a href="/users/">User 
+                  </a>
+                </li>
+                {% endif %}
+                <li>
+                  <a href="/vendor/">Vendor
+                  </a>
+                </li>
+                <li>
+                  <a href="/item/">Add Item
+                  </a>
+                </li>
+                <!--li>
+                  <a href="/logout/">Logout
+                  </a>
+                </li>
+                <li>
+                  <a href="#">Notification
+                    <span class="badge">1,118
+                    </span>
+                  </a>
+                </li-->
+              </ul>
+            </div>
+            <!--/.nav-collapse -->
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-10">
+        <div class="container-fluid" id="main">
+        <div id="log">
+            <a tabindex="0"
+            role="button" 
+            data-html="true" data-toggle="popover" 
+            data-trigger="focus" data-placement="bottom" data-content="{{alert_content}}">Alert
+              <span class="badge">{{alert_count}}
+              </span>
+            </a>
+            <a href="/logout/">Logout</a>  
+        </div>
+        <br>
+          <form class="form-horizontal">
+          <div id="newvendorModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+              <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">New Vendor</h4>
+                  </div>
+                  <div class="modal-body">
+                    <form class="form-horizontal">
+                      <div class="form-group">
+                          <label class="control-label col-sm-2" for="vname">Organization:</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control" id="vname" placeholder="Enter Name">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-sm-2" for="cperson">Contact Person:</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control" id="cperson" placeholder="Enter Name of contact person">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-sm-2" for="vaddress">Address:</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control" id="vaddress" placeholder="Enter Address">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-sm-2" for="vcontact">Contact:</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control" id="vcontact" placeholder="Enter Contact">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-sm-2" for="vemail">Email:</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control" id="vemail" placeholder="Enter Email">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-sm-2" for="vdescription">Description:</label>
+                          <div class="col-sm-10">
+                            <textarea class="form-control" rows="5" id="vdescription" placeholder="Enter Description"></textarea>
+                          </div>
+                      </div>
+
+                    </form>
+
+
+
+                                      
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="createvendor()">Create</button>
+                  </div>
+                </div>
+
+            </div>
+          </div>
+          <ul class="nav nav-tabs nav-justified">
+            <!--li class="active"><a data-toggle="tab" href="#home">Home</a></li-->
+            <li>
+              <a data-toggle="tab" href="#existing">Add existing Items
+              </a>
+            </li>
+            
+            
+            <li>
+              <a data-toggle="tab" href="#new">Add new Item
+              </a>
+            </li>
+            
+          </ul>
+          <div class="tab-content">
+            <div id="new" class="tab-pane fade in">
+
+            <div class="form-group">
+              <label for="iname">Item Name:</label>
+              <input type="text" class="form-control" name="iname" id="iname" placeholder="Enter Item name" maxlength="50">
+            </div>
+            
+            <div class="form-group">
+              <label for="iquantity">Item Quantity:</label>
+              <input type="text" class="form-control" name="iquantity" id="iquantity" placeholder="Enter Item quantity" maxlength="50">
+            </div>
+
+            <div class="form-group">
+              <label for="minquant">Minimum Quantity:</label>
+              <input type="text" class="form-control" name="minquant" id="minquant" placeholder="Enter minimum quantity for alert" maxlength="50">
+            </div>
+
+            <div class="form-group">
+              <label for="uprice">Unit Price:</label>
+              <input type="text" class="form-control" name="uprice" id="uprice" placeholder="Enter Unit price of this item" maxlength="50">
+            </div>
+
+            <div class="form-group">
+              <label for="description">Description:</label>
+              <textarea type="text" class="form-control" name="description" id="description" placeholder="Enter Item name" maxlength="50" rows="5"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="vendor">Vendor Name:</label>
+                <datalist id="vendor_list">
+                  <option value="">
+                  {% for name in vendor_list %}
+                  <option value="{{name}}">
+                  {% endfor %}
+                </datalist>
+
+                <input type="text" class="form-control" name="vendor" id="vendor" list="vendor_list" maxlength="50">
+            </div>
+
+            
+
+
+            </form>
+            <button onclick="additem()">Add</button>
+
+              
+            </div>
+            <div id="existing" class="tab-pane fade in active">
+              <div class="form-group">
+              <label for="iname2">Item Name:</label>
+              <select class="form-control" id="iname2" name="iname2" onchange="information(this.value)">
+                <option>Select..</option>
+                {% for name in item_list %}
+                <option>{{name}}</option>
+                {% endfor %}
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="iquantity2" id="qty">Add Quantity:</label>
+              <input type="text" class="form-control" name="iquantity2" id="iquantity2" placeholder="Enter Item quantity" maxlength="50">
+            <br>
+            <br>
+            </div>
+
+
+            <h1 style="text-align:center">Update if required</h1>
+            <div class="form-group">
+              <label for="minquant2" id="alert">Alert Quantity:</label>
+              <input type="text" class="form-control" name="minquant2" id="minquant2" placeholder="Enter minimum quantity for alert" maxlength="50">
+            </div>
+
+            <div class="form-group">
+              <label for="uprice2" id="price">Unit Price(Previous Price:):</label>
+              <input type="text" class="form-control" name="uprice2" id="uprice2" placeholder="Enter Unit price of this item" maxlength="50">
+            </div>
+
+            <div class="form-group">
+              <label for="description2">Description:</label>
+              <textarea type="text" class="form-control" name="description2" id="description2" placeholder="Enter Item name" maxlength="50" rows="5"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="vendor2">Vendor Name:</label>
+                
+                <datalist id="vendor_list">
+                  <option value="">
+                  {% for name in vendor_list %}
+                  <option value="{{name}}">
+                 {% endfor %}
+                </datalist>
+
+                <input type="text" class="form-control" name="vendor2" id="vendor2" list="vendor_list" maxlength="50">
+
+            </div>
+
+            
+
+
+            </form>
+            <button onclick="updateitem()">Update</button>
+            </div>
+          </div>
+                  	
+
+        </div>
+      </div>
+    <!--/div-->
+
+</body>
+
+
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+});
+</script>
+
+
+</html>

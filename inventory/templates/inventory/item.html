@@ -1,539 +1,190 @@
-<!DOCTYPE html>
+{% extends "inventory/base2.html" %}
 
-<html>
-
-<head>
-  <title>OIMS</title>
-  {% load static %}
-  <meta charset="utf-8">
-  <meta http-equiv="refresh" content="60" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="//code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
-
-  <script src="http://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap4.min.js"></script>
-  <link rel="stylesheet" href="http://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
+{% block extraelements %}
+{% load static %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+<script type="text/javascript" src="{% static 'item_scripts.js' %}"></script>
 
+{% endblock extraelements %}
 
-  <script type="text/javascript">
-    function getCookie(name) {
-          var cookieValue = null;
-          if (document.cookie && document.cookie != '') {
-              var cookies = document.cookie.split(';');
-              for (var i = 0; i < cookies.length; i++) {
-                  var cookie = jQuery.trim(cookies[i]);
-                  // Does this cookie string begin with the name we want?
-                  if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                      break;
-                  }
-              }
-          }
-          return cookieValue;
-      };
-      function createvendor(){
-      name=document.getElementById('vname').value;
-      address=document.getElementById('vaddress').value;
-      cperson=document.getElementById('cperson').value;
-      contact=document.getElementById('vcontact').value;
-      email=document.getElementById('vemail').value;
-      description=document.getElementById('vdescription').value;
-
-      var xhttp = new XMLHttpRequest();
-          
-        xhttp.onreadystatechange = function() {
-          if (this.readyState == 4 && this.status == 200) {
-                console.log("vendor table updated"); 
-                document.getElementById('vendor_list').innerHTML+="<option value="+name+">"; 
-                //window.location="/vendor/";    
-              
-              }
-            };
-      xhttp.open("POST", "addvendor/", true);
-      var csrftoken = getCookie('csrftoken');
-                
-      xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      xhttp.setRequestHeader("X-CSRFToken", csrftoken);
-      query="name="+name;
-      query+="&cperson="+cperson;
-      query+="&address="+address;
-      query+="&contact="+contact;
-      query+="&email="+email;
-      query+="&description="+description;
-      
-      xhttp.send(query);
-      send();
-
-    }
-
-      function send(){
-
-         name=document.getElementById('iname').value;
-          quantity=document.getElementById('iquantity').value;
-          minquant=document.getElementById('minquant').value;
-          price=document.getElementById('uprice').value;
-          description=document.getElementById('description').value;
-          vendor=document.getElementById('vendor').value;
-
-          var xhttp = new XMLHttpRequest();
-          
-          xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                  if(this.responseText=="oka"){
-                    document.getElementById('main').innerHTML="<b>"+name+" added successfully to database";
-
-                  }  
-                     
-                
-                }
-              };
-          xhttp.open("POST", "additem/", true);
-          var csrftoken = getCookie('csrftoken');
-                    
-          xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-          xhttp.setRequestHeader("X-CSRFToken", csrftoken);
-          query="name="+name;
-          query+="&quantity="+quantity;
-          query+="&minquant="+minquant;
-          query+="&price="+price;
-          query+="&description="+description;
-          query+="&vendor="+vendor;
-          
-          xhttp.send(query);
-
-          };
-
-      function additem(){
-        vendor=document.getElementById("vendor").value;
-
-        var array = $('#vendor_list option').map(function () {
-              return this.value;
-              }).get();
+{% block content %}
         
+<br>
 
-        if(array.indexOf(vendor)==-1){
-          console.log('add vendor first');
-          document.getElementById('vname').value=vendor;
-          $('#newvendorModal').modal('show');
+<div id="newvendorModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
 
-          
-        }
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">New Vendor</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+				  <div class="form-group">
+				      <label class="control-label col-sm-2" for="vname">Organization:</label>
+				      <div class="col-sm-10">
+				        <input type="text" class="form-control" id="vname" placeholder="Enter Name">
+				      </div>
+				  </div>
+				  <div class="form-group">
+				      <label class="control-label col-sm-2" for="cperson">Contact Person:</label>
+				      <div class="col-sm-10">
+				        <input type="text" class="form-control" id="cperson" placeholder="Enter Name of contact person">
+				      </div>
+				  </div>
+				  <div class="form-group">
+				      <label class="control-label col-sm-2" for="vaddress">Address:</label>
+				      <div class="col-sm-10">
+				        <input type="text" class="form-control" id="vaddress" placeholder="Enter Address">
+				      </div>
+				  </div>
+				  <div class="form-group">
+				      <label class="control-label col-sm-2" for="vcontact">Contact:</label>
+				      <div class="col-sm-10">
+				        <input type="text" class="form-control" id="vcontact" placeholder="Enter Contact">
+				      </div>
+				  </div>
+				  <div class="form-group">
+				      <label class="control-label col-sm-2" for="vemail">Email:</label>
+				      <div class="col-sm-10">
+				        <input type="text" class="form-control" id="vemail" placeholder="Enter Email">
+				      </div>
+				  </div>
+				  
+				  <div class="form-group">
+				      <label class="control-label col-sm-2" for="vdescription">Description:</label>
+				      <div class="col-sm-10">
+				        <textarea class="form-control" rows="5" id="vdescription" placeholder="Enter Description"></textarea>
+				      </div>
+				  </div>
 
-        
-        else{
-          if(vendor.length==0){
-            bootbox.confirm("Proceed with empty vendor?", function(result){ 
-            if(result==true){
-              send();
-              } 
-            })
-          }
-          else{
-            send();
-          }
-          
-        }
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" onclick="createvendor()">Create</button>
+			</div>
+		</div>
+	</div>
+</div>
+<ul class="nav nav-tabs nav-justified">
 
-        
-
-
-
-      };
-
-      function information(name){
-        if(name!='Select..'){
-          xhttp = new XMLHttpRequest();
-          xhttp.onreadystatechange = function() {
-              if (this.readyState == 4 && this.status == 200) {
-                  val=this.responseText.split('-');
-                  console.log(val);
-                  document.getElementById('qty').innerHTML="Add Item(Existing "+val[0]+"):";
-                  document.getElementById('minquant2').value=val[1];
-                  document.getElementById('uprice2').value=val[2];
-                  document.getElementById('vendor2').value=val[3];
-                  document.getElementById('description2').value=val[4];
-
-              }
-          };
-          xhttp.open("GET", "information/?item_name=" + name, true);
-          xhttp.send();
-        }
-      };
-
-      function updateitem(){
-        name=document.getElementById('iname2').value;
-        quant=document.getElementById('iquantity2').value;
-        minquant=document.getElementById('minquant2').value;
-        price=document.getElementById('uprice2').value;
-        description=document.getElementById('description2').value;
-        vendor=document.getElementById('vendor2').value;
-
-        var xhttp = new XMLHttpRequest();
-          
-          xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                  if(this.responseText=="okay"){
-                    document.getElementById('existing').innerHTML="<b>"+name+" successfully updated </b>";
-
-                  }  
-                     
-                
-                }
-              };
-          xhttp.open("POST", "updateitem/", true);
-          var csrftoken = getCookie('csrftoken');
-                    
-          xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-          xhttp.setRequestHeader("X-CSRFToken", csrftoken);
-          query="name="+name;
-          query+="&quantity="+quant;
-          query+="&minquant="+minquant;
-          query+="&price="+price;
-          query+="&description="+description;
-          query+="&vendor="+vendor;
-          
-          
-          xhttp.send(query);
-        
-
-      };
-
-    
-    
-  </script>
-          <style type="text/css">
-          #log {
-
-            position:absolute;
-            right:0;
-          }
-           /* make sidebar nav vertical */ 
-           @media (min-width: 0px) {
-            .sidebar-nav .navbar .navbar-collapse {
-              padding: 0;
-              max-height: none;
+	<li>
+	  <a data-toggle="tab" href="#existing">Add existing Items
+	  </a>
+	</li>
 
 
-            }
-            .sidebar-nav .navbar ul {
-              float: none;
-              display: block;
-            }
-            .sidebar-nav .navbar li {
-              float: none;
-              display: block;
-            }
-            .sidebar-nav .navbar li a {
-              padding-top: 10px;
-              padding-bottom: 12px;
-              padding-left: 10px;
-              border-color: black;
+	<li>
+	  <a data-toggle="tab" href="#new">Add new Item
+	  </a>
+	</li>
 
-            }
-          }
+</ul>
 
-          body .modal-dialog {
-            width: 70%; /* desired relative width */
-            left: 5%; /* (100%-width)/2 */
-            /* place center */
-            right:5%;
-            margin-left:auto;
-            margin-right:auto; 
-          }
-          
-          #modal_error{
-            color:red;
-            text-align: center;
-          }
-            
+<div class="tab-content">
+	<div id="new" class="tab-pane fade in">
+	    <form class="form-horizontal">
+
+	        <div class="form-group">
+	          <label for="iname">Item Name:</label>
+	          <input type="text" class="form-control" name="iname" id="iname" placeholder="Enter Item name" maxlength="50">
+	        </div>
+	        
+	        <div class="form-group">
+	          <label for="iquantity">Item Quantity:</label>
+	          <input type="text" class="form-control" name="iquantity" id="iquantity" placeholder="Enter Item quantity" maxlength="50">
+	        </div>
+
+	        <div class="form-group">
+	          <label for="minquant">Minimum Quantity:</label>
+	          <input type="text" class="form-control" name="minquant" id="minquant" placeholder="Enter minimum quantity for alert" maxlength="50">
+	        </div>
+
+	        <div class="form-group">
+	          <label for="uprice">Unit Price:</label>
+	          <input type="text" class="form-control" name="uprice" id="uprice" placeholder="Enter Unit price of this item" maxlength="50">
+	        </div>
+
+	        <div class="form-group">
+	          <label for="description">Description:</label>
+	          <textarea type="text" class="form-control" name="description" id="description" placeholder="Enter Item name" maxlength="50" rows="5"></textarea>
+	        </div>
+
+	        <div class="form-group">
+	            <label for="vendor">Vendor Name:</label>
+	            <datalist id="vendor_list">
+	              <option value="">
+	              {% for name in vendor_list %}
+	              <option value="{{name}}">
+	              {% endfor %}
+	            </datalist>
+
+	            <input type="text" class="form-control" name="vendor" id="vendor" list="vendor_list" maxlength="50">
+	        </div>
+	    </form>
+        <button onclick="additem()">Add</button>
+	</div>
+	<div id="existing" class="tab-pane fade in active">
+		<form>
+			<div class="form-group">
+				<label for="iname2">Item Name:</label>
+				<select class="form-control" id="iname2" name="iname2" onchange="information(this.value)">
+					<option>Select..</option>
+					{% for name in item_list %}
+					<option>{{name}}</option>
+					{% endfor %}
+				</select>
+			</div>
+
+			<div class="form-group">
+			  <label for="iquantity2" id="qty">Add Quantity:</label>
+			  <input type="text" class="form-control" name="iquantity2" id="iquantity2" placeholder="Enter Item quantity" maxlength="50">
+				<br>
+				<br>
+			</div>
 
 
-        </style>
-      </head>
-<body >
+			<h1 style="text-align:center">Update if required</h1>
+			<div class="form-group">
+			  <label for="minquant2" id="alert">Alert Quantity:</label>
+			  <input type="text" class="form-control" name="minquant2" id="minquant2" placeholder="Enter minimum quantity for alert" maxlength="50">
+			</div>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-2">
-        <div class="sidebar-nav">
-          <div class="navbar navbar-default" role="navigation">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
-                <span class="sr-only">Toggle navigation
-                </span>
-                <span class="icon-bar">
-                </span>
-                <span class="icon-bar">
-                </span>
-                <span class="icon-bar">
-                </span>
-              </button>
-              <span class="visible-xs navbar-brand">Sidebar menu
-              </span>
-            </div>
-            <div class="navbar-collapse collapse sidebar-navbar-collapse">
-              <ul class="nav navbar-nav">
-                <li>
-                  <a href="/home/">Home
-                  </a>
-                </li>
-                <li>
-                  <a href="/myaccount">My Account
-                  </a>
-                </li>
-                {% if group|stringformat:"s" == "head" %}
-                <li>
-                  <a href="/users/">User 
-                  </a>
-                </li>
-                {% endif %}
-                {% if group|stringformat:"s" == "temporary-head" %}
-                <li>
-                  <a href="/users/">User 
-                  </a>
-                </li>
-                {% endif %}
-                <li>
-                  <a href="/vendor/">Vendor
-                  </a>
-                </li>
-                <li>
-                  <a href="/item/">Add Item
-                  </a>
-                </li>
-                <!--li>
-                  <a href="/logout/">Logout
-                  </a>
-                </li>
-                <li>
-                  <a href="#">Notification
-                    <span class="badge">1,118
-                    </span>
-                  </a>
-                </li-->
-              </ul>
-            </div>
-            <!--/.nav-collapse -->
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-10">
-        <div class="container-fluid" id="main">
-        <div id="log">
-            <a tabindex="0"
-            role="button" 
-            data-html="true" data-toggle="popover" 
-            data-trigger="focus" data-placement="bottom" data-content="{{alert_content}}">Alert
-              <span class="badge">{{alert_count}}
-              </span>
-            </a>
-            <a href="/logout/">Logout</a>  
-        </div>
-        <br>
-          <form class="form-horizontal">
-          <div id="newvendorModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
+			<div class="form-group">
+			  <label for="uprice2" id="price">Unit Price(Previous Price:):</label>
+			  <input type="text" class="form-control" name="uprice2" id="uprice2" placeholder="Enter Unit price of this item" maxlength="50">
+			</div>
 
-              <!-- Modal content-->
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">New Vendor</h4>
-                  </div>
-                  <div class="modal-body">
-                    <form class="form-horizontal">
-                      <div class="form-group">
-                          <label class="control-label col-sm-2" for="vname">Organization:</label>
-                          <div class="col-sm-10">
-                            <input type="text" class="form-control" id="vname" placeholder="Enter Name">
-                          </div>
-                      </div>
-                      <div class="form-group">
-                          <label class="control-label col-sm-2" for="cperson">Contact Person:</label>
-                          <div class="col-sm-10">
-                            <input type="text" class="form-control" id="cperson" placeholder="Enter Name of contact person">
-                          </div>
-                      </div>
-                      <div class="form-group">
-                          <label class="control-label col-sm-2" for="vaddress">Address:</label>
-                          <div class="col-sm-10">
-                            <input type="text" class="form-control" id="vaddress" placeholder="Enter Address">
-                          </div>
-                      </div>
-                      <div class="form-group">
-                          <label class="control-label col-sm-2" for="vcontact">Contact:</label>
-                          <div class="col-sm-10">
-                            <input type="text" class="form-control" id="vcontact" placeholder="Enter Contact">
-                          </div>
-                      </div>
-                      <div class="form-group">
-                          <label class="control-label col-sm-2" for="vemail">Email:</label>
-                          <div class="col-sm-10">
-                            <input type="text" class="form-control" id="vemail" placeholder="Enter Email">
-                          </div>
-                      </div>
-                      <div class="form-group">
-                          <label class="control-label col-sm-2" for="vdescription">Description:</label>
-                          <div class="col-sm-10">
-                            <textarea class="form-control" rows="5" id="vdescription" placeholder="Enter Description"></textarea>
-                          </div>
-                      </div>
+			<div class="form-group">
+			  <label for="description2">Description:</label>
+			  <textarea type="text" class="form-control" name="description2" id="description2" placeholder="Enter Item name" maxlength="50" rows="5"></textarea>
+			</div>
 
-                    </form>
+			<div class="form-group">
+			    <label for="vendor2">Vendor Name:</label>
+			    
+			    <datalist id="vendor_list">
+			      <option value="">
+			      {% for name in vendor_list %}
+			      <option value="{{name}}">
+			     {% endfor %}
+			    </datalist>
+
+			    <input type="text" class="form-control" name="vendor2" id="vendor2" list="vendor_list" maxlength="50">
+
+			</div>
 
 
 
-                                      
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="createvendor()">Create</button>
-                  </div>
-                </div>
 
-            </div>
-          </div>
-          <ul class="nav nav-tabs nav-justified">
-            <!--li class="active"><a data-toggle="tab" href="#home">Home</a></li-->
-            <li>
-              <a data-toggle="tab" href="#existing">Add existing Items
-              </a>
-            </li>
-            
-            
-            <li>
-              <a data-toggle="tab" href="#new">Add new Item
-              </a>
-            </li>
-            
-          </ul>
-          <div class="tab-content">
-            <div id="new" class="tab-pane fade in">
-
-            <div class="form-group">
-              <label for="iname">Item Name:</label>
-              <input type="text" class="form-control" name="iname" id="iname" placeholder="Enter Item name" maxlength="50">
-            </div>
-            
-            <div class="form-group">
-              <label for="iquantity">Item Quantity:</label>
-              <input type="text" class="form-control" name="iquantity" id="iquantity" placeholder="Enter Item quantity" maxlength="50">
-            </div>
-
-            <div class="form-group">
-              <label for="minquant">Minimum Quantity:</label>
-              <input type="text" class="form-control" name="minquant" id="minquant" placeholder="Enter minimum quantity for alert" maxlength="50">
-            </div>
-
-            <div class="form-group">
-              <label for="uprice">Unit Price:</label>
-              <input type="text" class="form-control" name="uprice" id="uprice" placeholder="Enter Unit price of this item" maxlength="50">
-            </div>
-
-            <div class="form-group">
-              <label for="description">Description:</label>
-              <textarea type="text" class="form-control" name="description" id="description" placeholder="Enter Item name" maxlength="50" rows="5"></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="vendor">Vendor Name:</label>
-                <datalist id="vendor_list">
-                  <option value="">
-                  {% for name in vendor_list %}
-                  <option value="{{name}}">
-d                  {% endfor %}
-                </datalist>
-
-                <input type="text" class="form-control" name="vendor" id="vendor" list="vendor_list" maxlength="50">
-            </div>
-
-            
-
-
-            </form>
-            <button onclick="additem()">Add</button>
-
-              
-            </div>
-            <div id="existing" class="tab-pane fade in active">
-              <div class="form-group">
-              <label for="iname2">Item Name:</label>
-              <select class="form-control" id="iname2" name="iname2" onchange="information(this.value)">
-                <option>Select..</option>
-                {% for name in item_list %}
-                <option>{{name}}</option>
-                {% endfor %}
-              </select>
-            </div>
-            
-            <div class="form-group">
-              <label for="iquantity2" id="qty">Add Quantity:</label>
-              <input type="text" class="form-control" name="iquantity2" id="iquantity2" placeholder="Enter Item quantity" maxlength="50">
-            <br>
-            <br>
-            </div>
-
-
-            <h1 style="text-align:center">Update if required</h1>
-            <div class="form-group">
-              <label for="minquant2" id="alert">Alert Quantity:</label>
-              <input type="text" class="form-control" name="minquant2" id="minquant2" placeholder="Enter minimum quantity for alert" maxlength="50">
-            </div>
-
-            <div class="form-group">
-              <label for="uprice2" id="price">Unit Price(Previous Price:):</label>
-              <input type="text" class="form-control" name="uprice2" id="uprice2" placeholder="Enter Unit price of this item" maxlength="50">
-            </div>
-
-            <div class="form-group">
-              <label for="description2">Description:</label>
-              <textarea type="text" class="form-control" name="description2" id="description2" placeholder="Enter Item name" maxlength="50" rows="5"></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="vendor2">Vendor Name:</label>
-                
-                <datalist id="vendor_list">
-                  <option value="">
-                  {% for name in vendor_list %}
-                  <option value="{{name}}">
-d                  {% endfor %}
-                </datalist>
-
-                <input type="text" class="form-control" name="vendor2" id="vendor2" list="vendor_list" maxlength="50">
-
-            </div>
-
-            
-
-
-            </form>
-            <button onclick="updateitem()">Update</button>
-            </div>
-          </div>
+		</form>
+		<button onclick="updateitem()">Update</button>
+	</div>
+</div>
                   	
 
-        </div>
-      </div>
-    </div>
-
-</body>
-
-
-
-<script>
-$(document).ready(function(){
-    $('[data-toggle="popover"]').popover();
-});
-</script>
-
-
-</html>
+      
+    
+{% endblock content %}

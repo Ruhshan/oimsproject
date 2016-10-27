@@ -429,7 +429,7 @@ def add_item(request):
 
 		i=InventoryTableTemp(item_name=name,quantity_inside=quantity, 
 			quantity_outside=0,minimum_quantity=minquant,unit_price=price,
-			description=ndescription,vendor=nvendor,creator=request.user.username)
+			description=ndescription,vendor=nvendor,action='create',creator=request.user.username)
 		i.save()
 		# h=ItemHistory(name=name,action="create", quantity=quantity,added_by=request.user.username, approved_by="admin")
 		# h.save()
