@@ -1,7 +1,13 @@
 {% extends "inventory/base2.html" %}
-{% load static %}
-<script type="text/javascript" src="{% static "account.js" %}"></script>
+
+{% block extraelements %}
+
+  {% load static %}
+  <script type="text/javascript" src="{% static 'account.js' %}"></script>      
+{% endblock extraelements %}
+
 {% block content %}
+
 <form action="/updatepersonalinfo/" method="post" onsubmit="return validateForm()" name="myForm">
           {% csrf_token %}
             <div class="form-group">
