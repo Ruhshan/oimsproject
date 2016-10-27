@@ -264,7 +264,8 @@ def myaccount(request):
 	user = User.objects.get(username = uname)
 	profile=UserProfile.objects.get(uname=user)
 	g=request.user.groups.all()[0]
-	return 	render (request ,'inventory/myaccount.html',{'user':user,'profile':profile,'group':g})
+	return 	render (request ,'inventory/myaccount.html',{'user':user,'profile':profile,'group':g,
+		'alert_count':alert_count(),'alert_content':alert_content()})
 
 
 
@@ -566,7 +567,6 @@ def changestatus(request):
 			u.save()
 
 			return HttpResponse("okay")
-
 
 
 

@@ -42,7 +42,6 @@
       };
 
     function createuser(){
-      console.log("i'm called");
       type=document.getElementById('usertype').value;
       email=document.getElementById('email').value;
       password=document.getElementById('password').value;
@@ -55,7 +54,7 @@
                 console.log(this.responseText);                      
               
               
-              
+              location.reload();         
               }
             };
           xhttp.open("POST", "adduser/", true);
@@ -63,11 +62,19 @@
                     
           xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
           xhttp.setRequestHeader("X-CSRFToken", csrftoken);
+          if(type!='User Type' & email.length>0 & password.length>=8){
+
           query="type="+type;
           query+="&email="+email;
           query+="&password="+password;
           
           xhttp.send(query);
+          $('#newuserModal').modal('hide'); 
+          }
+          else{
+            $('#newuserModal').effect('shake');
+          }
+
     };
 
     function changestatus(name){
@@ -94,7 +101,11 @@
       
       xhttp.send(query);
     }
-    
+    function new_user_close(){
+      document.getElementById('usertype').value="User Type";
+      document.getElementById('email').value="";
+      document.getElementById('password').value="";
+    }
   </script>
           <style type="text/css">
           #log {
@@ -217,31 +228,35 @@
               <!-- Modal content-->
                 <div class="modal-content">
                   <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Modal Header</h4>
+                    <button type="button" class="close" data-dismiss="modal" onclick="new_user_close()">&times;</button>
+                    <h4 class="modal-title">Creating New User</h4>
                   </div>
                   <div class="modal-body">
 
                     {% if group|stringformat:"s" == "head" %}
+                    User Type:
                     <select id="usertype">
-                      <option value="">User Type</option>
+                      <option value="User Type">User Type</option>
                       <option value="head">Head</option>
                       <option value="manager">Manager</option>
                       <option value="temporary-head">Temporary Head</option>
                     </select>
                     {% endif %}
                     {% if group|stringformat:"s" == "temporary-head" %}
+                    User Type:
                     <select id="usertype">
-                      <option value="">User Type</option>
+                      <option value="User Type">User Type</option>
                       <option value="manager">Manager</option>
                       <option value="temporary-head">Temporary Head</option>
                     </select>
                     {% endif %}
+                    Email:
                     <input id="email" type="text" name="">
+                    Password:
                     <input id="password" type="password" name="">
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="createuser()">Create</button>
+                    <button type="button" class="btn btn-default" onclick="createuser()">Create</button>
                   </div>
                 </div>
 
