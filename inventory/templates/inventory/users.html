@@ -15,7 +15,15 @@
   <script src="http://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap4.min.js"></script>
   <link rel="stylesheet" href="http://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
-  <script type="text/javascript" src="{% static "scripts.js" %}"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css">
+
+<link  rel="stylesheet" href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css">
+
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
+
+  
   <script type="text/javascript">
     function getCookie(name) {
           var cookieValue = null;
@@ -60,10 +68,40 @@
           query+="&password="+password;
           
           xhttp.send(query);
+    };
+
+    function changestatus(name){
+      var status;
+      if(document.getElementById(name).checked){
+        status="active";
+      }
+      else{
+        status="inactive";
+      }
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);                      
+          }
+        };
+      xhttp.open("POST", "changestatus/", true);
+      var csrftoken = getCookie('csrftoken');
+                
+      xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhttp.setRequestHeader("X-CSRFToken", csrftoken);
+      query="id="+name;
+      query+="&status="+status;
+      
+      xhttp.send(query);
     }
     
   </script>
           <style type="text/css">
+          #log {
+
+            position:absolute;
+            right:0;
+          }
            /* make sidebar nav vertical */ 
            @media (min-width: 0px) {
             .sidebar-nav .navbar .navbar-collapse {
@@ -140,7 +178,13 @@
                 </li>
                 {% if group|stringformat:"s" == "head" %}
                 <li>
-                  <a href="#">User 
+                  <a href="/users/">User 
+                  </a>
+                </li>
+                {% endif %}
+                {% if group|stringformat:"s" == "temporary-head" %}
+                <li>
+                  <a href="/users/">User 
                   </a>
                 </li>
                 {% endif %}
@@ -148,16 +192,7 @@
                   <a href="#">Vendor
                   </a>
                 </li>
-                <li>
-                  <a href="/logout/">Logout
-                  </a>
-                </li>
-                <li>
-                  <a href="#">Notification
-                    <span class="badge">1,118
-                    </span>
-                  </a>
-                </li>
+                
               </ul>
             </div>
             <!--/.nav-collapse -->
@@ -166,6 +201,16 @@
       </div>
       <div class="col-sm-10">
         <div class="container-fluid">
+        <div id="log">
+            <a tabindex="0"
+            role="button" 
+            data-html="true" data-toggle="popover" 
+            data-trigger="focus" data-placement="bottom" data-content="{{alert_content}}">Alert
+              <span class="badge">{{alert_count}}
+              </span>
+            </a>
+            <a href="/logout/">Logout</a>  
+          </div>
           <div id="newuserModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
 
@@ -177,13 +222,21 @@
                   </div>
                   <div class="modal-body">
 
+                    {% if group|stringformat:"s" == "head" %}
                     <select id="usertype">
                       <option value="">User Type</option>
                       <option value="head">Head</option>
                       <option value="manager">Manager</option>
                       <option value="temporary-head">Temporary Head</option>
                     </select>
-
+                    {% endif %}
+                    {% if group|stringformat:"s" == "temporary-head" %}
+                    <select id="usertype">
+                      <option value="">User Type</option>
+                      <option value="manager">Manager</option>
+                      <option value="temporary-head">Temporary Head</option>
+                    </select>
+                    {% endif %}
                     <input id="email" type="text" name="">
                     <input id="password" type="password" name="">
                   </div>
@@ -196,6 +249,58 @@
           </div>
           <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#newuserModal"> Create New User </button>
 
+          <div class="table-responsive">
+            <table class="table table-stripped" data-toggle="table" id="user_table">
+              <thead>
+                <tr>
+                  <th data-sortable="true">First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                  <th>Date Joined</th>
+                  <th>Status</th>
+                  
+                  
+                  
+                </tr>
+              </thead>
+              {% for u in user %}
+
+              <tr>
+                <td>{{u.first_name}}</td>
+                <td>{{u.last_name}}</td>
+                <td>{{u.username}}</td>
+                <td>{{u.date_joined}}</td> 
+                <td>
+                {% if u.is_active|stringformat:"s" == "True" %}
+                  <input type="checkbox" onchange="changestatus('toggle{{u.id}}')"
+                  {% if group|stringformat:"s" == "temporary-head" %}
+                    {% if u.groups.all.0|stringformat:"s" == "head" %}
+                      disabled
+                    {% endif %} 
+                  {% endif %}
+                  {% if u.username|stringformat:"s" == request.user.username|stringformat:"s" %}
+                    disabled 
+                  {% endif %}
+                  checked id="toggle{{u.id}}" data-on="Active" data-off="Inactive">
+                {% else %}
+                  <input type="checkbox" onchange="changestatus('toggle{{u.id}}')" 
+                    {% if group|stringformat:"s" == "temporary-head" %}
+                      {% if u.groups.all.0|stringformat:"s" == "head" %}
+                        disabled
+                      {% endif %} 
+                    {% endif %}
+                  id="toggle{{u.id}}" data-on="Active" data-off="Inactive">  
+                {% endif %}  
+                </td>
+                 
+
+              </tr>
+              {% endfor %}
+            </table>
+            
+          </div>
+
+
 
 
         </div>
@@ -203,7 +308,19 @@
     </div>
 <!--top containner-->
   </div->
-  <script type="text/javascript">
-  </script>
 
 </body>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+
+  $('input[id^="toggle"]').each(function(){
+    $('#'+this.id).bootstrapToggle();
+    
+  });
+});
+
+
+</script>
+</script>
+</html>

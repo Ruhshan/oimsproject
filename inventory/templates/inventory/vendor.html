@@ -158,6 +158,12 @@
                   </a>
                 </li>
                 {% endif %}
+                {% if group|stringformat:"s" == "temporary-head" %}
+                <li>
+                  <a href="/users/">User 
+                  </a>
+                </li>
+                {% endif %}
                 <li>
                   <a href="/vendor/">Vendor
                   </a>
@@ -258,32 +264,32 @@
           <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#newvendorModal"> Create New Vendor </button>
         	<div class="table-responsive">
         		<table class="table table-stripped" data-toggle="table" id="vendor_table">
-					<thead>
-						<tr>
-							<th data-sortable="true">Organization Name</th>
-							<th>Contact</th>
-							<th>Contact Person</th>
-							<th>Email</th>
-							<th>Address</th>
-							<th>Description</th>
-							<th>Date Added</th>
-							
-						</tr>
-					</thead>
-					{% for vendor in vendor_data %}
-					<tr>
-						<td>{{vendor.name}}</td>
-						<td>{{vendor.contact}}</td>
-						<td>{{vendor.contact_person}}</td> 
-						<td>{{vendor.email}}</td> 
-						<td>{{vendor.address}}</td> 
-						<td>{{vendor.description}}</td> 
-						<td>{{vendor.date_added}}</td>  
+    					<thead>
+    						<tr>
+    							<th data-sortable="true">Organization Name</th>
+    							<th>Contact</th>
+    							<th>Contact Person</th>
+    							<th>Email</th>
+    							<th>Address</th>
+    							<th>Description</th>
+    							<th>Date Added</th>
+    							
+    						</tr>
+    					</thead>
+    					{% for vendor in vendor_data %}
+    					<tr>
+    						<td>{{vendor.name}}</td>
+    						<td>{{vendor.contact}}</td>
+    						<td>{{vendor.contact_person}}</td> 
+    						<td>{{vendor.email}}</td> 
+    						<td>{{vendor.address}}</td> 
+    						<td>{{vendor.description}}</td> 
+    						<td>{{vendor.date_added}}</td>  
 
-					</tr>
-					{% endfor %}
-				</table>
-			</div>
+    					</tr>
+    					{% endfor %}
+    				</table>
+			    </div>
 
 
         </div>

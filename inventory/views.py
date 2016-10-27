@@ -237,13 +237,15 @@ def item_details(request, name):
 
 	item=InventoryTable.objects.get(item_name=name)
 
-	remaining= ((float(item.quantity_inside)-float(item.quantity_outside))/item.quantity_inside)*100
+	remaining=100*float(item.quantity_inside)/(float(item.quantity_inside)+float(item.quantity_outside))
 
 	details=ProcessedRequest.objects.filter(item_name=name, action='approve')
+	g=request.user.groups.all()[0]
 
 
 
-	return render(request, 'inventory/item_details.html',{'item':item, 'details':details, 'remaining':int(remaining)})
+	return render(request, 'inventory/item_details.html',{'item':item, 'details':details, 
+		'remaining':int(remaining),'group':g,'alert_count':alert_count(),'alert_content':alert_content()})
 
 
 def isadmin(request):
@@ -316,8 +318,10 @@ def updatepersonalinfo(request):
 @login_required
 def users(request):
 	g=request.user.groups.all()[0]
-	if str(g)=="head":
-		return render(request,"inventory/users.html")
+	u=User.objects.all()
+	if str(g)=="head" or str(g)=="temporary-head":
+		return render(request,"inventory/users.html",{'group':g,'alert_count':alert_count(),
+			'alert_content':alert_content(),'user':u})
 	else:
 		return HttpResponse("You don't have permission!")
 
@@ -408,8 +412,9 @@ def addvendor(request):
 def item_view(request):
 	vendor_list=Vendor.objects.values_list('name',flat=True)
 	item_list=InventoryTable.objects.values_list('item_name',flat=True)
-	print item_list
-	return render(request, 'inventory/item.html',{'vendor_list':vendor_list,'item_list':item_list,'alert_count':alert_count(),'alert_content':alert_content()})
+	g=request.user.groups.all()[0]
+	return render(request, 'inventory/item.html',{'vendor_list':vendor_list,'group':g,
+		'item_list':item_list,'alert_count':alert_count(),'alert_content':alert_content()})
 
 @login_required
 def add_item(request):
@@ -546,6 +551,21 @@ def itemadminaction(request):
 				i.save()
 
 				return HttpResponse("removed")
+
+@login_required
+def changestatus(request):
+	if request.user.groups.all()[0]!="manager":
+		if request.method=="POST":
+			uid=request.POST['id'].replace('toggle','')
+			status=request.POST['status']
+			u=User.objects.get(id=uid)
+			if status=="active":
+				u.is_active=True
+			else:
+				u.is_active=False
+			u.save()
+
+			return HttpResponse("okay")
 
 
 
