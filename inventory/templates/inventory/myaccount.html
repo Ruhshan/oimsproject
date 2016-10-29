@@ -3,11 +3,12 @@
 {% block extraelements %}
 
   {% load static %}
-  <script type="text/javascript" src="{% static 'account.js' %}"></script>      
+  <script type="text/javascript" src="{% static 'account.js' %}"></script> 
+  <script src="{% static 'js/bootbox.min.js' %}"></script>
+     
 {% endblock extraelements %}
 
 {% block content %}
-
 <form action="/updatepersonalinfo/" method="post" onsubmit="return validateForm()" name="myForm">
           {% csrf_token %}
             <div class="form-group">

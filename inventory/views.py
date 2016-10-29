@@ -15,6 +15,15 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from .models import InventoryTable, PendingRequest, ProcessedRequest, UserProfile, Vendor, Temp,ItemHistory
 from .models import InventoryTableTemp
+
+def head_count():
+	c=0
+	ids=User.objects.filter(is_active=True)
+	for i in ids:
+		if str(i.groups.all()[0])=='head':
+			c+=1
+	return c
+
 def alert_count():
 	quan=InventoryTable.objects.values('quantity_inside')
 	minq=InventoryTable.objects.values('minimum_quantity')
@@ -349,6 +358,11 @@ def adduser(request):
 		nuseremail= request.POST['email']
 		npassword = request.POST['password']
 
+		if str(nusertype)=="head":
+			h=head_count()
+			if h>=2:
+				return HttpResponse("head_exceeded")
+
 		#createuser
 		newuser= User.objects.create_user(username=nuseremail, email=nuseremail, password=npassword,is_staff=True)
 		newuser.save()
@@ -365,7 +379,7 @@ def adduser(request):
 
 
 		#creating empty profile
-		profile=UserProfile(uname=u)
+		profile=UserProfile(uname=u, created_by=request.user.username)
 		profile.save()
 
 
@@ -506,7 +520,7 @@ def passwordchange(request):
 @login_required
 def itemadminaction(request):
 	if request.method=="POST":
-		if str(request.user.groups.all()[0])=="head":
+		if str(request.user.groups.all()[0])=="head" or str(request.user.groups.all()[0])=="temporary-head":
 
 			if request.POST['action']=="ok":
 				t=InventoryTableTemp.objects.get(id=request.POST['req_id'])
@@ -561,6 +575,10 @@ def changestatus(request):
 			status=request.POST['status']
 			u=User.objects.get(id=uid)
 			if status=="active":
+				if str(u.groups.all()[0])=="head":
+					h=head_count()
+					if h>=2:
+						return HttpResponse("head_exceed")
 				u.is_active=True
 			else:
 				u.is_active=False

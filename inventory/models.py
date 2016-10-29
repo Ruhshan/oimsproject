@@ -77,6 +77,7 @@ class UserProfile(models.Model):
 	alternate_email = models.CharField(max_length=50,blank=False,null=True)
 	mypost = models.CharField(max_length=100,blank=False,null=True)
 	phone_number =models.CharField(max_length=20,blank=False,null=True)
+	created_by=models.CharField(max_length=30,blank=False,null=True)
 
 	def __str__(self):
 		return self.uname.username

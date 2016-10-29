@@ -3,8 +3,8 @@
 {% block extraelements %}
 
   {% load static %}
-   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
+  <link rel="stylesheet" href="{% static 'css/bootstrap-table.min.css' %}">
+  <script src="{% static 'js/bootstrap-table.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'vendor_scripts.js' %}"></script>
       
 {% endblock extraelements %}

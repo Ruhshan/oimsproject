@@ -105,7 +105,7 @@
 
 {% block pendingrequests %}
     <div id="request_panel">
-    {% if group|stringformat:"s" == "head" %}
+    {% if group|stringformat:"s" == "head"%}
     {%for p in pending%}
     {% if forloop.first %}
     	<h2>Pending Requests</h2>
@@ -154,6 +154,56 @@
     </div>
     {% endfor %}
     {% endif %}
+    {% if group|stringformat:"s" == "temporary-head" %}
+    {%for p in pending%}
+    {% if forloop.first %}
+      <h2>Pending Requests</h2>
+    {% endif %}
+    <div id="req_panel{{p.id_no}}">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="row">
+            <div class="col-sm-4">Request of {{p.item_name}}
+            </div>
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-4">Request for {{p.requestee}}
+            </div>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-sm-4">Requested Quantity:{{p.requested_quantity}}
+            </div>
+            <div class="col-sm-4">Available:{{p.quantity_inside}}
+            </div>
+            <div class="col-sm-4">
+              Approve:
+              <select id="approved_item_qty_dropdown{{p.id_no}}">
+                <option value="{{p.requested_quantity}}">{{p.requested_quantity}}
+                </option>
+                <option value="">more..
+                </option>
+              </select>
+              <script type="text/javascript">
+                //removed id here
+                generateOptions("approved_item_qty_dropdown{{p.id_no}}",{{p.requested_quantity}});
+              </script>
+            </div>
+          </div>
+          <p>Description:{{p.description}}            
+          </p>
+          <button type="button" class="btn btn-default" onclick="processrequest('{{p.id_no}}','approve',
+                                                                 document.getElementById('approved_item_qty_dropdown{{p.id_no}}').value)">Approve
+          </button>
+          <button type="button" class="btn btn-default" onclick="processrequest('{{p.id_no}}','reject','0')" data-dismiss="modal">Reject
+          </button>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+    
     
     {% if group|stringformat:"s" == "manager" %}
     {%for p in pending%}
@@ -265,16 +315,17 @@
 <table id="historytable">
   <thead>
     <tr>
-    <th >Date
-    </th>
-    <th>Item Name
-    </th>
-    <th>Quantity
-    </th>
-    <th>Action
-    </th>
-    <th>Requestee
-    </th>
+      <th >Date
+      </th>
+      <th>Item Name
+      </th>
+      <th>Quantity
+      </th>
+      <th>Action
+      </th>
+      <th>Requestee
+      </th>
+      <th>Processed by</th>
     </tr>
   </thead>
   {% for entry in history %}
@@ -287,6 +338,7 @@
     <td>{{entry.approved_quantity}}</td>
     <td>{{entry.action}}</td>
     <td>{{entry.requestee}}</td>
+    <td>{{entry.processed_by}}</td>
   </tr>
   {% endfor %}
 </table>  
@@ -394,7 +446,7 @@
         <div class="col-sm-8">Item:{{i.item_name}} Quantity:{{i.quantity_inside}} is requested to {{i.action}} by {{i.creator}}
         </div>
         <div class="col-sm-4" align="right">
-          {% if group|stringformat:"s" == "head" %}
+          {% if group|stringformat:"s" == "head" or group|stringformat:"s" == "temporary-head"%}
             {% if i.action|stringformat:"s" == "create" %}
             <button type="button" class="btn btn-default" onclick="itemactionok('{{i.id}}')">Okay
             </button>

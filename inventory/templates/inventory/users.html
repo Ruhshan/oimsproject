@@ -1,341 +1,131 @@
-<!DOCTYPE html>
+{% extends "inventory/base2.html" %}
 
-<html>
+{% block extraelements %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap-table.min.css' %}">
 
-<head>
-  <title>OIMS</title>
-  {% load static %}
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="//code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+<link  rel="stylesheet" href="{% static 'css/bootstrap-toggle.min.css' %}">
 
-  <script src="http://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap4.min.js"></script>
-  <link rel="stylesheet" href="http://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css">
-
-<link  rel="stylesheet" href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css">
-
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script src="{% static 'js/bootstrap-toggle.min.js' %}"></script>
 <!-- Latest compiled and minified JavaScript -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
+<script src="{% static 'js/bootstrap-table.min.js' %}"></script>
 
-  
-  <script type="text/javascript">
-    function getCookie(name) {
-          var cookieValue = null;
-          if (document.cookie && document.cookie != '') {
-              var cookies = document.cookie.split(';');
-              for (var i = 0; i < cookies.length; i++) {
-                  var cookie = jQuery.trim(cookies[i]);
-                  // Does this cookie string begin with the name we want?
-                  if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                      break;
-                  }
-              }
-          }
-          return cookieValue;
-      };
-
-    function createuser(){
-      type=document.getElementById('usertype').value;
-      email=document.getElementById('email').value;
-      password=document.getElementById('password').value;
-
-      console.log(type, email,password); 
-
-      var xhttp = new XMLHttpRequest();
-          xhttp.onreadystatechange = function() {
-          if (this.readyState == 4 && this.status == 200) {
-                console.log(this.responseText);                      
+<script type="text/javascript" src= "{% static 'users_scripts.js' %}"></script>
+<script src="{% static 'js/bootbox.min.js' %}"></script>
+   
               
-              
-              location.reload();         
-              }
-            };
-          xhttp.open("POST", "adduser/", true);
-          var csrftoken = getCookie('csrftoken');
-                    
-          xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-          xhttp.setRequestHeader("X-CSRFToken", csrftoken);
-          if(type!='User Type' & email.length>0 & password.length>=8){
+{% endblock extraelements %} 
 
-          query="type="+type;
-          query+="&email="+email;
-          query+="&password="+password;
+{% block content %}
+<div id="newuserModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" onclick="new_user_close()">&times;</button>
+            <h4 class="modal-title">Creating New User</h4>
+          </div>
+          <div class="modal-body">
+
+            {% if group|stringformat:"s" == "head" %}
+            User Type:
+            <select id="usertype">
+              <option value="User Type">User Type</option>
+              <option value="head">Head</option>
+              <option value="manager">Manager</option>
+              <option value="temporary-head">Temporary Head</option>
+            </select>
+            {% endif %}
+            {% if group|stringformat:"s" == "temporary-head" %}
+            User Type:
+            <select id="usertype">
+              <option value="User Type">User Type</option>
+              <option value="manager">Manager</option>
+              <option value="temporary-head">Temporary Head</option>
+            </select>
+            {% endif %}
+            Email:
+            <input id="email" type="text" name="">
+            Password:
+            <input id="password" type="password" name="">
+          </div>
           
-          xhttp.send(query);
-          $('#newuserModal').modal('hide'); 
-          }
-          else{
-            $('#newuserModal').effect('shake');
-          }
-
-    };
-
-    function changestatus(name){
-      var status;
-      if(document.getElementById(name).checked){
-        status="active";
-      }
-      else{
-        status="inactive";
-      }
-      var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText);                      
-          }
-        };
-      xhttp.open("POST", "changestatus/", true);
-      var csrftoken = getCookie('csrftoken');
-                
-      xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      xhttp.setRequestHeader("X-CSRFToken", csrftoken);
-      query="id="+name;
-      query+="&status="+status;
-      
-      xhttp.send(query);
-    }
-    function new_user_close(){
-      document.getElementById('usertype').value="User Type";
-      document.getElementById('email').value="";
-      document.getElementById('password').value="";
-    }
-  </script>
-          <style type="text/css">
-          #log {
-
-            position:absolute;
-            right:0;
-          }
-           /* make sidebar nav vertical */ 
-           @media (min-width: 0px) {
-            .sidebar-nav .navbar .navbar-collapse {
-              padding: 0;
-              max-height: none;
-
-
-            }
-            .sidebar-nav .navbar ul {
-              float: none;
-              display: block;
-            }
-            .sidebar-nav .navbar li {
-              float: none;
-              display: block;
-            }
-            .sidebar-nav .navbar li a {
-              padding-top: 10px;
-              padding-bottom: 12px;
-              padding-left: 10px;
-              border-color: black;
-
-            }
-          }
-
-          body .modal-dialog {
-            width: 70%; /* desired relative width */
-            left: 5%; /* (100%-width)/2 */
-            /* place center */
-            right:5%;
-            margin-left:auto;
-            margin-right:auto; 
-          }
-          
-          #modal_error{
-            color:red;
-            text-align: center;
-          }
-            
-
-
-        </style>
-      </head>
-<body>
-
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-2">
-        <div class="sidebar-nav">
-          <div class="navbar navbar-default" role="navigation">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
-                <span class="sr-only">Toggle navigation
-                </span>
-                <span class="icon-bar">
-                </span>
-                <span class="icon-bar">
-                </span>
-                <span class="icon-bar">
-                </span>
-              </button>
-              <span class="visible-xs navbar-brand">Sidebar menu
-              </span>
-            </div>
-            <div class="navbar-collapse collapse sidebar-navbar-collapse">
-              <ul class="nav navbar-nav">
-                <li>
-                  <a href="/home/">Home
-                  </a>
-                </li>
-                <li>
-                  <a href="/myaccount">My Account
-                  </a>
-                </li>
-                {% if group|stringformat:"s" == "head" %}
-                <li>
-                  <a href="/users/">User 
-                  </a>
-                </li>
-                {% endif %}
-                {% if group|stringformat:"s" == "temporary-head" %}
-                <li>
-                  <a href="/users/">User 
-                  </a>
-                </li>
-                {% endif %}
-                <li>
-                  <a href="#">Vendor
-                  </a>
-                </li>
-                
-              </ul>
-            </div>
-            <!--/.nav-collapse -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" onclick="createuser()">Create</button>
           </div>
         </div>
-      </div>
-      <div class="col-sm-10">
-        <div class="container-fluid">
-        <div id="log">
-            <a tabindex="0"
-            role="button" 
-            data-html="true" data-toggle="popover" 
-            data-trigger="focus" data-placement="bottom" data-content="{{alert_content}}">Alert
-              <span class="badge">{{alert_count}}
-              </span>
-            </a>
-            <a href="/logout/">Logout</a>  
-        </div>
-          <div id="newuserModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
 
-              <!-- Modal content-->
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" onclick="new_user_close()">&times;</button>
-                    <h4 class="modal-title">Creating New User</h4>
-                  </div>
-                  <div class="modal-body">
-
-                    {% if group|stringformat:"s" == "head" %}
-                    User Type:
-                    <select id="usertype">
-                      <option value="User Type">User Type</option>
-                      <option value="head">Head</option>
-                      <option value="manager">Manager</option>
-                      <option value="temporary-head">Temporary Head</option>
-                    </select>
-                    {% endif %}
-                    {% if group|stringformat:"s" == "temporary-head" %}
-                    User Type:
-                    <select id="usertype">
-                      <option value="User Type">User Type</option>
-                      <option value="manager">Manager</option>
-                      <option value="temporary-head">Temporary Head</option>
-                    </select>
-                    {% endif %}
-                    Email:
-                    <input id="email" type="text" name="">
-                    Password:
-                    <input id="password" type="password" name="">
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" onclick="createuser()">Create</button>
-                  </div>
-                </div>
-
-            </div>
-          </div>
-          <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#newuserModal"> Create New User </button>
-
-          <div class="table-responsive">
-            <table class="table table-stripped" data-toggle="table" id="user_table">
-              <thead>
-                <tr>
-                  <th data-sortable="true">First Name</th>
-                  <th>Last Name</th>
-                  <th>Email</th>
-                  <th>Date Joined</th>
-                  <th>Status</th>
-                  
-                  
-                  
-                </tr>
-              </thead>
-              {% for u in user %}
-
-              <tr>
-                <td>{{u.first_name}}</td>
-                <td>{{u.last_name}}</td>
-                <td>{{u.username}}</td>
-                <td>{{u.date_joined}}</td> 
-                <td>
-                {% if u.is_active|stringformat:"s" == "True" %}
-                  <input type="checkbox" onchange="changestatus('toggle{{u.id}}')"
-                  {% if group|stringformat:"s" == "temporary-head" %}
-                    {% if u.groups.all.0|stringformat:"s" == "head" %}
-                      disabled
-                    {% endif %} 
-                  {% endif %}
-                  {% if u.username|stringformat:"s" == request.user.username|stringformat:"s" %}
-                    disabled 
-                  {% endif %}
-                  checked id="toggle{{u.id}}" data-on="Active" data-off="Inactive">
-                {% else %}
-                  <input type="checkbox" onchange="changestatus('toggle{{u.id}}')" 
-                    {% if group|stringformat:"s" == "temporary-head" %}
-                      {% if u.groups.all.0|stringformat:"s" == "head" %}
-                        disabled
-                      {% endif %} 
-                    {% endif %}
-                  id="toggle{{u.id}}" data-on="Active" data-off="Inactive">  
-                {% endif %}  
-                </td>
-                 
-
-              </tr>
-              {% endfor %}
-            </table>
-            
-          </div>
-
-
-
-
-        </div>
-      </div>
     </div>
-<!--top containner-->
-  </div->
+</div>
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#newuserModal"> Create New User </button>
+<div>
+  <p id="error" style="color:red"></p>
+  
+</div>
+<div class="table-responsive">
+<table class="table table-stripped" data-toggle="table" id="user_table">
+  <thead>
+    <tr>
+      <th data-sortable="true">First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Date Joined</th>
+      <th>Created By</th>
+      <th>Status</th>
+      
+      
+      
+    </tr>
+  </thead>
+  {% for u in user %}
 
-</body>
+  <tr>
+    <td>{{u.first_name}}</td>
+    <td>{{u.last_name}}</td>
+    <td>{{u.username}}</td>
+    <td>{{u.date_joined}}</td>
+    <td>{{u.userprofile.created_by}}</td> 
+    <td>
+    {% if u.is_active|stringformat:"s" == "True" %}
+      <input type="checkbox" onchange="changestatus('toggle{{u.id}}')"
+      {% if group|stringformat:"s" == "temporary-head" %}
+        {% if u.groups.all.0|stringformat:"s" == "head" %}
+          disabled
+        {% endif %} 
+      {% endif %}
+      {% if u.username|stringformat:"s" == request.user.username|stringformat:"s" %}
+        disabled 
+      {% endif %}
+      checked id="toggle{{u.id}}" data-on="Active" data-off="Inactive">
+    {% else %}
+      <input type="checkbox" onchange="changestatus('toggle{{u.id}}')" 
+        {% if group|stringformat:"s" == "temporary-head" %}
+          {% if u.groups.all.0|stringformat:"s" == "head" %}
+            disabled
+          {% endif %} 
+        {% endif %}
+      id="toggle{{u.id}}" data-on="Active" data-off="Inactive">  
+    {% endif %}  
+    </td>
+     
+
+  </tr>
+  {% endfor %}
+</table>
+
+</div>
+
 <script type="text/javascript">
-  $(document).ready(function(){
-    $('[data-toggle="popover"]').popover();
+	$(document).ready(function(){
 
   $('input[id^="toggle"]').each(function(){
     $('#'+this.id).bootstrapToggle();
     
   });
 });
+</script>           
+
+{% endblock content %}
 
 
-</script>
-</script>
-</html>
