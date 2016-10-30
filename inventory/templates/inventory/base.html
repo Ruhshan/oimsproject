@@ -6,7 +6,7 @@
   <title>OIMS</title>
   {% load static %}
   <meta charset="utf-8">
-  <meta http-equiv="refresh" content="60" />
+  <!--meta http-equiv="refresh" content="60" /-->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
   <script src="{% static 'js/jquery.min.js' %}"></script>
@@ -16,6 +16,10 @@
   <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
   <script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
   <link rel="stylesheet" href="{% static 'css/jquery.dataTables.min.css' %}">
+  <!--link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css"-->
+  <!--script type="text/javascript" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js">
+    
+  </script-->
   <script type="text/javascript" src="{% static "scripts.js" %}"></script>
 
   
@@ -28,7 +32,7 @@
 
   </script>
 
-  <script type="text/javascript">
+  <!--script type="text/javascript">
     
           
                //for the session timeout
@@ -52,7 +56,7 @@
                check_session_timeout();
           
            
-  </script>
+  </script-->
           <style type="text/css">
           #log {
 
@@ -99,7 +103,24 @@
           }
             
 
+.popover{
+       
+       border:none;
+       border-radius:unset;
+       min-width:100px;
+       width:80%;
+       max-width: 120%;
+       overflow-wrap:break-word;
+       max-height: 200%;
+       overflow-y: scroll;
+       
+    }
+.popover-content {
+  
+  
+  overflow-x: scroll;
 
+ }
         </style>
       </head>
 <body>

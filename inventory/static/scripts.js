@@ -342,3 +342,17 @@ function itemactionremove(req_id){
   $(toclose).hide("drop", { direction: "up" }, "slow");
 
 }
+
+function popovercontent(id,rep){
+  item_id=id.replace(rep,'');
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          console.log(this.responseText);
+      }
+  };
+  xhttp.open("GET", "item/" + item_id+"/", true);
+  xhttp.send();
+
+  //return item_id;
+}

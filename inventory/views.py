@@ -244,17 +244,19 @@ def acknowledge(request):
 @login_required
 def item_details(request, name):
 
-	item=InventoryTable.objects.get(item_name=name)
+	item=InventoryTable.objects.get(id=name)
 
 	remaining=100*float(item.quantity_inside)/(float(item.quantity_inside)+float(item.quantity_outside))
 
-	details=ProcessedRequest.objects.filter(item_name=name, action='approve')
+	details=ProcessedRequest.objects.filter(item_name=item.item_name, action='approve')
 	g=request.user.groups.all()[0]
 
 
 
-	return render(request, 'inventory/item_details.html',{'item':item, 'details':details, 
-		'remaining':int(remaining),'group':g,'alert_count':alert_count(),'alert_content':alert_content()})
+	#return render(request, 'inventory/item_details.html',{'item':item, 'details':details, 
+	#	'remaining':int(remaining),'group':g,'alert_count':alert_count(),'alert_content':alert_content()})
+	return render(request, 'inventory/item_details_ajax.html',{'item':item, 'details':details, 
+	'remaining':int(remaining),'group':g,})
 
 
 def isadmin(request):

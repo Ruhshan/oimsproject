@@ -1,0 +1,86 @@
+
+
+
+<div class="container-fluid">
+  <!--h2>Dynamic Tabs</h2-->
+  
+  <!--h2>Details for {{item.item_name}}</h2-->
+  <h3>Details for {{item.item_name}}</h3>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <div class="row">
+          <div class="col-sm-6">
+            Item Name:{{item.item_name}}
+          </div>
+
+          <div class="col-sm-6" align="right">
+            Unite Price:{{item.unit_price}} Taka
+          </div>
+          
+        </div>
+    </div>
+      <div class="panel-body">
+        <div>
+          Stock Amount:{{item.quantity_inside}}
+        </div>
+        <div>
+          Delivered Amount:{{item.quantity_outside}}
+        </div>
+        <div>
+          Minimum Quantity For alert:{{item.minimum_quantity}}
+        </div>
+        <div>
+          Vendor:{{item.vendor}}
+        </div>
+
+        <div>
+          Description:<br>
+          <div class="well">
+            {{item.description}}
+          </div>
+        </div>
+
+        <div class="progress">
+            <div class="progress-bar progress-bar-success progress-bar-striped" role="  progressbar"
+            aria-valuenow="{{remaining}}"
+            aria-valuemin="0" aria-valuemax="100" style="width:{{remaining}}%">
+            <strong>{{remaining}}% Remaining..</strong>
+            </div>
+        </div>
+        
+      </div>
+    </div>
+    
+      
+    <h3>Delivery Entries</h3>  
+    <div class="table-responsive">
+      <table class="table table-striped" data-toggle="table">
+        <thead>
+          <tr>
+            <th data-sortable="true">User</th>
+            <th data-sortable="true">Requested Quantity</th>
+            <th data-sortable="true">Approved Quantity</th>
+            <th data-sortable="true">Date approved</th>
+            <th data-sortable="true">Details</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        {% for d in details %}
+          <tr>
+            <td>{{d.requestee}}</td>
+            <td>{{d.requested_quantity}}</td>
+            <td>{{d.approved_quantity}}</td>
+            <td>{{d.date_of_process}}</td>
+            <td>{{d.description}}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+      
+    
+  
+</div>
+
+

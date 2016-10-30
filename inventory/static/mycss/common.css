@@ -35,3 +35,14 @@ body .modal-dialog {
     margin-left:auto;
     margin-right:auto; 
 }
+
+.popover {
+      width: 600px;
+      max-width: 600px;
+      font-size: 13px;
+      font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+      word-break: break-all;
+      word-wrap: break-word;
+      white-space: pre;
+      width: 600px;
+    }

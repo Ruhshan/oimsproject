@@ -18,7 +18,8 @@
         {% for items in inv %}
         <tr>
             <td >
-              <a href="{% url 'item_details' name=items.item_name %}">{{items.item_name}}</a>
+              <!--a href="{% url 'item_details' name=items.item_name %}">{{items.item_name}}</a-->
+              <a href="#" id="pop{{items.id}}">{{items.item_name}}</a>
             </td>
             <td>{{items.quantity_inside}}</td>
             <td>{{items.quantity_outside}}</td>
@@ -29,11 +30,22 @@
     </table>
 	<script type="text/javascript">
 	    $(document).ready(function(){
-	      $('#inventorytable').DataTable({
-	        select: true}
-	                                    );
-	    }
-	                     );
+	      $('#inventorytable').DataTable({select: true});
+	     
+        $("[id^=pop]").each(function(){
+          $('#'+this.id).popover({
+            //content:popovercontent(this.id,'pop'),
+            
+            content: function() {
+              item_id=this.id; 
+              item_id=item_id.replace('pop','')
+              return $.ajax({url: 'item/'+item_id,dataType: 'html',async: false}).responseText;
+            },
+            trigger:"focus",
+            html : true,});
+          
+        });
+      });
 	</script>
 {% endblock table %}
 
@@ -333,7 +345,8 @@
     <td >
       {{entry.date_of_process}}
     </td>
-    <td><a href="{% url 'item_details' name=entry.item_name %}">{{entry.item_name}}</a>
+    <td>
+    <a href="{% url 'item_details' name=entry.item_name %}">{{entry.item_name}}</a><
     </td>
     <td>{{entry.approved_quantity}}</td>
     <td>{{entry.action}}</td>
@@ -349,6 +362,7 @@
         htable=$('#historytable').DataTable({
           select: true}
                                       );
+   
       }
                        );
 </script>
