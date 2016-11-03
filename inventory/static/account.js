@@ -36,7 +36,7 @@
         
         if(newp.length>0){
 
-          r=confirm("Account will be locked");
+          r=confirm("Account will be locked until admin confirms password change. Would you like to proceed?");
            
         }
       if(r==true){

@@ -12,9 +12,15 @@ from django.template import loader
 from django.core.exceptions import ObjectDoesNotExist
 #from django.core.urlresolvers import reverse
 #imported models
-
+from hashlib import md5
 from .models import InventoryTable, PendingRequest, ProcessedRequest, UserProfile, Vendor, Temp,ItemHistory
-from .models import InventoryTableTemp
+from .models import InventoryTableTemp, SeccondaryPassword
+def check_password2(name, password2):
+	return str(md5(password2).hexdigest())==str(SeccondaryPassword.objects.get(user_name=name).value)
+
+
+
+
 
 def head_count():
 	c=0
@@ -65,12 +71,12 @@ def user_login(request):
 		
 
 		if g=="head":
-			if password2=="9800":
+			if check_password2(email,password2):
 				user=authenticate(username=email,password=password)
 			else:
 				return HttpResponse("Invalid Seccondary password")
 		if g=="temporary-head":
-			if password2=="8900":
+			if check_password2(email,password2):
 				user=authenticate(username=email,password=password)
 			else:
 				return HttpResponse("Invalid Seccondary password")
@@ -261,6 +267,7 @@ def item_details(request, name):
 
 def isadmin(request):
 	if request.method=='POST':
+		print "isadmin called"
 		email=request.POST["email"]
 		u=User.objects.get(username=email)
 		g=str(u.groups.all()[0])
@@ -330,7 +337,8 @@ def updatepersonalinfo(request):
 @login_required
 def users(request):
 	g=request.user.groups.all()[0]
-	u=User.objects.all()
+	u=User.objects.filter(userprofile__is_deleted=0)
+
 	if str(g)=="head" or str(g)=="temporary-head":
 		return render(request,"inventory/users.html",{'group':g,'alert_count':alert_count(),
 			'alert_content':alert_content(),'user':u})
@@ -576,6 +584,13 @@ def changestatus(request):
 			uid=request.POST['id'].replace('toggle','')
 			status=request.POST['status']
 			u=User.objects.get(id=uid)
+			p1=request.POST['p1']
+			p2=request.POST['p2']
+			pcheck=0
+			if request.user.check_password(p1) and check_password2(request.user.username,p2):
+				pcheck=1
+			if pcheck==0:
+				return HttpResponse("password_error")
 			if status=="active":
 				if str(u.groups.all()[0])=="head":
 					h=head_count()
@@ -587,6 +602,36 @@ def changestatus(request):
 			u.save()
 
 			return HttpResponse("okay")
+
+def modifyuser(request):
+	if request.method=="POST":
+		p1=request.POST['p1']
+		p2=request.POST['p2']
+		uid=request.POST['id']
+
+		pcheck=0
+		if request.user.check_password(p1) and check_password2(request.user.username,p2):
+				pcheck=1
+		if pcheck==0:
+			return HttpResponse("password_error")
+
+		try:
+			status=request.POST['status']
+			print "stat",status
+			print "change status",status
+		except:
+			print "no change in status"
+
+		try:
+			todelete=request.POST['delete']
+			print "to delete", todelete
+		except:
+			print "no deletion"
+		try:
+			editemail=request.POST["newemail"]
+			print "Change email",editemail
+		except:
+			print "no email edit"
 
 
 

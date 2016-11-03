@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.db import models
 import uuid
+import hashlib
 # Create your models here.
 class InventoryTable(models.Model):
 	item_name=models.CharField(max_length=100,blank=False,null=False, unique=True, db_index=True)
@@ -78,6 +79,7 @@ class UserProfile(models.Model):
 	mypost = models.CharField(max_length=100,blank=False,null=True)
 	phone_number =models.CharField(max_length=20,blank=False,null=True)
 	created_by=models.CharField(max_length=30,blank=False,null=True)
+	is_deleted=models.IntegerField(default=0)
 
 	def __str__(self):
 		return self.uname.username
@@ -118,3 +120,14 @@ class ItemHistory(models.Model):
 
 	def __str__(self):
 		return str(self.name)
+
+class SeccondaryPassword(models.Model):
+	user_name=models.CharField(max_length=100,blank=False,null=False)
+	value=models.CharField(max_length=16)
+
+	def save(self, *args, **kwargs):
+		self.value = hashlib.md5(self.value).hexdigest()
+		super(SeccondaryPassword, self).save(*args, **kwargs)
+
+	def __str__(self):
+		return str(self.user_name) 
