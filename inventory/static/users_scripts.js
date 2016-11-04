@@ -15,6 +15,9 @@ function getCookie(name) {
       };
 
     function createuser(){
+      var p1=document.getElementById('adminpassword1').value;
+      var p2=document.getElementById('adminpassword2').value;
+
       ///ajax initialization
       var xhttp = new XMLHttpRequest();
           xhttp.onreadystatechange = function() {
@@ -23,7 +26,9 @@ function getCookie(name) {
                   document.getElementById("error").innerHTML="Aleready two heads are active!";
                   console.log("exceed");
                   }
-                
+                else if(this.responseText=="password_error"){
+                  document.getElementById("error").innerHTML="You entered wrong password";
+                }      
                 else{
                   location.reload();
                 }                      
@@ -55,6 +60,8 @@ function getCookie(name) {
               query+="&email="+email;
               query+="&password="+password;
               query+="&password2="+password2;
+              query+="&adminpassword1="+p1;
+              query+="&adminpassword2="+p2;
               
               xhttp.send(query);
             $('#newuserModal').modal('hide'); 
@@ -70,6 +77,8 @@ function getCookie(name) {
               query="type="+type;
               query+="&email="+email;
               query+="&password="+password;
+              query+="&adminpassword1="+p1;
+              query+="&adminpassword2="+p2;
               
               
               xhttp.send(query);
@@ -187,20 +196,38 @@ function showinput(type){
                     </div>
                   </div>
                   `;
+  var adminpassword=`<div class="well" id="adminpassword">
+                        <div class="form-group" id='adminpone'>
+                          <label class="control-label col-sm-3" for="adminpassword1">Password 1:</label>
+                            <div class="col-sm-8">
+                            <input type="password" class="form-control" id="adminpassword1" placeholder="Enter Your Password 1">
+                            </div>
+                        </div>
+                        <div class="form-group" id='adminptwo'>
+                          <label class="control-label col-sm-3" for="adminpassword2">Password 2:</label>
+                          <div class="col-sm-8">
+                            <input type="password" class="form-control" id="adminpassword2" placeholder="Enter Your Password 2">
+                          </div>
+                        </div>
+                      </div>
+                  `;
   if(type=="head" || type=="temporary-head"){
     $("#hemail").replaceWith(email);
     $("#hpwd").replaceWith(password);
     $("#hpwd2").replaceWith(password2);
+    $('#adminpassword').replaceWith(adminpassword);
   }
   else if(type=="manager"){
       $("#hemail").replaceWith(email);
       $("#hpwd").replaceWith(password);
       $("#hpwd2").replaceWith('<div id="hpwd2"></div>');
+      $('#adminpassword').replaceWith(adminpassword);
   }
   else{
     $("#hemail").replaceWith('<div id="hemail"></div>');
     $("#hpwd").replaceWith('<div id="hpwd"></div>');
     $("#hpwd2").replaceWith('<div id="hpwd2"></div>');
+    $('#adminpassword').replaceWith('<div id="adminpassword"></div>');
   }
   
 }
@@ -283,10 +310,15 @@ function moduser(id){
   if (this.readyState == 4 && this.status == 200) {
       if(this.responseText=="okay"){
         $('#moduserModal'+id).modal('hide');
+        location.reload();
       }
       else if(this.responseText=="password_error"){
        $('#moduserModal'+id).effect('shake');
        console.log("password error") 
+      }
+      else if(this.responseText=="to_delete_not_matched"){
+        console.log("to_delete_not_matched");
+        $('#moduserModal'+id).effect('shake');
       }
       else{
        $('#moduserModal'+id).effect('shake'); 

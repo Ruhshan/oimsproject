@@ -295,11 +295,9 @@ def updatepersonalinfo(request):
 		phone = request.POST['phone_number']
 		mpost = request.POST['mypost']
 		alt_email = request.POST['alternate_email']
-		newp = request.POST['newp']
 		oldp = request.POST['oldp']
 
 		print "*****",alt_email
-		print newp
 		uname = request.user.username
 		user = User.objects.get(username = uname)
 		if user.check_password(oldp)==True:
@@ -312,20 +310,7 @@ def updatepersonalinfo(request):
 			profile.alternate_email=alt_email
 			profile.mypost= mpost
 			profile.phone_number=phone
-			if newp:
-				#if new password is submitted it is temporariy stored in db but other fields are updated
-				#and user is deactivated and logged out
-				try:
-					t=Temp.objects.get(name=uname)
-					t.tp=newp
-					t.save()
-				except ObjectDoesNotExist:
-					t=Temp(name=uname, tp=newp)
-					t.save()
-				user.is_active=False
-				user.save()
-				profile.save()
-				return HttpResponseRedirect("/login/")
+			
 
 			user.save()
 			profile.save()
@@ -339,7 +324,7 @@ def users(request):
 	g=request.user.groups.all()[0]
 	u=User.objects.filter(userprofile__is_deleted=0)
 
-	if str(g)=="head" or str(g)=="temporary-head":
+	if str(g)=="head":
 		return render(request,"inventory/users.html",{'group':g,'alert_count':alert_count(),
 			'alert_content':alert_content(),'user':u})
 	else:
@@ -367,6 +352,18 @@ def adduser(request):
 		nusertype = request.POST['type']
 		nuseremail= request.POST['email']
 		npassword = request.POST['password']
+		adminp1 = request.POST['adminpassword1']
+		adminp2 = request.POST['adminpassword2']
+		try:
+			npassword2= request.POST['password2']
+		except:
+			print "my be manager"
+
+		pcheck=0
+		if request.user.check_password(adminp1) and check_password2(request.user.username,adminp2):
+				pcheck=1
+		if pcheck==0:
+			return HttpResponse("password_error")
 
 		if str(nusertype)=="head":
 			h=head_count()
@@ -377,13 +374,17 @@ def adduser(request):
 		newuser= User.objects.create_user(username=nuseremail, email=nuseremail, password=npassword,is_staff=True)
 		newuser.save()
 
-		#assigning group
+		#assigning group and seccondary password
 		if str(nusertype)=='head':
 			g = Group.objects.get(name='head')
+			sp=SeccondaryPassword(user_name=nuseremail,value=npassword2)
+			sp.save()
 		elif str(nusertype)=="manager":
 			g = Group.objects.get(name='manager')
 		else:
 			g = Group.objects.get(name="temporary-head")
+			sp=SeccondaryPassword(user_name=nuseremail,value=npassword2)
+			sp.save()
 		u = User.objects.get(username=nuseremail)
 		g.user_set.add(u)
 
@@ -608,7 +609,7 @@ def modifyuser(request):
 		p1=request.POST['p1']
 		p2=request.POST['p2']
 		uid=request.POST['id']
-
+		target_user=User.objects.get(id=uid)
 		pcheck=0
 		if request.user.check_password(p1) and check_password2(request.user.username,p2):
 				pcheck=1
@@ -619,19 +620,79 @@ def modifyuser(request):
 			status=request.POST['status']
 			print "stat",status
 			print "change status",status
+			if status=="activate":
+				target_user.is_active=True
+			else:
+				target_user.is_active=False
+			target_user.save()
+			return HttpResponse("okay")
 		except:
 			print "no change in status"
 
 		try:
 			todelete=request.POST['delete']
-			print "to delete", todelete
+			if todelete==target_user.username:
+				profile=UserProfile.objects.get(uname=target_user)
+				profile.is_deleted=1
+				profile.save()
+				return HttpResponse("okay")
+
+			else:
+				return HttpResponse("to_delete_not_matched")	
 		except:
 			print "no deletion"
 		try:
 			editemail=request.POST["newemail"]
-			print "Change email",editemail
+			target_user.username=editemail
+			target_user.save()
+			return HttpResponse("okay")
 		except:
 			print "no email edit"
 
+@login_required
+def changepassword(request):
+	if request.method=='POST':
+		if request.POST['type']=="head":
+			old1=request.POST['old1']
+			old2=request.POST['old2']
+			new1=request.POST['new1']
+			new2=request.POST['new2']
+			name=request.POST['name']
+
+			if request.user.check_password(old1) and check_password2(request.user.username,old2):
+				request.user.set_password(new1)
+				sp=SeccondaryPassword.objects.get(user_name=request.user.username)
+				sp.value=new2
+				sp.save()
+				return HttpResponse("okay")
+			else:
+				return HttpResponse("wrong password")
+
+			print old1,old2,new1,new2,name
+
+		if request.POST['type']=="manager":
+			oldp=request.POST['old1']
+			newp=request.POST['new1']
+			name=request.POST['name']
+
+			user=User.objects.get(username=name)
+
+			if user.check_password(oldp)==True:
+				try:
+					t=Temp.objects.get(name=name)
+					t.tp=newp
+					t.save()
+				except ObjectDoesNotExist:
+					t=Temp(name=name, tp=newp)
+					t.save()
+				user.is_active=False
+				user.save()
+				print "ok"
+				return HttpResponse("okay")
+			else:
+				print "something wrong"
+				return HttpResponse("wrong password")
+
+			
 
 

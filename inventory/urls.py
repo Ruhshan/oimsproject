@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^myaccount/$',views.myaccount,name='myaccount'),
     url(r'^updatepersonalinfo/$',views.updatepersonalinfo,name='updatepersonalinfo'),
     url(r'^myaccount/login/$',views.user_login,name='user_login'),
+    url(r'^myaccount/changepassword/$',views.changepassword,name='changepassword'),
     url(r'^users/$', views.users,name='users'),
     url(r'^users/changestatus/$',views.changestatus,name="changestatus"),
     url(r'^users/adduser/$',views.adduser, name='adduser'),
