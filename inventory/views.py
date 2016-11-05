@@ -14,7 +14,7 @@ from django.core.exceptions import ObjectDoesNotExist
 #imported models
 from hashlib import md5
 from .models import InventoryTable, PendingRequest, ProcessedRequest, UserProfile, Vendor, Temp,ItemHistory
-from .models import InventoryTableTemp, SeccondaryPassword
+from .models import InventoryTableTemp, SeccondaryPassword, LoginHistory
 def check_password2(name, password2):
 	return str(md5(password2).hexdigest())==str(SeccondaryPassword.objects.get(user_name=name).value)
 
@@ -77,11 +77,16 @@ def user_login(request):
 				return HttpResponse("Invalid Seccondary password")
 		if g=="temporary-head":
 			if check_password2(email,password2):
+
 				user=authenticate(username=email,password=password)
+				l=LoginHistory(action="Login", user_name=request.user)
+				l.save()
 			else:
 				return HttpResponse("Invalid Seccondary password")
 		else:
 			user=authenticate(username=email,password=password)
+			l=LoginHistory(action="Login", user_name=user)
+			l.save()
 
 		
 
@@ -143,6 +148,8 @@ def view_home(request):
 
 @login_required
 def user_logout(request):
+	l=LoginHistory(action="Logout", user_name=request.user)
+	l.save()
 	logout(request)
 	return HttpResponseRedirect("/home/")
 
@@ -323,10 +330,11 @@ def updatepersonalinfo(request):
 def users(request):
 	g=request.user.groups.all()[0]
 	u=User.objects.filter(userprofile__is_deleted=0)
+	history=LoginHistory.objects.all()
 
 	if str(g)=="head":
 		return render(request,"inventory/users.html",{'group':g,'alert_count':alert_count(),
-			'alert_content':alert_content(),'user':u})
+			'alert_content':alert_content(),'user':u,'history':history})
 	else:
 		return HttpResponse("You don't have permission!")
 
@@ -621,7 +629,12 @@ def modifyuser(request):
 			print "stat",status
 			print "change status",status
 			if status=="activate":
-				target_user.is_active=True
+				if str(target_user.groups.all()[0])=="head":
+					h=head_count()
+					if h>=2:
+						return HttpResponse("head_exceeded")
+				else:
+					target_user.is_active=True
 			else:
 				target_user.is_active=False
 			target_user.save()

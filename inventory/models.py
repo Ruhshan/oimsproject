@@ -130,4 +130,15 @@ class SeccondaryPassword(models.Model):
 		super(SeccondaryPassword, self).save(*args, **kwargs)
 
 	def __str__(self):
-		return str(self.user_name) 
+		return str(self.user_name)
+
+class LoginHistory(models.Model):
+	timestamp = models.DateTimeField(auto_now_add=True, null=True)
+	action = models.CharField(max_length=10)
+	user_name = models.ForeignKey(User, null=True, blank=True)
+
+	def __str__(self):
+		return str(self.user_name)
+
+
+

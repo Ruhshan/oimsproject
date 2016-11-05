@@ -320,6 +320,12 @@ function moduser(id){
         console.log("to_delete_not_matched");
         $('#moduserModal'+id).effect('shake');
       }
+      else if(this.responseText=="head_exceeded"){
+        bootbox.alert("Already two heads are active");
+        $('#toggle'+id).bootstrapToggle('toggle');
+        $('#moduserModal'+id).effect('shake');
+
+      }
       else{
        $('#moduserModal'+id).effect('shake'); 
       }

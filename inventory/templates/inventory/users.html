@@ -148,71 +148,112 @@
 
     </div>
 </div>
-<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#newuserModal"> Create New User </button>
-<div>
-  <p id="error" style="color:red"></p>
-  
+
+<ul class="nav nav-tabs">
+    <li>
+      <a data-toggle="tab" href="#createremoveedit">Create Remove or Edit
+      </a>
+    </li>
+    <li>
+      <a data-toggle="tab" href="#loginhistory">Login History
+      </a>
+    </li>
+</ul>
+
+<div class="tab-content">
+  <div id="createremoveedit" class="tab-pane fade in active">
+      <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#newuserModal"> Create New User </button>
+      <div>
+        <p id="error" style="color:red"></p>
+        
+      </div>
+      <div class="table-responsive">
+      <table class="table table-stripped" data-toggle="table" id="user_table">
+        <thead>
+          <tr>
+            <th data-sortable="true">Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Date Joined</th>
+            <th>Created By</th>
+            <th>Modify</th>
+            
+            
+            
+          </tr>
+        </thead>
+        {% for u in user %}
+
+        <tr>
+          <td>{{u.first_name}} {{u.last_name}}</td>
+          <td>{{u.username}}</td>
+          <td>{{u.groups.all.0}}</td>
+          <td>{{u.date_joined}}</td>
+          <td>{{u.userprofile.created_by}}</td> 
+          <!--td>
+          {% if u.is_active|stringformat:"s" == "True" %}
+            <input type="checkbox" onchange="changestatus('toggle{{u.id}}')"
+            {% if group|stringformat:"s" == "temporary-head" %}
+              {% if u.groups.all.0|stringformat:"s" == "head" %}
+                disabled
+              {% endif %} 
+            {% endif %}
+            {% if u.username|stringformat:"s" == request.user.username|stringformat:"s" %}
+              disabled 
+            {% endif %}
+            checked id="toggle{{u.id}}" data-on="Active" data-off="Inactive">
+          {% else %}
+            <input type="checkbox" onchange="changestatus('toggle{{u.id}}')" 
+              {% if group|stringformat:"s" == "temporary-head" %}
+                {% if u.groups.all.0|stringformat:"s" == "head" %}
+                  disabled
+                {% endif %} 
+              {% endif %}
+            id="toggle{{u.id}}" data-on="Active" data-off="Inactive">  
+          {% endif %}  
+          </td-->
+          <td>
+            
+            {% if u.username|stringformat:"s" == request.user.username|stringformat:"s" %}
+              <button type="button" disabled class="btn btn-info btn-sm" data-toggle="modal" data-target="#moduserModal{{u.id}}"> Modify </button>
+            {% else %}
+              <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#moduserModal{{u.id}}"> Modify </button>
+            {% endif %}
+          </td>
+           
+
+        </tr>
+        {% endfor %}
+      </table>
+      <!--div table responsive ends here-->
+      </div>
+    <!--div createremoveedit ends here-->
+  </div>
+  <div id="loginhistory" class="tab-pane fade in">
+    <table class="table table-stripped" data-toggle="table" id="history_table">
+      <thead>
+            <tr>
+              <th>Action</th>
+              <th>User</th>
+              <th data-sortable="true">Time Stamp</th>
+            </tr>
+          </thead>
+      {% for h in history %}
+        <tr>
+          <td>{{h.action}}</td>
+          <td>{{h.user_name}}</td>
+          <td>{{h.timestamp}}</td>
+        </tr>
+      {% endfor %}
+    <!--history_table-->
+    </table>
+    <!--div loginhistory-->
+  </div>
+  <!--div tab content ends here-->
 </div>
-<div class="table-responsive">
-<table class="table table-stripped" data-toggle="table" id="user_table">
-  <thead>
-    <tr>
-      <th data-sortable="true">Name</th>
-      <th>Email</th>
-      <th>Role</th>
-      <th>Date Joined</th>
-      <th>Created By</th>
-      <th>Modify</th>
-      
-      
-      
-    </tr>
-  </thead>
-  {% for u in user %}
 
-  <tr>
-    <td>{{u.first_name}} {{u.last_name}}</td>
-    <td>{{u.username}}</td>
-    <td>{{u.groups.all.0}}</td>
-    <td>{{u.date_joined}}</td>
-    <td>{{u.userprofile.created_by}}</td> 
-    <!--td>
-    {% if u.is_active|stringformat:"s" == "True" %}
-      <input type="checkbox" onchange="changestatus('toggle{{u.id}}')"
-      {% if group|stringformat:"s" == "temporary-head" %}
-        {% if u.groups.all.0|stringformat:"s" == "head" %}
-          disabled
-        {% endif %} 
-      {% endif %}
-      {% if u.username|stringformat:"s" == request.user.username|stringformat:"s" %}
-        disabled 
-      {% endif %}
-      checked id="toggle{{u.id}}" data-on="Active" data-off="Inactive">
-    {% else %}
-      <input type="checkbox" onchange="changestatus('toggle{{u.id}}')" 
-        {% if group|stringformat:"s" == "temporary-head" %}
-          {% if u.groups.all.0|stringformat:"s" == "head" %}
-            disabled
-          {% endif %} 
-        {% endif %}
-      id="toggle{{u.id}}" data-on="Active" data-off="Inactive">  
-    {% endif %}  
-    </td-->
-    <td>
-      
-      {% if u.username|stringformat:"s" == request.user.username|stringformat:"s" %}
-        <button type="button" disabled class="btn btn-info btn-sm" data-toggle="modal" data-target="#moduserModal{{u.id}}"> Modify </button>
-      {% else %}
-        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#moduserModal{{u.id}}"> Modify </button>
-      {% endif %}
-    </td>
-     
 
-  </tr>
-  {% endfor %}
-</table>
 
-</div>
 
 <script type="text/javascript">
 	$(document).ready(function(){
