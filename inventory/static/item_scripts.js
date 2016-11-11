@@ -144,6 +144,7 @@ function getCookie(name) {
 
       function updateitem(){
         name=document.getElementById('iname2').value;
+        newname=document.getElementById('newname').value;
         quant=document.getElementById('iquantity2').value;
         minquant=document.getElementById('minquant2').value;
         price=document.getElementById('uprice2').value;
@@ -173,6 +174,7 @@ function getCookie(name) {
           query+="&price="+price;
           query+="&description="+description;
           query+="&vendor="+vendor;
+          query+="&newname="+newname;
           
           
           xhttp.send(query);

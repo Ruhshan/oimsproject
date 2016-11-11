@@ -61,10 +61,13 @@ class ProcessedRequest(models.Model):
 	description=models.TextField()
 	date_of_request=models.DateField()
 
-	processed_by=models.CharField(max_length=100,blank=False,null=False)
+	#processed_by=models.CharField(max_length=100,blank=False,null=False)
+	processed_by=models.ForeignKey(User, on_delete=models.CASCADE)
 	date_of_process=models.DateField(auto_now=True)
 	action=models.CharField(max_length=10, blank=False, null=False)
 	acknowledgement=models.IntegerField(default=0)
+	delivered_price=models.DecimalField(max_digits=10, decimal_places=5)
+	
 
 	def update(self):
 		self.save()
@@ -80,6 +83,7 @@ class UserProfile(models.Model):
 	phone_number =models.CharField(max_length=20,blank=False,null=True)
 	created_by=models.CharField(max_length=30,blank=False,null=True)
 	is_deleted=models.IntegerField(default=0)
+	nick_name=models.CharField(max_length=50,default="Nick not set")
 
 	def __str__(self):
 		return self.uname.username
@@ -117,6 +121,7 @@ class ItemHistory(models.Model):
 	date_added = models.DateField(auto_now_add= True)
 	added_by = models.CharField(max_length=50,blank=False,null=False)
 	approved_by = models.CharField(max_length=50,blank=False,null=False)
+	modified_name=models.CharField(max_length=50,blank=True,null=True)
 
 	def __str__(self):
 		return str(self.name)

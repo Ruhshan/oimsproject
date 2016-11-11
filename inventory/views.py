@@ -15,6 +15,26 @@ from django.core.exceptions import ObjectDoesNotExist
 from hashlib import md5
 from .models import InventoryTable, PendingRequest, ProcessedRequest, UserProfile, Vendor, Temp,ItemHistory
 from .models import InventoryTableTemp, SeccondaryPassword, LoginHistory
+
+def changename(oldname, newname, request):
+	#changin names in already existing table
+	it=InventoryTable.objects.filter(item_name=oldname)
+	it.update(item_name=newname)
+	
+
+	pr=ProcessedRequest.objects.filter(item_name=oldname)
+	pr.update(item_name=newname)
+
+	ih=ItemHistory.objects.filter(name=oldname)
+	ih.update(name=newname)
+
+	#addning change entry to table
+	changeentry=ItemHistory(name=newname,action="namechange", added_by=request.user.username, 
+		approved_by=request.user.username,modified_name=oldname,quantity=0)
+	changeentry.save()
+
+
+
 def check_password2(name, password2):
 	return str(md5(password2).hexdigest())==str(SeccondaryPassword.objects.get(user_name=name).value)
 
@@ -79,7 +99,7 @@ def user_login(request):
 			if check_password2(email,password2):
 
 				user=authenticate(username=email,password=password)
-				l=LoginHistory(action="Login", user_name=request.user)
+				l=LoginHistory(action="Login", user_name=user)
 				l.save()
 			else:
 				return HttpResponse("Invalid Seccondary password")
@@ -209,10 +229,13 @@ def process_request(request):
 		ndescription=p.description
 		ndate_of_request=p.date_of_request
 
-		nprocessed_by=request.user.username
-		
+		nprocessed_by=User.objects.get(username=request.user.username)
+		ndelivered_price=InventoryTable.objects.get(item_name=nitem_name).unit_price
 
-		q=ProcessedRequest(id_no=nid_no, requestee=nrequestee, item_name=nitem_name, requested_quantity=nrequested_quantity, approved_quantity=value,store_manager=nstore_manager, description=ndescription, date_of_request=ndate_of_request,processed_by = nprocessed_by,action=decesion)
+		q=ProcessedRequest(id_no=nid_no, requestee=nrequestee, item_name=nitem_name, 
+			requested_quantity=nrequested_quantity, approved_quantity=value,
+			store_manager=nstore_manager, description=ndescription, date_of_request=ndate_of_request,
+			processed_by = nprocessed_by,action=decesion,delivered_price=ndelivered_price)
 		q.save()
 
 		p.delete()
@@ -486,9 +509,15 @@ def updateitem(request):
 		price=request.POST['price']
 		desc=request.POST['description']
 		vendor=request.POST['vendor']
+		newname=request.POST['newname']
+
+		
+		if newname:
+			changename(name, newname,request)
+			return HttpResponse("okay")
 
 		m=InventoryTable.objects.get(item_name=name)
-		
+
 		if quant:
 			i=InventoryTableTemp(item_name=name,creator=request.user.username)
 			i.quantity_inside=int(quant)

@@ -331,6 +331,8 @@
       </th>
       <th>Item Name
       </th>
+      <th>Price
+      </th>
       <th>Quantity
       </th>
       <th>Action
@@ -348,10 +350,11 @@
     <td>
     <a href="{% url 'item_details' name=entry.item_name %}">{{entry.item_name}}</a>
     </td>
+    <td>{{entry.delivered_price}}</td> 
     <td>{{entry.approved_quantity}}</td>
     <td>{{entry.action}}</td>
     <td>{{entry.requestee}}</td>
-    <td>{{entry.processed_by}}</td>
+    <td>{{entry.processed_by.userprofile.nick_name}}</td>
   </tr>
   {% endfor %}
 </table>  
@@ -414,6 +417,8 @@
     </th>
     <th>Action
     </th>
+    <th>Modified name
+    </th>
     <th>Added by
     </th>
     <th>Approved by
@@ -426,6 +431,7 @@
     <td><a href="{% url 'item_details' name=entry.name %}">{{entry.name}}</a></td>
     <td>{{entry.quantity}}</td>
     <td>{{entry.action}}</td>
+    <td>{{entry.modified_name}}</td>
     <td>{{entry.added_by}}</td>
     <td>{{entry.approved_by}}</td>
   </tr>
