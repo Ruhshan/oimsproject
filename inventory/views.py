@@ -29,8 +29,10 @@ def changename(oldname, newname, request):
 	ih.update(name=newname)
 
 	#addning change entry to table
-	changeentry=ItemHistory(name=newname,action="namechange", added_by=request.user.username, 
-		approved_by=request.user.username,modified_name=oldname,quantity=0)
+	nadded_by=User.objects.get(username=request.user.username).userprofile.nick_name
+	napproved_by=User.objects.get(username=request.user.username)
+	changeentry=ItemHistory(name=newname,action="namechange", added_by=nadded_by, 
+		approved_by=napproved_by,modified_name=oldname,quantity=0)
 	changeentry.save()
 
 
@@ -157,21 +159,22 @@ def view_home(request):
 		date_range={'start':'/'.join([s[1],s[2],s[0]]),
 		             'end':'/'.join([e[1],e[2],e[0]])}
 
-		
+		ret_item=ProcessedRequest.objects.filter(action='approve').distinct().values('item_name')
+
 		return render(request, 'inventory/home.html',{'inv':inv,'item_names':item_names,'pending':pending,
 			'processed':processed, 'group':g, 'requestee':requestee_suggestion,
 			'date_range':date_range, 'history':acknowledged,'passwordreq':passwordreq,
 			'alert_count':alert_count(),'alert_content':alert_content(),
-			'historyitems':historyitems,'itemcreate':itemcreate})
+			'historyitems':historyitems,'itemcreate':itemcreate,'ret_item':ret_item})
 	else:
-		return render(request, 'inventory/unloggedhome.html',)
+		return HttpResponseRedirect("/login/")
 
 @login_required
 def user_logout(request):
 	l=LoginHistory(action="Logout", user_name=request.user)
 	l.save()
 	logout(request)
-	return HttpResponseRedirect("/home/")
+	return HttpResponseRedirect("/login/")
 
 @login_required
 def itemqty(request):
@@ -385,6 +388,7 @@ def adduser(request):
 		npassword = request.POST['password']
 		adminp1 = request.POST['adminpassword1']
 		adminp2 = request.POST['adminpassword2']
+		nick_name=request.POST['nick_name']
 		try:
 			npassword2= request.POST['password2']
 		except:
@@ -421,7 +425,7 @@ def adduser(request):
 
 
 		#creating empty profile
-		profile=UserProfile(uname=u, created_by=request.user.username)
+		profile=UserProfile(uname=u, created_by=request.user.userprofile.nick_name,nick_name=nick_name)
 		profile.save()
 
 
@@ -572,11 +576,13 @@ def itemadminaction(request):
 
 			if request.POST['action']=="ok":
 				t=InventoryTableTemp.objects.get(id=request.POST['req_id'])
+				nadded_by=User.objects.get(username=t.creator).userprofile.nick_name
+				napproved_by=User.objects.get(username=request.user.username)
 				i=InventoryTable(item_name=t.item_name,quantity_inside=t.quantity_inside, 
 				quantity_outside=t.quantity_outside,minimum_quantity=t.minimum_quantity,unit_price=t.unit_price,
 				description=t.description,vendor=t.vendor)
 				h=ItemHistory(name=i.item_name,action="create", quantity=i.quantity_inside,
-					added_by=t.creator, approved_by=request.user.username)
+					added_by=nadded_by, approved_by=napproved_by)
 				h.save()
 
 				i.save()
@@ -595,9 +601,11 @@ def itemadminaction(request):
 				t=InventoryTableTemp.objects.get(id=request.POST['req_id'])
 				i=InventoryTable.objects.get(item_name=t.item_name)
 				i.quantity_inside+=int(t.quantity_inside)
+				nadded_by=User.objects.get(username=t.creator).userprofile.nick_name
+				napproved_by=User.objects.get(username=request.user.username)
 
 				h=ItemHistory(name=i.item_name,action="add", quantity=t.quantity_inside,
-					added_by=t.creator, approved_by=request.user.username)
+					added_by=nadded_by, approved_by=napproved_by)
 				t.delete()
 				h.save()
 				i.save()
@@ -606,9 +614,11 @@ def itemadminaction(request):
 				t=InventoryTableTemp.objects.get(id=request.POST['req_id'])
 				i=InventoryTable.objects.get(item_name=t.item_name)
 				i.quantity_inside-=int(t.quantity_inside)
+				nadded_by=User.objects.get(username=t.creator).userprofile.nick_name
+				napproved_by=User.objects.get(username=request.user.username)
 
 				h=ItemHistory(name=i.item_name,action="remove", quantity=t.quantity_inside,
-					added_by=t.creator, approved_by=request.user.username)
+					added_by=nadded_by, approved_by=napproved_by)
 				t.delete()
 				h.save()
 				i.save()
@@ -737,4 +747,22 @@ def changepassword(request):
 
 			
 
+@login_required
+def show_requestee(request, item):
+	reqs=ProcessedRequest.objects.filter(item_name=item).distinct().values('requestee')
+	ret=""
+	for r in reqs:
+		ret+="<option value={}>{}</option>\n".format(r['requestee'],r['requestee'])
 
+	return HttpResponse(ret)
+
+@login_required
+def show_ret_amounts(request):
+	
+	item=request.GET['item']
+	requestee=request.GET['req_name']
+	amounts=ProcessedRequest.objects.filter(requestee=requestee, item_name=item, action='approve').values('approved_quantity')
+	s=sum([entry['approved_quantity'] for entry in amounts])
+
+	
+	return HttpResponse(s)

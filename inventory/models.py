@@ -120,7 +120,9 @@ class ItemHistory(models.Model):
 	quantity=models.IntegerField()
 	date_added = models.DateField(auto_now_add= True)
 	added_by = models.CharField(max_length=50,blank=False,null=False)
-	approved_by = models.CharField(max_length=50,blank=False,null=False)
+	#added_by = models.ForeignKey(User, on_delete=models.CASCADE)
+	#approved_by = models.CharField(max_length=50,blank=False,null=False)
+	approved_by= models.ForeignKey(User, on_delete=models.CASCADE)
 	modified_name=models.CharField(max_length=50,blank=True,null=True)
 
 	def __str__(self):

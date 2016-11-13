@@ -433,7 +433,7 @@
     <td>{{entry.action}}</td>
     <td>{{entry.modified_name}}</td>
     <td>{{entry.added_by}}</td>
-    <td>{{entry.approved_by}}</td>
+    <td>{{entry.approved_by.userprofile.nick_name}}</td>
   </tr>
   {% endfor %}
 </table>  
@@ -491,3 +491,47 @@
 </div> 
 {% endfor %}                
 {% endblock createitemrequest %}
+
+{% block returnitem %}
+
+<div class="form-horizontal">
+    <div class="form-group">
+      <label class="control-label col-sm-3" for="ret_item_name">Item to return:</label>
+      <div class="col-sm-9">
+        <!--input type="password" class="form-control" id="ret_item_name" placeholder="Enter Password"-->
+        <select class="form-control" id="ret_item_name" onchange="showretrequestee(this.value)">
+          <option selected="Select">Select Item</option>
+          {% for name in ret_item %}
+          <option value={{name.item_name}}>{{name.item_name}}</option>
+          {% endfor %}
+          
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-3" for="ret_requestee">Name of Requestee:</label>
+      <div class="col-sm-9">
+        <!--input type="password" class="form-control" id="ret_item_name" placeholder="Enter Password"-->
+        <select class="form-control" id="ret_requestee" onchange="showretamounts(this.value)">
+          <option value="Select">Select Requestee</option>
+
+          
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-3" for="ret_amount">Return Amount:</label>
+      <div class="col-sm-9">
+        <!--input type="password" class="form-control" id="ret_item_name" placeholder="Enter Password"-->
+        <select class="form-control" id="ret_amount">
+          <option></option>
+
+          
+        </select>
+      </div>
+    </div>
+</div>
+
+{% endblock returnitem %}

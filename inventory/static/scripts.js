@@ -356,3 +356,51 @@ function popovercontent(id,rep){
 
   //return item_id;
 }
+
+function showretrequestee(item_name){
+  
+  if(item_name!='Select Item'){
+    console.log(item_name);
+    xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            //console.log(this.responseText);
+            document.getElementById('ret_requestee').innerHTML=`<option>Select Requestee</option>`+this.responseText;
+        }
+    };
+    xhttp.open("GET", "showrequestee/" + item_name+"/", true);
+    xhttp.send();
+
+  }
+  else{
+    document.getElementById('ret_requestee').innerHTML=`<option>Select Requestee</option>`; 
+  }
+}
+
+function showretamounts(req_name){
+  if(req_name!='Select Requestee'){
+    selected_item=document.getElementById('ret_item_name').value;
+    console.log(selected_item,req_name);
+    xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          for(var i=1;i<=this.responseText;i++){
+            //console.log(i);
+            if(i==1){
+              document.getElementById('ret_amount').innerHTML='<option>'+i+'</option>';
+            }
+            else{
+              document.getElementById('ret_amount').innerHTML+='<option>'+i+'</option>';  
+            }
+            
+          }
+        }
+    };
+    xhttp.open("GET", "showretamounts/?item=" + selected_item+"&req_name="+req_name, true);
+    xhttp.send();
+    
+  }
+  
+  
+
+}

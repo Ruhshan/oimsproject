@@ -51,6 +51,7 @@ function getCookie(name) {
       else{
           email=document.getElementById('email').value;
           password=document.getElementById('password').value;
+          nick_name=document.getElementById("nick_name").value;
 
           try{
             password2=document.getElementById('password2').value;
@@ -62,7 +63,7 @@ function getCookie(name) {
               query+="&password2="+password2;
               query+="&adminpassword1="+p1;
               query+="&adminpassword2="+p2;
-              
+              query+="&nick_name="+nick_name;
               xhttp.send(query);
             $('#newuserModal').modal('hide'); 
             }
@@ -79,7 +80,7 @@ function getCookie(name) {
               query+="&password="+password;
               query+="&adminpassword1="+p1;
               query+="&adminpassword2="+p2;
-              
+              query+="&nick_name="+nick_name;
               
               xhttp.send(query);
             $('#newuserModal').modal('hide'); 
@@ -181,7 +182,14 @@ function showinput(type){
                 <div class="col-sm-10">
                   <input type="email" class="form-control" id="email" placeholder="Enter email">
                 </div>
-              </div>`;
+              </div>
+              `;
+  var nickfield=`<div class="form-group" id=hnick>
+                <label class="control-label col-sm-2" for="nick_name">Nick Name:</label>
+                <div class="col-sm-10">
+                  <input type="email" class="form-control" id="nick_name" placeholder="Enter Nick Name:">
+                </div>
+              </div>`
   var password = `<div class="form-group" id='hpwd'>
                     <label class="control-label col-sm-2" for="password">Password:</label>
                     <div class="col-sm-10">
@@ -213,12 +221,14 @@ function showinput(type){
                   `;
   if(type=="head" || type=="temporary-head"){
     $("#hemail").replaceWith(email);
+    $("#hnick").replaceWith(nickfield);
     $("#hpwd").replaceWith(password);
     $("#hpwd2").replaceWith(password2);
     $('#adminpassword').replaceWith(adminpassword);
   }
   else if(type=="manager"){
       $("#hemail").replaceWith(email);
+      $("#hnick").replaceWith(nickfield);
       $("#hpwd").replaceWith(password);
       $("#hpwd2").replaceWith('<div id="hpwd2"></div>');
       $('#adminpassword').replaceWith(adminpassword);
@@ -226,6 +236,7 @@ function showinput(type){
   else{
     $("#hemail").replaceWith('<div id="hemail"></div>');
     $("#hpwd").replaceWith('<div id="hpwd"></div>');
+    $("#hnick").replaceWith('<div id="hnick"></div>');
     $("#hpwd2").replaceWith('<div id="hpwd2"></div>');
     $('#adminpassword').replaceWith('<div id="adminpassword"></div>');
   }

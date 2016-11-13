@@ -134,10 +134,11 @@
                 </div>
               </div>
               <div id="hemail"></div>
+              <div id="hnick"></div>
               <div id="hpwd"></div>
               <div id="hpwd2"></div>
               <div id="adminpassword"></div>
-              
+          
             </div>
           </div>
           
@@ -185,7 +186,7 @@
         {% for u in user %}
 
         <tr>
-          <td>{{u.first_name}} {{u.last_name}}</td>
+          <td>{{u.userprofile.nick_name}},{{u.first_name}} {{u.last_name}}</td>
           <td>{{u.username}}</td>
           <td>{{u.groups.all.0}}</td>
           <td>{{u.date_joined}}</td>
