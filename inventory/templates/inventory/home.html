@@ -81,11 +81,22 @@
         		</select>
         		Requestee:
         		<datalist id="requestee_names">
+            <option value="Non Specified">
         		{% for name in requestee %}
         			<option value="{{name}}">
         		{% endfor %}
         		</datalist>
         		<input type="text" list="requestee_names" name="requestee" id="requestee"/>
+            <br>
+
+            Location:
+            <datalist id="locations">
+              {% for names in locations %}
+              <option>{{names.location}}</option>
+              {% endfor %}
+                
+            </datalist>
+            <input type="text" list="locations" name="location" id="location">
 
             <div class="form-group">
                 <label for="description">Description:</label>
@@ -331,6 +342,8 @@
       </th>
       <th>Item Name
       </th>
+      <th>Location
+      </th>
       <th>Price
       </th>
       <th>Quantity
@@ -350,6 +363,7 @@
     <td>
     <a href="{% url 'item_details' name=entry.item_name %}">{{entry.item_name}}</a>
     </td>
+    <td>{{entry.location}}</td>
     <td>{{entry.delivered_price}}</td> 
     <td>{{entry.approved_quantity}}</td>
     <td>{{entry.action}}</td>
@@ -513,8 +527,20 @@
       <label class="control-label col-sm-3" for="ret_requestee">Name of Requestee:</label>
       <div class="col-sm-9">
         <!--input type="password" class="form-control" id="ret_item_name" placeholder="Enter Password"-->
-        <select class="form-control" id="ret_requestee" onchange="showretamounts(this.value)">
-          <option value="Select">Select Requestee</option>
+        <select class="form-control" id="ret_requestee" onchange="showlocation(this.value)">
+          <option value="Select"></option>
+
+          
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-3" for="ret_location">Location:</label>
+      <div class="col-sm-9">
+        <!--input type="password" class="form-control" id="ret_item_name" placeholder="Enter Password"-->
+        <select class="form-control" id="ret_location" onchange="showretamounts(this.value)">
+          <option value="Select"></option>
 
           
         </select>
@@ -532,6 +558,17 @@
         </select>
       </div>
     </div>
-</div>
+    
 
+</div>
+<div>
+      <label class="control-label col-sm-3"></label>
+      <div class="col-sm-9">
+        <!--input type="password" class="form-control" id="ret_item_name" placeholder="Enter Password"-->
+        <div id="button-place">
+            <!--button type="button" onclick="returnbutton()">Update2</button-->
+        </div>
+        
+      </div>
+    </div>
 {% endblock returnitem %}

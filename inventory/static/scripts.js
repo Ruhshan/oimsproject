@@ -85,16 +85,19 @@
           query += "&requested_quantity=" + document.getElementById("item_quantity_dropdown").value;
           query += "&requestee=" + document.getElementById("requestee").value;
           query += "&description=" + document.getElementById("description").value;
+          query +="&location="+document.getElementById("location").value;
 
           var req=document.getElementById("requestee").value;
           var item=document.getElementById("requested_item_name_dropdown").value;
-          
+          var location=document.getElementById("location").value;
 
-          if(req.length>0 & item!='Select..'){
+          if(req.length>0 & item!='Select..' & location.length>0){
+            if(req!="Not Specified" || location!="Not Specified"){
             document.getElementById('requested_item_name_dropdown').value="Select..";
             document.getElementById('item_quantity_dropdown').value="1";
             document.getElementById("requestee").value="";
             document.getElementById("description").value=" ";
+            document.getElementById("location").value="";
             
             xhttp.send(query);
             $('#myModal').modal('hide');
@@ -103,6 +106,11 @@
             setTimeout(function(){
               $("#alert-success").alert("close");
             },2000);*/
+          }else{
+            $('#modal_error').show();
+            $('#myModal').effect('shake');
+
+          }
             
           }
           else{
@@ -373,14 +381,16 @@ function showretrequestee(item_name){
 
   }
   else{
-    document.getElementById('ret_requestee').innerHTML=`<option>Select Requestee</option>`; 
+    document.getElementById('ret_requestee').innerHTML=`<option>Select Requestee</option>`;
+    //document.getElementById('button-place').innerHTML=``; 
   }
 }
 
-function showretamounts(req_name){
-  if(req_name!='Select Requestee'){
+function showretamounts(ret_location){
+  if(ret_location!='Select Location'){
     selected_item=document.getElementById('ret_item_name').value;
-    console.log(selected_item,req_name);
+    requestee=document.getElementById('ret_requestee').value;
+    console.log(selected_item,requestee);
     xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -394,13 +404,59 @@ function showretamounts(req_name){
             }
             
           }
+          document.getElementById('button-place').innerHTML=`<button type="button" onclick="returnbutton()">Update2</button>`;
         }
     };
-    xhttp.open("GET", "showretamounts/?item=" + selected_item+"&req_name="+req_name, true);
+    xhttp.open("GET", "showretamounts/?item=" + selected_item+"&req_name="+requestee+"&ret_location="+ret_location, true);
     xhttp.send();
     
   }
+  else{
+    document.getElementById('ret_amount').innerHTML=`<option></option>`; 
+    //document.getElementById('button-place').innerHTML=``;
+  }
+
+
+}
   
   
 
+function showlocation(req_name){
+  if(req_name!="Select Requestee"){
+    selected_item=document.getElementById('ret_item_name').value;
+    xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("ret_location").innerHTML='<option>Select Location</option>'+this.responseText;
+        }
+    };
+    xhttp.open("GET","showlocations/?item="+selected_item+"&req_name="+req_name,true);
+    xhttp.send();
+  }
+  else{
+    document.getElementById('ret_location').innerHTML=`<option>Select Location</option>`; 
+    //document.getElementById('button-place').innerHTML=``;
+  }
 }
+
+function returnbutton(){
+  console.log("Return called");
+  itm=document.getElementById("ret_item_name").value;
+  person=document.getElementById("ret_requestee").value;
+  loc=document.getElementById("ret_location").value;
+  amnt=document.getElementById("ret_amount").value;
+  console.log(itm,person,loc, amnt);
+
+  xhttp2 = new XMLHttpRequest();
+    xhttp2.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          //document.getElementById("ret_location").innerHTML='<option>Select Location</option>'+this.responseText;
+          console.log(this.responseText+"R");
+          location.reload();
+        }
+    };
+    xhttp2.open("GET","retitem/?item="+itm+"&person="+person+'&loc='+loc+'&amnt='+amnt,true);
+    xhttp2.send();
+
+}
+

@@ -15,7 +15,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from hashlib import md5
 from .models import InventoryTable, PendingRequest, ProcessedRequest, UserProfile, Vendor, Temp,ItemHistory
 from .models import InventoryTableTemp, SeccondaryPassword, LoginHistory
-
+from .extra_functions import *
 def changename(oldname, newname, request):
 	#changin names in already existing table
 	it=InventoryTable.objects.filter(item_name=oldname)
@@ -165,7 +165,7 @@ def view_home(request):
 			'processed':processed, 'group':g, 'requestee':requestee_suggestion,
 			'date_range':date_range, 'history':acknowledged,'passwordreq':passwordreq,
 			'alert_count':alert_count(),'alert_content':alert_content(),
-			'historyitems':historyitems,'itemcreate':itemcreate,'ret_item':ret_item})
+			'historyitems':historyitems,'itemcreate':itemcreate,'ret_item':ret_item,'locations':get_location_names()})
 	else:
 		return HttpResponseRedirect("/login/")
 
@@ -194,8 +194,11 @@ def place_request(request):
 		nrequestee=request.POST['requestee']
 		nstore_manager=request.user.username
 		ndescription=request.POST['description']
+		nlocation=request.POST['location']
 
-		p=PendingRequest(item_name=nitem_name, requested_quantity=nrequested_quantity,requestee=nrequestee,store_manager=nstore_manager, description=ndescription)
+		p=PendingRequest(item_name=nitem_name, requested_quantity=nrequested_quantity,
+			requestee=nrequestee,store_manager=nstore_manager, description=ndescription,
+			location=nlocation)
 		p.save()
 
 		quantity_inside=InventoryTable.objects.get(item_name=nitem_name).quantity_inside
@@ -231,6 +234,7 @@ def process_request(request):
 		nstore_manager=p.store_manager
 		ndescription=p.description
 		ndate_of_request=p.date_of_request
+		nlocation=p.location
 
 		nprocessed_by=User.objects.get(username=request.user.username)
 		ndelivered_price=InventoryTable.objects.get(item_name=nitem_name).unit_price
@@ -238,7 +242,8 @@ def process_request(request):
 		q=ProcessedRequest(id_no=nid_no, requestee=nrequestee, item_name=nitem_name, 
 			requested_quantity=nrequested_quantity, approved_quantity=value,
 			store_manager=nstore_manager, description=ndescription, date_of_request=ndate_of_request,
-			processed_by = nprocessed_by,action=decesion,delivered_price=ndelivered_price)
+			processed_by = nprocessed_by,action=decesion,delivered_price=ndelivered_price,
+			location=nlocation)
 		q.save()
 
 		p.delete()
@@ -749,7 +754,7 @@ def changepassword(request):
 
 @login_required
 def show_requestee(request, item):
-	reqs=ProcessedRequest.objects.filter(item_name=item).distinct().values('requestee')
+	reqs=ProcessedRequest.objects.filter(item_name=item,action="approve").distinct().values('requestee')
 	ret=""
 	for r in reqs:
 		ret+="<option value={}>{}</option>\n".format(r['requestee'],r['requestee'])
@@ -758,11 +763,17 @@ def show_requestee(request, item):
 
 @login_required
 def show_ret_amounts(request):
-	
-	item=request.GET['item']
-	requestee=request.GET['req_name']
-	amounts=ProcessedRequest.objects.filter(requestee=requestee, item_name=item, action='approve').values('approved_quantity')
-	s=sum([entry['approved_quantity'] for entry in amounts])
+	execute=get_ret_amount_ajax(request)
+	return HttpResponse(execute)
 
+
+@login_required
+def show_locations(request):
+	execute=get_location_ajax(request)
+	return HttpResponse(execute)
+
+@login_required
+def ret_item(request):
+	execute=process_return(request)
+	return HttpResponse(execute)
 	
-	return HttpResponse(s)
