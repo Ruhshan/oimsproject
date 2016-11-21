@@ -221,6 +221,10 @@
               <a data-toggle="tab" href="#historyitems">History:Items
               </a>
             </li>
+            <li>
+              <a data-toggle="tab" href="#issues">Issues
+              </a>
+            </li>
           </ul>
           <div class="tab-content">
             <div id="inventory" class="tab-pane fade in active">
@@ -280,6 +284,10 @@
 
             {% endblock returnitem %}
               
+            </div>
+            <div id="issues" class="tab-pane fade">
+              {% block issues %}
+              {% endblock issues %}
             </div>
 
           </div>

@@ -5,13 +5,16 @@ import uuid
 import hashlib
 # Create your models here.
 class InventoryTable(models.Model):
-	item_name=models.CharField(max_length=100,blank=False,null=False, unique=True, db_index=True)
+	item_name=models.CharField(max_length=100,blank=False,null=False)
+	category=models.CharField(max_length=100,default="Old")
 	quantity_inside=models.IntegerField()
 	quantity_outside=models.IntegerField()
 	minimum_quantity=models.IntegerField()
 	unit_price=models.DecimalField(max_digits=10, decimal_places=5)
 	description=models.TextField()
 	vendor=models.CharField(max_length=100,blank=True,null=True)
+	
+
 
 	def update(self):
 		self.save()
@@ -20,6 +23,7 @@ class InventoryTable(models.Model):
 		return self.item_name
 class InventoryTableTemp(models.Model):
 	item_name=models.CharField(max_length=100,blank=False,null=False)
+	category=models.CharField(max_length=100,default="Old")
 	quantity_inside=models.IntegerField(blank=True,null=True)
 	quantity_outside=models.IntegerField(blank=True,null=True)
 	minimum_quantity=models.IntegerField(blank=True,null=True)
@@ -28,6 +32,7 @@ class InventoryTableTemp(models.Model):
 	creator=models.CharField(max_length=100,blank=True)
 	action=models.CharField(max_length=100,blank=True)
 	vendor=models.CharField(max_length=100,blank=True,null=True)
+
 
 	def update(self):
 		self.save()
@@ -38,6 +43,7 @@ class InventoryTableTemp(models.Model):
 class PendingRequest(models.Model):
 	id_no=models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 	item_name=models.CharField(max_length=100,blank=False,null=False)
+	category=models.CharField(max_length=100,default="Old")
 	requested_quantity=models.IntegerField()
 	requestee=models.CharField(max_length=100,blank=False,null=False)
 	location = models.CharField(max_length=100, default="Non Specified")
@@ -55,6 +61,7 @@ class PendingRequest(models.Model):
 class ProcessedRequest(models.Model):
 	id_no=models.UUIDField(primary_key=True,default=0, editable=False)
 	item_name=models.CharField(max_length=100,blank=False,null=False)
+	category=models.CharField(max_length=100,default="Old")
 	requested_quantity=models.IntegerField()
 	location = models.CharField(max_length=100, default="Non Specified")
 	approved_quantity=models.IntegerField()
@@ -118,6 +125,7 @@ class Temp(models.Model):
 
 class ItemHistory(models.Model):
 	name=models.CharField(max_length=100,blank=False,null=False)
+	category=models.CharField(max_length=100,default="Old")
 	action=models.CharField(max_length=100,blank=False,null=False)
 	quantity=models.IntegerField()
 	date_added = models.DateField(auto_now_add= True)
@@ -149,5 +157,18 @@ class LoginHistory(models.Model):
 	def __str__(self):
 		return str(self.user_name)
 
+class Issues(models.Model):
+	id_no=models.UUIDField(primary_key=True,default=uuid.uuid4, editable=False)
+	item=models.CharField(max_length=50)
+	category=models.CharField(max_length=100,default="Old")
+	person=models.CharField(max_length=50)
+	place=models.CharField(max_length=50)
+	desc=models.TextField()
+	amnt=models.IntegerField()
+	occurance_date=models.DateField()
+	date_created = models.DateField(auto_now_add= True)
+
+	def __str__(self):
+		return str(self.id_no)
 
 

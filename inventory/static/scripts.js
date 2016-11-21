@@ -4,6 +4,32 @@
           $('#modal_error').hide();
           $('#alert-success').hide();
 
+          $('#issue_table thead th').each( function () {
+        var title = $(this).text();
+        {
+          console.log(title);
+          $(this).html( '<input type="text" placeholder="'+title+'" size="8"/>' );  
+        }
+        
+    } );
+
+          var issue_table=$('#issue_table').DataTable( {
+          "ajax": '/home/issueajax/'
+          } );
+ 
+    // App/*/*ly the search
+    issue_table.columns().every( function () {
+        var that = this;
+ 
+        $( 'input', this.header() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+        } );
+
 
       });
 
@@ -35,6 +61,7 @@
       };
 
       function showQuantity(str) {
+          str=str.split(',')
           var xhttp;
           if (str == "") {
               document.getElementById("item_quantity_dropdown").innerHTML = "";
@@ -46,7 +73,7 @@
                   document.getElementById("item_quantity_dropdown").innerHTML = this.responseText;
               }
           };
-          xhttp.open("GET", "itemqty?requested_name=" + str, true);
+          xhttp.open("GET", "itemqty?requested_name=" + str[0]+"&category="+str[1], true);
           xhttp.send();
       };
 
@@ -77,11 +104,12 @@
           };
           xhttp.open("POST", "placerequest/", true);
           var csrftoken = getCookie('csrftoken');
+          selected_item=document.getElementById("requested_item_name_dropdown").value.split(',')
 
           xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
           xhttp.setRequestHeader("X-CSRFToken", csrftoken);
-          query = "requested_item_name_dropdown=";
-          query += document.getElementById("requested_item_name_dropdown").value;
+          query = "requested_item_name_dropdown="+selected_item[0];
+          query += "&category="+selected_item[1];
           query += "&requested_quantity=" + document.getElementById("item_quantity_dropdown").value;
           query += "&requestee=" + document.getElementById("requestee").value;
           query += "&description=" + document.getElementById("description").value;
@@ -368,6 +396,7 @@ function popovercontent(id,rep){
 function showretrequestee(item_name){
   
   if(item_name!='Select Item'){
+    selected=item_name.split(',')
     console.log(item_name);
     xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -376,7 +405,7 @@ function showretrequestee(item_name){
             document.getElementById('ret_requestee').innerHTML=`<option>Select Requestee</option>`+this.responseText;
         }
     };
-    xhttp.open("GET", "showrequestee/" + item_name+"/", true);
+    xhttp.open("GET", "showrequestee/?item_name="+selected[0]+"&category="+selected[1], true);
     xhttp.send();
 
   }
@@ -388,7 +417,7 @@ function showretrequestee(item_name){
 
 function showretamounts(ret_location){
   if(ret_location!='Select Location'){
-    selected_item=document.getElementById('ret_item_name').value;
+    selected_item=document.getElementById('ret_item_name').value.split(',');
     requestee=document.getElementById('ret_requestee').value;
     console.log(selected_item,requestee);
     xhttp = new XMLHttpRequest();
@@ -407,7 +436,8 @@ function showretamounts(ret_location){
           document.getElementById('button-place').innerHTML=`<button type="button" onclick="returnbutton()">Update2</button>`;
         }
     };
-    xhttp.open("GET", "showretamounts/?item=" + selected_item+"&req_name="+requestee+"&ret_location="+ret_location, true);
+    xhttp.open("GET", "showretamounts/?item=" + selected_item[0]
+      +"&category="+selected_item[1]+"&req_name="+requestee+"&ret_location="+ret_location, true);
     xhttp.send();
     
   }
@@ -423,14 +453,14 @@ function showretamounts(ret_location){
 
 function showlocation(req_name){
   if(req_name!="Select Requestee"){
-    selected_item=document.getElementById('ret_item_name').value;
+    selected_item=document.getElementById('ret_item_name').value.split(',');
     xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
           document.getElementById("ret_location").innerHTML='<option>Select Location</option>'+this.responseText;
         }
     };
-    xhttp.open("GET","showlocations/?item="+selected_item+"&req_name="+req_name,true);
+    xhttp.open("GET","showlocations/?item="+selected_item[0]+"&category="+selected_item[1]+"&req_name="+req_name,true);
     xhttp.send();
   }
   else{
@@ -441,7 +471,7 @@ function showlocation(req_name){
 
 function returnbutton(){
   console.log("Return called");
-  itm=document.getElementById("ret_item_name").value;
+  itm=document.getElementById("ret_item_name").value.split(',');
   person=document.getElementById("ret_requestee").value;
   loc=document.getElementById("ret_location").value;
   amnt=document.getElementById("ret_amount").value;
@@ -455,8 +485,111 @@ function returnbutton(){
           location.reload();
         }
     };
-    xhttp2.open("GET","retitem/?item="+itm+"&person="+person+'&loc='+loc+'&amnt='+amnt,true);
+    xhttp2.open("GET","retitem/?item="+itm[0]+"&category="+itm[1]+"&person="+person+'&loc='+loc+'&amnt='+amnt,true);
     xhttp2.send();
 
 }
 
+function showretrequestee_issue(item_name){
+  
+  if(item_name!='Select Item'){
+    selected=item_name.split(',')
+    console.log(item_name);
+    xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            //console.log(this.responseText);
+            document.getElementById('issue_requestee').innerHTML=`<option>Select Requestee</option>`+this.responseText;
+        }
+    };
+    xhttp.open("GET", "showrequestee/?item_name="+selected[0]+"&category="+selected[1], true);
+    xhttp.send();
+
+  }
+  else{
+    document.getElementById('issue_requestee').innerHTML=`<option>Select Requestee</option>`;
+    //document.getElementById('button-place').innerHTML=``; 
+  }
+}
+
+function showlocation_issue(req_name){
+  if(req_name!="Select Requestee"){
+    selected_item=document.getElementById('issue_item_name').value.split(',');
+    console.log(selected_item,req_name);
+    xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("issue_location").innerHTML='<option>Select Location</option>'+this.responseText;
+        }
+    };
+    xhttp.open("GET","showlocations/?item="+selected_item[0]+"&category="+selected_item[1]+"&req_name="+req_name,true);
+    xhttp.send();
+  }
+  else{
+    document.getElementById('issue_location').innerHTML=`<option>Select Location</option>`; 
+    //document.getElementById('button-place').innerHTML=``;
+  }
+}
+
+
+function showretamounts_issue(ret_location){
+  if(ret_location!='Select Location'){
+    selected_item=document.getElementById('issue_item_name').value.split(',');
+    requestee=document.getElementById('issue_requestee').value;
+    console.log(selected_item,requestee, ret_location);
+    xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          for(var i=1;i<=this.responseText;i++){
+            //console.log(i);
+            if(i==1){
+              document.getElementById('issue_amount').innerHTML='<option>'+i+'</option>';
+            }
+            else{
+              document.getElementById('issue_amount').innerHTML+='<option>'+i+'</option>';  
+            }
+            
+          }
+          document.getElementById('issue-button-place').innerHTML=`<button type="button" onclick="issuebutton()">Make Issue</button>`;
+        }
+    };
+    xhttp.open("GET", "showretamounts/?item=" + selected_item[0]+"&category="+selected_item[1]+
+      "&req_name="+requestee+"&ret_location="+ret_location, true);
+    xhttp.send();
+    
+  }
+  else{
+    document.getElementById('issue_amount').innerHTML=`<option></option>`; 
+    //document.getElementById('button-place').innerHTML=``;
+  }
+
+
+}
+
+
+function issuebutton(){
+  console.log("issue called");
+  itm=document.getElementById("issue_item_name").value.split(',');
+  person=document.getElementById("issue_requestee").value;
+  loc=document.getElementById("issue_location").value;
+  amnt=document.getElementById("issue_amount").value;
+  desc=document.getElementById("issue_description").value;
+  date=document.getElementById("issue_date").value;
+  console.log(itm,person,loc, amnt,desc);
+
+  xhttp2 = new XMLHttpRequest();
+    xhttp2.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          
+          console.log(this.responseText+"R");
+          if(this.responseText=="ok"){
+            $('#issue_table').DataTable().ajax.reload();
+          }
+          //location.reload();
+        }
+    };
+    xhttp2.open("GET","createissue/?item="+itm[0]+"&category="+itm[1]+"&person="+person+
+      '&loc='+loc+'&amnt='+amnt+'&desc='+desc+'&date='+date,true);
+    xhttp2.send();
+
+}

@@ -91,20 +91,28 @@
 	          <label for="iname">Item Name:</label>
 	          <input type="text" class="form-control" name="iname" id="iname" placeholder="Enter Item name" maxlength="50">
 	        </div>
-	        
 	        <div class="form-group">
-	          <label for="iquantity">Item Quantity:</label>
-	          <input type="text" class="form-control" name="iquantity" id="iquantity" placeholder="Enter Item quantity" maxlength="50">
+	          <label for="category">Category:</label>
+	          <datalist id="category-options">
+			    {% for c in categories %}
+			    <option value="{{c}}">
+			    {% endfor %}
+			  </datalist>
+	          <input type="text" list="category-options" class="form-control" name="category" id="category" placeholder="Choose Category" maxlength="50">
+	        </div>
+	        <div class="form-group">
+	          <label for="iquantity" id="qty">Item Quantity:<span style="color:red" id="iquantityl"></span></label>
+	          <input type="text" class="form-control" name="iquantity" id="iquantity" placeholder="Enter Item quantity" maxlength="50" oninput="checking(this.id, this.value)">
 	        </div>
 
 	        <div class="form-group">
-	          <label for="minquant">Minimum Quantity:</label>
-	          <input type="text" class="form-control" name="minquant" id="minquant" placeholder="Enter minimum quantity for alert" maxlength="50">
+	          <label for="minquant">Minimum Quantity:<span style="color:red" id="minquantl"></label>
+	          <input type="text" class="form-control" name="minquant" id="minquant" placeholder="Enter minimum quantity for alert" maxlength="50" oninput="checking(this.id, this.value)">
 	        </div>
 
 	        <div class="form-group">
-	          <label for="uprice">Unit Price:</label>
-	          <input type="text" class="form-control" name="uprice" id="uprice" placeholder="Enter Unit price of this item" maxlength="50">
+	          <label for="uprice">Unit Price:<span style="color:red" id="upricel"></label>
+	          <input type="text" class="form-control" name="uprice" id="uprice" placeholder="Enter Unit price of this item" maxlength="50" oninput="checking(this.id, this.value)">
 	        </div>
 
 	        <div class="form-group">
@@ -133,14 +141,14 @@
 				<select class="form-control" id="iname2" name="iname2" onchange="information(this.value)">
 					<option>Select..</option>
 					{% for name in item_list %}
-					<option>{{name}}</option>
+					<option>{{name.item_name}},{{name.category}}</option>
 					{% endfor %}
 				</select>
 			</div>
 
 			<div class="form-group">
-			  <label for="iquantity2" id="qty">Add Quantity:</label>
-			  <input type="text" class="form-control" name="iquantity2" id="iquantity2" placeholder="Enter Item quantity" maxlength="50">
+			  <label for="iquantity2">Add Quantity:<span style="color:red" id="iquantity2l"></label>
+			  <input type="text" class="form-control" name="iquantity2" id="iquantity2" placeholder="Enter Item quantity" maxlength="50" oninput="checking(this.id, this.value)">
 				<br>
 				<br>
 			</div>
@@ -153,13 +161,13 @@
 			</div>
 
 			<div class="form-group">
-			  <label for="minquant2" id="alert">Alert Quantity:</label>
-			  <input type="text" class="form-control" name="minquant2" id="minquant2" placeholder="Enter minimum quantity for alert" maxlength="50">
+			  <label for="minquant2">Alert Quantity:<span style="color:red" id="minquant2l"></label>
+			  <input type="text" class="form-control" name="minquant2" id="minquant2" placeholder="Enter minimum quantity for alert" maxlength="50" oninput="checking(this.id, this.value)">
 			</div>
 
 			<div class="form-group">
-			  <label for="uprice2" id="price">Unit Price(Previous Price:):</label>
-			  <input type="text" class="form-control" name="uprice2" id="uprice2" placeholder="Enter Unit price of this item" maxlength="50">
+			  <label for="uprice2">Unit Price(Previous Price:<span style="color:red" id="uprice2l"></label>
+			  <input type="text" class="form-control" name="uprice2" id="uprice2" placeholder="Enter Unit price of this item" maxlength="50" oninput="checking(this.id, this.value)">
 			</div>
 
 			<div class="form-group">

@@ -16,23 +16,23 @@ from hashlib import md5
 from .models import InventoryTable, PendingRequest, ProcessedRequest, UserProfile, Vendor, Temp,ItemHistory
 from .models import InventoryTableTemp, SeccondaryPassword, LoginHistory
 from .extra_functions import *
-def changename(oldname, newname, request):
+def changename(oldname, category,newname, request):
 	#changin names in already existing table
-	it=InventoryTable.objects.filter(item_name=oldname)
+	it=InventoryTable.objects.filter(item_name=oldname, category=category)
 	it.update(item_name=newname)
 	
 
-	pr=ProcessedRequest.objects.filter(item_name=oldname)
+	pr=ProcessedRequest.objects.filter(item_name=oldname, category=category)
 	pr.update(item_name=newname)
 
-	ih=ItemHistory.objects.filter(name=oldname)
+	ih=ItemHistory.objects.filter(name=oldname, category=category)
 	ih.update(name=newname)
 
 	#addning change entry to table
 	nadded_by=User.objects.get(username=request.user.username).userprofile.nick_name
 	napproved_by=User.objects.get(username=request.user.username)
 	changeentry=ItemHistory(name=newname,action="namechange", added_by=nadded_by, 
-		approved_by=napproved_by,modified_name=oldname,quantity=0)
+		approved_by=napproved_by,modified_name=oldname,quantity=0, category=category)
 	changeentry.save()
 
 
@@ -128,7 +128,7 @@ def view_home(request):
 	if request.user.is_authenticated():
 		inv=InventoryTable.objects.all()
 		g=request.user.groups.all()[0]
-		item_names=InventoryTable.objects.values('item_name')
+		item_names=InventoryTable.objects.values('item_name','category')
 
 		processed=ProcessedRequest.objects.filter(acknowledgement=0)
 
@@ -159,7 +159,7 @@ def view_home(request):
 		date_range={'start':'/'.join([s[1],s[2],s[0]]),
 		             'end':'/'.join([e[1],e[2],e[0]])}
 
-		ret_item=ProcessedRequest.objects.filter(action='approve').distinct().values('item_name')
+		ret_item=ProcessedRequest.objects.filter(action='approve').distinct().values('item_name','category')
 
 		return render(request, 'inventory/home.html',{'inv':inv,'item_names':item_names,'pending':pending,
 			'processed':processed, 'group':g, 'requestee':requestee_suggestion,
@@ -179,7 +179,8 @@ def user_logout(request):
 @login_required
 def itemqty(request):
 	name=request.GET['requested_name']
-	qty=int(InventoryTable.objects.get(item_name=str(name)).quantity_inside)
+	category=request.GET['category']
+	qty=int(InventoryTable.objects.get(item_name=str(name),category=category).quantity_inside)
 	s=""
 	for i in range(1,qty+1):
 		s+="""<option value="{}">{}</option>\n""".format(i,i)
@@ -190,13 +191,14 @@ def itemqty(request):
 def place_request(request):
 	if request.method=='POST':
 		nitem_name=request.POST['requested_item_name_dropdown']
+		ncategory=request.POST['category']
 		nrequested_quantity=request.POST['requested_quantity']
 		nrequestee=request.POST['requestee']
 		nstore_manager=request.user.username
 		ndescription=request.POST['description']
 		nlocation=request.POST['location']
 
-		p=PendingRequest(item_name=nitem_name, requested_quantity=nrequested_quantity,
+		p=PendingRequest(item_name=nitem_name, category=ncategory,requested_quantity=nrequested_quantity,
 			requestee=nrequestee,store_manager=nstore_manager, description=ndescription,
 			location=nlocation)
 		p.save()
@@ -205,12 +207,12 @@ def place_request(request):
 
 		print nitem_name, nrequestee, quantity_inside, nrequested_quantity,ndescription
 
-		parameters={'item_name':nitem_name, 'requestee':nrequestee, 'quantity_inside':quantity_inside,'requested_quantity':nrequested_quantity,'description':ndescription}
+		parameters={'item_name':nitem_name, 'category':ncategory,'requestee':nrequestee, 'quantity_inside':quantity_inside,'requested_quantity':nrequested_quantity,'description':ndescription}
 
 		f=file('inventory/templates/inventory/newrequest.html').read()
 		
 		#print render_to_string('inventory/newrequest.html',{'parameters':parameters})
-		f=f.format(nitem_name,nrequestee,nrequested_quantity,quantity_inside,ndescription)
+		f=f.format(nitem_name,ncategory,nrequestee,nrequested_quantity,quantity_inside,ndescription)
 
 
 		return HttpResponse(f)
@@ -229,6 +231,7 @@ def process_request(request):
 
 		nid_no=req_id
 		nitem_name=p.item_name
+		ncategory=p.category
 		nrequested_quantity=p.requested_quantity
 		nrequestee=p.requestee
 		nstore_manager=p.store_manager
@@ -239,7 +242,7 @@ def process_request(request):
 		nprocessed_by=User.objects.get(username=request.user.username)
 		ndelivered_price=InventoryTable.objects.get(item_name=nitem_name).unit_price
 
-		q=ProcessedRequest(id_no=nid_no, requestee=nrequestee, item_name=nitem_name, 
+		q=ProcessedRequest(id_no=nid_no, requestee=nrequestee, item_name=nitem_name, category=ncategory,
 			requested_quantity=nrequested_quantity, approved_quantity=value,
 			store_manager=nstore_manager, description=ndescription, date_of_request=ndate_of_request,
 			processed_by = nprocessed_by,action=decesion,delivered_price=ndelivered_price,
@@ -249,7 +252,7 @@ def process_request(request):
 		p.delete()
 
 		if decesion=="approve":
-			i=InventoryTable.objects.get(item_name=nitem_name)
+			i=InventoryTable.objects.get(item_name=nitem_name, category=ncategory)
 			i.quantity_inside-=int(value)
 			i.quantity_outside+=int(value)
 			i.save()
@@ -477,34 +480,44 @@ def addvendor(request):
 @login_required
 def item_view(request):
 	vendor_list=Vendor.objects.values_list('name',flat=True)
-	item_list=InventoryTable.objects.values_list('item_name',flat=True)
+	item_list=InventoryTable.objects.values('item_name','category')
+	categories=InventoryTable.objects.values_list('category',flat=True).distinct()
 	g=request.user.groups.all()[0]
 	return render(request, 'inventory/item.html',{'vendor_list':vendor_list,'group':g,
-		'item_list':item_list,'alert_count':alert_count(),'alert_content':alert_content()})
+		'item_list':item_list,'alert_count':alert_count(),'alert_content':alert_content()
+		,'categories':categories})
 
 @login_required
 def add_item(request):
 	if request.method=="POST":
 		name=request.POST['name']
 		quantity=request.POST['quantity']
+		category=request.POST['category']
 		minquant=request.POST['minquant']
 		price=request.POST['price']
 		ndescription=request.POST['description']
 		nvendor=request.POST['vendor']
 
-		i=InventoryTableTemp(item_name=name,quantity_inside=quantity, 
-			quantity_outside=0,minimum_quantity=minquant,unit_price=price,
-			description=ndescription,vendor=nvendor,action='create',creator=request.user.username)
-		i.save()
-		# h=ItemHistory(name=name,action="create", quantity=quantity,added_by=request.user.username, approved_by="admin")
-		# h.save()
+		if InventoryTable.objects.filter(item_name=name, category=category).exists():
+			return HttpResponse("This item under this category already exists, Pick a new name or choose a new category")
+		else:
 
-		return HttpResponse("oka")
+			i=InventoryTableTemp(item_name=name,quantity_inside=quantity,category=category, 
+				quantity_outside=0,minimum_quantity=minquant,unit_price=price,
+				description=ndescription,vendor=nvendor,action='create',creator=request.user.username)
+			i.save()
+			# h=ItemHistory(name=name,action="create", quantity=quantity,added_by=request.user.username, approved_by="admin")
+			# h.save()
+
+			return HttpResponse("oka")
 
 @login_required
 def getinfo(request):
 	name=request.GET['item_name']
-	blob=InventoryTable.objects.get(item_name=name)
+	category=request.GET['category']
+	print name, category
+	blob=InventoryTable.objects.get(item_name=name,category=category)
+	print blob
 	r="{}-{}-{}-{}-{}".format(blob.quantity_inside,blob.minimum_quantity, blob.unit_price,blob.vendor,blob.description)
 	return HttpResponse(r)
 
@@ -513,6 +526,7 @@ def getinfo(request):
 def updateitem(request):
 	if request.method=="POST":
 		name=request.POST['name']
+		category=request.POST['category']
 		quant=request.POST['quantity']
 		minquant=request.POST['minquant']
 		price=request.POST['price']
@@ -520,15 +534,16 @@ def updateitem(request):
 		vendor=request.POST['vendor']
 		newname=request.POST['newname']
 
-		
+		ret=""
 		if newname:
-			changename(name, newname,request)
-			return HttpResponse("okay")
+			changename(name, category,newname,request)
+			ret+="namechange"
+			name=newname
 
-		m=InventoryTable.objects.get(item_name=name)
+		m=InventoryTable.objects.get(item_name=name, category=category)
 
 		if quant:
-			i=InventoryTableTemp(item_name=name,creator=request.user.username)
+			i=InventoryTableTemp(item_name=name,category=category,creator=request.user.username)
 			i.quantity_inside=int(quant)
 		if minquant:
 			m.minimum_quantity=int(minquant)
@@ -546,9 +561,10 @@ def updateitem(request):
 				i.quantity_inside=int(quant)*(-1)
 			i.action=action
 			i.save()
+		ret+="_itemupdate"
 		m.save()
 
-		return HttpResponse("okay")
+		return HttpResponse(ret)
 
 @login_required
 def passwordchange(request):
@@ -585,9 +601,9 @@ def itemadminaction(request):
 				napproved_by=User.objects.get(username=request.user.username)
 				i=InventoryTable(item_name=t.item_name,quantity_inside=t.quantity_inside, 
 				quantity_outside=t.quantity_outside,minimum_quantity=t.minimum_quantity,unit_price=t.unit_price,
-				description=t.description,vendor=t.vendor)
+				description=t.description,vendor=t.vendor, category=t.category)
 				h=ItemHistory(name=i.item_name,action="create", quantity=i.quantity_inside,
-					added_by=nadded_by, approved_by=napproved_by)
+					added_by=nadded_by, approved_by=napproved_by,category=t.category)
 				h.save()
 
 				i.save()
@@ -753,8 +769,10 @@ def changepassword(request):
 			
 
 @login_required
-def show_requestee(request, item):
-	reqs=ProcessedRequest.objects.filter(item_name=item,action="approve").distinct().values('requestee')
+def show_requestee(request):
+	print "Show requestee"
+	item,category=request.GET['item_name'],request.GET['category']
+	reqs=ProcessedRequest.objects.filter(item_name=item,category=category,action="approve").distinct().values('requestee')
 	ret=""
 	for r in reqs:
 		ret+="<option value={}>{}</option>\n".format(r['requestee'],r['requestee'])
@@ -776,4 +794,13 @@ def show_locations(request):
 def ret_item(request):
 	execute=process_return(request)
 	return HttpResponse(execute)
-	
+
+@login_required
+def create_issue(request):
+	execute=process_issue(request)
+	return HttpResponse(execute)
+
+@login_required
+def issue_ajax(request):
+	execute=issue_to_ajax(request)
+	return HttpResponse(execute)	

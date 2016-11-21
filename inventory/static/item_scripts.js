@@ -51,6 +51,7 @@ function getCookie(name) {
       function send(){
 
          name=document.getElementById('iname').value;
+         category=document.getElementById('category').value;
           quantity=document.getElementById('iquantity').value;
           minquant=document.getElementById('minquant').value;
           price=document.getElementById('uprice').value;
@@ -62,8 +63,18 @@ function getCookie(name) {
           xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                   if(this.responseText=="oka"){
-                    document.getElementById('new').innerHTML="<b>"+name+" added successfully to database";
+                    //document.getElementById('new').innerHTML="<b>"+name+" created successfully to database";
+                    bootbox.alert({
+                      message: "Item created in the database, waiting for admin approval",
+                      callback: function () {
+                          location.reload();
+                        }
+                      });
 
+
+                  }
+                  else{
+                    bootbox.alert(this.responseText);
                   }  
                      
                 
@@ -75,6 +86,7 @@ function getCookie(name) {
           xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
           xhttp.setRequestHeader("X-CSRFToken", csrftoken);
           query="name="+name;
+          query+="&category="+category;
           query+="&quantity="+quantity;
           query+="&minquant="+minquant;
           query+="&price="+price;
@@ -124,6 +136,7 @@ function getCookie(name) {
 
       function information(name){
         if(name!='Select..'){
+          name=name.split(',')
           xhttp = new XMLHttpRequest();
           xhttp.onreadystatechange = function() {
               if (this.readyState == 4 && this.status == 200) {
@@ -137,13 +150,14 @@ function getCookie(name) {
 
               }
           };
-          xhttp.open("GET", "information/?item_name=" + name, true);
+          xhttp.open("GET", "information/?item_name=" + name[0]+"&category="+name[1], true);
           xhttp.send();
         }
       };
 
       function updateitem(){
-        name=document.getElementById('iname2').value;
+        name=document.getElementById('iname2').value.split(',')[0];
+        category=document.getElementById('iname2').value.split(',')[1];
         newname=document.getElementById('newname').value;
         quant=document.getElementById('iquantity2').value;
         minquant=document.getElementById('minquant2').value;
@@ -155,10 +169,19 @@ function getCookie(name) {
           
           xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                  if(this.responseText=="okay"){
-                    document.getElementById('existing').innerHTML="<b>"+name+" successfully updated </b>";
+                  console.log(this.responseText);
+                  if(this.responseText=="namechange"){
+                    document.getElementById('existing').innerHTML="<b> successfully updated name changed</b>";
 
-                  }  
+                  }
+                  if(this.responseText=="_itemupdate"){
+                    document.getElementById('existing').innerHTML="<b> successfully placed request to update</b>";
+
+                  } 
+                  if(this.responseText=="namechange_itemupdate"){
+                    document.getElementById('existing').innerHTML="<b> successfully name chaned and placed request to update</b>";
+
+                  } 
                      
                 
                 }
@@ -169,6 +192,7 @@ function getCookie(name) {
           xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
           xhttp.setRequestHeader("X-CSRFToken", csrftoken);
           query="name="+name;
+          query+="&category="+category;
           query+="&quantity="+quant;
           query+="&minquant="+minquant;
           query+="&price="+price;
@@ -181,3 +205,26 @@ function getCookie(name) {
         
 
       };
+
+
+function check_num(num){
+  try{
+  return /^[0-9-.]*$/.test(num);
+  }
+  catch(err){
+    return false;
+
+  }
+
+}
+
+function checking( id, val){
+  var target=id+'l';
+  if(check_num(val)==false){
+    document.getElementById(target).innerHTML=`Invalid Input`;
+  }
+  if(check_num(val)==true){
+    document.getElementById(target).innerHTML=``;
+
+  }
+}
