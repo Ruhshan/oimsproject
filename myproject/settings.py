@@ -137,3 +137,6 @@ LOGIN_REDIRECT_URL = 'home'
 #Handle session is not Json Serializable
 # SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 # AUTO_LOGOUT_DELAY = 1
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

@@ -60,7 +60,7 @@ def superadmin_export(request):
 		return serve(request, os.path.basename(filepath), os.path.dirname(filepath))
 
 def superadmin_flush(request):
-	os.system("python manage.py flush --noinput")
+	os.system("python manage.py flush")
 	user = User.objects.create_user('superuser', '', 'superuser1234')
 	user.save()
 
