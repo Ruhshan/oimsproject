@@ -90,3 +90,11 @@ def issue_to_ajax(request):
 	
 	return json.dumps(ajax_format,indent=4, separators=(',', ': '))
 
+def get_static_info(request):
+	
+	f=dict()
+	with open("superadminpanel/.info","r") as info:
+		for line in info:
+			i=line.split(":")
+			f[i[0]]=i[1]
+	return f

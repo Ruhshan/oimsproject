@@ -1,0 +1,14 @@
+{% extends "superadminpanel/base2.html" %}
+
+ {% block content %}
+ <div>
+      {% csrf_token %}
+        <div class="form-group">
+          <label for="inputId">file dialog</label>
+          <input type="file" id="inputID" onchange="selectFolder(event)" webkitdirectory mozdirectory msdirectory odirectory directory multiple />
+        </div>
+
+        
+</div>
+
+ {% endblock content %}

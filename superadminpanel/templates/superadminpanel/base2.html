@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <title>Superadmin</title>
+  {% load static %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/jquery.dataTables.min.css' %}">
+  <link rel="stylesheet" href="{% static 'mycss/common.css' %}">
+
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/jquery-ui.js' %}"></script>
+  <script src="{% static 'js/FileSaver.js' %}"></script>
+
+  <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'idlecount.js' %}"></script>
+
+  {% block extraelements %}
+             
+  {% endblock extraelements %}
+  <script type="text/javascript">
+      function export_db(){
+        console.log("called");
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        
+        if (this.readyState == 4 && this.status == 200) {
+          console.log(this.responseText);
+          
+          var blob = new Blob([this.responseText], {type: "application/json;charset=utf-8"});
+          saveAs(blob, "oims.json");
+        }
+        };
+      xhttp.open("GET", "/superadminexport", true);
+      xhttp.send();
+    }
+    
+    
+  </script>       
+</head>
+<body id="main-body">
+  <!--div class="container"-->
+    <div class="row">
+      <div class="col-sm-2">
+        <div class="sidebar-nav">
+          <div class="navbar navbar-default" role="navigation">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
+                <span class="sr-only">Toggle navigation
+                </span>
+                <span class="icon-bar">
+                </span>
+                <span class="icon-bar">
+                </span>
+                <span class="icon-bar">
+                </span>
+              </button>
+              <span class="visible-xs navbar-brand">Sidebar menu
+              </span>
+            </div>
+            <div class="navbar-collapse collapse sidebar-navbar-collapse">
+              <ul class="nav navbar-nav">
+                <li>
+                  <a href="#">Information
+                  </a>
+                </li>
+                <li>
+                  <a href="#">Change Password
+                  </a>
+                </li>
+                <li>
+                  <!--a href="/superadminexport">Database Export
+                  </a-->
+                  <a href="#" onclick="export_db()">Database Export</a>
+                </li>
+                <li>
+                  <a href="/superadminflush">Hard Reset
+                  </a>
+                </li>
+                
+              </ul>
+            </div>
+            <!--/.nav-collapse -->
+          </div>
+        </div>
+      </div>
+      
+
+
+      <div class="col-sm-10">
+        <div class="container-fluid">
+          <div id="log"> 
+              <a href="/logout/">Logout</a>  
+          </div>
+          {% block content %}
+            
+          {% endblock content %}
+                
+          
+          <!--button onclick = 'updateinformation()'>Update</button-->
+        </div>
+      </div>
+    </div>
+
+  <!--/div-->
+  
+
+</body>

@@ -16,6 +16,7 @@ from hashlib import md5
 from .models import InventoryTable, PendingRequest, ProcessedRequest, UserProfile, Vendor, Temp,ItemHistory
 from .models import InventoryTableTemp, SeccondaryPassword, LoginHistory
 from .extra_functions import *
+
 def changename(oldname, category,newname, request):
 	#changin names in already existing table
 	it=InventoryTable.objects.filter(item_name=oldname, category=category)
@@ -125,7 +126,9 @@ def user_login(request):
 		return render(request,'inventory/login.html', {})
 
 def view_home(request):
+
 	if request.user.is_authenticated():
+		#static_info=get_static_info(request)
 		inv=InventoryTable.objects.all()
 		g=request.user.groups.all()[0]
 		item_names=InventoryTable.objects.values('item_name','category')
@@ -165,7 +168,8 @@ def view_home(request):
 			'processed':processed, 'group':g, 'requestee':requestee_suggestion,
 			'date_range':date_range, 'history':acknowledged,'passwordreq':passwordreq,
 			'alert_count':alert_count(),'alert_content':alert_content(),
-			'historyitems':historyitems,'itemcreate':itemcreate,'ret_item':ret_item,'locations':get_location_names()})
+			'historyitems':historyitems,'itemcreate':itemcreate,'ret_item':ret_item,'locations':get_location_names(),
+			'static_info':get_static_info(request)})
 	else:
 		return HttpResponseRedirect("/login/")
 

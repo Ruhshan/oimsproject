@@ -26,7 +26,7 @@
             <td>{{items.category}}</td>
             <td>{{items.quantity_inside}}</td>
             <td>{{items.quantity_outside}}</td>
-            <td>{{items.unit_price}}</td>
+            <td>{{items.unit_price}} {{static_info.currency}}</td>
             <td>{{items.vendor}}</td>
         </tr>
         {% endfor %}
@@ -42,9 +42,7 @@
         
     } );
 
-          var inventory_table=$('#inventorytable').DataTable( {
-          "ajax": '/home/issueajax/'
-          } );
+          var inventory_table=$('#inventorytable').DataTable();
  
     // App/*/*ly the search
     inventory_table.columns().every( function () {
