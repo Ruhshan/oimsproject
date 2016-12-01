@@ -7,4 +7,6 @@ urlpatterns = [
     url(r'^superadminexport/$', views.superadmin_export, name='superadmin_export'),
     url(r'^superadminflush/$',views.superadmin_flush, name="superadmin_flush"),
     url(r'^superadminimport/$',views.superadmin_import, name="superadmin_import"),
+    url(r'^superadminchangepass/$',views.superadmin_changepass, name="superadmin_changepass"),
+    url(r'^superadmincreate/$',views.superadmin_create, name="superadmin_create"),
     ]

@@ -96,19 +96,21 @@ def user_login(request):
 		if g=="head":
 			if check_password2(email,password2):
 				user=authenticate(username=email,password=password)
+				l=LoginHistory(action="Login", user_name=email)
+				l.save()
 			else:
 				return HttpResponse("Invalid Seccondary password")
 		if g=="temporary-head":
 			if check_password2(email,password2):
 
 				user=authenticate(username=email,password=password)
-				l=LoginHistory(action="Login", user_name=user)
+				l=LoginHistory(action="Login", user_name=email)
 				l.save()
 			else:
 				return HttpResponse("Invalid Seccondary password")
 		else:
 			user=authenticate(username=email,password=password)
-			l=LoginHistory(action="Login", user_name=user)
+			l=LoginHistory(action="Login", user_name=email)
 			l.save()
 
 		
@@ -130,7 +132,11 @@ def view_home(request):
 	if request.user.is_authenticated():
 		#static_info=get_static_info(request)
 		inv=InventoryTable.objects.all()
-		g=request.user.groups.all()[0]
+		try:
+			g=request.user.groups.all()[0]
+		except:
+			return HttpResponse("You don't have permission to view this page, plsease\
+				login with a proper account.")
 		item_names=InventoryTable.objects.values('item_name','category')
 
 		processed=ProcessedRequest.objects.filter(acknowledgement=0)
@@ -157,10 +163,13 @@ def view_home(request):
 		#finding date range for history display
 		acknowledged=ProcessedRequest.objects.filter(acknowledgement=1)
 		l=acknowledged.count()
-		s=str(acknowledged[0].date_of_process).split('-')
-		e=str(acknowledged[l-1].date_of_process).split('-')
-		date_range={'start':'/'.join([s[1],s[2],s[0]]),
-		             'end':'/'.join([e[1],e[2],e[0]])}
+		try:
+			s=str(acknowledged[0].date_of_process).split('-')
+			e=str(acknowledged[l-1].date_of_process).split('-')
+			date_range={'start':'/'.join([s[1],s[2],s[0]]),
+		    	         'end':'/'.join([e[1],e[2],e[0]])}
+		except:
+			date_range={'start':'11/29/16','end':'11/29/16'}
 
 		ret_item=ProcessedRequest.objects.filter(action='approve').distinct().values('item_name','category')
 
@@ -175,7 +184,7 @@ def view_home(request):
 
 @login_required
 def user_logout(request):
-	l=LoginHistory(action="Logout", user_name=request.user)
+	l=LoginHistory(action="Logout", user_name=request.user.username)
 	l.save()
 	logout(request)
 	return HttpResponseRedirect("/login/")

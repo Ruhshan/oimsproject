@@ -20,4 +20,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
  	url(r'', include('inventory.urls')),
 	url(r'', include('superadminpanel.urls')),
+	url(r'session_security/', include('session_security.urls')),
  ]

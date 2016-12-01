@@ -1,7 +1,119 @@
 {% extends "superadminpanel/base2.html" %}
 
  {% block content %}
+ <script type="text/javascript">
+   function isvalid(pass){
+         var re = /(?=.*\d)(?=.*[a-z-A-Z]).{8,}/;
+    return re.test(pass);
+
+      };
+
+    function checking(val){
+      if(isvalid(val)==true){
+        document.getElementById("errpwd").innerHTML="";
+      }
+      else{
+       document.getElementById("errpwd").innerHTML="Invalid "; 
+      }
+    }
+ </script>
+ <div class="modal fade" id="ChangepwdModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" onclick="clear_form()">&times;</button>
+          <h4 class="modal-title">Change Superuser Password:</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-horizontal">
+            <div class="form-group">
+              <label class="control-label col-sm-4" for="newp">New Password:</label>
+              <div class="col-sm-8">
+                <input type="email" class="form-control" id="newp" placeholder="Enter New Password">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label col-sm-4" for="oldp"><span id="wperr" style="color:red"></span>Old Password:</label>
+              <div class="col-sm-8">
+                <input type="email" class="form-control" id="oldp" placeholder="Enter Old Password">
+              </div>
+            </div>
+            
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" onclick="change_p()">Change</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="CreateAdminModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" onclick="clear_admin_form()">&times;</button>
+          <h4 class="modal-title">Create New Admin:</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-horizontal">
+            <div class="form-group">
+              <label class="control-label col-sm-4" for="email">Email:<span id="errexst" style="color:red"></span></label>
+              <div class="col-sm-8">
+                <input type="email" class="form-control" id="email" placeholder="Enter Email">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label col-sm-4" for="nick">Nick Name:</label>
+              <div class="col-sm-8">
+                <input type="email" class="form-control" id="nick" placeholder="Enter Nick Name">
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label class="control-label col-sm-4" for="pwd1"><span id="errpwd" style="color:red"></span>Password One:</label>
+              <div class="col-sm-8">
+                <input type="email" class="form-control" id="pwd1" placeholder="Enter Minimum 8 Alphanumeric Characters" oninput="checking(this.value)">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label col-sm-4" for="pwd2">Password Two:</label>
+              <div class="col-sm-8">
+                <input type="email" class="form-control" id="pwd2" placeholder="Enter Password Two for admin">
+              </div>
+            </div>
+
+            <div class="well well-sm">
+              <div class="form-group">
+              <label class="control-label col-sm-4" for="pwds"><span id ="wperr2" style="color:red"></span>Password:</label>
+              <div class="col-sm-8">
+                <input type="password" class="form-control" id="pwds" placeholder="Enter SuperUser Password">
+              </div>
+            </div>
+              
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" onclick="create_admin()">Create</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
  <form action="/superadminpanel/" method="post" name="myForm">
+
       {% csrf_token %}
         <div class="form-group">
           <label for="currency">Currency:</label>

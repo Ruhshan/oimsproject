@@ -152,7 +152,7 @@ class SeccondaryPassword(models.Model):
 class LoginHistory(models.Model):
 	timestamp = models.DateTimeField(auto_now_add=True, null=True)
 	action = models.CharField(max_length=10)
-	user_name = models.ForeignKey(User, null=True, blank=True)
+	user_name = models.CharField(max_length=50, null=True, blank=True)
 
 	def __str__(self):
 		return str(self.user_name)

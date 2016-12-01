@@ -1,0 +1,3234 @@
+[
+    {
+        "fields": {
+            "category": "Old",
+            "description": "Village did removed enjoyed explain nor ham saw calling talking. Securing as informed declared or margaret. Joy horrible moreover man feelings own shy. Request norland neither mistake for yet. Between the for morning assured country believe. On even feet time have an no at. Relation so in confined smallest children unpacked delicate. Why sir end believe uncivil respect. Always get adieus nature day course for common. My little garret repair to desire he esteem.",
+            "item_name": "modem",
+            "minimum_quantity": 5,
+            "quantity_inside": 56,
+            "quantity_outside": 44,
+            "unit_price": "1000.00000",
+            "vendor": "banglalion"
+        },
+        "model": "inventory.inventorytable",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "category": "Old",
+            "description": "Village did removed enjoyed explain nor ham saw calling talking. Securing as informed declared or margaret. Joy horrible moreover man feelings own shy. Request norland neither mistake for yet. Between the for morning assured country believe. On even feet time have an no at. Relation so in confined smallest children unpacked delicate. Why sir end believe uncivil respect. Always get adieus nature day course for common. My little garret repair to desire he esteem.",
+            "item_name": "mouse",
+            "minimum_quantity": 5,
+            "quantity_inside": 82,
+            "quantity_outside": 18,
+            "unit_price": "300.00000",
+            "vendor": "a4tec"
+        },
+        "model": "inventory.inventorytable",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "category": "Old",
+            "description": "Village did removed enjoyed explain nor ham saw calling talking. Securing as informed declared or margaret. Joy horrible moreover man feelings own shy. Request norland neither mistake for yet. Between the for morning assured country believe. On even feet time have an no at. Relation so in confined smallest children unpacked delicate. Why sir end believe uncivil respect. Always get adieus nature day course for common. My little garret repair to desire he esteem.",
+            "item_name": "mobile",
+            "minimum_quantity": 10,
+            "quantity_inside": 5,
+            "quantity_outside": 95,
+            "unit_price": "5000.70000",
+            "vendor": "nokia"
+        },
+        "model": "inventory.inventorytable",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "category": "Old",
+            "description": "Village did removed enjoyed explain nor ham saw calling talking. Securing as informed declared or margaret. Joy horrible moreover man feelings own shy. Request norland neither mistake for yet. Between the for morning assured country believe. On even feet time have an no at. Relation so in confined smallest children unpacked delicate. Why sir end believe uncivil respect. Always get adieus nature day course for common. My little garret repair to desire he esteem.",
+            "item_name": "kindle",
+            "minimum_quantity": 4,
+            "quantity_inside": 2,
+            "quantity_outside": 98,
+            "unit_price": "9000.00000",
+            "vendor": "amazon"
+        },
+        "model": "inventory.inventorytable",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "category": "Old",
+            "description": "new",
+            "item_name": "mouse-logitech",
+            "minimum_quantity": 5,
+            "quantity_inside": 83,
+            "quantity_outside": 27,
+            "unit_price": "500.00000",
+            "vendor": "logitech"
+        },
+        "model": "inventory.inventorytable",
+        "pk": 5
+    },
+    {
+        "fields": {
+            "category": "Old",
+            "description": "ddd",
+            "item_name": "khata",
+            "minimum_quantity": 5,
+            "quantity_inside": 20,
+            "quantity_outside": 0,
+            "unit_price": "30.00000",
+            "vendor": "uniq"
+        },
+        "model": "inventory.inventorytable",
+        "pk": 6
+    },
+    {
+        "fields": {
+            "category": "Old",
+            "description": "ddd",
+            "item_name": "khata2",
+            "minimum_quantity": 5,
+            "quantity_inside": 20,
+            "quantity_outside": 0,
+            "unit_price": "30.00000",
+            "vendor": "esco"
+        },
+        "model": "inventory.inventorytable",
+        "pk": 7
+    },
+    {
+        "fields": {
+            "category": "Old",
+            "description": "dd",
+            "item_name": "kolom",
+            "minimum_quantity": 1,
+            "quantity_inside": 20,
+            "quantity_outside": 0,
+            "unit_price": "5.00000",
+            "vendor": "adf"
+        },
+        "model": "inventory.inventorytable",
+        "pk": 8
+    },
+    {
+        "fields": {
+            "category": "Old",
+            "description": "d",
+            "item_name": "pencil",
+            "minimum_quantity": 2,
+            "quantity_inside": 10,
+            "quantity_outside": 0,
+            "unit_price": "4.00000",
+            "vendor": "uniq"
+        },
+        "model": "inventory.inventorytable",
+        "pk": 9
+    },
+    {
+        "fields": {
+            "category": "Old",
+            "description": "mmm",
+            "item_name": "mug",
+            "minimum_quantity": 2,
+            "quantity_inside": 10,
+            "quantity_outside": 0,
+            "unit_price": "30.00000",
+            "vendor": ""
+        },
+        "model": "inventory.inventorytable",
+        "pk": 10
+    },
+    {
+        "fields": {
+            "category": "Old",
+            "description": "sss",
+            "item_name": "scale",
+            "minimum_quantity": 2,
+            "quantity_inside": 100,
+            "quantity_outside": 0,
+            "unit_price": "25.00000",
+            "vendor": ""
+        },
+        "model": "inventory.inventorytable",
+        "pk": 11
+    },
+    {
+        "fields": {
+            "category": "Old",
+            "description": "dfadfa",
+            "item_name": "Eraser",
+            "minimum_quantity": 10,
+            "quantity_inside": 41,
+            "quantity_outside": 49,
+            "unit_price": "30.00000",
+            "vendor": "bang"
+        },
+        "model": "inventory.inventorytable",
+        "pk": 12
+    },
+    {
+        "fields": {
+            "category": "Old",
+            "description": "naaa",
+            "item_name": "bottle_fallback",
+            "minimum_quantity": 5,
+            "quantity_inside": 54,
+            "quantity_outside": 7,
+            "unit_price": "5.00000",
+            "vendor": ""
+        },
+        "model": "inventory.inventorytable",
+        "pk": 13
+    },
+    {
+        "fields": {
+            "category": "Old",
+            "description": "ddd",
+            "item_name": "cable",
+            "minimum_quantity": 2,
+            "quantity_inside": 5,
+            "quantity_outside": 0,
+            "unit_price": "3.00000",
+            "vendor": ""
+        },
+        "model": "inventory.inventorytable",
+        "pk": 14
+    },
+    {
+        "fields": {
+            "category": "Old",
+            "description": "desc",
+            "item_name": "item1",
+            "minimum_quantity": 3,
+            "quantity_inside": 10,
+            "quantity_outside": 0,
+            "unit_price": "3.00000",
+            "vendor": ""
+        },
+        "model": "inventory.inventorytable",
+        "pk": 15
+    },
+    {
+        "fields": {
+            "category": "Old",
+            "description": "deas",
+            "item_name": "cube",
+            "minimum_quantity": 1,
+            "quantity_inside": 10,
+            "quantity_outside": 0,
+            "unit_price": "200.00000",
+            "vendor": ""
+        },
+        "model": "inventory.inventorytable",
+        "pk": 16
+    },
+    {
+        "fields": {
+            "category": "Old",
+            "description": "dfad",
+            "item_name": "cube2",
+            "minimum_quantity": 2,
+            "quantity_inside": 15,
+            "quantity_outside": 0,
+            "unit_price": "3.00000",
+            "vendor": ""
+        },
+        "model": "inventory.inventorytable",
+        "pk": 17
+    },
+    {
+        "fields": {
+            "category": "Old",
+            "description": "fada",
+            "item_name": "hat",
+            "minimum_quantity": 20,
+            "quantity_inside": 93,
+            "quantity_outside": 7,
+            "unit_price": "233.00000",
+            "vendor": ""
+        },
+        "model": "inventory.inventorytable",
+        "pk": 18
+    },
+    {
+        "fields": {
+            "category": "Old",
+            "description": "",
+            "item_name": "hat2",
+            "minimum_quantity": 10,
+            "quantity_inside": 120,
+            "quantity_outside": 0,
+            "unit_price": "23.00000",
+            "vendor": ""
+        },
+        "model": "inventory.inventorytable",
+        "pk": 19
+    },
+    {
+        "fields": {
+            "category": "Old",
+            "description": "",
+            "item_name": "hat3",
+            "minimum_quantity": 20,
+            "quantity_inside": 200,
+            "quantity_outside": 0,
+            "unit_price": "23.00000",
+            "vendor": ""
+        },
+        "model": "inventory.inventorytable",
+        "pk": 20
+    },
+    {
+        "fields": {
+            "category": "Old",
+            "description": "",
+            "item_name": "hat4",
+            "minimum_quantity": 222,
+            "quantity_inside": 1186,
+            "quantity_outside": 13,
+            "unit_price": "23.00000",
+            "vendor": ""
+        },
+        "model": "inventory.inventorytable",
+        "pk": 21
+    },
+    {
+        "fields": {
+            "category": "Old",
+            "description": "ddd",
+            "item_name": "Changed_item",
+            "minimum_quantity": 20,
+            "quantity_inside": 260,
+            "quantity_outside": 12,
+            "unit_price": "1212.00000",
+            "vendor": "uniq"
+        },
+        "model": "inventory.inventorytable",
+        "pk": 22
+    },
+    {
+        "fields": {
+            "category": "Old",
+            "description": "ddd",
+            "item_name": "Item_2",
+            "minimum_quantity": 10,
+            "quantity_inside": 100,
+            "quantity_outside": 0,
+            "unit_price": "32.00000",
+            "vendor": ""
+        },
+        "model": "inventory.inventorytable",
+        "pk": 23
+    },
+    {
+        "fields": {
+            "category": "Old",
+            "description": "",
+            "item_name": "very_new",
+            "minimum_quantity": 10,
+            "quantity_inside": 10000,
+            "quantity_outside": 0,
+            "unit_price": "2343.00000",
+            "vendor": ""
+        },
+        "model": "inventory.inventorytable",
+        "pk": 25
+    },
+    {
+        "fields": {
+            "category": "Old",
+            "description": "black pen",
+            "item_name": "NewPen",
+            "minimum_quantity": 5,
+            "quantity_inside": 20,
+            "quantity_outside": 0,
+            "unit_price": "5.00000",
+            "vendor": ""
+        },
+        "model": "inventory.inventorytable",
+        "pk": 26
+    },
+    {
+        "fields": {
+            "category": "Old",
+            "description": "",
+            "item_name": "chair",
+            "minimum_quantity": 5,
+            "quantity_inside": 20,
+            "quantity_outside": 0,
+            "unit_price": "320.00000",
+            "vendor": "Otobi"
+        },
+        "model": "inventory.inventorytable",
+        "pk": 27
+    },
+    {
+        "fields": {
+            "category": "Furniture",
+            "description": "",
+            "item_name": "Table",
+            "minimum_quantity": 2,
+            "quantity_inside": 10,
+            "quantity_outside": 0,
+            "unit_price": "300.00000",
+            "vendor": "Otobi"
+        },
+        "model": "inventory.inventorytable",
+        "pk": 28
+    },
+    {
+        "fields": {
+            "category": "old_electronics",
+            "description": "ddd",
+            "item_name": "chair",
+            "minimum_quantity": 2,
+            "quantity_inside": 10,
+            "quantity_outside": 0,
+            "unit_price": "2.00000",
+            "vendor": "\u09b8\u09cd\u0995\u09df\u09be\u09b0 "
+        },
+        "model": "inventory.inventorytable",
+        "pk": 29
+    },
+    {
+        "fields": {
+            "category": "Old",
+            "date_of_request": "2016-09-28",
+            "description": "",
+            "item_name": "Select..",
+            "location": "Non Specified",
+            "requested_quantity": 1,
+            "requestee": "",
+            "store_manager": "ruhshan.ahmed@yahoo.com"
+        },
+        "model": "inventory.pendingrequest",
+        "pk": "0809fc41-e3c9-4cdb-ae93-f01709adc3e6"
+    },
+    {
+        "fields": {
+            "category": "Old",
+            "date_of_request": "2016-09-28",
+            "description": "",
+            "item_name": "Select..",
+            "location": "Non Specified",
+            "requested_quantity": 1,
+            "requestee": "",
+            "store_manager": "ruhshan.ahmed@yahoo.com"
+        },
+        "model": "inventory.pendingrequest",
+        "pk": "12b9ed66-9be5-4d40-b32c-d2aaed1f09bd"
+    },
+    {
+        "fields": {
+            "category": "Old",
+            "date_of_request": "2016-11-18",
+            "description": "New category test",
+            "item_name": "Eraser,Old",
+            "location": "310",
+            "requested_quantity": 41,
+            "requestee": "Zunaed",
+            "store_manager": "ruhshan.ahmed@yahoo.com"
+        },
+        "model": "inventory.pendingrequest",
+        "pk": "474fe7ef-eebe-489e-ad28-234556719853"
+    },
+    {
+        "fields": {
+            "category": "Old",
+            "date_of_request": "2016-09-28",
+            "description": "",
+            "item_name": "Select..",
+            "location": "Non Specified",
+            "requested_quantity": 1,
+            "requestee": "",
+            "store_manager": "ruhshan.ahmed@yahoo.com"
+        },
+        "model": "inventory.pendingrequest",
+        "pk": "6c48adb2-db55-45c8-8ba6-9b92b436cf97"
+    },
+    {
+        "fields": {
+            "category": "Old",
+            "date_of_request": "2016-09-28",
+            "description": "",
+            "item_name": "Select..",
+            "location": "Non Specified",
+            "requested_quantity": 1,
+            "requestee": "",
+            "store_manager": "ruhshan.ahmed@yahoo.com"
+        },
+        "model": "inventory.pendingrequest",
+        "pk": "a66a2f1f-96b4-4216-b0cb-bcbe5ccbf1c0"
+    },
+    {
+        "fields": {
+            "category": "Old",
+            "date_of_request": "2016-09-28",
+            "description": "",
+            "item_name": "Select..",
+            "location": "Non Specified",
+            "requested_quantity": 1,
+            "requestee": "",
+            "store_manager": "ruhshan.ahmed@yahoo.com"
+        },
+        "model": "inventory.pendingrequest",
+        "pk": "ef489682-430b-46df-8157-6a29bc6d4a42"
+    },
+    {
+        "fields": {
+            "added_by": "adfa",
+            "address": "adfa",
+            "contact": "da",
+            "contact_person": "test person",
+            "date_added": "2016-10-14",
+            "date_modified": "2016-10-14",
+            "description": "dafda",
+            "email": "dafa",
+            "is_active": 1,
+            "modified_by": "fadsfa",
+            "name": "Amazon"
+        },
+        "model": "inventory.vendor",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "added_by": "ruhshan.ahmed@gmail.com",
+            "address": "Akhalia, Sylhet",
+            "contact": "c",
+            "contact_person": "test person",
+            "date_added": "2016-10-14",
+            "date_modified": "2016-10-14",
+            "description": "d",
+            "email": "e",
+            "is_active": 1,
+            "modified_by": "ruhshan.ahmed@gmail.com",
+            "name": "bang"
+        },
+        "model": "inventory.vendor",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "added_by": "ruhshan.ahmed@gmail.com",
+            "address": "dred",
+            "contact": "011",
+            "contact_person": "test person",
+            "date_added": "2016-10-14",
+            "date_modified": "2016-10-14",
+            "description": "des",
+            "email": "em",
+            "is_active": 1,
+            "modified_by": "ruhshan.ahmed@gmail.com",
+            "name": "chang"
+        },
+        "model": "inventory.vendor",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "added_by": "ruhshan.ahmed@gmail.com",
+            "address": "ddd",
+            "contact": "ccc",
+            "contact_person": "test person",
+            "date_added": "2016-10-14",
+            "date_modified": "2016-10-14",
+            "description": "ddada",
+            "email": "eee",
+            "is_active": 1,
+            "modified_by": "ruhshan.ahmed@gmail.com",
+            "name": "dang"
+        },
+        "model": "inventory.vendor",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "added_by": "ruhshan.ahmed@gmail.com",
+            "address": "edd",
+            "contact": "ec",
+            "contact_person": "test person",
+            "date_added": "2016-10-14",
+            "date_modified": "2016-10-14",
+            "description": "edd",
+            "email": "em",
+            "is_active": 1,
+            "modified_by": "ruhshan.ahmed@gmail.com",
+            "name": "eang"
+        },
+        "model": "inventory.vendor",
+        "pk": 5
+    },
+    {
+        "fields": {
+            "added_by": "ruhshan.ahmed@gmail.com",
+            "address": "fadd",
+            "contact": "fc",
+            "contact_person": "test person",
+            "date_added": "2016-10-14",
+            "date_modified": "2016-10-14",
+            "description": "fd",
+            "email": "fe",
+            "is_active": 1,
+            "modified_by": "ruhshan.ahmed@gmail.com",
+            "name": "fang"
+        },
+        "model": "inventory.vendor",
+        "pk": 6
+    },
+    {
+        "fields": {
+            "added_by": "ruhshan.ahmed@gmail.com",
+            "address": "gad",
+            "contact": "gc",
+            "contact_person": "test person",
+            "date_added": "2016-10-14",
+            "date_modified": "2016-10-14",
+            "description": "gd",
+            "email": "gem",
+            "is_active": 1,
+            "modified_by": "ruhshan.ahmed@gmail.com",
+            "name": "gang"
+        },
+        "model": "inventory.vendor",
+        "pk": 7
+    },
+    {
+        "fields": {
+            "added_by": "ruhshan.ahmed@gmail.com",
+            "address": "had",
+            "contact": "hc",
+            "contact_person": "test person",
+            "date_added": "2016-10-14",
+            "date_modified": "2016-10-14",
+            "description": "hd",
+            "email": "he",
+            "is_active": 1,
+            "modified_by": "ruhshan.ahmed@gmail.com",
+            "name": "hang"
+        },
+        "model": "inventory.vendor",
+        "pk": 8
+    },
+    {
+        "fields": {
+            "added_by": "ruhshan.ahmed@yahoo.com",
+            "address": "add",
+            "contact": "010",
+            "contact_person": "test person",
+            "date_added": "2016-10-15",
+            "date_modified": "2016-10-15",
+            "description": "adfad",
+            "email": "u@g.c",
+            "is_active": 1,
+            "modified_by": "ruhshan.ahmed@yahoo.com",
+            "name": "uniq"
+        },
+        "model": "inventory.vendor",
+        "pk": 9
+    },
+    {
+        "fields": {
+            "added_by": "ruhshan.ahmed@yahoo.com",
+            "address": "add",
+            "contact": "009",
+            "contact_person": "test person",
+            "date_added": "2016-10-15",
+            "date_modified": "2016-10-15",
+            "description": "no",
+            "email": "9@c",
+            "is_active": 1,
+            "modified_by": "ruhshan.ahmed@yahoo.com",
+            "name": "esco"
+        },
+        "model": "inventory.vendor",
+        "pk": 10
+    },
+    {
+        "fields": {
+            "added_by": "ruhshan.ahmed@yahoo.com",
+            "address": "a",
+            "contact": "c",
+            "contact_person": "test person",
+            "date_added": "2016-10-15",
+            "date_modified": "2016-10-15",
+            "description": "d",
+            "email": "e",
+            "is_active": 1,
+            "modified_by": "ruhshan.ahmed@yahoo.com",
+            "name": "adf"
+        },
+        "model": "inventory.vendor",
+        "pk": 11
+    },
+    {
+        "fields": {
+            "added_by": "ruhshan.ahmed@yahoo.com",
+            "address": "nor",
+            "contact": "shingdi",
+            "contact_person": "mahfuz",
+            "date_added": "2016-10-18",
+            "date_modified": "2016-10-18",
+            "description": "afada",
+            "email": "m@n.c",
+            "is_active": 1,
+            "modified_by": "ruhshan.ahmed@yahoo.com",
+            "name": "bangla"
+        },
+        "model": "inventory.vendor",
+        "pk": 12
+    },
+    {
+        "fields": {
+            "added_by": "m.r@g.c",
+            "address": "",
+            "contact": "",
+            "contact_person": "",
+            "date_added": "2016-10-27",
+            "date_modified": "2016-10-27",
+            "description": "",
+            "email": "",
+            "is_active": 1,
+            "modified_by": "m.r@g.c",
+            "name": ""
+        },
+        "model": "inventory.vendor",
+        "pk": 13
+    },
+    {
+        "fields": {
+            "added_by": "ruhshan.ahmed@gmail.com",
+            "address": "\u09b8\u09bf\u09b2\u09c7\u099f ",
+            "contact": "\u09e7\u09e6\u09e7\u09e7",
+            "contact_person": "\u09b0\u09ab\u09bf\u0995 ",
+            "date_added": "2016-11-14",
+            "date_modified": "2016-11-14",
+            "description": "\u09a1\u09c7\u09b8\u0995\u09cd\u09b0\u09bf\u09aa\u09b6\u09a8",
+            "email": "t@t.com",
+            "is_active": 1,
+            "modified_by": "ruhshan.ahmed@gmail.com",
+            "name": "\u09b8\u09cd\u0995\u09df\u09be\u09b0 "
+        },
+        "model": "inventory.vendor",
+        "pk": 14
+    },
+    {
+        "fields": {
+            "added_by": "ruhshan.ahmed@gmail.com",
+            "address": "Dhaka",
+            "contact": "1011",
+            "contact_person": "Mr. O",
+            "date_added": "2016-11-18",
+            "date_modified": "2016-11-18",
+            "description": "cool furniture maker! ",
+            "email": "otobi@o.com",
+            "is_active": 1,
+            "modified_by": "ruhshan.ahmed@gmail.com",
+            "name": "Otobi"
+        },
+        "model": "inventory.vendor",
+        "pk": 15
+    },
+    {
+        "fields": {
+            "user_name": "ruhshan.ahmed@gmail.com",
+            "value": "0fbce6c74ff376d18cb352e7fdc6273b"
+        },
+        "model": "inventory.seccondarypassword",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "user_name": "h@h1.com",
+            "value": "0fbce6c74ff376d18cb352e7fdc6273b"
+        },
+        "model": "inventory.seccondarypassword",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "user_name": "h@h2.com",
+            "value": "0fbce6c74ff376d18cb352e7fdc6273b"
+        },
+        "model": "inventory.seccondarypassword",
+        "pk": 5
+    },
+    {
+        "fields": {
+            "user_name": "temporary@t.com",
+            "value": "eedc6ed006e6f49a7010013cc1fd8a3f"
+        },
+        "model": "inventory.seccondarypassword",
+        "pk": 6
+    },
+    {
+        "fields": {
+            "user_name": "test2@test.com",
+            "value": "11ce0502ee008a14a2d75a0ac91cd2d9"
+        },
+        "model": "inventory.seccondarypassword",
+        "pk": 7
+    },
+    {
+        "fields": {
+            "user_name": "newhead@new.com",
+            "value": "11ce0502ee008a14a2d75a0ac91cd2d9"
+        },
+        "model": "inventory.seccondarypassword",
+        "pk": 8
+    },
+    {
+        "fields": {
+            "user_name": "test@temp.com",
+            "value": "11ce0502ee008a14a2d75a0ac91cd2d9"
+        },
+        "model": "inventory.seccondarypassword",
+        "pk": 9
+    },
+    {
+        "fields": {
+            "user_name": "a@b.com",
+            "value": "81dc9bdb52d04dc20036dbd8313ed055"
+        },
+        "model": "inventory.seccondarypassword",
+        "pk": 18
+    },
+    {
+        "fields": {
+            "amnt": 2,
+            "category": "Old",
+            "date_created": "2016-11-18",
+            "desc": "No trace",
+            "item": "mouse-logitech",
+            "occurance_date": "2016-11-18",
+            "person": "Daniel",
+            "place": "110"
+        },
+        "model": "inventory.issues",
+        "pk": "3face2ee-5958-42d7-a409-4db4b52e3ea0"
+    },
+    {
+        "fields": {
+            "amnt": 1,
+            "category": "Old",
+            "date_created": "2016-11-16",
+            "desc": "Broken",
+            "item": "modem",
+            "occurance_date": "2016-11-03",
+            "person": "Karim",
+            "place": "Not Specified"
+        },
+        "model": "inventory.issues",
+        "pk": "6db9140d-7a18-44c8-ada8-d11ffae30270"
+    },
+    {
+        "fields": {
+            "amnt": 2,
+            "category": "Old",
+            "date_created": "2016-11-16",
+            "desc": "Ajax test",
+            "item": "hat4",
+            "occurance_date": "2016-11-17",
+            "person": "Abir",
+            "place": "103"
+        },
+        "model": "inventory.issues",
+        "pk": "9759e4e8-714f-4392-8b91-df313d259911"
+    },
+    {
+        "fields": {
+            "amnt": 1,
+            "category": "Old",
+            "date_created": "2016-11-16",
+            "desc": "Lost",
+            "item": "hat",
+            "occurance_date": "2016-11-16",
+            "person": "Test",
+            "place": "110"
+        },
+        "model": "inventory.issues",
+        "pk": "a8870e1c-8d26-4795-8bd4-6c2363f24ceb"
+    },
+    {
+        "fields": {
+            "amnt": 1,
+            "category": "Old",
+            "date_created": "2016-11-16",
+            "desc": "Stolen",
+            "item": "mouse-logitech",
+            "occurance_date": "2016-11-13",
+            "person": "Daniel",
+            "place": "110"
+        },
+        "model": "inventory.issues",
+        "pk": "ae4738db-2cd8-4231-b90c-41e0fd25af0e"
+    },
+    {
+        "fields": {
+            "amnt": 2,
+            "category": "Old",
+            "date_created": "2016-11-16",
+            "desc": "ddd",
+            "item": "modem",
+            "occurance_date": "2016-11-17",
+            "person": "Karim",
+            "place": "Not Specified"
+        },
+        "model": "inventory.issues",
+        "pk": "b2416631-cb1a-4274-8c78-24e78c656b37"
+    },
+    {
+        "fields": {
+            "amnt": 2,
+            "category": "Old",
+            "date_created": "2016-11-16",
+            "desc": "Not working",
+            "item": "Changed_item",
+            "occurance_date": "2009-11-04",
+            "person": "Tahsin",
+            "place": "101"
+        },
+        "model": "inventory.issues",
+        "pk": "ba815c6c-f273-414a-b8fb-58ecd639fedd"
+    },
+    {
+        "fields": {
+            "amnt": 1,
+            "category": "Old",
+            "date_created": "2016-11-17",
+            "desc": "Stolen",
+            "item": "modem",
+            "occurance_date": "2016-10-05",
+            "person": "Karim",
+            "place": "Not Specified"
+        },
+        "model": "inventory.issues",
+        "pk": "c2f3a8aa-83d3-4740-8556-2f71e3775338"
+    },
+    {
+        "fields": {
+            "date_joined": "2016-09-07T14:46:59.517Z",
+            "email": "ruhshan.ahmed@gmail.com",
+            "first_name": "Ruhshan",
+            "groups": [],
+            "is_active": true,
+            "is_staff": true,
+            "is_superuser": true,
+            "last_login": "2016-11-29T11:30:49.950Z",
+            "last_name": "Ahmed",
+            "password": "pbkdf2_sha256$30000$HUBUYiZ6IvUw$34pJg7qbB0UfPGK5yODxzdSa2GDKcGV/O93F1tN6gLY=",
+            "user_permissions": [],
+            "username": "ruhshan.ahmed@gmail.com"
+        },
+        "model": "auth.user",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "date_joined": "2016-10-24T09:08:23.976Z",
+            "email": "ruhshan.ahmed@yahoo.com",
+            "first_name": "Ahmed",
+            "groups": [],
+            "is_active": true,
+            "is_staff": true,
+            "is_superuser": false,
+            "last_login": "2016-11-25T09:35:06.945Z",
+            "last_name": "Ruhshan",
+            "password": "pbkdf2_sha256$30000$lDWgqkYiSWMD$Gmi/cOACZma7z0I2fw5wAzJuyam3ncTYf/MQ9+EvciY=",
+            "user_permissions": [],
+            "username": "ruhshan.ahmed@yahoo.com"
+        },
+        "model": "auth.user",
+        "pk": 7
+    },
+    {
+        "fields": {
+            "date_joined": "2016-10-29T09:02:45.077Z",
+            "email": "ahmed.ruhshan@gmail.com",
+            "first_name": "",
+            "groups": [],
+            "is_active": true,
+            "is_staff": true,
+            "is_superuser": false,
+            "last_login": "2016-10-29T09:03:32.918Z",
+            "last_name": "",
+            "password": "pbkdf2_sha256$30000$bkgT4XF85vfG$+QNHdtHz41LicdLw+V+2Rb4iRZl0zvJ+HId5d27QQYU=",
+            "user_permissions": [],
+            "username": "ahmed.ruhshan@gmail.com"
+        },
+        "model": "auth.user",
+        "pk": 20
+    },
+    {
+        "fields": {
+            "date_joined": "2016-10-29T09:03:59Z",
+            "email": "test@manager.com",
+            "first_name": "",
+            "groups": [],
+            "is_active": true,
+            "is_staff": true,
+            "is_superuser": false,
+            "last_login": "2016-11-04T09:05:29Z",
+            "last_name": "",
+            "password": "pbkdf2_sha256$30000$KY9NLhClAtnk$uxcD4oxNOe7hRKzmFl8pZaC1Pqyny1229iNTNr6mgI4=",
+            "user_permissions": [],
+            "username": "test@manager.com"
+        },
+        "model": "auth.user",
+        "pk": 21
+    },
+    {
+        "fields": {
+            "date_joined": "2016-11-04T09:36:21.128Z",
+            "email": "test2@test.com",
+            "first_name": "",
+            "groups": [],
+            "is_active": false,
+            "is_staff": true,
+            "is_superuser": false,
+            "last_login": "2016-11-04T15:17:29.933Z",
+            "last_name": "",
+            "password": "pbkdf2_sha256$30000$YgwSEgotwWiL$0/VmHofOoeTjuArQ3wfvWTZ9ckxSzoYyYUSJD+P2ieA=",
+            "user_permissions": [],
+            "username": "test2@test.com"
+        },
+        "model": "auth.user",
+        "pk": 28
+    },
+    {
+        "fields": {
+            "date_joined": "2016-11-04T09:39:47.362Z",
+            "email": "test2@manager.com",
+            "first_name": "",
+            "groups": [],
+            "is_active": true,
+            "is_staff": true,
+            "is_superuser": false,
+            "last_login": null,
+            "last_name": "",
+            "password": "pbkdf2_sha256$30000$EEjUyuS6qzVV$4adA9LtTtUhGd6fXY2z/0qcLTLjOByC9Hx3BRT9Am30=",
+            "user_permissions": [],
+            "username": "test2@manager.com"
+        },
+        "model": "auth.user",
+        "pk": 29
+    },
+    {
+        "fields": {
+            "date_joined": "2016-11-04T09:58:00.269Z",
+            "email": "m@m.com",
+            "first_name": "newname",
+            "groups": [],
+            "is_active": true,
+            "is_staff": true,
+            "is_superuser": false,
+            "last_login": "2016-11-04T10:02:03.777Z",
+            "last_name": "Testlname",
+            "password": "pbkdf2_sha256$30000$KEuxDaeR0gls$1p44SZpWEQJTQaNCTtkB/TR2ltdlh+s8BUFxJ890UjM=",
+            "user_permissions": [],
+            "username": "m@m.com"
+        },
+        "model": "auth.user",
+        "pk": 30
+    },
+    {
+        "fields": {
+            "date_joined": "2016-11-05T05:00:28.254Z",
+            "email": "newhead@new.com",
+            "first_name": "",
+            "groups": [],
+            "is_active": true,
+            "is_staff": true,
+            "is_superuser": false,
+            "last_login": null,
+            "last_name": "",
+            "password": "pbkdf2_sha256$30000$k3qLoe7lGNxX$vyI0ETCc1X7yVy60W/UB/EpHoicxn7g4XW5jh05Vzpk=",
+            "user_permissions": [],
+            "username": "newhead@new.com"
+        },
+        "model": "auth.user",
+        "pk": 31
+    },
+    {
+        "fields": {
+            "date_joined": "2016-11-05T08:58:33.240Z",
+            "email": "test@temp.com",
+            "first_name": "",
+            "groups": [],
+            "is_active": true,
+            "is_staff": true,
+            "is_superuser": false,
+            "last_login": "2016-11-05T09:00:26.126Z",
+            "last_name": "",
+            "password": "pbkdf2_sha256$30000$8RbEEaJxxD3Y$jrAVCcIcSC/c+J3DuhqxtyvwPC6SW+XAMZNdgVTD/zw=",
+            "user_permissions": [],
+            "username": "test@temp.com"
+        },
+        "model": "auth.user",
+        "pk": 32
+    },
+    {
+        "fields": {
+            "date_joined": "2016-11-11T17:17:54.029Z",
+            "email": "bmail@b.com",
+            "first_name": "",
+            "groups": [],
+            "is_active": true,
+            "is_staff": true,
+            "is_superuser": false,
+            "last_login": null,
+            "last_name": "",
+            "password": "pbkdf2_sha256$30000$ProbzCRiD1ve$vgMHxT5vJ/0JPngZ4T6YDRcTHlhQGpV+X7diPvlMpRE=",
+            "user_permissions": [],
+            "username": "bmail@b.com"
+        },
+        "model": "auth.user",
+        "pk": 33
+    },
+    {
+        "fields": {
+            "date_joined": "2016-11-11T17:35:03.905Z",
+            "email": "nmail@n.com",
+            "first_name": "Mr.",
+            "groups": [],
+            "is_active": true,
+            "is_staff": true,
+            "is_superuser": false,
+            "last_login": "2016-11-11T17:36:09.348Z",
+            "last_name": "Manager",
+            "password": "pbkdf2_sha256$30000$asY0Ap8aDpuc$6uBfl+bALDKiyniPEomuGM00HkweGUIz3vumdQ0qRLE=",
+            "user_permissions": [],
+            "username": "nmail@n.com"
+        },
+        "model": "auth.user",
+        "pk": 34
+    },
+    {
+        "fields": {
+            "date_joined": "2016-11-13T06:21:31.321Z",
+            "email": "manager2@m.com",
+            "first_name": "",
+            "groups": [],
+            "is_active": true,
+            "is_staff": true,
+            "is_superuser": false,
+            "last_login": null,
+            "last_name": "",
+            "password": "pbkdf2_sha256$30000$BkumNJxFtmY7$WtoNl0gUZgE8tYylX963zU949A6ncr/UXie9OsYHf+A=",
+            "user_permissions": [],
+            "username": "manager2@m.com"
+        },
+        "model": "auth.user",
+        "pk": 35
+    },
+    {
+        "fields": {
+            "date_joined": "2016-11-23T14:49:41.796Z",
+            "email": "",
+            "first_name": "",
+            "groups": [],
+            "is_active": true,
+            "is_staff": true,
+            "is_superuser": true,
+            "last_login": "2016-11-24T08:53:12.658Z",
+            "last_name": "",
+            "password": "pbkdf2_sha256$30000$ckK70gqExANG$RzAw29PmmqX/CLEC9TdKl/3vCm3KQ1yvHtt8nhIjOXg=",
+            "user_permissions": [],
+            "username": "superadmin"
+        },
+        "model": "auth.user",
+        "pk": 37
+    },
+    {
+        "fields": {
+            "date_joined": "2016-11-29T11:19:18.981Z",
+            "email": "a@b.com",
+            "first_name": "",
+            "groups": [
+                22
+            ],
+            "is_active": true,
+            "is_staff": true,
+            "is_superuser": false,
+            "last_login": "2016-11-29T11:19:47.131Z",
+            "last_name": "",
+            "password": "pbkdf2_sha256$30000$QvodJJASGyEV$ZFAXewXqgM2p92pZiJ71gaTR6nOPUmxR8AvmtGS2Kk8=",
+            "user_permissions": [],
+            "username": "a@b.com"
+        },
+        "model": "auth.user",
+        "pk": 66
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-04T17:10:20.081Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-04T17:13:33.576Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-04T17:13:49.459Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-04T17:14:54.828Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-05T04:30:52.151Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 5
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-05T04:48:59.368Z",
+            "user_name": null
+        },
+        "model": "inventory.loginhistory",
+        "pk": 6
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-05T04:49:15.587Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 7
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-05T05:25:10.555Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 8
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-05T05:27:12.489Z",
+            "user_name": null
+        },
+        "model": "inventory.loginhistory",
+        "pk": 9
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-05T05:27:34.290Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 10
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-05T08:33:36.944Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 11
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-05T08:44:27.525Z",
+            "user_name": null
+        },
+        "model": "inventory.loginhistory",
+        "pk": 12
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-05T08:44:40.368Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 13
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-05T08:57:06.756Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 14
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-05T08:58:00.439Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 15
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-05T08:58:42.206Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 16
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-05T09:00:25.692Z",
+            "user_name": 32
+        },
+        "model": "inventory.loginhistory",
+        "pk": 17
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-05T09:11:46.433Z",
+            "user_name": 32
+        },
+        "model": "inventory.loginhistory",
+        "pk": 18
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-05T09:12:02.990Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 19
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-07T16:31:29.952Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 20
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-11T15:02:57.225Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 21
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-11T15:12:02.240Z",
+            "user_name": null
+        },
+        "model": "inventory.loginhistory",
+        "pk": 22
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-11T15:12:13.651Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 23
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-11T15:44:54.498Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 24
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-11T17:10:56.307Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 25
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-11T17:35:19.889Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 26
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-11T17:35:43.801Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 27
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-11T17:35:57.072Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 28
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-11T17:36:08.927Z",
+            "user_name": 34
+        },
+        "model": "inventory.loginhistory",
+        "pk": 29
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-11T17:36:53.683Z",
+            "user_name": 34
+        },
+        "model": "inventory.loginhistory",
+        "pk": 30
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-11T17:37:09.449Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 31
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-11T18:38:14.217Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 32
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-11T18:38:21.057Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 33
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-11T18:38:28.857Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 34
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-11T18:38:31.773Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 35
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-11T18:38:37.585Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 36
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-11T18:38:42.509Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 37
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-11T18:38:48.722Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 38
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-11T18:39:02.329Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 39
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-11T18:39:01.905Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 40
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-11T18:39:02.504Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 41
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-11T18:39:18.307Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 42
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-11T18:41:47.667Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 43
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-11T18:50:31.747Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 44
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-11T19:44:06.613Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 45
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-11T19:44:22.135Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 46
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-11T19:44:29.074Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 47
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-11T19:44:40.528Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 48
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-13T06:03:22.692Z",
+            "user_name": null
+        },
+        "model": "inventory.loginhistory",
+        "pk": 49
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-13T06:03:36.716Z",
+            "user_name": null
+        },
+        "model": "inventory.loginhistory",
+        "pk": 50
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-13T06:03:55.931Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 51
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-13T06:04:02.911Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 52
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-13T06:17:34.513Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 53
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-13T06:17:40.262Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 54
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-13T06:19:32.032Z",
+            "user_name": null
+        },
+        "model": "inventory.loginhistory",
+        "pk": 55
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-13T06:19:46.210Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 56
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-13T06:19:51.170Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 57
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-13T06:20:26.150Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 58
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-14T08:27:47.955Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 59
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-14T08:29:37.766Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 60
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-15T12:05:27.035Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 61
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-15T12:05:40.280Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 62
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-15T13:39:08.610Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 63
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-15T14:11:05.956Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 64
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-15T14:11:15.376Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 65
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-15T14:57:01.310Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 66
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-15T14:57:29.845Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 67
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-15T15:18:13.976Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 68
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-16T13:26:10.688Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 69
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-17T08:41:24.341Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 70
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-17T08:41:41.189Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 71
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-17T08:42:30.969Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 72
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-17T08:42:52.931Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 73
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-17T08:54:43.385Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 74
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-18T06:02:12.064Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 75
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-18T13:19:53.137Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 76
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-18T13:20:08.474Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 77
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-18T13:32:10.688Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 78
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-18T13:45:37.068Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 79
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-18T17:30:42.266Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 80
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-18T17:30:44.381Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 81
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-18T17:30:51.505Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 82
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-18T17:30:54.923Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 83
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-21T19:42:33.459Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 84
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-23T07:29:48.377Z",
+            "user_name": null
+        },
+        "model": "inventory.loginhistory",
+        "pk": 85
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-23T07:30:17.647Z",
+            "user_name": null
+        },
+        "model": "inventory.loginhistory",
+        "pk": 86
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-23T07:30:29.491Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 87
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-23T07:32:01.497Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 88
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-23T07:32:15.921Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 89
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-23T14:22:50.102Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 90
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-23T14:57:34.272Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 91
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-23T14:58:36.519Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 92
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-23T17:26:45.777Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 93
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-23T17:35:14.471Z",
+            "user_name": 37
+        },
+        "model": "inventory.loginhistory",
+        "pk": 94
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-23T19:04:59.822Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 95
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-23T19:05:10.781Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 96
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-23T19:05:12.052Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 97
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-23T19:05:11.811Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 98
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-23T19:05:13.229Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 99
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-23T19:05:17.698Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 100
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-23T19:05:15.521Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 101
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-23T19:05:25.406Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 102
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-24T04:47:14.347Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 103
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-24T09:01:40.874Z",
+            "user_name": 37
+        },
+        "model": "inventory.loginhistory",
+        "pk": 104
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-24T09:01:54.880Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 105
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-24T09:08:24.346Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 106
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-24T09:08:25.374Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 107
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-24T09:08:28.683Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 108
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-24T09:08:32.519Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 109
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-24T09:08:35.820Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 110
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-24T09:08:37.948Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 111
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-24T09:08:40.867Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 112
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-24T09:08:44.764Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 113
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-24T09:08:50.715Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 114
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-24T09:08:50.271Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 115
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-24T09:08:50.346Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 116
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-24T09:08:52.611Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 117
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-24T09:09:31.556Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 118
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-24T09:12:02.259Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 119
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-24T09:12:14.164Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 120
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-25T08:47:56.858Z",
+            "user_name": null
+        },
+        "model": "inventory.loginhistory",
+        "pk": 121
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-25T08:48:15.914Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 122
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-25T08:49:15.786Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 123
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-25T09:35:06.522Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 124
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-25T11:27:41.939Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 125
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-25T11:27:49.245Z",
+            "user_name": 7
+        },
+        "model": "inventory.loginhistory",
+        "pk": 126
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-25T11:28:04.458Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 127
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-25T11:29:17.413Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 128
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-29T11:30:33.648Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 129
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-29T11:30:49.490Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 130
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-29T11:37:23.592Z",
+            "user_name": 1
+        },
+        "model": "inventory.loginhistory",
+        "pk": 131
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-11-29T11:19:26.396Z",
+            "user_name": 65
+        },
+        "model": "inventory.loginhistory",
+        "pk": 144
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-11-29T11:19:46.749Z",
+            "user_name": 66
+        },
+        "model": "inventory.loginhistory",
+        "pk": 145
+    },
+    {
+        "fields": {
+            "action": "create",
+            "added_by": "Ahmed",
+            "approved_by": 7,
+            "category": "Old",
+            "date_added": "2016-10-23",
+            "modified_name": "",
+            "name": "hat4",
+            "quantity": 999
+        },
+        "model": "inventory.itemhistory",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "action": "add",
+            "added_by": "Ruhshan",
+            "approved_by": 1,
+            "category": "Old",
+            "date_added": "2016-10-23",
+            "modified_name": "",
+            "name": "hat4",
+            "quantity": 200
+        },
+        "model": "inventory.itemhistory",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "action": "create",
+            "added_by": "Ahmed",
+            "approved_by": 1,
+            "category": "Old",
+            "date_added": "2016-10-24",
+            "modified_name": "",
+            "name": "Changed_item",
+            "quantity": 100
+        },
+        "model": "inventory.itemhistory",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "action": "create",
+            "added_by": "Ahmed",
+            "approved_by": 1,
+            "category": "Old",
+            "date_added": "2016-10-24",
+            "modified_name": "",
+            "name": "Item_2",
+            "quantity": 100
+        },
+        "model": "inventory.itemhistory",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "action": "create",
+            "added_by": "Ruhshan",
+            "approved_by": 1,
+            "category": "Old",
+            "date_added": "2016-10-24",
+            "modified_name": "",
+            "name": "Changed_item",
+            "quantity": 100
+        },
+        "model": "inventory.itemhistory",
+        "pk": 5
+    },
+    {
+        "fields": {
+            "action": "add",
+            "added_by": "Ruhshan",
+            "approved_by": 1,
+            "category": "Old",
+            "date_added": "2016-10-24",
+            "modified_name": "",
+            "name": "Changed_item",
+            "quantity": 100
+        },
+        "model": "inventory.itemhistory",
+        "pk": 6
+    },
+    {
+        "fields": {
+            "action": "namechange",
+            "added_by": "Ruhshan",
+            "approved_by": 1,
+            "category": "Old",
+            "date_added": "2016-11-11",
+            "modified_name": "Item_1_x",
+            "name": "Changed_item",
+            "quantity": 0
+        },
+        "model": "inventory.itemhistory",
+        "pk": 33
+    },
+    {
+        "fields": {
+            "action": "namechange",
+            "added_by": "Ruhshan",
+            "approved_by": 1,
+            "category": "Old",
+            "date_added": "2016-11-14",
+            "modified_name": "Item_1",
+            "name": "Changed_item",
+            "quantity": 0
+        },
+        "model": "inventory.itemhistory",
+        "pk": 34
+    },
+    {
+        "fields": {
+            "action": "create",
+            "added_by": "Ruhshan",
+            "approved_by": 1,
+            "category": "Old",
+            "date_added": "2016-11-18",
+            "modified_name": null,
+            "name": "chair",
+            "quantity": 20
+        },
+        "model": "inventory.itemhistory",
+        "pk": 35
+    },
+    {
+        "fields": {
+            "action": "create",
+            "added_by": "Ruhshan",
+            "approved_by": 1,
+            "category": "Furniture",
+            "date_added": "2016-11-18",
+            "modified_name": null,
+            "name": "Table",
+            "quantity": 10
+        },
+        "model": "inventory.itemhistory",
+        "pk": 36
+    },
+    {
+        "fields": {
+            "action": "namechange",
+            "added_by": "Ruhshan",
+            "approved_by": 1,
+            "category": "Old",
+            "date_added": "2016-11-20",
+            "modified_name": "bottle2",
+            "name": "bottle_fallback",
+            "quantity": 0
+        },
+        "model": "inventory.itemhistory",
+        "pk": 37
+    },
+    {
+        "fields": {
+            "action": "add",
+            "added_by": "Ruhshan",
+            "approved_by": 1,
+            "category": "Old",
+            "date_added": "2016-11-20",
+            "modified_name": null,
+            "name": "bottle_fallback",
+            "quantity": 6
+        },
+        "model": "inventory.itemhistory",
+        "pk": 38
+    },
+    {
+        "fields": {
+            "action": "namechange",
+            "added_by": "Ruhshan",
+            "approved_by": 1,
+            "category": "Old",
+            "date_added": "2016-11-20",
+            "modified_name": "bottle_test",
+            "name": "bottle_fallback",
+            "quantity": 0
+        },
+        "model": "inventory.itemhistory",
+        "pk": 39
+    },
+    {
+        "fields": {
+            "action": "remove",
+            "added_by": "Ruhshan",
+            "approved_by": 1,
+            "category": "Old",
+            "date_added": "2016-11-20",
+            "modified_name": null,
+            "name": "bottle_fallback",
+            "quantity": 6
+        },
+        "model": "inventory.itemhistory",
+        "pk": 40
+    },
+    {
+        "fields": {
+            "action": "create",
+            "added_by": "Ruhshan",
+            "approved_by": 1,
+            "category": "old_electronics",
+            "date_added": "2016-11-20",
+            "modified_name": null,
+            "name": "chair",
+            "quantity": 10
+        },
+        "model": "inventory.itemhistory",
+        "pk": 41
+    },
+    {
+        "fields": {
+            "alternate_email": "ruhshan.ahmed@ggmail.com",
+            "created_by": "superuser",
+            "is_deleted": 0,
+            "mypost": "head",
+            "nick_name": "Ruhshan",
+            "phone_number": "1195405101",
+            "uname": 1
+        },
+        "model": "inventory.userprofile",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "alternate_email": "ruhshan.ahmed@kmail.com",
+            "created_by": "Ruhshan",
+            "is_deleted": 0,
+            "mypost": "manager",
+            "nick_name": "Ahmed",
+            "phone_number": "4321",
+            "uname": 7
+        },
+        "model": "inventory.userprofile",
+        "pk": 5
+    },
+    {
+        "fields": {
+            "alternate_email": "nemail@gmail.com",
+            "created_by": "Ruhshan",
+            "is_deleted": 0,
+            "mypost": "thead",
+            "nick_name": "Karim",
+            "phone_number": "1011",
+            "uname": 20
+        },
+        "model": "inventory.userprofile",
+        "pk": 6
+    },
+    {
+        "fields": {
+            "alternate_email": "afad",
+            "created_by": "ahmed.ruhshan@gmail.com",
+            "is_deleted": 1,
+            "mypost": "adsf",
+            "nick_name": "Karim",
+            "phone_number": "sdafad",
+            "uname": 21
+        },
+        "model": "inventory.userprofile",
+        "pk": 7
+    },
+    {
+        "fields": {
+            "alternate_email": null,
+            "created_by": "Ruhshan",
+            "is_deleted": 0,
+            "mypost": null,
+            "nick_name": "Nick not set",
+            "phone_number": null,
+            "uname": 33
+        },
+        "model": "inventory.userprofile",
+        "pk": 19
+    },
+    {
+        "fields": {
+            "alternate_email": "m@m.com",
+            "created_by": "Ruhshan",
+            "is_deleted": 0,
+            "mypost": "manager",
+            "nick_name": "Manager1",
+            "phone_number": "1200",
+            "uname": 34
+        },
+        "model": "inventory.userprofile",
+        "pk": 20
+    },
+    {
+        "fields": {
+            "alternate_email": null,
+            "created_by": "Ruhshan",
+            "is_deleted": 0,
+            "mypost": null,
+            "nick_name": "manager2",
+            "phone_number": null,
+            "uname": 35
+        },
+        "model": "inventory.userprofile",
+        "pk": 21
+    },
+    {
+        "fields": {
+            "alternate_email": null,
+            "created_by": "superuser",
+            "is_deleted": 0,
+            "mypost": null,
+            "nick_name": "abir",
+            "phone_number": null,
+            "uname": 65
+        },
+        "model": "inventory.userprofile",
+        "pk": 29
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "approve",
+            "approved_quantity": 31,
+            "category": "Old",
+            "date_of_process": "2016-11-15",
+            "date_of_request": "2016-10-19",
+            "delivered_price": "0.00000",
+            "description": "d",
+            "item_name": "Eraser",
+            "location": "Staircase",
+            "processed_by": 1,
+            "requested_quantity": 41,
+            "requestee": "Abir",
+            "store_manager": "ruhshan.ahmed@yahoo.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "041eb5ea-e143-406c-b7c8-c65ee6240015"
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "approve",
+            "approved_quantity": 3,
+            "category": "Old",
+            "date_of_process": "2016-11-11",
+            "date_of_request": "2016-10-29",
+            "delivered_price": "0.00000",
+            "description": "dd",
+            "item_name": "Eraser",
+            "location": "Not Specified",
+            "processed_by": 1,
+            "requested_quantity": 3,
+            "requestee": "Temporary",
+            "store_manager": "ruhshan.ahmed@yahoo.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "0534dfe3-bb06-4d79-bae5-f634aae38c41"
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "reject",
+            "approved_quantity": 0,
+            "category": "Old",
+            "date_of_process": "2016-11-15",
+            "date_of_request": "2016-10-08",
+            "delivered_price": "0.00000",
+            "description": "it will be rejected",
+            "item_name": "kindle",
+            "location": "Corridor",
+            "processed_by": 1,
+            "requested_quantity": 6,
+            "requestee": "Zunaed",
+            "store_manager": "ruhshan.ahmed@yahoo.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "05fc97e6-12c8-40ad-90ac-8c215196515a"
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "Returned",
+            "approved_quantity": 3,
+            "category": "Old",
+            "date_of_process": "2016-11-15",
+            "date_of_request": null,
+            "delivered_price": "30.00000",
+            "description": "",
+            "item_name": "Eraser",
+            "location": "102A",
+            "processed_by": 1,
+            "requested_quantity": 3,
+            "requestee": "Abir",
+            "store_manager": "ruhshan.ahmed@gmail.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "08c81cc4-b28d-4772-ad2a-0c34344a8da8"
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "Returned",
+            "approved_quantity": 2,
+            "category": "Old",
+            "date_of_process": "2016-11-17",
+            "date_of_request": null,
+            "delivered_price": "1000.00000",
+            "description": "",
+            "item_name": "modem",
+            "location": "Not Specified",
+            "processed_by": 1,
+            "requested_quantity": 2,
+            "requestee": "Karim",
+            "store_manager": "ruhshan.ahmed@gmail.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "09145e63-0b08-4376-a6f9-c52a12181b82"
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "approve",
+            "approved_quantity": 6,
+            "category": "Old",
+            "date_of_process": "2016-11-11",
+            "date_of_request": "2016-09-29",
+            "delivered_price": "0.00000",
+            "description": "very important",
+            "item_name": "modem",
+            "location": "Not Specified",
+            "processed_by": 1,
+            "requested_quantity": 12,
+            "requestee": "Karim",
+            "store_manager": "ruhshan.ahmed@yahoo.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "1006ed77-3977-48d4-81ff-cd5601830d56"
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "approve",
+            "approved_quantity": 1,
+            "category": "Old",
+            "date_of_process": "2016-11-18",
+            "date_of_request": "2016-11-18",
+            "delivered_price": "30.00000",
+            "description": "Category test",
+            "item_name": "Eraser",
+            "location": "310",
+            "processed_by": 1,
+            "requested_quantity": 2,
+            "requestee": "Zunaed",
+            "store_manager": "ruhshan.ahmed@yahoo.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "1398d3f6-2f35-4fea-821a-b5e185a5506a"
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "approve",
+            "approved_quantity": 10,
+            "category": "Old",
+            "date_of_process": "2016-11-15",
+            "date_of_request": "2016-09-27",
+            "delivered_price": "0.00000",
+            "description": "I love expensive mouse.",
+            "item_name": "mouse-logitech",
+            "location": "110",
+            "processed_by": 1,
+            "requested_quantity": 17,
+            "requestee": "Daniel",
+            "store_manager": "ruhshan.ahmed@yahoo.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "23a9ede9-2302-495a-8f24-4d34d3929107"
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "Returned",
+            "approved_quantity": 1,
+            "category": "Old",
+            "date_of_process": "2016-11-18",
+            "date_of_request": null,
+            "delivered_price": "30.00000",
+            "description": "",
+            "item_name": "Eraser",
+            "location": "310",
+            "processed_by": 7,
+            "requested_quantity": 1,
+            "requestee": "Zunaed",
+            "store_manager": "ruhshan.ahmed@yahoo.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "277e55b3-b331-4ed7-a7b3-fc8b1ef04773"
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "Returned",
+            "approved_quantity": 1,
+            "category": "Old",
+            "date_of_process": "2016-11-15",
+            "date_of_request": null,
+            "delivered_price": "30.00000",
+            "description": "",
+            "item_name": "Eraser",
+            "location": "102A",
+            "processed_by": 1,
+            "requested_quantity": 1,
+            "requestee": "Abir",
+            "store_manager": "ruhshan.ahmed@gmail.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "2b668615-a3e7-4231-a9d2-a59aee332302"
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "Returned",
+            "approved_quantity": 1,
+            "category": "Old",
+            "date_of_process": "2016-11-16",
+            "date_of_request": null,
+            "delivered_price": "1000.00000",
+            "description": "",
+            "item_name": "modem",
+            "location": "Not Specified",
+            "processed_by": 1,
+            "requested_quantity": 1,
+            "requestee": "Karim",
+            "store_manager": "ruhshan.ahmed@gmail.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "3a1ea723-0c25-4842-967e-7d412b5be5c8"
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "Returned",
+            "approved_quantity": 1,
+            "category": "Old",
+            "date_of_process": "2016-11-15",
+            "date_of_request": null,
+            "delivered_price": "30.00000",
+            "description": "",
+            "item_name": "Eraser",
+            "location": "102A",
+            "processed_by": 1,
+            "requested_quantity": 1,
+            "requestee": "Abir",
+            "store_manager": "ruhshan.ahmed@gmail.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "45bd44b3-afb6-44d1-a91a-4d494ab02b9a"
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "approve",
+            "approved_quantity": 1,
+            "category": "Old",
+            "date_of_process": "2016-11-15",
+            "date_of_request": "2016-11-15",
+            "delivered_price": "30.00000",
+            "description": "",
+            "item_name": "Eraser",
+            "location": "Not Specified",
+            "processed_by": 1,
+            "requested_quantity": 1,
+            "requestee": "Test",
+            "store_manager": "ruhshan.ahmed@yahoo.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "50edcac4-ea8d-47ef-b90d-486afe0c377b"
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "Returned",
+            "approved_quantity": 4,
+            "category": "Old",
+            "date_of_process": "2016-11-15",
+            "date_of_request": null,
+            "delivered_price": "30.00000",
+            "description": "",
+            "item_name": "Eraser",
+            "location": "102A",
+            "processed_by": 1,
+            "requested_quantity": 4,
+            "requestee": "Abir",
+            "store_manager": "ruhshan.ahmed@gmail.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "525d92da-c77c-469f-8a4e-ec77e18a30e1"
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "approve",
+            "approved_quantity": 13,
+            "category": "Old",
+            "date_of_process": "2016-11-15",
+            "date_of_request": "2016-11-11",
+            "delivered_price": "23.00000",
+            "description": "d",
+            "item_name": "hat4",
+            "location": "103",
+            "processed_by": 1,
+            "requested_quantity": 13,
+            "requestee": "Abir",
+            "store_manager": "ruhshan.ahmed@yahoo.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "590e5eb8-819c-4c7c-b1e4-39e8c1c6de2c"
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "reject",
+            "approved_quantity": 0,
+            "category": "Old",
+            "date_of_process": "2016-11-15",
+            "date_of_request": "2016-11-15",
+            "delivered_price": "3.00000",
+            "description": " ",
+            "item_name": "cable",
+            "location": "Not Specified",
+            "processed_by": 1,
+            "requested_quantity": 4,
+            "requestee": "Not Specified",
+            "store_manager": "ruhshan.ahmed@yahoo.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "5c638a34-370d-4d58-bd17-bded0187ba95"
+    },
+    {
+        "fields": {
+            "acknowledgement": 0,
+            "action": "approve",
+            "approved_quantity": 4,
+            "category": "Old",
+            "date_of_process": "2016-11-17",
+            "date_of_request": "2016-11-17",
+            "delivered_price": "30.00000",
+            "description": "Test",
+            "item_name": "Eraser",
+            "location": "210",
+            "processed_by": 1,
+            "requested_quantity": 4,
+            "requestee": "Test",
+            "store_manager": "ruhshan.ahmed@yahoo.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "71cad968-2cf6-48ec-8fc4-29910c9cc098"
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "reject",
+            "approved_quantity": 0,
+            "category": "Old",
+            "date_of_process": "2016-11-15",
+            "date_of_request": "2016-11-15",
+            "delivered_price": "30.00000",
+            "description": "",
+            "item_name": "Eraser",
+            "location": "Not Specified",
+            "processed_by": 1,
+            "requested_quantity": 1,
+            "requestee": "Not Specified",
+            "store_manager": "ruhshan.ahmed@yahoo.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "7f857d7a-5789-4dd4-b736-dd5b6f09c0fe"
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "approve",
+            "approved_quantity": 1,
+            "category": "Old",
+            "date_of_process": "2016-11-15",
+            "date_of_request": "2016-11-15",
+            "delivered_price": "233.00000",
+            "description": "",
+            "item_name": "hat",
+            "location": "Not Specified",
+            "processed_by": 1,
+            "requested_quantity": 1,
+            "requestee": "Temporary",
+            "store_manager": "ruhshan.ahmed@yahoo.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "83267483-dd8c-4143-b0b0-485238df261e"
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "approve",
+            "approved_quantity": 7,
+            "category": "Old",
+            "date_of_process": "2016-11-15",
+            "date_of_request": "2016-11-11",
+            "delivered_price": "30.00000",
+            "description": "multiple",
+            "item_name": "Eraser",
+            "location": "102A",
+            "processed_by": 1,
+            "requested_quantity": 7,
+            "requestee": "Abir",
+            "store_manager": "ruhshan.ahmed@yahoo.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "85cfea27-761b-4702-a8c3-2db8178ecd0f"
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "approve",
+            "approved_quantity": 1,
+            "category": "Old",
+            "date_of_process": "2016-11-15",
+            "date_of_request": "2016-11-15",
+            "delivered_price": "30.00000",
+            "description": "",
+            "item_name": "Eraser",
+            "location": "102A",
+            "processed_by": 1,
+            "requested_quantity": 1,
+            "requestee": "Abir",
+            "store_manager": "ruhshan.ahmed@yahoo.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "99aedb27-7308-4d3d-9a3c-92a9732b2823"
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "approve",
+            "approved_quantity": 12,
+            "category": "Old",
+            "date_of_process": "2016-11-15",
+            "date_of_request": "2016-11-11",
+            "delivered_price": "1212.00000",
+            "description": "d",
+            "item_name": "Changed_item",
+            "location": "101",
+            "processed_by": 1,
+            "requested_quantity": 12,
+            "requestee": "Tahsin",
+            "store_manager": "ruhshan.ahmed@yahoo.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "c1eea102-dd38-431e-95ee-e6ebbad9c0c6"
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "reject",
+            "approved_quantity": 0,
+            "category": "Old",
+            "date_of_process": "2016-11-15",
+            "date_of_request": "2016-11-15",
+            "delivered_price": "30.00000",
+            "description": "",
+            "item_name": "Eraser",
+            "location": "Not Specified",
+            "processed_by": 1,
+            "requested_quantity": 1,
+            "requestee": "Not Specified",
+            "store_manager": "ruhshan.ahmed@yahoo.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "ca365455-e7c2-45dd-bb53-ddfa7b364535"
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "Returned",
+            "approved_quantity": 2,
+            "category": "Old",
+            "date_of_process": "2016-11-15",
+            "date_of_request": null,
+            "delivered_price": "30.00000",
+            "description": "",
+            "item_name": "Eraser",
+            "location": "Not Specified",
+            "processed_by": 1,
+            "requested_quantity": 2,
+            "requestee": "Temporary",
+            "store_manager": "ruhshan.ahmed@gmail.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "d08904bf-9c80-4b41-b0fa-00241dab5a91"
+    },
+    {
+        "fields": {
+            "acknowledgement": 0,
+            "action": "Returned",
+            "approved_quantity": 31,
+            "category": "Old",
+            "date_of_process": "2016-11-15",
+            "date_of_request": null,
+            "delivered_price": "30.00000",
+            "description": "",
+            "item_name": "Eraser",
+            "location": "Staircase",
+            "processed_by": 1,
+            "requested_quantity": 31,
+            "requestee": "Abir",
+            "store_manager": "ruhshan.ahmed@gmail.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "e5a8019d-07c3-426d-86b7-d409db6e3a8e"
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "Returned",
+            "approved_quantity": 1,
+            "category": "Old",
+            "date_of_process": "2016-11-15",
+            "date_of_request": null,
+            "delivered_price": "30.00000",
+            "description": "",
+            "item_name": "Eraser",
+            "location": "Not Specified",
+            "processed_by": 1,
+            "requested_quantity": 1,
+            "requestee": "Test",
+            "store_manager": "ruhshan.ahmed@gmail.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "ea48caa8-20a8-42a2-8ff1-314b53f7a4eb"
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "approve",
+            "approved_quantity": 1,
+            "category": "Old",
+            "date_of_process": "2016-11-15",
+            "date_of_request": "2016-11-15",
+            "delivered_price": "233.00000",
+            "description": "",
+            "item_name": "hat",
+            "location": "110",
+            "processed_by": 1,
+            "requested_quantity": 1,
+            "requestee": "Test",
+            "store_manager": "ruhshan.ahmed@yahoo.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "f8e0a987-8662-442d-9280-5dc389ae2092"
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "reject",
+            "approved_quantity": 0,
+            "category": "Old",
+            "date_of_process": "2016-11-15",
+            "date_of_request": "2016-11-15",
+            "delivered_price": "32.00000",
+            "description": "",
+            "item_name": "Item_2",
+            "location": "Not Specified",
+            "processed_by": 1,
+            "requested_quantity": 2,
+            "requestee": "Daniel",
+            "store_manager": "ruhshan.ahmed@yahoo.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "fb2c4ad0-d272-4e31-b284-c9bda2d0e400"
+    }
+]

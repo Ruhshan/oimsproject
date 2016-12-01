@@ -118,17 +118,17 @@
             
                   <select id="usertype" class="selectpicker" onchange="showinput(this.value)">
                     <option value="User Type">User Type</option>
-                    <option value="head">Head</option>
-                    <option value="manager">Manager</option>
-                    <option value="temporary-head">Temporary Head</option>
+                    <option value="head">Admin</option>
+                    <option value="manager">User</option>
+                    <option value="temporary-head">Temporary Admin</option>
                   </select>
                   {% endif %}
                   {% if group|stringformat:"s" == "temporary-head" %}
                   
                   <select id="usertype" class="selectpicker" onchange="showinput(this.value)">
                     <option value="User Type">User Type</option>
-                    <option value="manager">Manager</option>
-                    <option value="temporary-head">Temporary Head</option>
+                    <option value="manager">User</option>
+                    <option value="temporary-head">Temporary Admin</option>
                   </select>
                   {% endif %}
                 </div>

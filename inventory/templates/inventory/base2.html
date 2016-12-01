@@ -84,7 +84,7 @@
 
       <div class="col-sm-10">
         <div class="container-fluid">
-          <div id="log">
+          <!--div id="log">
               Hello,{{request.user.first_name}}!
               <a tabindex="0"
               role="button" 
@@ -94,6 +94,22 @@
                 </span>
               </a>
               <a href="/logout/">Logout</a>  
+          </div-->
+          <div class="well">
+          <div class="row">
+          <div class="col-sm-8"></div>
+          <div class="col-sm-4">
+            Hello,{{request.user.first_name}}!
+            <a tabindex="0"
+            role="button" 
+            data-html="true" data-toggle="popover" 
+            data-trigger="focus" data-placement="bottom" data-content="{{alert_content}}">Alert
+              <span class="badge">{{alert_count}}
+              </span>
+            </a>
+            <a href="/logout/">Logout</a>  
+            </div>
+          </div>
           </div>
           {% block content %}
             

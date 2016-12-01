@@ -6,7 +6,7 @@
   <title>OIMS</title>
   {% load static %}
   <meta charset="utf-8">
-  <!--meta http-equiv="refresh" content="60" /-->
+  <!--meta http-equiv="refresh" content="{{static_info.refresh}}"-->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
   <script src="{% static 'js/jquery.min.js' %}"></script>
@@ -15,7 +15,7 @@
 
   <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
   <script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
-  <script src="{% static 'idlecount.js' %}"></script>
+  
   <script src="{% static 'js/bootstrap-select.min.js' %}"></script>
   <link rel="stylesheet" href="{% static 'css/jquery.dataTables.min.css' %}">
 
@@ -24,7 +24,7 @@
   <!--script type="text/javascript" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js">
     
   </script-->
-  <script type="text/javascript" src="{% static "scripts.js" %}"></script>
+  <!--script type="text/javascript" src="{% static 'scripts.js' %}"></script-->
 
   
   <!--datepicker depends on moment-->
@@ -33,7 +33,10 @@
   <!--datepicker-->
   <script type="text/javascript" src="{% static 'js/daterangepicker.js' %}"></script>
   <link rel="stylesheet" type="text/css" href="{% static 'css/daterangepicker.css' %}">
-
+  {% include 'session_security/all.html' %}
+  <script>
+    sessionSecurity.confirmFormDiscard = undefined;
+  </script>
   </script>
 
   <!--script type="text/javascript">
@@ -65,7 +68,7 @@
           #log {
 
             position:absolute;
-            right:0;
+            right: 0;
           }
            /* make sidebar nav vertical */ 
            @media (min-width: 0px) {
@@ -127,11 +130,13 @@
  }
         </style>
       </head>
-<body>
+<body id="body">
 
   <div class="container">
   <div class="well">
   <h2>{{static_info.orgname}} OIMS</h2>
+  <input type="hidden" id="reload" name="" value="{{static_info.refresh}}">
+  <input type="hidden" id="tout" name="" value="{{static_info.timeout}}">
   </div>
     <div class="row">
       <div class="col-sm-2">
@@ -190,7 +195,10 @@
       
         <div class="container-fluid">
           <!--h2>Dynamic Tabs</h2-->
-          <div id="log">
+          <div class="well">
+          <div class="row">
+          <div class="col-sm-8"></div>
+          <div class="col-sm-4">
             Hello,{{request.user.first_name}}!
             <a tabindex="0"
             role="button" 
@@ -200,6 +208,8 @@
               </span>
             </a>
             <a href="/logout/">Logout</a>  
+            </div>
+          </div>
           </div>
           
           <ul class="nav nav-tabs">
@@ -303,6 +313,7 @@
   </script>
 
 </body>
+<script src="{% static 'idlecount.js' %}"></script>
 <script>
 $(document).ready(function(){
     $('[data-toggle="popover"]').popover();

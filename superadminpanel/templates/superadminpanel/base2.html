@@ -15,6 +15,7 @@
   <script src="{% static 'js/bootstrap.min.js' %}"></script>
   <script src="{% static 'js/jquery-ui.js' %}"></script>
   <script src="{% static 'js/FileSaver.js' %}"></script>
+  <script src="{% static 'js/bootbox.min.js' %}"></script>
 
   <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
   <script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
@@ -40,7 +41,157 @@
       xhttp.open("GET", "/superadminexport", true);
       xhttp.send();
     }
-    
+
+    function showmodal(){
+    	$("#ChangepwdModal").modal();
+    }
+    function getCookie(name) {
+          var cookieValue = null;
+          if (document.cookie && document.cookie != '') {
+              var cookies = document.cookie.split(';');
+              for (var i = 0; i < cookies.length; i++) {
+                  var cookie = jQuery.trim(cookies[i]);
+                  // Does this cookie string begin with the name we want?
+                  if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                      break;
+                  }
+              }
+          }
+          return cookieValue;
+      };
+    function change_p(){
+    	oldp=document.getElementById("oldp").value;
+    	newp=document.getElementById("newp").value;
+
+    	console.log(oldp, newp);
+
+    	var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        
+        if (this.readyState == 4 && this.status == 200) {
+          if(this.responseText=="wrong password"){
+          	document.getElementById("wperr").innerHTML="Wrong ";
+          	$('#ChangepwdModal').effect('shake');
+          }
+          if(this.responseText=="ok"){
+          	window.location="/superadminlogin/";
+          }
+          
+        }
+        };
+        xhttp.open("POST", "/superadminchangepass/", true);
+        var csrftoken = getCookie('csrftoken');
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+       	xhttp.setRequestHeader("X-CSRFToken", csrftoken);
+
+	      
+	      query="oldp="+oldp;
+	      query+="&newp="+newp;
+	      xhttp.send(query);
+
+    }
+    function clear_form(){
+    	document.getElementById("newp").value="";
+    	document.getElementById("oldp").value="";
+    	document.getElementById("wperr").innerHTML="";
+
+    }
+
+    function clear_admin_form(){
+
+    	document.getElementById("email").value="";
+    	document.getElementById("pwd1").value="";
+    	document.getElementById("pwd2").value="";
+    	document.getElementById("pwds").value="";
+    	document.getElementById("nick").value="";
+      document.getElementById("errpwd").innerHTML="";
+
+    }
+
+    function reset_confirm(){
+    	bootbox.confirm("This will delete all the data and change superuser password to default", function(result){ 
+            if(result==true){
+              window.location="/superadminflush/";
+              } 
+            });
+    }
+
+    function show_create_admin(){
+    	$("#CreateAdminModal").modal();
+    }
+
+    function isvalid(pass){
+         var re = /(?=.*\d)(?=.*[a-z-A-Z]).{8,}/;
+    return re.test(pass);
+
+      };
+
+    function checking(val){
+      if(isvalid(val)==true){
+        document.getElementById("errpwd").innerHTML="";
+      }
+      else{
+       document.getElementById("errpwd").innerHTML="Invalid "; 
+      }
+    }
+
+    function create_admin(){
+    	email=document.getElementById("email").value;
+    	nick=document.getElementById("nick").value;
+    	pwd1=document.getElementById("pwd1").value;
+    	pwd2=document.getElementById("pwd2").value;
+    	pwds=document.getElementById("pwds").value;
+
+
+    	var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        
+        if (this.readyState == 4 && this.status == 200) {
+          if(this.responseText=="wrong password"){
+          	document.getElementById("wperr2").innerHTML="Wrong";
+
+          	$("#CreateAdminModal").effect("shake");
+
+
+          }
+          else if(this.responseText=="ok"){
+          	$("#CreateAdminModal").modal('hide');
+          	clear_admin_form();
+          	bootbox.alert("New admin "+email+"has been created");
+          }
+          else if(this.responseText=="exists"){
+          	
+          	document.getElementById("errexst").innerHTML="User Exists";
+          	$("#CreateAdminModal").effect("shake");
+          }
+          
+        }
+        };
+
+
+        xhttp.open("POST", "/superadmincreate/", true);
+        var csrftoken = getCookie('csrftoken');
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+       	xhttp.setRequestHeader("X-CSRFToken", csrftoken);
+
+	      
+	      query="email="+email;
+	      query+="&nick="+nick;
+	      query+="&pwd1="+pwd1;
+	      query+="&pwd2="+pwd2;
+	      query+="&pwds="+pwds;
+
+	      if(email.length==0 || nick.length==0 || pwd1.length==0 || pwd2.length==0 || pwds.length==0 || isvalid(pwd1)==false){
+	      	$("#CreateAdminModal").effect("shake");
+	      }
+	      else{
+	      	xhttp.send(query);	
+	      }
+	      
+
+
+    }
     
   </script>       
 </head>
@@ -67,11 +218,15 @@
             <div class="navbar-collapse collapse sidebar-navbar-collapse">
               <ul class="nav navbar-nav">
                 <li>
-                  <a href="#">Information
+                  <a href="/superadminpanel">Description
                   </a>
                 </li>
                 <li>
-                  <a href="#">Change Password
+                  <a href="#" onclick="show_create_admin()">Create Admin
+                  </a>
+                </li>
+                <li>
+                  <a href="#" onclick="showmodal()">Change Password
                   </a>
                 </li>
                 <li>
@@ -85,7 +240,7 @@
                   <a href="/superadminimport">Database Import</a>
                 </li>
                 <li>
-                  <a href="/superadminflush">Hard Reset
+                  <a href="#" onclick="reset_confirm()">Hard Reset
                   </a>
                 </li>
                 
@@ -104,6 +259,7 @@
               <a href="/logout/">Logout</a>  
           </div>
           {% block content %}
+
             
           {% endblock content %}
                 
