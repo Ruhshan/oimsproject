@@ -1,1 +1,5 @@
-Django==1.10.1
+Django==1.8
+argparse==1.2.1
+django-session-security==2.4.0
+wsgiref==0.1.2
+
