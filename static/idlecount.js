@@ -29,7 +29,7 @@ function CheckIdleTime() {
         console.log("logflag value:"+logflag);
 
         setTimeout(function(){
-            window.location.href = null;
+            window.location.reload();
         }, 3000);
         
     }

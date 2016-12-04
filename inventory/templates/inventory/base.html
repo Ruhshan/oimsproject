@@ -24,7 +24,7 @@
   <!--script type="text/javascript" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js">
     
   </script-->
-  <!--script type="text/javascript" src="{% static 'scripts.js' %}"></script-->
+  <script type="text/javascript" src="{% static 'scripts.js' %}"></script>
 
   
   <!--datepicker depends on moment-->
@@ -33,10 +33,7 @@
   <!--datepicker-->
   <script type="text/javascript" src="{% static 'js/daterangepicker.js' %}"></script>
   <link rel="stylesheet" type="text/css" href="{% static 'css/daterangepicker.css' %}">
-  {% include 'session_security/all.html' %}
-  <script>
-    sessionSecurity.confirmFormDiscard = undefined;
-  </script>
+  
   </script>
 
   <!--script type="text/javascript">
@@ -166,7 +163,7 @@
                   <a href="/myaccount">My Account
                   </a>
                 </li>
-                {% if group|stringformat:"s" == "head" %}
+                {% if group|stringformat:"s" == "admin" %}
                 <li>
                   <a href="/users/">User 
                   </a>
@@ -252,7 +249,7 @@
               <strong>Success!</strong> Request Places Successfully!.
             </div-->
             <!--new request button-->
-            {% if group|stringformat:"s" == "manager" %}
+            {% if group|stringformat:"s" == "user" %}
               {% block newrequests %}
                 
               {% endblock newrequests %}

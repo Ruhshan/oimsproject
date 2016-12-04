@@ -1,0 +1,360 @@
+[
+    {
+        "fields": {
+            "category": "Furniture",
+            "description": "",
+            "item_name": "Table",
+            "minimum_quantity": 4,
+            "quantity_inside": 23,
+            "quantity_outside": 10,
+            "unit_price": "300.00000",
+            "vendor": "Otobi"
+        },
+        "model": "inventory.inventorytable",
+        "pk": 31
+    },
+    {
+        "fields": {
+            "category": "Furniture",
+            "description": "",
+            "item_name": "Chair",
+            "minimum_quantity": 40,
+            "quantity_inside": 197,
+            "quantity_outside": 8,
+            "unit_price": "200.00000",
+            "vendor": "Otobi"
+        },
+        "model": "inventory.inventorytable",
+        "pk": 32
+    },
+    {
+        "fields": {
+            "added_by": "user@u.com",
+            "address": "O Street",
+            "contact": "1011",
+            "contact_person": "Mr. O",
+            "date_added": "2016-12-04",
+            "date_modified": "2016-12-04",
+            "description": "",
+            "email": "o@m.com",
+            "is_active": 1,
+            "modified_by": "user@u.com",
+            "name": "Otobi"
+        },
+        "model": "inventory.vendor",
+        "pk": 18
+    },
+    {
+        "fields": {
+            "user_name": "a@b.com",
+            "value": "81dc9bdb52d04dc20036dbd8313ed055"
+        },
+        "model": "inventory.seccondarypassword",
+        "pk": 28
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-12-04T13:33:10.893Z",
+            "user_name": "superuser"
+        },
+        "model": "inventory.loginhistory",
+        "pk": 190
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-12-04T13:33:28.019Z",
+            "user_name": "a@b.com"
+        },
+        "model": "inventory.loginhistory",
+        "pk": 191
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-12-04T13:33:29.204Z",
+            "user_name": "a@b.com"
+        },
+        "model": "inventory.loginhistory",
+        "pk": 192
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-12-04T13:47:48.502Z",
+            "user_name": "a@b.com"
+        },
+        "model": "inventory.loginhistory",
+        "pk": 193
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-12-04T13:47:50.577Z",
+            "user_name": "a@b.com"
+        },
+        "model": "inventory.loginhistory",
+        "pk": 194
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-12-04T13:49:58.212Z",
+            "user_name": "a@b.com"
+        },
+        "model": "inventory.loginhistory",
+        "pk": 195
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-12-04T13:50:14.709Z",
+            "user_name": "user@u.com"
+        },
+        "model": "inventory.loginhistory",
+        "pk": 196
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-12-04T14:08:45.717Z",
+            "user_name": "user@u.com"
+        },
+        "model": "inventory.loginhistory",
+        "pk": 197
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-12-04T14:13:30.661Z",
+            "user_name": "superuser"
+        },
+        "model": "inventory.loginhistory",
+        "pk": 198
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "timestamp": "2016-12-04T14:13:43.510Z",
+            "user_name": "user@u.com"
+        },
+        "model": "inventory.loginhistory",
+        "pk": 199
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "timestamp": "2016-12-04T14:26:56.191Z",
+            "user_name": "user@u.com"
+        },
+        "model": "inventory.loginhistory",
+        "pk": 200
+    },
+    {
+        "fields": {
+            "amnt": 4,
+            "category": "Furniture",
+            "date_created": "2016-12-04",
+            "desc": "Burned",
+            "item": "Table",
+            "occurance_date": "2016-12-04",
+            "person": "Requestee1",
+            "place": "101"
+        },
+        "model": "inventory.issues",
+        "pk": "0aa0140e-402e-4a15-9088-24b1cd616a10"
+    },
+    {
+        "fields": {
+            "name": "admin",
+            "permissions": []
+        },
+        "model": "auth.group",
+        "pk": 36
+    },
+    {
+        "fields": {
+            "name": "user",
+            "permissions": []
+        },
+        "model": "auth.group",
+        "pk": 37
+    },
+    {
+        "fields": {
+            "date_joined": "2016-12-04T13:32:48.498Z",
+            "email": "a@b.com",
+            "first_name": "",
+            "groups": [
+                36
+            ],
+            "is_active": true,
+            "is_staff": true,
+            "is_superuser": false,
+            "last_login": "2016-12-04T13:47:50.979Z",
+            "last_name": "",
+            "password": "pbkdf2_sha256$30000$3NbswYwguFjh$ny1GxTDHC1YfibFGqPfT74JirHjU/PQfDtteyX8gwu4=",
+            "user_permissions": [],
+            "username": "a@b.com"
+        },
+        "model": "auth.user",
+        "pk": 104
+    },
+    {
+        "fields": {
+            "date_joined": "2016-12-04T13:49:14.904Z",
+            "email": "user@u.com",
+            "first_name": "Mr. M",
+            "groups": [
+                37
+            ],
+            "is_active": true,
+            "is_staff": true,
+            "is_superuser": false,
+            "last_login": "2016-12-04T14:13:43.868Z",
+            "last_name": "",
+            "password": "pbkdf2_sha256$30000$NUhFOl4bLgBw$b0YVxUlTuHVKe00woapW1CgQTZsVJUf3Fk/vbAh0yoI=",
+            "user_permissions": [],
+            "username": "user@u.com"
+        },
+        "model": "auth.user",
+        "pk": 105
+    },
+    {
+        "fields": {
+            "action": "create",
+            "added_by": "Manager",
+            "approved_by": 104,
+            "category": "Furniture",
+            "date_added": "2016-12-04",
+            "modified_name": null,
+            "name": "Table",
+            "quantity": 20
+        },
+        "model": "inventory.itemhistory",
+        "pk": 43
+    },
+    {
+        "fields": {
+            "action": "add",
+            "added_by": "Manager",
+            "approved_by": 104,
+            "category": "Old",
+            "date_added": "2016-12-04",
+            "modified_name": null,
+            "name": "Table",
+            "quantity": 10
+        },
+        "model": "inventory.itemhistory",
+        "pk": 44
+    },
+    {
+        "fields": {
+            "action": "create",
+            "added_by": "Manager",
+            "approved_by": 104,
+            "category": "Furniture",
+            "date_added": "2016-12-04",
+            "modified_name": null,
+            "name": "Chair",
+            "quantity": 200
+        },
+        "model": "inventory.itemhistory",
+        "pk": 45
+    },
+    {
+        "fields": {
+            "action": "add",
+            "added_by": "Manager",
+            "approved_by": 104,
+            "category": "Old",
+            "date_added": "2016-12-04",
+            "modified_name": null,
+            "name": "Chair",
+            "quantity": 5
+        },
+        "model": "inventory.itemhistory",
+        "pk": 46
+    },
+    {
+        "fields": {
+            "action": "add",
+            "added_by": "Manager",
+            "approved_by": 104,
+            "category": "Furniture",
+            "date_added": "2016-12-04",
+            "modified_name": null,
+            "name": "Table",
+            "quantity": 3
+        },
+        "model": "inventory.itemhistory",
+        "pk": 47
+    },
+    {
+        "fields": {
+            "alternate_email": null,
+            "created_by": "superuser",
+            "is_deleted": 0,
+            "mypost": null,
+            "nick_name": "abir",
+            "phone_number": null,
+            "uname": 104
+        },
+        "model": "inventory.userprofile",
+        "pk": 40
+    },
+    {
+        "fields": {
+            "alternate_email": "None",
+            "created_by": "abir",
+            "is_deleted": 0,
+            "mypost": "Manager",
+            "nick_name": "Manager",
+            "phone_number": "1011",
+            "uname": 105
+        },
+        "model": "inventory.userprofile",
+        "pk": 41
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "approve",
+            "approved_quantity": 8,
+            "category": "Furniture",
+            "date_of_process": "2016-12-04",
+            "date_of_request": "2016-12-04",
+            "delivered_price": "200.00000",
+            "description": "d2",
+            "item_name": "Chair",
+            "location": "102",
+            "processed_by": 104,
+            "requested_quantity": 12,
+            "requestee": "Requestee2",
+            "store_manager": "user@u.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "667555e3-1ccf-4c71-8f2f-bd705ce23baf"
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "approve",
+            "approved_quantity": 10,
+            "category": "Furniture",
+            "date_of_process": "2016-12-04",
+            "date_of_request": "2016-12-04",
+            "delivered_price": "300.00000",
+            "description": "ddd",
+            "item_name": "Table",
+            "location": "101",
+            "processed_by": 104,
+            "requested_quantity": 10,
+            "requestee": "Requestee1",
+            "store_manager": "user@u.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "d36b7c31-e89b-4b23-98f7-e4f644a5c354"
+    }
+]

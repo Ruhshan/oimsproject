@@ -2,20 +2,7 @@
 
  {% block content %}
  <script type="text/javascript">
-   function isvalid(pass){
-         var re = /(?=.*\d)(?=.*[a-z-A-Z]).{8,}/;
-    return re.test(pass);
-
-      };
-
-    function checking(val){
-      if(isvalid(val)==true){
-        document.getElementById("errpwd").innerHTML="";
-      }
-      else{
-       document.getElementById("errpwd").innerHTML="Invalid "; 
-      }
-    }
+   
  </script>
  <div class="modal fade" id="ChangepwdModal" role="dialog">
     <div class="modal-dialog">

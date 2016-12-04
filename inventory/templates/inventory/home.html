@@ -143,7 +143,7 @@
 
 {% block pendingrequests %}
     <div id="request_panel">
-    {% if group|stringformat:"s" == "head"%}
+    {% if group|stringformat:"s" == "admin"%}
     {%for p in pending%}
     {% if forloop.first %}
     	<h2>Pending Requests</h2>
@@ -192,7 +192,7 @@
     </div>
     {% endfor %}
     {% endif %}
-    {% if group|stringformat:"s" == "temporary-head" %}
+    {% if group|stringformat:"s" == "temporary-admin" %}
     {%for p in pending%}
     {% if forloop.first %}
       <h2>Pending Requests</h2>
@@ -243,7 +243,7 @@
     {% endif %}
     
     
-    {% if group|stringformat:"s" == "manager" %}
+    {% if group|stringformat:"s" == "user" %}
     {%for p in pending%}
     {% if forloop.first %}
       <h2>Pending Requests</h2>
@@ -307,7 +307,7 @@
 				<div class="col-sm-6">is {{p.action}}ed on {{p.date_of_process}}
 				</div>
 				<div class="col-sm-6" align="right">
-					{% if group|stringformat:"s" == "manager" %}
+					{% if group|stringformat:"s" == "user" %}
 					<button type="button" class="btn btn-default" 
 					onclick="acknowledge('processed_req_panel{{p.id_no}}')">Okay
 					</button>
@@ -450,7 +450,7 @@
 
 
 {% block passwordrequest %}
-{% if group|stringformat:"s" == "head" %}
+{% if group|stringformat:"s" == "admin" %}
 {% for u in passwordreq %}
 {% if forloop.first %}
       <h2>Password Change Requests:</h2>
@@ -572,7 +572,7 @@
         <div class="col-sm-8">Item:{{i.item_name}},{{i.category}} Quantity:{{i.quantity_inside}} is requested to {{i.action}} by {{i.creator}}
         </div>
         <div class="col-sm-4" align="right">
-          {% if group|stringformat:"s" == "head" or group|stringformat:"s" == "temporary-head"%}
+          {% if group|stringformat:"s" == "admin" or group|stringformat:"s" == "temporary-admin"%}
             {% if i.action|stringformat:"s" == "create" %}
             <button type="button" class="btn btn-default" onclick="itemactionok('{{i.id}}')">Okay
             </button>

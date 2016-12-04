@@ -22,8 +22,8 @@ function getCookie(name) {
       var xhttp = new XMLHttpRequest();
           xhttp.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 200) {
-                if(this.responseText=="head_exceeded"){
-                  document.getElementById("error").innerHTML="Aleready two heads are active!";
+                if(this.responseText=="admin_exceeded"){
+                  document.getElementById("error").innerHTML="Aleready two admins are active!";
                   console.log("exceed");
                   }
                 else if(this.responseText=="password_error"){
@@ -125,7 +125,7 @@ function changestatus(){
       xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
             console.log(this.responseText);
-            if(this.responseText=="head_exceed"){
+            if(this.responseText=="admin_exceed"){
               //bootbox.alert("Aleready Two heads are active!")
               
               $('#'+name).toggle(
@@ -176,7 +176,7 @@ function new_user_close(){
     }
 
 function showinput(type){
-  
+  console.log(type);
   var email=  `<div class="form-group" id='hemail'>
                 <label class="control-label col-sm-2" for="email">Email:</label>
                 <div class="col-sm-10">
@@ -219,14 +219,14 @@ function showinput(type){
                         </div>
                       </div>
                   `;
-  if(type=="head" || type=="temporary-head"){
+  if(type=="admin" || type=="temporary-admin"){
     $("#hemail").replaceWith(email);
     $("#hnick").replaceWith(nickfield);
     $("#hpwd").replaceWith(password);
     $("#hpwd2").replaceWith(password2);
     $('#adminpassword').replaceWith(adminpassword);
   }
-  else if(type=="manager"){
+  else if(type=="user"){
       $("#hemail").replaceWith(email);
       $("#hnick").replaceWith(nickfield);
       $("#hpwd").replaceWith(password);
@@ -331,8 +331,8 @@ function moduser(id){
         console.log("to_delete_not_matched");
         $('#moduserModal'+id).effect('shake');
       }
-      else if(this.responseText=="head_exceeded"){
-        bootbox.alert("Already two heads are active");
+      else if(this.responseText=="admin_exceeded"){
+        bootbox.alert("Already two adminss are active");
         $('#toggle'+id).bootstrapToggle('toggle');
         $('#moduserModal'+id).effect('shake');
 

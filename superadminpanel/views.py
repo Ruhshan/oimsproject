@@ -64,10 +64,10 @@ def superadmin_export(request):
 
 def superadmin_flush(request):
 	os.system("python manage.py flush --noinput")
-	user = User.objects.create_user('superuser', '', 'superuser1234',is_superuser=True, is_staff=True)
+	#print User.objects.get(username='superuser')
+	user = User.objects.create_user('superuser', email='', password='superuser1234', is_staff=True,
+		is_superuser=True)
 	user.save()
-	
-	
 
 	return HttpResponseRedirect('/superadminlogin/')
 
@@ -110,28 +110,34 @@ def superadmin_create(request):
 		try:
 			newuser= User.objects.create_user(username=email, email=email, password=pwd1,is_staff=True)
 			newuser.save()
+			print "New Admin object created!"
 			
 		except Exception as e:
 			if e=="UNIQUE constraint failed: auth_user.username":
+				print "This user already exists!"
 				return HttpResponse("exists")
 			else:
 				u=User.objects.get(username=email)
 				u.delete()
+				print "This previously existent user is deleted!"
 				return HttpResponse(e) 
 
 
 		new=User.objects.get(username=email)
 		print new
-		Group.objects.get_or_create(name='head')
-		g = Group.objects.get(name="head")
+		Group.objects.get_or_create(name='admin')
+		g = Group.objects.get(name="admin")
 		if SeccondaryPassword.objects.filter(user_name=email).exists()==False:
 			sp=SeccondaryPassword(user_name=email,value=pwd2)
 			sp.save()
-		if UserProfile.objects.filter(uname=u).exists()==False:
-			profile=UserProfile(uname=u, created_by="superuser",nick_name=nick)
+			print "Seccondary Password stored!"
+		if UserProfile.objects.filter(uname=new).exists()==False:
+			profile=UserProfile(uname=new, created_by="superuser",nick_name=nick)
 			profile.save()
+			print "User Profile initiated!"
 
 		g.user_set.add(new)
+		print "Added to the admin group"
 		g.save()
 
 		return HttpResponse("ok")

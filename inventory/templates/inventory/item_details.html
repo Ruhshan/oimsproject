@@ -101,13 +101,13 @@
                   <a href="#">My Account
                   </a>
                 </li>
-                {% if group|stringformat:"s" == "head" %}
+                {% if group|stringformat:"s" == "admin" %}
                 <li>
                   <a href="/users/">User 
                   </a>
                 </li>
                 {% endif %}
-                {% if group|stringformat:"s" == "temporary-head" %}
+                {% if group|stringformat:"s" == "temporary-admin" %}
                 <li>
                   <a href="/users/">User 
                   </a>

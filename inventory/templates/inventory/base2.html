@@ -17,13 +17,16 @@
 
   <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
   <script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
-  <script src="{% static 'idlecount.js' %}"></script>
+  <!--script src="{% static 'idlecount.js' %}"></script-->
 
   {% block extraelements %}
              
   {% endblock extraelements %}       
 </head>
 <body id="main-body">
+<input type="hidden" id="reload" name="" value="60">
+  <input type="hidden" id="tout" name="" value="{{static_info.timeout}}">
+
   <!--div class="container"-->
     <div class="row">
       <div class="col-sm-2">
@@ -53,13 +56,13 @@
                   <a href="/myaccount">My Account
                   </a>
                 </li>
-                {% if group|stringformat:"s" == "head" %}
+                {% if group|stringformat:"s" == "admin" %}
                 <li>
                   <a href="/users/">User 
                   </a>
                 </li>
                 {% endif %}
-                {% if group|stringformat:"s" == "temporary-head" %}
+                {% if group|stringformat:"s" == "temporary-admin" %}
                 <li>
                   <a href="/users/">User 
                   </a>

@@ -98,7 +98,7 @@
 
 {% block pendingrequests %}
     <div id="request_panel">
-    {% if group|stringformat:"s" == "head" %}
+    {% if group|stringformat:"s" == "admin" %}
     {%for p in pending%}
     {% if forloop.first %}
     	<h2>Pending Requests</h2>
@@ -148,7 +148,7 @@
     {% endfor %}
     {% endif %}
     
-    {% if group|stringformat:"s" == "manager" %}
+    {% if group|stringformat:"s" == "user" %}
     {%for p in pending%}
     <div id="req_panel{{p.id_no}}">
       <div class="panel panel-default">
@@ -204,7 +204,7 @@
 				<div class="col-sm-6">is {{p.action}}ed on {{p.date_of_process}}
 				</div>
 				<div class="col-sm-6" align="right">
-					{% if group|stringformat:"s" == "manager" %}
+					{% if group|stringformat:"s" == "user" %}
 					<button type="button" class="btn btn-default" 
 					onclick="acknowledge('processed_req_panel{{p.id_no}}')">Okay
 					</button>

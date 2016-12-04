@@ -49,7 +49,7 @@ def head_count():
 	c=0
 	ids=User.objects.filter(is_active=True)
 	for i in ids:
-		if str(i.groups.all()[0])=='head':
+		if str(i.groups.all()[0])=='admin':
 			c+=1
 	return c
 
@@ -93,14 +93,14 @@ def user_login(request):
 
 		
 
-		if g=="head":
+		if g=="admin":
 			if check_password2(email,password2):
 				user=authenticate(username=email,password=password)
 				l=LoginHistory(action="Login", user_name=email)
 				l.save()
 			else:
 				return HttpResponse("Invalid Seccondary password")
-		if g=="temporary-head":
+		if g=="temporary-admin":
 			if check_password2(email,password2):
 
 				user=authenticate(username=email,password=password)
@@ -326,7 +326,7 @@ def isadmin(request):
 		u=User.objects.get(username=email)
 		g=str(u.groups.all()[0])
 		print u, g
-		if g=='head' or g=="temporary-head":
+		if g=='admin' or g=="temporary-admin":
 			return HttpResponse(1)
 		else:
 			return HttpResponse(0)
@@ -379,7 +379,7 @@ def users(request):
 	u=User.objects.filter(userprofile__is_deleted=0)
 	history=LoginHistory.objects.all()
 
-	if str(g)=="head":
+	if str(g)=="admin":
 		return render(request,"inventory/users.html",{'group':g,'alert_count':alert_count(),
 			'alert_content':alert_content(),'user':u,'history':history})
 	else:
@@ -413,7 +413,7 @@ def adduser(request):
 		try:
 			npassword2= request.POST['password2']
 		except:
-			print "my be manager"
+			print "my be user"
 
 		pcheck=0
 		if request.user.check_password(adminp1) and check_password2(request.user.username,adminp2):
@@ -421,24 +421,26 @@ def adduser(request):
 		if pcheck==0:
 			return HttpResponse("password_error")
 
-		if str(nusertype)=="head":
+		if str(nusertype)=="admin":
 			h=head_count()
 			if h>=2:
-				return HttpResponse("head_exceeded")
+				return HttpResponse("admin_exceeded")
 
 		#createuser
 		newuser= User.objects.create_user(username=nuseremail, email=nuseremail, password=npassword,is_staff=True)
 		newuser.save()
 
 		#assigning group and seccondary password
-		if str(nusertype)=='head':
-			g = Group.objects.get(name='head')
+		if str(nusertype)=='admin':
+			g = Group.objects.get(name='admin')
 			sp=SeccondaryPassword(user_name=nuseremail,value=npassword2)
 			sp.save()
-		elif str(nusertype)=="manager":
-			g = Group.objects.get(name='manager')
+		elif str(nusertype)=="user":
+			Group.objects.get_or_create(name='user')
+			g = Group.objects.get(name='user')
 		else:
-			g = Group.objects.get(name="temporary-head")
+			Group.objects.get(name='temporary-admin')
+			g = Group.objects.get(name="temporary-admin")
 			sp=SeccondaryPassword(user_name=nuseremail,value=npassword2)
 			sp.save()
 		u = User.objects.get(username=nuseremail)
@@ -582,7 +584,7 @@ def updateitem(request):
 @login_required
 def passwordchange(request):
 	if request.method=="POST":
-		if str(request.user.groups.all()[0])=="head":
+		if str(request.user.groups.all()[0])=="admin":
 			uname=request.POST["name"]
 			action=request.POST["action"]
 			if str(action)=="ok":
@@ -606,7 +608,7 @@ def passwordchange(request):
 @login_required
 def itemadminaction(request):
 	if request.method=="POST":
-		if str(request.user.groups.all()[0])=="head" or str(request.user.groups.all()[0])=="temporary-head":
+		if str(request.user.groups.all()[0])=="admin" or str(request.user.groups.all()[0])=="temporary-admin":
 
 			if request.POST['action']=="ok":
 				t=InventoryTableTemp.objects.get(id=request.POST['req_id'])
@@ -639,7 +641,7 @@ def itemadminaction(request):
 				napproved_by=User.objects.get(username=request.user.username)
 
 				h=ItemHistory(name=i.item_name,action="add", quantity=t.quantity_inside,
-					added_by=nadded_by, approved_by=napproved_by)
+					added_by=nadded_by, approved_by=napproved_by,category=t.category)
 				t.delete()
 				h.save()
 				i.save()
@@ -652,7 +654,7 @@ def itemadminaction(request):
 				napproved_by=User.objects.get(username=request.user.username)
 
 				h=ItemHistory(name=i.item_name,action="remove", quantity=t.quantity_inside,
-					added_by=nadded_by, approved_by=napproved_by)
+					added_by=nadded_by, approved_by=napproved_by,category=t.category)
 				t.delete()
 				h.save()
 				i.save()
@@ -661,7 +663,7 @@ def itemadminaction(request):
 
 @login_required
 def changestatus(request):
-	if request.user.groups.all()[0]!="manager":
+	if request.user.groups.all()[0]!="user":
 		if request.method=="POST":
 			uid=request.POST['id'].replace('toggle','')
 			status=request.POST['status']
@@ -674,10 +676,10 @@ def changestatus(request):
 			if pcheck==0:
 				return HttpResponse("password_error")
 			if status=="active":
-				if str(u.groups.all()[0])=="head":
+				if str(u.groups.all()[0])=="admin":
 					h=head_count()
 					if h>=2:
-						return HttpResponse("head_exceed")
+						return HttpResponse("admin_exceed")
 				u.is_active=True
 			else:
 				u.is_active=False
@@ -702,10 +704,10 @@ def modifyuser(request):
 			print "stat",status
 			print "change status",status
 			if status=="activate":
-				if str(target_user.groups.all()[0])=="head":
+				if str(target_user.groups.all()[0])=="admin":
 					h=head_count()
 					if h>=2:
-						return HttpResponse("head_exceeded")
+						return HttpResponse("admin_exceeded")
 				else:
 					target_user.is_active=True
 			else:
@@ -738,7 +740,7 @@ def modifyuser(request):
 @login_required
 def changepassword(request):
 	if request.method=='POST':
-		if request.POST['type']=="head":
+		if request.POST['type']=="admin":
 			old1=request.POST['old1']
 			old2=request.POST['old2']
 			new1=request.POST['new1']
@@ -756,7 +758,7 @@ def changepassword(request):
 
 			print old1,old2,new1,new2,name
 
-		if request.POST['type']=="manager":
+		if request.POST['type']=="user":
 			oldp=request.POST['old1']
 			newp=request.POST['new1']
 			name=request.POST['name']

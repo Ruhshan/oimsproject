@@ -114,21 +114,21 @@
               <div class="form-group">
                 <label class="control-label col-sm-2" for="usertype">User Type:</label>
                 <div class="col-sm-10">
-                  {% if group|stringformat:"s" == "head" %}
+                  {% if group|stringformat:"s" == "admin" %}
             
                   <select id="usertype" class="selectpicker" onchange="showinput(this.value)">
                     <option value="User Type">User Type</option>
-                    <option value="head">Admin</option>
-                    <option value="manager">User</option>
-                    <option value="temporary-head">Temporary Admin</option>
+                    <option value="admin">Admin</option>
+                    <option value="user">User</option>
+                    <option value="temporary-admin">Temporary Admin</option>
                   </select>
                   {% endif %}
-                  {% if group|stringformat:"s" == "temporary-head" %}
+                  {% if group|stringformat:"s" == "temporary-admin" %}
                   
                   <select id="usertype" class="selectpicker" onchange="showinput(this.value)">
                     <option value="User Type">User Type</option>
-                    <option value="manager">User</option>
-                    <option value="temporary-head">Temporary Admin</option>
+                    <option value="user">User</option>
+                    <option value="temporary-admin">Temporary Admin</option>
                   </select>
                   {% endif %}
                 </div>
