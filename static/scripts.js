@@ -7,7 +7,6 @@
           $('#issue_table thead th').each( function () {
         var title = $(this).text();
         {
-          console.log(title);
           $(this).html( '<input type="text" placeholder="'+title+'" size="8"/>' );  
         }
         

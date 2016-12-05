@@ -1,6 +1,6 @@
 {% extends "inventory/base.html" %}
 {% block table %}
-    <table id="inventorytable" cellspacing="0", width="100%">
+    <table id="inventorytable" class="table table-striped table-bordered" cellspacing="0", width="100%">
 	    <thead>
 	      <tr>
 	        <th>Item Name
@@ -36,7 +36,6 @@
         $('#inventorytable thead th').each( function () {
         var title = $(this).text();
         {
-          console.log(title);
           $(this).html( '<input type="text" placeholder="'+title+'" size="8"/>' );  
         }
         
@@ -350,7 +349,7 @@
     </div>
   </div>
 </div>
-<table id="historytable" cellspacing="0" width="100%">
+<table id="historytable" class="table table-striped table-bordered" cellspacing="0" width="100%">
   <thead>
     <tr>
       <th >Date
@@ -420,7 +419,7 @@
          $('#historytable thead th').each( function () {
         var title = $(this).text();
         {
-          console.log(title);
+          
           $(this).html( '<input type="text" placeholder="'+title+'" size="8"/>' );  
         }
         
@@ -527,7 +526,7 @@
         $('#historyitemtable thead th').each( function () {
         var title = $(this).text();
         {
-          console.log(title);
+          
           $(this).html( '<input type="text" placeholder="'+title+'" size="8"/>' );  
         }
         
