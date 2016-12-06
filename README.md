@@ -12,5 +12,6 @@
    `source venv/bin/activate`
 4. Install django and dependencies:  
    `pip install -r requirements.txt`
-5. Start Django:  
-   `python manage.py runserver`
+5. Start The Server:  
+   `python manage.py runserver
+`
