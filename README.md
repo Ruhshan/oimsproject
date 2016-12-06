@@ -18,21 +18,3 @@
    `127.0.0.1:8000/superadminlogin`
 7. Enter Default Username: `superuser` and password `superuser1234`
 `
-# Installation in Windows:
-1. Install git:
-    [http://git-scm.com/download/win](http://git-scm.com/download/win)
-2. Create and Enter the project folder:
-    cd oimsproject
-3. Clone repository:  
-   git clone [https://github.com/Ruhshan/oimsproject.git](https://github.com/Ruhshan/oimsproject.git)    
-4. Install Virtual Environment for this project:
-    virtualenv venv
-5. Activate Virtual Environment:
-    venv\Scripts\activate
-6. Install django and dependencies:
-    pip install -r requirements.txt
-7. Start The Server:  
-    python manage.py runserver    
-8. Enter into admin panel with following url:  
-   `127.0.0.1:8000/superadminlogin`
-9. Enter Default Username: `superuser` and password `superuser1234    
