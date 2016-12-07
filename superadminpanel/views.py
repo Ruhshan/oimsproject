@@ -22,15 +22,18 @@ import os
 # Create your views here.
 def superadmin_home(request):
 	if request.user.is_authenticated():
-		if request.method=='POST':
-			currency= request.POST['currency']
-			orgname=request.POST['org']
-			refresh=request.POST['refresh']
-			timeout=request.POST['timeout']
-			setinfo(currency, orgname, refresh, timeout)
+		if request.user.username=="superuser":
+			if request.method=='POST':
+				currency= request.POST['currency']
+				orgname=request.POST['org']
+				refresh=request.POST['refresh']
+				timeout=request.POST['timeout']
+				setinfo(currency, orgname, refresh, timeout)
 		
-		info=getinfo()
-		return render(request, 'superadminpanel/home.html',{'info':info})
+			info=getinfo()
+			return render(request, 'superadminpanel/home.html',{'info':info})
+		else:
+			return HttpResponse("You are not superuser, You can't view this page")
 	else:
 		return HttpResponseRedirect("/superadminlogin/")
 
@@ -54,6 +57,7 @@ def superadmin_login(request):
 	else:
 		return render(request,'superadminpanel/login.html')
 
+@login_required
 def superadmin_export(request):
 	if request.method=='POST':
 		print "hehe"

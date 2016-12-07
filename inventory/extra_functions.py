@@ -98,3 +98,7 @@ def get_static_info(request):
 			i=line.split(":")
 			f[i[0]]=i[1]
 	return f
+
+def today(request):
+	d=str(datetime.datetime.today()).split()[0].split('-')
+	return '/'.join((d[1],d[2],d[0])) 

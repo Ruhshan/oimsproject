@@ -169,7 +169,7 @@ def view_home(request):
 			date_range={'start':'/'.join([s[1],s[2],s[0]]),
 		    	         'end':'/'.join([e[1],e[2],e[0]])}
 		except:
-			date_range={'start':'11/29/16','end':'11/29/16'}
+			date_range={'start':today(request),'end':today(request)}
 
 		ret_item=ProcessedRequest.objects.filter(action='approve').distinct().values('item_name','category')
 

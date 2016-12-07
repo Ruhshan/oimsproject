@@ -29,7 +29,7 @@ var timeout=document.getElementById("tout").value;
 var IDLE_TIMEOUT_REFRESH = parseInt(reload);
 //var IDLE_TIMEOUT_REFRESH=30;
 var IDLE_TIMEOUT_LOGOUT = parseInt(timeout); //seconds
-var IDLE_TIMEOUT_LOGOUT_ALERT=IDLE_TIMEOUT_LOGOUT-20;
+var IDLE_TIMEOUT_LOGOUT_ALERT=IDLE_TIMEOUT_LOGOUT-10;
 console.log("idle logout:"+IDLE_TIMEOUT_LOGOUT);
 var _idleSecondsCounter = 0;
 var logflag=0;
@@ -53,7 +53,7 @@ document.onkeypress = function () {
 };
 
 var alerted=0;
-var cancelled=0;
+var cancelled=1;
 window.setInterval(CheckIdleTime, 1000);
 function CheckIdleTime() {
     _idleSecondsCounter++;
@@ -78,11 +78,11 @@ function CheckIdleTime() {
         }, 10);
               
     }
-
-    if(now >= IDLE_TIMEOUT_LOGOUT_ALERT && alerted==0){
+    setTimeout(function(){
+        if(now >= IDLE_TIMEOUT_LOGOUT_ALERT && alerted==0){
         alerted=1;
         bootbox.confirm({
-            message: "You'll be logged out in <div id='SecondsRemaining'>20</div> Secconds! \
+            message: "You'll be logged out in few Secconds! \
             click cancel to keep logged in",
             buttons: {
                 confirm: {
@@ -101,29 +101,18 @@ function CheckIdleTime() {
                     setCookie("logout_after", 0, 2);
                     cancelled=1;
                 }
+                if(result==true){
+                    setTimeout(function(){
+                    window.location="/logout/";
+                     }, 10);
+                }
             }
         });
-        (function(){
-    var remaining = 20; // Number of seconds
-    var obj = document.getElementById("SecondsRemaining");
-    var timeout = window.setInterval(function(){
-        remaining--;
-        if(remaining==0) {
-            // Time is up, stop the timer and hide the bootbox
-            window.clearInterval(timeout);
-            bootbox.hideAll();
-            if(cancelled==0){
-                setTimeout(function(){
-                window.location="/logout/";
-                }, 2);    
-                }
-            
-            return;
-        }
-        obj.innerHTML = remaining; // Update the value displayed
-    }, 1000); // Decrease counter every second
-    })(); 
+         
     }
+},10000);
+
+    
 
     
 
