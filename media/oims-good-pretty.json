@@ -900,7 +900,7 @@
     },
     {
         "fields": {
-            "name": "head",
+            "name": "admin",
             "permissions": []
         },
         "model": "auth.group",
@@ -908,7 +908,7 @@
     },
     {
         "fields": {
-            "name": "manager",
+            "name": "user",
             "permissions": []
         },
         "model": "auth.group",
@@ -916,7 +916,7 @@
     },
     {
         "fields": {
-            "name": "temporary-head",
+            "name": "temporary-admin",
             "permissions": []
         },
         "model": "auth.group",

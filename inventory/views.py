@@ -96,28 +96,26 @@ def user_login(request):
 		if g=="admin":
 			if check_password2(email,password2):
 				user=authenticate(username=email,password=password)
-				l=LoginHistory(action="Login", user_name=email)
-				l.save()
 			else:
 				return HttpResponse("Invalid Seccondary password")
 		if g=="temporary-admin":
 			if check_password2(email,password2):
 
 				user=authenticate(username=email,password=password)
-				l=LoginHistory(action="Login", user_name=email)
-				l.save()
+				
 			else:
 				return HttpResponse("Invalid Seccondary password")
 		else:
 			user=authenticate(username=email,password=password)
-			l=LoginHistory(action="Login", user_name=email)
-			l.save()
+			
 
 		
 
 		if user is not None:
 			if user.is_active:
 				login(request,user)
+				l=LoginHistory(action="Login", user_name=email)
+				l.save()
 				 
 				return HttpResponseRedirect("/home/")	
 			else:
@@ -338,7 +336,7 @@ def myaccount(request):
 	profile=UserProfile.objects.get(uname=user)
 	g=request.user.groups.all()[0]
 	return 	render (request ,'inventory/myaccount.html',{'user':user,'profile':profile,'group':g,
-		'alert_count':alert_count(),'alert_content':alert_content()})
+		'alert_count':alert_count(),'alert_content':alert_content(),'static_info':get_static_info(request)})
 
 
 
@@ -382,7 +380,7 @@ def users(request):
 
 	if str(g)=="admin":
 		return render(request,"inventory/users.html",{'group':g,'alert_count':alert_count(),
-			'alert_content':alert_content(),'user':u,'history':history})
+			'alert_content':alert_content(),'user':u,'history':history,'static_info':get_static_info(request)})
 	else:
 		return HttpResponse("You don't have permission!")
 
@@ -463,7 +461,8 @@ def adduser(request):
 def vendor_view(request):
 	vendor_data = Vendor.objects.all()
 	g=request.user.groups.all()[0]
-	return render (request ,'inventory/vendor.html',{"vendor_data":vendor_data ,'group':g, 'alert_count':alert_count(),'alert_content':alert_content()})
+	return render (request ,'inventory/vendor.html',{"vendor_data":vendor_data ,'group':g, 
+		'alert_count':alert_count(),'alert_content':alert_content(),'static_info':get_static_info(request)})
 
 @login_required
 def addvendor(request):
@@ -501,7 +500,7 @@ def item_view(request):
 	g=request.user.groups.all()[0]
 	return render(request, 'inventory/item.html',{'vendor_list':vendor_list,'group':g,
 		'item_list':item_list,'alert_count':alert_count(),'alert_content':alert_content()
-		,'categories':categories})
+		,'categories':categories,'static_info':get_static_info(request)})
 
 @login_required
 def add_item(request):

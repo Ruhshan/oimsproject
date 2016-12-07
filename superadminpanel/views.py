@@ -84,7 +84,7 @@ def superadmin_import(request):
 		
 		m=import_from_json(uploaded_file_url)
 		return render(request, 'superadminpanel/dbimport.html',{'message':m})
-	return render(request, 'superadminpanel/dbimport.html')
+	return render(request, 'superadminpanel/dbimport.html',{'info':getinfo()})
 
 def superadmin_changepass(request):
 	if request.method=="POST":
