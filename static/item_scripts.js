@@ -36,12 +36,12 @@ function getCookie(name) {
                 
       xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       xhttp.setRequestHeader("X-CSRFToken", csrftoken);
-      query="name="+name;
-      query+="&cperson="+cperson;
-      query+="&address="+address;
-      query+="&contact="+contact;
-      query+="&email="+email;
-      query+="&description="+description;
+      query="name="+name.trim();
+      query+="&cperson="+cperson.trim();
+      query+="&address="+address.trim();
+      query+="&contact="+contact.trim();
+      query+="&email="+email.trim();
+      query+="&description="+description.trim();
       
       xhttp.send(query);
       send();
@@ -85,13 +85,13 @@ function getCookie(name) {
                     
           xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
           xhttp.setRequestHeader("X-CSRFToken", csrftoken);
-          query="name="+name;
-          query+="&category="+category;
-          query+="&quantity="+quantity;
-          query+="&minquant="+minquant;
-          query+="&price="+price;
-          query+="&description="+description;
-          query+="&vendor="+vendor;
+          query="name="+name.trim();
+          query+="&category="+category.trim();
+          query+="&quantity="+quantity.trim();
+          query+="&minquant="+minquant.trim();
+          query+="&price="+price.trim();
+          query+="&description="+description.trim();
+          query+="&vendor="+vendor.trim();
           
           if(check_num(quantity)==true && check_num(minquant)==true && check_num(price)==true){
             xhttp.send(query);  
@@ -197,14 +197,14 @@ function getCookie(name) {
                     
           xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
           xhttp.setRequestHeader("X-CSRFToken", csrftoken);
-          query="name="+name;
-          query+="&category="+category;
-          query+="&quantity="+quant;
-          query+="&minquant="+minquant;
-          query+="&price="+price;
-          query+="&description="+description;
-          query+="&vendor="+vendor;
-          query+="&newname="+newname;
+          query="name="+name.trim();
+          query+="&category="+category.trim();
+          query+="&quantity="+quant.trim();
+          query+="&minquant="+minquant.trim();
+          query+="&price="+price.trim();
+          query+="&description="+description.trim();
+          query+="&vendor="+vendor.trim();
+          query+="&newname="+newname.trim();
           
           if(check_num(quant)==true && check_num(minquant)==true && check_num(price)==true){
             xhttp.send(query);  

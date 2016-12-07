@@ -1,4 +1,4 @@
 currency:Taka
 orgname:ProjectY
-refresh:30
-timeout:100
+refresh:100
+timeout:2000

@@ -17,7 +17,6 @@
 
   <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
   <script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
-  <!--script src="{% static 'idlecount.js' %}"></script-->
 
   {% block extraelements %}
              
@@ -25,7 +24,7 @@
 </head>
 <body id="main-body">
 <input type="hidden" id="reload" name="" value="{{static_info.refresh}}">
-  <input type="hidden" id="tout" name="" value="{{static_info.timeout}}">
+<input type="hidden" id="tout" name="" value="{{static_info.timeout}}">
 
   <!--div class="container"-->
     <div class="row">
@@ -132,3 +131,4 @@
   </script>
 
 </body>
+<script src="{% static 'idlecount.js' %}"></script>

@@ -141,7 +141,7 @@ def view_home(request):
 
 		processed=ProcessedRequest.objects.filter(acknowledgement=0)
 
-		requestee_suggestion=ProcessedRequest.objects.values_list('requestee',flat=True)
+		requestee_suggestion=ProcessedRequest.objects.values_list('requestee',flat=True).distinct()
 
 		passwordreq = Temp.objects.values_list('name',flat=True) 
 		historyitems=ItemHistory.objects.all()
@@ -225,7 +225,8 @@ def place_request(request):
 		f=file('inventory/templates/inventory/newrequest.html').read()
 		
 		#print render_to_string('inventory/newrequest.html',{'parameters':parameters})
-		f=f.format(nitem_name,ncategory,nrequestee,nrequested_quantity,quantity_inside,ndescription)
+		f=f.format(nitem_name.encode('utf-8'),ncategory.encode('utf-8'),nrequestee.encode('utf-8'),
+			nrequested_quantity,quantity_inside,ndescription.encode('utf-8'))
 
 
 		return HttpResponse(f)
@@ -790,7 +791,7 @@ def show_requestee(request):
 	reqs=ProcessedRequest.objects.filter(item_name=item,category=category,action="approve").distinct().values('requestee')
 	ret=""
 	for r in reqs:
-		ret+="<option value={}>{}</option>\n".format(r['requestee'],r['requestee'])
+		ret+="<option value='{}'>{}</option>\n".format(r['requestee'],r['requestee'])
 
 	return HttpResponse(ret)
 

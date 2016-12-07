@@ -15,8 +15,8 @@ function getCookie(name) {
       };
 
     function createuser(){
-      var p1=document.getElementById('adminpassword1').value;
-      var p2=document.getElementById('adminpassword2').value;
+      var p1=document.getElementById('adminpassword1').value.trim();
+      var p2=document.getElementById('adminpassword2').value.trim();
 
       ///ajax initialization
       var xhttp = new XMLHttpRequest();
@@ -49,12 +49,12 @@ function getCookie(name) {
         $('#newuserModal').effect('shake');
       }
       else{
-          email=document.getElementById('email').value;
-          password=document.getElementById('password').value;
-          nick_name=document.getElementById("nick_name").value;
+          email=document.getElementById('email').value.trim();
+          password=document.getElementById('password').value.trim();
+          nick_name=document.getElementById("nick_name").value.trim();
 
           try{
-            password2=document.getElementById('password2').value;
+            password2=document.getElementById('password2').value.trim();
             if(email.length>0 & password.length>=8 &password2.length>=8){
 
               query="type="+type;
@@ -64,7 +64,7 @@ function getCookie(name) {
               query+="&adminpassword1="+p1;
               query+="&adminpassword2="+p2;
               query+="&nick_name="+nick_name;
-              xhttp.send(query);
+              xhttp.send(encodeURI(query));
             $('#newuserModal').modal('hide'); 
             }
             else{
@@ -82,7 +82,7 @@ function getCookie(name) {
               query+="&adminpassword2="+p2;
               query+="&nick_name="+nick_name;
               
-              xhttp.send(query);
+              xhttp.send(encodeURI(query));
             $('#newuserModal').modal('hide'); 
             }
             else{
@@ -111,8 +111,8 @@ function takepwd(name){
 
 function changestatus(){
       var name=document.getElementById('id-carrier').value;
-      p1=document.getElementById('cpassword').value;
-      p2=document.getElementById('cpassword2').value;
+      p1=document.getElementById('cpassword').value.trim();
+      p2=document.getElementById('cpassword2').value.trim();
       
       var status;
       if(document.getElementById(name).checked){
@@ -165,7 +165,7 @@ function changestatus(){
       query+="&status="+status;
       query+="&p1="+p1;
       query+="&p2="+p2;
-      xhttp.send(query);
+      xhttp.send(encodeURI(query));
       
     };
 
@@ -352,10 +352,10 @@ function moduser(id){
   //var status=document.getElementById("toggle"+id).checked;
   //var new_email=document.getElementById("new_email"+id).value;
   //var delete_user=document.getElementById("delete_user"+id).value;
-  var p1=document.getElementById("modpassword1"+id).value;
-  var p2=document.getElementById("modpassword2"+id).value;
+  var p1=document.getElementById("modpassword1"+id).value.trim();
+  var p2=document.getElementById("modpassword2"+id).value.trim();
 
-  var action=document.getElementById("actiontype"+id).value;
+  var action=document.getElementById("actiontype"+id).value.trim();
   console.log(action);
   if(action=="status"){
     var val=document.getElementById("toggle"+id).checked;
@@ -372,7 +372,7 @@ function moduser(id){
     query+="&status="+status;
     query+="&p1="+p1;
     query+="&p2="+p2;
-    xhttp.send(query);
+    xhttp.send(encodeURI(query));
 
   }
   else if(action=="edit"){
@@ -383,7 +383,7 @@ function moduser(id){
     query+="&newemail="+new_email;
     query+="&p1="+p1;
     query+="&p2="+p2;
-    xhttp.send(query);
+    xhttp.send(encodeURI(query));
   }
   else if(action=="delete"){
     var delete_user=document.getElementById("delete_user"+id).value;

@@ -110,13 +110,13 @@
           query = "requested_item_name_dropdown="+selected_item[0];
           query += "&category="+selected_item[1];
           query += "&requested_quantity=" + document.getElementById("item_quantity_dropdown").value;
-          query += "&requestee=" + document.getElementById("requestee").value;
+          query += "&requestee=" + document.getElementById("requestee").value.trim();
           query += "&description=" + document.getElementById("description").value;
-          query +="&location="+document.getElementById("location").value;
+          query +="&location="+document.getElementById("location").value.trim();
 
-          var req=document.getElementById("requestee").value;
+          var req=document.getElementById("requestee").value.trim();
           var item=document.getElementById("requested_item_name_dropdown").value;
-          var location=document.getElementById("location").value;
+          var location=document.getElementById("location").value.trim();
 
           if(req.length>0 & item!='Select..' & location.length>0){
             if(req!="Not Specified" || location!="Not Specified"){
@@ -126,7 +126,7 @@
             document.getElementById("description").value=" ";
             document.getElementById("location").value="";
             
-            xhttp.send(query);
+            xhttp.send(encodeURI(query));
             $('#myModal').modal('hide');
             /*$('#alert-success').show("drop", { direction: "up" }, "slow");
             
@@ -450,7 +450,8 @@ function showretamounts(ret_location){
   
   
 
-function showlocation(req_name){
+function showlocation(){
+  var req_name=document.getElementById("ret_requestee").value;
   if(req_name!="Select Requestee"){
     selected_item=document.getElementById('ret_item_name').value.split(',');
     xhttp = new XMLHttpRequest();
@@ -459,7 +460,11 @@ function showlocation(req_name){
           document.getElementById("ret_location").innerHTML='<option>Select Location</option>'+this.responseText;
         }
     };
-    xhttp.open("GET","showlocations/?item="+selected_item[0]+"&category="+selected_item[1]+"&req_name="+req_name,true);
+
+    var uri=encodeURI("showlocations/?item="+selected_item[0]+"&category="+selected_item[1]+"&req_name="+req_name);
+    console.log(req_name);
+    console.log(uri);
+    xhttp.open("GET",uri,true);
     xhttp.send();
   }
   else{
