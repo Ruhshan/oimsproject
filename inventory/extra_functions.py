@@ -5,6 +5,9 @@ from django.utils.dateparse import parse_date
 import datetime
 from django.core import serializers
 import json
+import sys  
+reload(sys)  
+sys.setdefaultencoding('utf8')
 def get_location_names():
 	return ProcessedRequest.objects.all().values('location').distinct()
 
@@ -82,7 +85,7 @@ def issue_to_ajax(request):
 	data=Issues.objects.all().values('item','category','person','place','amnt','occurance_date','desc')
 	list_data=[]
 	for d in data:
-		x=[str(d['item']),str(d['category']),str(d['person']),str(d['place']),str(d['amnt']),str(d['occurance_date']),str(d['desc'])]
+		x=[str(d['item']),str(d['category']),str(d['person']),str(d['place']),str(d['amnt']),str(d['occurance_date']),str(d['desc']).encode('utf-8')]
 		list_data.append(x)
 	ajax_format["data"]=list_data
 
@@ -101,4 +104,18 @@ def get_static_info(request):
 
 def today(request):
 	d=str(datetime.datetime.today()).split()[0].split('-')
-	return '/'.join((d[1],d[2],d[0])) 
+	return '/'.join((d[1],d[2],d[0]))
+
+def history_ajax(request, s,e):
+	data=ProcessedRequest.objects.filter(date_of_process__range=[s,e]).values('date_of_request',
+		'item_name','category','location','delivered_price','approved_quantity','action','requestee',
+		'processed_by')
+	list_data=[]
+	ajax_format={}
+	for d in data:
+		x=[str(d['date_of_request']),str(d['item_name']),str(d['category']),str(d['location']),
+		str(d['delivered_price']),str(d['approved_quantity']),str(d['action']),str(d['requestee']),
+		str(d['processed_by'])]
+		list_data.append(x)
+	ajax_format["data"]=list_data
+	return json.dumps(ajax_format,indent=4, separators=(',', ': ')) 

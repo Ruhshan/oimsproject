@@ -161,11 +161,14 @@ def view_home(request):
 		#finding date range for history display
 		acknowledged=ProcessedRequest.objects.filter(acknowledgement=1)
 		l=acknowledged.count()
-		try:
-			s=str(acknowledged[0].date_of_process).split('-')
-			e=str(acknowledged[l-1].date_of_process).split('-')
+		try:	
+			d1=str(acknowledged[0].date_of_request).split('-')
+			d2=str(acknowledged[l-1].date_of_request).split('-')
+			s=min(d1,d2)
+			e=max(d1,d2)
 			date_range={'start':'/'.join([s[1],s[2],s[0]]),
 		    	         'end':'/'.join([e[1],e[2],e[0]])}
+		   	print date_range
 		except:
 			date_range={'start':today(request),'end':today(request)}
 
@@ -387,8 +390,8 @@ def users(request):
 
 @login_required
 def historybydate(request):
-	if request.method=="POST":
-		s,e=str(request.POST["range"]).split('-')
+	if request.method=="GET":
+		s,e=str(request.GET["range"]).split('-')
 
 		s=s.split('/')
 		e=e.split('/')
@@ -396,9 +399,10 @@ def historybydate(request):
 		s='-'.join([s[2].replace(' ',''),s[0],s[1]])
 		e='-'.join([e[2],e[0].replace(' ',''),e[1]])
 
-		history=ProcessedRequest.objects.filter(date_of_process__range=[s,e])
+		execute=history_ajax(request, s,e)
 
-		return render(request,'inventory/historytable.html',{"history":history})
+
+		return HttpResponse(execute)
 
 @login_required
 def adduser(request):

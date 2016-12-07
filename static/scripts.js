@@ -30,6 +30,44 @@
         } );
 
 
+      //historytable start
+        $('#historytable thead th').each( function () {
+        var title = $(this).text();
+        {
+          
+          $(this).html( '<input type="text" placeholder="'+title+'" size="8"/>' );  
+        }
+        
+    } );
+
+        //var htable=$('#historytable').DataTable({select: true});
+
+        range=document.getElementById("daterange").value;
+        console.log(encodeURI('/home/historybydate/?range='+range));
+        var htable=$('#historytable').DataTable( {
+          "ajax": encodeURI('/home/historybydate/?range='+range)
+          } );
+
+
+ 
+    // Apply the search
+    htable.columns().every( function () {
+        var that = this;
+ 
+        $( 'input', this.header() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+        } );
+    //historytable end
+
+
+
+
+
       });
 
       function req_close(){
@@ -202,32 +240,10 @@
 		});
 
       function showhistory(){
-      	range=document.getElementById("daterange").value;
-      	console.log(range);
 
-      	var xhttp = new XMLHttpRequest();
-          xhttp.onreadystatechange = function() {
-          if (this.readyState == 4 && this.status == 200) {
-              document.getElementById("historytable").innerHTML = this.responseText;
-              		htable.destroy();
-              
-        			htable=$('#historytable').DataTable({
-          			select: true}
-                                      );
-      				
-              
-              //document.getElementById("demo").innerHTML =document.getElementById("demo").innerHTML;
-              //console.log(this.responseText);
-              }
-            };
-          xhttp.open("POST", "historybydate/", true);
-          var csrftoken = getCookie('csrftoken');
-                    
-          xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-          xhttp.setRequestHeader("X-CSRFToken", csrftoken);
-          query="range="+range;
-          
-          xhttp.send(query)
+      	range=document.getElementById("daterange").value;
+        console.log(encodeURI('/home/historybydate/?range='+range));
+        $('#historytable').DataTable().ajax.url(encodeURI('/home/historybydate/?range='+range)).load();
       }
 
       function resethistory(range){
@@ -554,7 +570,7 @@ function showretamounts_issue(ret_location){
             }
             
           }
-          document.getElementById('issue-button-place').innerHTML=`<button type="button" onclick="issuebutton()">Make Issue</button>`;
+          document.getElementById('issue-button-place').innerHTML=`<button class="btn btn-primary" type="button" onclick="issuebutton()">Make Issue</button>`;
         }
     };
     xhttp.open("GET", "showretamounts/?item=" + selected_item[0]+"&category="+selected_item[1]+

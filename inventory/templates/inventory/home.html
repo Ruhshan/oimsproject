@@ -370,78 +370,14 @@
       <th>Processed by</th>
     </tr>
   </thead>
-  <!--tfoot>
-    <tr>
-      <th >Date
-      </th>
-      <th>Item Name
-      </th>
-      <th>Category
-      </th>
-      <th>Location
-      </th>
-      <th>Price
-      </th>
-      <th>Quantity
-      </th>
-      <th>Action
-      </th>
-      <th>Requestee
-      </th>
-      <th>Processed by</th>
-    </tr>
-    
-  </tfoot-->
-  {% for entry in history %}
-  <tr>
-    <td >
-      {{entry.date_of_process}}
-    </td>
-    <td>
-    {{entry.item_name}}
-    <!--a href="{% url 'item_details' name=entry.item_name %}">{{entry.item_name}}</a-->
-    </td>
-    <td>{{entry.category}}</td>
-    <td>{{entry.location}}</td>
-    <td>{{entry.delivered_price}}</td> 
-    <td>{{entry.approved_quantity}}</td>
-    <td>{{entry.action}}</td>
-    <td>{{entry.requestee}}</td>
-    <td>{{entry.processed_by.userprofile.nick_name}}</td>
-  </tr>
-  {% endfor %}
+  
+  
 </table>  
 
 
 <script type="text/javascript">
       $(document).ready(function(){
-
-         $('#historytable thead th').each( function () {
-        var title = $(this).text();
-        {
-          
-          $(this).html( '<input type="text" placeholder="'+title+'" size="8"/>' );  
-        }
         
-    } );
-
-        var htable=$('#historytable').DataTable({select: true});
-
-
- 
-    // Apply the search
-    htable.columns().every( function () {
-        var that = this;
- 
-        $( 'input', this.header() ).on( 'keyup change', function () {
-            if ( that.search() !== this.value ) {
-                that
-                    .search( this.value )
-                    .draw();
-            }
-        } );
-        } );
-   
       });
 </script>
 
@@ -481,7 +417,7 @@
 
 
 {% block itemhistory %}
-<table id="historyitemtable" cellspacing="0" width="100%">
+<table id="historyitemtable" class="table table-striped table-bordered" cellspacing="0" width="100%">
   <thead>
     <tr>
     <th >Date
@@ -665,7 +601,7 @@
 {% endblock returnitem %}
 
 {% block issues %}
-<button data-toggle="collapse" data-target="#issue_form">New Issue</button>
+<button class="btn btn-seccondary" data-toggle="collapse" data-target="#issue_form">New Issue</button>
 <div class="form-horizontal collapse" id="issue_form">
     <div class="form-group">
       <label class="control-label col-sm-3" for="issue_item_name">Issue for:</label>
@@ -754,7 +690,7 @@
     </div>
 </div>
 
-<table id="issue_table" class="display" cellspacing="0", width="100%">
+<table id="issue_table" class="table table-striped table-bordered" class="display" cellspacing="0", width="100%">
   <thead>
     <th>Item</th>
     <th>Category</th>
