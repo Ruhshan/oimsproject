@@ -12,5 +12,9 @@
    `source venv/bin/activate`
 4. Install django and dependencies:  
    `pip install -r requirements.txt`
-5. Start Django:  
+5. Start The Server:  
    `python manage.py runserver`
+6. Enter into admin panel with following url:  
+   `127.0.0.1:8000/superadminlogin`
+7. Enter Default Username: `superuser` and password `superuser1234`
+`
