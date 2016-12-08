@@ -145,11 +145,11 @@ LOGIN_REDIRECT_URL = 'home'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, "static"),
-#     '/var/www/static/',
-# ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+    '/var/www/static/',
+]
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # SESSION_EXPIRE_AT_BROWSER_CLOSE=True
 # SESSION_SECURITY_WARN_AFTER=60
 # SESSION_SECURITY_EXPIRE_AFTER=70
