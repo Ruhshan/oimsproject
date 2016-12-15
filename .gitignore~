@@ -1,7 +1,0 @@
-*.pyc
-__pycache__
-venv
-inventory/migrations
-superadminpanel/migrations
-media/.json
-local_settings.py

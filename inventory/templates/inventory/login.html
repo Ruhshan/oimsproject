@@ -9,7 +9,9 @@
          <link rel="stylesheet" href="{% static 'css/bootstrap-select.min.css'%}">
          <script src="{% static 'js/bootstrap.min.js' %}"></script>
    <script src="{% static 'js/jquery-ui.js' %}"></script>
-  
+   <link rel="stylesheet" href="{% static 'mycss/common.css' %}">
+
+
         <script type="text/javascript">
             function getCookie(name) {
                 var cookieValue = null;
@@ -31,27 +33,27 @@
                 email=document.getElementById("email").value;
                 pwd=document.getElementById("pwd").value
                 isadmin(email, pwd);
-                 
+
             }
 
             function isadmin(email,pwd){
                 var xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function() {
-                
+
                 if (this.readyState == 4 && this.status == 200) {
                   //document.getElementById("demo").innerHTML = this.responseText;
                     if(this.responseText==1){
                         document.getElementById("login_form").innerHTML=
                     `<form method="post" action="/login/">
-                    {% csrf_token %}      
-                    
+                    {% csrf_token %}
+
                     <label><b>Email</b></label>
                     <input type="text" placeholder="Enter Email" name="email" id="email" value="`+email+`" required>
                      <input type="hidden" placeholder="Enter Password" name="password" id="pwd" value="`+pwd+`" required>
-                    
+
                      <label><b>Password 2</b></label>
                     <input type="password" placeholder="Enter Password 2" name="password2" id="pwd2" required>
-                    
+
                     <input  class ="submit-button" type="submit" value="submit">
                     </form>`;
                             }
@@ -61,7 +63,7 @@
                         form.setAttribute("action", "/login/");
 
                         var data = {csrfmiddlewaretoken:getCookie('csrftoken'), email:document.getElementById("email").value, password:document.getElementById("pwd").value, password2:"xxx"};
-                        
+
                         for(var key in data) {
                             if(data.hasOwnProperty(key)) {
                                 var hiddenField = document.createElement("input");
@@ -72,7 +74,7 @@
                                 form.appendChild(hiddenField);
                             }
                         }
-                        
+
 
                         form.appendChild(hiddenField);
                         document.body.appendChild(form);
@@ -80,11 +82,11 @@
                         document.body.removeChild(form);
                     }
 
-                    
+
                     }
 
-                    
-                    
+
+
                 };
                 xhttp.open("POST", "isadmin/", true);
                 var csrftoken = getCookie('csrftoken');
@@ -96,12 +98,12 @@
 
 
 
-                
 
-                
+
+
             }
-                
-            
+
+
         </script>
         <style type="text/css">
         <style>
@@ -185,11 +187,11 @@ span.psw {
     </head>
 
     <body>
-        
-        
-        
+
+
+
         <!--div id="login_form">
-            {% csrf_token %}   
+            {% csrf_token %}
             email: <input type="text" id="email" name="email" value="" size="50" />
             <br />
             Password: <input type="password" id="pwd" name="password" value="" size="50" />
@@ -201,27 +203,29 @@ span.psw {
         </div-->
 
 <div>
-  
+
 <div class="jumbotron center">
 <h1>Login to OIMS</h1>
   <div class="container" id="login_form">
-    {% csrf_token %} 
+    {% csrf_token %}
     <label><b>Email</b></label>
     <input type="text" placeholder="Enter Email" name="email" id="email" required>
 
     <label><b>Password</b></label>
     <input type="password" placeholder="Enter Password" name="passsword" id="pwd" required>
-        
+
     <button onclick="login()">Login</button>
-    
+
   </div>
-  
-    
-    
+
+
+
   </div>
 </div>
+<div class="footer fstyle">
+&copy Copyright: <a href="/credit/">Tetrad OIMS</a>, 2016</div>
 
     </body>
-    
+
 
 </html>
