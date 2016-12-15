@@ -3,13 +3,13 @@
 <html>
 
 <head>
-  <title>OIMS</title>
+  <title>{{static_info.orgname}} Inventory</title>
   {% load static %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/jquery.dataTables.min.css' %}">
-  <link rel="stylesheet" href="{% static 'mycss/common.css' %}">
+
 
   <script src="{% static 'js/jquery.min.js' %}"></script>
   <script src="{% static 'js/bootstrap.min.js' %}"></script>
@@ -17,128 +17,161 @@
 
   <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
   <script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
-
+  <link rel="stylesheet" href="{% static 'mycss/common.css' %}">
   {% block extraelements %}
-             
-  {% endblock extraelements %}       
+
+  {% endblock extraelements %}
 </head>
 <body id="main-body">
 
- <nav class="navbar navbar-light bg-faded">
-  <ul class="nav navbar-nav">
-    <a class="navbar-brand" href="/home/">{{static_info.orgname}} OIMS</a>
-    
-  </ul>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    {% with request.resolver_match.url_name as url_name %}
+    <ul class="nav navbar-nav mod">
+      <li class="nav-item">
+        <a class="nav-link" href="/home/">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item {% if url_name == 'myaccount' %}active{% endif %}">
+        <a class="nav-link" href="/myaccount">My Account</a>
+      </li>
 
-   <div class="nav navbar-right">
-    <div class="row">
-          <div class="col-sm-1"></div>
-          <div class="col-sm-11">
-            Hello,{{request.user.first_name}}!
-            <a tabindex="0"
-            role="button" 
-            data-html="true" data-toggle="popover" 
-            data-trigger="focus" data-placement="bottom" data-content="{{alert_content}}">Alert
-              <span class="badge">{{alert_count}}
-              </span>
-            </a>
-            <a href="/logout/">Logout</a>  
+      {% if group|stringformat:"s" == "admin" %}
+        <li class="nav-item {% if url_name == 'users' %}active{% endif %}">
+          <a class="nav-link" href="/users/">User
+          </a>
+        </li>
+      {% endif %}
+      <li class="nav-item {% if url_name == 'vendor_view' %}active{% endif %}">
+        <a class="nav-link" href="/vendor/">Vendor</a>
+      </li>
+      <li class="nav-item {% if url_name == 'item_view' %}active{% endif %}">
+        <a class="nav-link" href="/item/">Item</a>
+      </li>
+    </ul>
+    {% endwith %}
+
+     <div class="nav navbar-right">
+      <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-11" style="color:white">
+              Hello,{{request.user.first_name}}!
+              <a tabindex="0"
+              role="button"
+              data-html="true" data-toggle="popover"
+              data-trigger="focus" data-placement="bottom" data-content="{{alert_content}}">Alert
+                <span class="badge">{{alert_count}}
+                </span>
+              </a>
+              <a href="/logout/">Logout</a>
+              </div>
             </div>
-          </div>
-    
-  </div>
+
+    </div>
   </nav>
+
 <input type="hidden" id="reload" name="" value="{{static_info.refresh}}">
 <input type="hidden" id="tout" name="" value="{{static_info.timeout}}">
 
   <!--div class="container"-->
-    <div class="row">
-      <div class="col-sm-2">
-        <div class="sidebar-nav">
-          <div class="navbar navbar-default" role="navigation">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
-                <span class="sr-only">Toggle navigation
+  <br>
+  <br>
+  <div class="content">
+    <div class="well">
+      <h2>{{static_info.orgname}} Inventory</h2>
+      <input type="hidden" id="reload" name="" value="{{static_info.refresh}}">
+      <input type="hidden" id="tout" name="" value="{{static_info.timeout}}">
+    </div>
+      <div class="row">
+        <!--div class="col-sm-2">
+          <div class="sidebar-nav">
+            <div class="navbar navbar-default" role="navigation">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
+                  <span class="sr-only">Toggle navigation
+                  </span>
+                  <span class="icon-bar">
+                  </span>
+                  <span class="icon-bar">
+                  </span>
+                  <span class="icon-bar">
+                  </span>
+                </button>
+                <span class="visible-xs navbar-brand">Sidebar menu
                 </span>
-                <span class="icon-bar">
-                </span>
-                <span class="icon-bar">
-                </span>
-                <span class="icon-bar">
-                </span>
-              </button>
-              <span class="visible-xs navbar-brand">Sidebar menu
-              </span>
+              </div>
+              <div class="navbar-collapse collapse sidebar-navbar-collapse">
+                <ul class="nav navbar-nav">
+                  <li>
+                    <a href="/home">Home
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/myaccount">My Account
+                    </a>
+                  </li>
+                  {% if group|stringformat:"s" == "admin" %}
+                  <li>
+                    <a href="/users/">User
+                    </a>
+                  </li>
+                  {% endif %}
+                  {% if group|stringformat:"s" == "temporary-admin" %}
+                  <li>
+                    <a href="/users/">User
+                    </a>
+                  </li>
+                  {% endif %}
+                  <li>
+                    <a href="/vendor/">Vendor
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/item/">Item
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <!--/.nav-collapse -->
             </div>
-            <div class="navbar-collapse collapse sidebar-navbar-collapse">
-              <ul class="nav navbar-nav">
-                <li>
-                  <a href="/home">Home
-                  </a>
-                </li>
-                <li>
-                  <a href="/myaccount">My Account
-                  </a>
-                </li>
-                {% if group|stringformat:"s" == "admin" %}
-                <li>
-                  <a href="/users/">User 
-                  </a>
-                </li>
-                {% endif %}
-                {% if group|stringformat:"s" == "temporary-admin" %}
-                <li>
-                  <a href="/users/">User 
-                  </a>
-                </li>
-                {% endif %}
-                <li>
-                  <a href="/vendor/">Vendor
-                  </a>
-                </li>
-                <li>
-                  <a href="/item/">Item
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <!--/.nav-collapse -->
+          </div>
+        </div!-->
+
+
+
+        <div class="col-sm-12">
+          <div class="container-fluid">
+            <!--div id="log">
+                Hello,{{request.user.first_name}}!
+                <a tabindex="0"
+                role="button"
+                data-html="true" data-toggle="popover"
+                data-trigger="click" data-placement="bottom" data-content="{{alert_content}}">Alert
+                  <span class="badge">{{alert_count}}
+                  </span>
+                </a>
+                <a href="/logout/">Logout</a>
+            </div-->
+
+            {% block content %}
+
+            {% endblock content %}
+
+
+            <!--button onclick = 'updateinformation()'>Update</button-->
           </div>
         </div>
       </div>
-      
 
+    <!--/div-->
+    <script type="text/javascript">
+    $(document).ready(function(){
+      $('[data-toggle="popover"]').popover();
+    });
+    </script>
+  </div>
 
-      <div class="col-sm-10">
-        <div class="container-fluid">
-          <!--div id="log">
-              Hello,{{request.user.first_name}}!
-              <a tabindex="0"
-              role="button" 
-              data-html="true" data-toggle="popover" 
-              data-trigger="click" data-placement="bottom" data-content="{{alert_content}}">Alert
-                <span class="badge">{{alert_count}}
-                </span>
-              </a>
-              <a href="/logout/">Logout</a>  
-          </div-->
-          
-          {% block content %}
-            
-          {% endblock content %}
-                
-          
-          <!--button onclick = 'updateinformation()'>Update</button-->
-        </div>
-      </div>
-    </div>
+  <div class="footer fstyle">
+  Credit:<a href="/credit/">Team Name</a></div>
 
-  <!--/div-->
-  <script type="text/javascript">
-  $(document).ready(function(){
-    $('[data-toggle="popover"]').popover();
-  });
-  </script>
 
 </body>
 <script src="{% static 'idlecount.js' %}"></script>

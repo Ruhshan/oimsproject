@@ -38,7 +38,8 @@ urlpatterns = [
     url(r'^item/addvendor/$',views.addvendor,name='addvendor'),
     url(r'^item/information/$',views.getinfo,name='getinfo'),
     url(r'^item/updateitem/$',views.updateitem,name='updateitem'),
+    url(r'^credit/$',views.credit,name='credit'),
 
-    
+
 
 ]

@@ -21,7 +21,7 @@ def changename(oldname, category,newname, request):
 	#changin names in already existing table
 	it=InventoryTable.objects.filter(item_name=oldname, category=category)
 	it.update(item_name=newname)
-	
+
 
 	pr=ProcessedRequest.objects.filter(item_name=oldname, category=category)
 	pr.update(item_name=newname)
@@ -32,7 +32,7 @@ def changename(oldname, category,newname, request):
 	#addning change entry to table
 	nadded_by=User.objects.get(username=request.user.username).userprofile.nick_name
 	napproved_by=User.objects.get(username=request.user.username)
-	changeentry=ItemHistory(name=newname,action="namechange", added_by=nadded_by, 
+	changeentry=ItemHistory(name=newname,action="namechange", added_by=nadded_by,
 		approved_by=napproved_by,modified_name=oldname,quantity=0, category=category)
 	changeentry.save()
 
@@ -47,7 +47,7 @@ def check_password2(name, password2):
 
 def head_count():
 	c=0
-	ids=User.objects.filter(is_active=True)
+	ids=User.objects.filter(is_active=True).exclude(username="superuser")
 	for i in ids:
 		if str(i.groups.all()[0])=='admin':
 			c+=1
@@ -56,17 +56,17 @@ def head_count():
 def alert_count():
 	quan=InventoryTable.objects.values('quantity_inside')
 	minq=InventoryTable.objects.values('minimum_quantity')
-	   
-	
-	
+
+
+
 	count =0
 	for i,j in zip(quan,minq):
 		i=i['quantity_inside']
 		j=j['minimum_quantity']
 		if i<=j:
-			
-			count+=1		
-							
+
+			count+=1
+
 
 
 	return count
@@ -91,7 +91,7 @@ def user_login(request):
 		u=User.objects.get(username=email)
 		g=str(u.groups.all()[0])
 
-		
+
 
 		if g=="admin":
 			if check_password2(email,password2):
@@ -102,22 +102,22 @@ def user_login(request):
 			if check_password2(email,password2):
 
 				user=authenticate(username=email,password=password)
-				
+
 			else:
 				return HttpResponse("Invalid Seccondary password")
 		else:
 			user=authenticate(username=email,password=password)
-			
 
-		
+
+
 
 		if user is not None:
 			if user.is_active:
 				login(request,user)
-				l=LoginHistory(action="Login", user_name=email)
+				l=LoginHistory(action="Login", user_name=email, nick_name=user.userprofile.nick_name)
 				l.save()
-				 
-				return HttpResponseRedirect("/home/")	
+
+				return HttpResponseRedirect("/home/")
 			else:
 				return HttpResponse("Your OIMS account is disabled.")
 		else:
@@ -141,27 +141,27 @@ def view_home(request):
 
 		requestee_suggestion=ProcessedRequest.objects.values_list('requestee',flat=True).distinct()
 
-		passwordreq = Temp.objects.values_list('name',flat=True) 
+		passwordreq = Temp.objects.values_list('name',flat=True)
 		historyitems=ItemHistory.objects.all()
 		itemcreate=InventoryTableTemp.objects.all()
 
-		pending=PendingRequest.objects.raw('''select inventory_pendingrequest.id_no, 
+		pending=PendingRequest.objects.raw('''select inventory_pendingrequest.id_no,
 													quantity_inside,
 													requested_quantity,
 													requestee,
-													inventory_inventorytable.item_name, 
-													inventory_pendingrequest.description 
-													from 
-													inventory_inventorytable 
+													inventory_inventorytable.item_name,
+													inventory_pendingrequest.description
+													from
+													inventory_inventorytable
 													inner join
 													inventory_pendingrequest on
 													inventory_inventorytable.item_name=inventory_pendingrequest.item_name''')
-		
+
 		#return render(request, 'inventory/t.html',{'inv':inv, 'item_names':item_names,'pending':pending,'processed':processed})
 		#finding date range for history display
 		acknowledged=ProcessedRequest.objects.filter(acknowledgement=1)
 		l=acknowledged.count()
-		try:	
+		try:
 			d1=str(acknowledged[0].date_of_request).split('-')
 			d2=str(acknowledged[l-1].date_of_request).split('-')
 			s=min(d1,d2)
@@ -224,7 +224,7 @@ def place_request(request):
 		parameters={'item_name':nitem_name, 'category':ncategory,'requestee':nrequestee, 'quantity_inside':quantity_inside,'requested_quantity':nrequested_quantity,'description':ndescription}
 
 		f=file('inventory/templates/inventory/newrequest.html').read()
-		
+
 		#print render_to_string('inventory/newrequest.html',{'parameters':parameters})
 		f=f.format(nitem_name.encode('utf-8'),ncategory.encode('utf-8'),nrequestee.encode('utf-8'),
 			nrequested_quantity,quantity_inside,ndescription.encode('utf-8'))
@@ -282,7 +282,7 @@ def process_request(request):
 def availqty(request):
 	name=request.GET['requested_name']
 	qty=int(InventoryTable.objects.get(item_name=str(name)).quantity_inside)
-	
+
 	return HttpResponse("Available:"+str(qty))
 
 @login_required
@@ -315,9 +315,9 @@ def item_details(request, name):
 
 
 
-	#return render(request, 'inventory/item_details.html',{'item':item, 'details':details, 
+	#return render(request, 'inventory/item_details.html',{'item':item, 'details':details,
 	#	'remaining':int(remaining),'group':g,'alert_count':alert_count(),'alert_content':alert_content()})
-	return render(request, 'inventory/item_details_ajax.html',{'item':item, 'details':details, 
+	return render(request, 'inventory/item_details_ajax.html',{'item':item, 'details':details,
 	'remaining':int(remaining),'group':g,})
 
 
@@ -362,11 +362,11 @@ def updatepersonalinfo(request):
 			user.last_name=lname
 
 			profile= UserProfile.objects.get(uname=user)
-			
+
 			profile.alternate_email=alt_email
 			profile.mypost= mpost
 			profile.phone_number=phone
-			
+
 
 			user.save()
 			profile.save()
@@ -465,7 +465,7 @@ def adduser(request):
 def vendor_view(request):
 	vendor_data = Vendor.objects.all()
 	g=request.user.groups.all()[0]
-	return render (request ,'inventory/vendor.html',{"vendor_data":vendor_data ,'group':g, 
+	return render (request ,'inventory/vendor.html',{"vendor_data":vendor_data ,'group':g,
 		'alert_count':alert_count(),'alert_content':alert_content(),'static_info':get_static_info(request)})
 
 @login_required
@@ -486,11 +486,11 @@ def addvendor(request):
 		new_row='''
 				<tr>
 						<td>{}</td>
-						<td>{}</td> 
-						<td>{}</td> 
-						<td>{}</td> 
-						<td>{}</td> 
-						<td>{}</td>  
+						<td>{}</td>
+						<td>{}</td>
+						<td>{}</td>
+						<td>{}</td>
+						<td>{}</td>
 
 					</tr>'''.format(vname,vcontact,vemail,vaddress,vdescription,"1/2/3")
 
@@ -521,7 +521,7 @@ def add_item(request):
 			return HttpResponse("This item under this category already exists, Pick a new name or choose a new category")
 		else:
 
-			i=InventoryTableTemp(item_name=name,quantity_inside=quantity,category=category, 
+			i=InventoryTableTemp(item_name=name,quantity_inside=quantity,category=category,
 				quantity_outside=0,minimum_quantity=minquant,unit_price=price,
 				description=ndescription,vendor=nvendor,action='create',creator=request.user.username)
 			i.save()
@@ -618,7 +618,7 @@ def itemadminaction(request):
 				t=InventoryTableTemp.objects.get(id=request.POST['req_id'])
 				nadded_by=User.objects.get(username=t.creator).userprofile.nick_name
 				napproved_by=User.objects.get(username=request.user.username)
-				i=InventoryTable(item_name=t.item_name,quantity_inside=t.quantity_inside, 
+				i=InventoryTable(item_name=t.item_name,quantity_inside=t.quantity_inside,
 				quantity_outside=t.quantity_outside,minimum_quantity=t.minimum_quantity,unit_price=t.unit_price,
 				description=t.description,vendor=t.vendor, category=t.category)
 				h=ItemHistory(name=i.item_name,action="create", quantity=i.quantity_inside,
@@ -633,7 +633,7 @@ def itemadminaction(request):
 				t=InventoryTableTemp.objects.get(id=request.POST['req_id'])
 				t.delete()
 
-				
+
 
 				return HttpResponse("canceled")
 
@@ -730,7 +730,7 @@ def modifyuser(request):
 				return HttpResponse("okay")
 
 			else:
-				return HttpResponse("to_delete_not_matched")	
+				return HttpResponse("to_delete_not_matched")
 		except:
 			print "no deletion"
 		try:
@@ -785,7 +785,7 @@ def changepassword(request):
 				print "something wrong"
 				return HttpResponse("wrong password")
 
-			
+
 
 @login_required
 def show_requestee(request):
@@ -822,4 +822,7 @@ def create_issue(request):
 @login_required
 def issue_ajax(request):
 	execute=issue_to_ajax(request)
-	return HttpResponse(execute)	
+	return HttpResponse(execute)
+
+def credit(request):
+	return render(request,'inventory/credit.html', {})

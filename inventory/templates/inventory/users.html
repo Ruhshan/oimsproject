@@ -17,9 +17,9 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/js/bootstrap-select.min.js"></script>
 
-   
-              
-{% endblock extraelements %} 
+
+
+{% endblock extraelements %}
 
 {% block content %}
 {% for u in user %}
@@ -35,31 +35,31 @@
               <div class="form-group">
                 <label class="control-label col-sm-2" for="actiontype">Choose Action:</label>
                 <div class="col-sm-10">
-            
+
                   <select id="actiontype{{u.id}}" class="selectpicker" onchange="showaction(this.value,'{{u.is_active}}','{{u.username}}','{{u.id}}')">
                     <option value="Choose Action">Choose Action</option>
                     <option value="status">Change status</option>
                     <option value="edit">Edit Email</option>
                     <option value="delete">Delete User</option>
                   </select>
-                  
-                  
-                  
+
+
+
                 </div>
               </div>
               <div id="actiondiv{{u.id}}"></div>
                 <div id="passwordinput{{u.id}}"></div>
-              
+
             </div>
-        
+
       </div>
       <div class="modal-footer">
             <button type="button" class="btn btn-default" onclick="moduser('{{u.id}}')">Submit</button>
           </div>
     </div>
-    
+
   </div>
-  
+
 </div>
 {% endfor %}
 <div id="passwordModal" class="modal fade" role="dialog">
@@ -86,10 +86,10 @@
                       <input type="password" class="form-control" id="cpassword2" placeholder="Enter Seccondary Password">
                     </div>
             </div>
-              
+
             </div>
           </div>
-          
+
           <div class="modal-footer">
             <input type="hidden" id="id-carrier" value="">
             <button type="button" class="btn btn-default" data-dismiss="modal" onclick="changestatus()">Submit</button>
@@ -115,7 +115,7 @@
                 <label class="control-label col-sm-2" for="usertype">User Type:</label>
                 <div class="col-sm-10">
                   {% if group|stringformat:"s" == "admin" %}
-            
+
                   <select id="usertype" class="selectpicker" onchange="showinput(this.value)">
                     <option value="User Type">User Type</option>
                     <option value="admin">Admin</option>
@@ -124,7 +124,7 @@
                   </select>
                   {% endif %}
                   {% if group|stringformat:"s" == "temporary-admin" %}
-                  
+
                   <select id="usertype" class="selectpicker" onchange="showinput(this.value)">
                     <option value="User Type">User Type</option>
                     <option value="user">User</option>
@@ -138,10 +138,10 @@
               <div id="hpwd"></div>
               <div id="hpwd2"></div>
               <div id="adminpassword"></div>
-          
+
             </div>
           </div>
-          
+
           <div class="modal-footer">
             <button type="button" class="btn btn-default" onclick="createuser()">Create</button>
           </div>
@@ -166,7 +166,7 @@
       <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#newuserModal"> Create New User </button>
       <div>
         <p id="error" style="color:red"></p>
-        
+
       </div>
       <div class="table-responsive">
       <table class="table table-stripped" data-toggle="table" id="user_table">
@@ -178,9 +178,9 @@
             <th>Date Joined</th>
             <th>Created By</th>
             <th>Modify</th>
-            
-            
-            
+
+
+
           </tr>
         </thead>
         {% for u in user %}
@@ -190,38 +190,38 @@
           <td>{{u.username}}</td>
           <td>{{u.groups.all.0}}</td>
           <td>{{u.date_joined}}</td>
-          <td>{{u.userprofile.created_by}}</td> 
+          <td>{{u.userprofile.created_by}}</td>
           <!--td>
           {% if u.is_active|stringformat:"s" == "True" %}
             <input type="checkbox" onchange="changestatus('toggle{{u.id}}')"
             {% if group|stringformat:"s" == "temporary-head" %}
               {% if u.groups.all.0|stringformat:"s" == "head" %}
                 disabled
-              {% endif %} 
+              {% endif %}
             {% endif %}
             {% if u.username|stringformat:"s" == request.user.username|stringformat:"s" %}
-              disabled 
+              disabled
             {% endif %}
             checked id="toggle{{u.id}}" data-on="Active" data-off="Inactive">
           {% else %}
-            <input type="checkbox" onchange="changestatus('toggle{{u.id}}')" 
+            <input type="checkbox" onchange="changestatus('toggle{{u.id}}')"
               {% if group|stringformat:"s" == "temporary-head" %}
                 {% if u.groups.all.0|stringformat:"s" == "head" %}
                   disabled
-                {% endif %} 
+                {% endif %}
               {% endif %}
-            id="toggle{{u.id}}" data-on="Active" data-off="Inactive">  
-          {% endif %}  
+            id="toggle{{u.id}}" data-on="Active" data-off="Inactive">
+          {% endif %}
           </td-->
           <td>
-            
+
             {% if u.username|stringformat:"s" == request.user.username|stringformat:"s" %}
               <button type="button" disabled class="btn btn-info btn-sm" data-toggle="modal" data-target="#moduserModal{{u.id}}"> Modify </button>
             {% else %}
               <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#moduserModal{{u.id}}"> Modify </button>
             {% endif %}
           </td>
-           
+
 
         </tr>
         {% endfor %}
@@ -242,7 +242,7 @@
       {% for h in history %}
         <tr>
           <td>{{h.action}}</td>
-          <td>{{h.user_name}}</td>
+          <td>{{h.user_name}}, {{h.nick_name}}</td>
           <td>{{h.timestamp}}</td>
         </tr>
       {% endfor %}
@@ -261,13 +261,11 @@
 
   /*$('input[id^="toggle"]').each(function(){
     $('#'+this.id).bootstrapToggle();
-    
+
   });*/
 
-  
+
 });
-</script>           
+</script>
 
 {% endblock content %}
-
-

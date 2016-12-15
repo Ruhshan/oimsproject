@@ -41,10 +41,10 @@ function getCookie(name) {
 }
 
 function validateForm(){
-  
+
   fname=document.getElementById('fname').value;
   oldp=document.getElementById('oldp').value;
-  
+
   //console.log(fname);
   //console.log(newp);
   console.log(oldp);
@@ -52,16 +52,10 @@ function validateForm(){
   if(fname==null || fname==""){
     bootbox.alert("Name is empty");
     return false;
-    
-    
-
   }
   if(oldp==null||oldp==""){
     bootbox.alert("Password is empty");
     return false;
-
-    
-
   }
 
 }
@@ -80,21 +74,21 @@ function changepassword(){
                 if(this.responseText=="okay"){
                   window.location="/login/";
                 }
-                       
+
               }
 
           };
           xhttp.open("POST", "changepassword/", true);
           var csrftoken = getCookie('csrftoken');
-                    
+
           xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
           xhttp.setRequestHeader("X-CSRFToken", csrftoken);
-       //ajax initialization     
+       //ajax initialization
 
   try{
     var old2=document.getElementById("oldpassword2").value;
     var new2=document.getElementById("newpassword2").value;
-    
+
     var new1=document.getElementById("newpassword1").value;
     var old1=document.getElementById('oldpassword1').value;
 
@@ -104,11 +98,11 @@ function changepassword(){
     query+="&new2="+new2;
     query+="&type="+'head';
     query+="&name="+name;
-    bootbox.confirm("Your account will be automatically logged out!", 
-          function(result){ 
+    bootbox.confirm("Your account will be automatically logged out!",
+          function(result){
             if(result==true){
-               xhttp.send(query);   
-               } 
+               xhttp.send(query);
+               }
             else{
               console.log("cancelled");
             }
@@ -118,17 +112,17 @@ function changepassword(){
   catch(err){
     var new1=document.getElementById("newpassword1").value;
     var old1=document.getElementById('oldpassword1').value;
-    
+
     query="old1="+old1;
     query+="&new1="+new1;
     query+="&type="+'manager';
     query+="&name="+name;
 
-    bootbox.confirm("Your account will be locked until admin confirms!", 
-          function(result){ 
+    bootbox.confirm("Your account will be locked until admin confirms!",
+          function(result){
             if(result==true){
-               xhttp.send(query);   
-               } 
+               xhttp.send(query);
+               }
             else{
               console.log("cancelled");
             }
@@ -136,9 +130,5 @@ function changepassword(){
             });
           }
 
-    
+
   }
-
-  
-
-

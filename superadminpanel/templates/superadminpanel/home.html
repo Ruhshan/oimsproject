@@ -2,11 +2,11 @@
 
  {% block content %}
  <script type="text/javascript">
-   
+
  </script>
  <div class="modal fade" id="ChangepwdModal" role="dialog">
     <div class="modal-dialog">
-    
+
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
@@ -28,7 +28,7 @@
                 <input type="email" class="form-control" id="oldp" placeholder="Enter Old Password">
               </div>
             </div>
-            
+
 
           </div>
         </div>
@@ -36,19 +36,19 @@
           <button type="button" class="btn btn-default" onclick="change_p()">Change</button>
         </div>
       </div>
-      
+
     </div>
   </div>
 
 
   <div class="modal fade" id="CreateAdminModal" role="dialog">
     <div class="modal-dialog">
-    
+
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" onclick="clear_admin_form()">&times;</button>
-          <h4 class="modal-title">Create New Admin:</h4>
+          <h4 class="modal-title">Create New Admin:<span id="errexceed" style="color:red"></span></h4>
         </div>
         <div class="modal-body">
           <div class="form-horizontal">
@@ -65,7 +65,7 @@
                 <input type="email" class="form-control" id="nick" placeholder="Enter Nick Name">
               </div>
             </div>
-            
+
             <div class="form-group">
               <label class="control-label col-sm-4" for="pwd1"><span id="errpwd" style="color:red"></span>Password One:</label>
               <div class="col-sm-8">
@@ -87,7 +87,7 @@
                 <input type="password" class="form-control" id="pwds" placeholder="Enter SuperUser Password">
               </div>
             </div>
-              
+
             </div>
 
           </div>
@@ -96,7 +96,7 @@
           <button type="button" class="btn btn-default" onclick="create_admin()">Create</button>
         </div>
       </div>
-      
+
     </div>
   </div>
  <form action="/superadminpanel/" method="post" name="myForm">
@@ -113,12 +113,12 @@
         </div>
 
         <div class="form-group">
-          <label for="refresh">Auto Refresh After:</label>
+          <label for="refresh">Auto Refresh After:(Seconds)</label>
           <input type="text" class="form-control" name="refresh" id="refresh" value='{{info.refresh}}' maxlength="50">
         </div>
 
         <div class="form-group">
-          <label for="timeout">Auto Logout After:</label>
+          <label for="timeout">Auto Logout After:(Seconds)</label>
           <input type="text" class="form-control" name="timeout" id="timeout" value='{{info.timeout}}' maxlength="50">
         </div>
 

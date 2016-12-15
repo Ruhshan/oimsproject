@@ -3,7 +3,7 @@
 <html>
 
 <head>
-  <title>OIMS</title>
+  <title>{{static_info.orgname}} Inventory</title>
   {% load static %}
   <meta charset="utf-8">
   <!--meta http-equiv="refresh" content="{{static_info.refresh}}"-->
@@ -15,31 +15,32 @@
 
   <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
   <script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
-  
+
   <script src="{% static 'js/bootstrap-select.min.js' %}"></script>
   <!--link rel="stylesheet" href="{% static 'css/jquery.dataTables.min.css' %}"-->
 
   <link rel="stylesheet" href="{% static 'css/bootstrap-select.min.css'%}">
   <!--link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css"-->
   <!--script type="text/javascript" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js">
-    
+
   </script-->
   <link rel="stylesheet" href="{% static 'css/dataTables.bootstrap.min.css' %}">
   <script type="text/javascript" src="{% static 'scripts.js' %}"></script>
 
-  
+
   <!--datepicker depends on moment-->
   <script type="text/javascript" src="{% static 'js/moment.min.js' %}"></script>
-    
+
   <!--datepicker-->
   <script type="text/javascript" src="{% static 'js/daterangepicker.js' %}"></script>
   <link rel="stylesheet" type="text/css" href="{% static 'css/daterangepicker.css' %}">
-  
+
   <script type="text/javascript" src="{% static 'js/bootbox.min.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'mycss/common.css' %}">
 
   <!--script type="text/javascript">
-    
-          
+
+
                //for the session timeout
                session_timeout = 300;
                page_load_time = new Date().getTime();
@@ -59,16 +60,16 @@
 
                //Start checking for session timeout
                check_session_timeout();
-          
-           
+
+
   </script-->
-          <style type="text/css">
+          <!--style type="text/css">
           #log {
 
             position:absolute;
             right: 0;
           }
-           /* make sidebar nav vertical */ 
+           /* make sidebar nav vertical */
            @media (min-width: 0px) {
             .sidebar-nav .navbar .navbar-collapse {
               padding: 0;
@@ -99,17 +100,17 @@
             /* place center */
             right:5%;
             margin-left:auto;
-            margin-right:auto; 
+            margin-right:auto;
           }
-          
+
           #modal_error{
             color:red;
             text-align: center;
           }
-            
+
 
 .popover{
-       
+
        border:none;
        border-radius:unset;
        min-width:100px;
@@ -118,32 +119,35 @@
        overflow-wrap:break-word;
        max-height: 200%;
        overflow-y: scroll;
-       
+
     }
 .popover-content {
-  
-  
+
+
   overflow-x: scroll;
 
  }
 
 
-        </style>
+        </style-->
       </head>
 <body id="body">
-  
-  <nav class="navbar navbar-light bg-faded">
-  <ul class="nav navbar-nav">
-    <li class="nav-item active">
+
+
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  {% with request.resolver_match.url_name as url_name %}
+  <ul class="nav navbar-nav mod">
+    <li class="nav-item {% if url_name == 'home_view' %}active{% endif %}">
       <a class="nav-link" href="/home/">Home <span class="sr-only">(current)</span></a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="/myaccount">My Account</a>
     </li>
-    
+
     {% if group|stringformat:"s" == "admin" %}
       <li class="nav-item">
-        <a class="nav-link" href="/users/">User 
+        <a class="nav-link" href="/users/">User
         </a>
       </li>
     {% endif %}
@@ -154,29 +158,32 @@
       <a class="nav-link" href="/item/">Item</a>
     </li>
   </ul>
+  {% endwith %}
 
    <div class="nav navbar-right">
     <div class="row">
           <div class="col-sm-1"></div>
-          <div class="col-sm-11">
+          <div class="col-sm-11"style="color:white">
             Hello,{{request.user.first_name}}!
             <a tabindex="0"
-            role="button" 
-            data-html="true" data-toggle="popover" 
+            role="button"
+            data-html="true" data-toggle="popover"
             data-trigger="focus" data-placement="bottom" data-content="{{alert_content}}">Alert
               <span class="badge">{{alert_count}}
               </span>
             </a>
-            <a href="/logout/">Logout</a>  
+            <a href="/logout/">Logout</a>
             </div>
           </div>
-    
-  </div>
-  </nav>
 
-  <!--div class="container"-->
+  </div>
+</nav>
+
+  <div class="">
+  <br>
+
   <div class="well">
-    <h2>{{static_info.orgname}} OIMS</h2>
+    <h2>{{static_info.orgname}} Inventory</h2>
     <input type="hidden" id="reload" name="" value="{{static_info.refresh}}">
     <input type="hidden" id="tout" name="" value="{{static_info.timeout}}">
   </div>
@@ -210,11 +217,11 @@
                 </li>
                 {% if group|stringformat:"s" == "admin" %}
                 <li>
-                  <a href="/users/">User 
+                  <a href="/users/">User
                   </a>
                 </li>
                 {% endif %}
-                
+
                 <li>
                   <a href="/vendor/">Vendor
                   </a>
@@ -223,18 +230,18 @@
                   <a href="/item/">Item
                   </a>
                 </li>
-                
-                
+
+
               </ul>
             </div>
             </.nav-collapse>
           </div>
         </div-->
       </div>
-      
+
       <div class="col-sm-12">
-      
-      
+
+
         <div class="container-fluid">
           <!--h2>Dynamic Tabs</h2-->
           <!--div class="well">
@@ -243,17 +250,17 @@
           <div class="col-sm-4">
             Hello,{{request.user.first_name}}!
             <a tabindex="0"
-            role="button" 
-            data-html="true" data-toggle="popover" 
+            role="button"
+            data-html="true" data-toggle="popover"
             data-trigger="focus" data-placement="bottom" data-content="{{alert_content}}">Alert
               <span class="badge">{{alert_count}}
               </span>
             </a>
-            <a href="/logout/">Logout</a>  
+            <a href="/logout/">Logout</a>
             </div>
           </div>
           </div-->
-          
+
           <ul class="nav nav-pills nav-justified">
             <!--li class="active"><a data-toggle="tab" href="#home">Home</a></li-->
             <li class="active">
@@ -283,11 +290,11 @@
           </ul>
           <div class="tab-content">
             <div id="inventory" class="tab-pane fade in active">
-            {% block table %}      
+            {% block table %}
             {%endblock table %}
-               
+
             </div>
-            
+
             <div id="requests" class="tab-pane fade">
             <!--div class="alert alert-success" id="alert-success">
               <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -296,49 +303,49 @@
             <!--new request button-->
             {% if group|stringformat:"s" == "user" %}
               {% block newrequests %}
-                
+
               {% endblock newrequests %}
             {% endif %}
 
             <!--pending request panels-->
-            
+
             {% block pendingrequests %}
-                
+
             {% endblock pendingrequests %}
-            
+
 
 
             {% block processedrequest %}
-                
+
             {% endblock processedrequest %}
 
             {% block createitemrequest %}
-                
+
             {% endblock createitemrequest %}
 
             {% block passwordrequest %}
-                
+
             {% endblock passwordrequest %}
             </div>
-            
+
 
             <div id="history" class="tab-pane fade">
              {% block history %}
-                 
+
              {% endblock history %}
-              
+
             </div>
             <div id="historyitems" class="tab-pane fade">
              {% block itemhistory %}
-                 
+
              {% endblock itemhistory %}
-              
+
             </div>
             <div id="return" class="tab-pane fade">
             {% block returnitem %}
 
             {% endblock returnitem %}
-              
+
             </div>
             <div id="issues" class="tab-pane fade">
               {% block issues %}
@@ -350,15 +357,19 @@
       </div>
     </div>
 <!--top containner-->
-  <!--/div-->
+  </div>
   <script type="text/javascript">
   </script>
+  <div class="footer fstyle">
+  Credit:<a href="/credit/">Team Name</a></div>
 
 </body>
+
 <script src="{% static 'idlecount.js' %}"></script>
 <script>
 $(document).ready(function(){
     $('[data-toggle="popover"]').popover();
 });
 </script>
+
 </html>

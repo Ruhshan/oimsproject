@@ -8,7 +8,7 @@
 {% endblock extraelements %}
 
 {% block content %}
-        
+
 <br>
 
 <div id="newvendorModal" class="modal fade" role="dialog">
@@ -52,7 +52,7 @@
 				        <input type="text" class="form-control" id="vemail" placeholder="Enter Email">
 				      </div>
 				  </div>
-				  
+
 				  <div class="form-group">
 				      <label class="control-label col-sm-2" for="vdescription">Description:</label>
 				      <div class="col-sm-10">
@@ -68,9 +68,9 @@
 		</div>
 	</div>
 </div>
-<ul class="nav nav-tabs nav-justified">
+<ul class="nav nav-pills">
 
-	<li>
+	<li class="active">
 	  <a data-toggle="tab" href="#existing">Add existing Items
 	  </a>
 	</li>
@@ -141,7 +141,7 @@
 				<select class="form-control" id="iname2" name="iname2" onchange="information(this.value)">
 					<option>Select..</option>
 					{% for name in item_list %}
-					<option>{{name.item_name}},{{name.category}}</option>
+					<option value="{{name.item_name}},{{name.category}}">{{name.item_name}} ({{name.category}})</option>
 					{% endfor %}
 				</select>
 			</div>
@@ -177,7 +177,7 @@
 
 			<div class="form-group">
 			    <label for="vendor2">Vendor Name:</label>
-			    
+
 			    <datalist id="vendor_list">
 			      <option value="">
 			      {% for name in vendor_list %}
@@ -196,8 +196,8 @@
 		<button onclick="updateitem()">Update</button>
 	</div>
 </div>
-                  	
 
-      
-    
+
+
+
 {% endblock content %}

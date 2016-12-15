@@ -3,15 +3,15 @@
 {% block extraelements %}
 
   {% load static %}
-  <script type="text/javascript" src="{% static 'account.js' %}"></script> 
+  <script type="text/javascript" src="{% static 'account.js' %}"></script>
   <script src="{% static 'js/bootbox.min.js' %}"></script>
-     
+
 {% endblock extraelements %}
 
 {% block content %}
 <input type="hidden" id="myusername" value="{{user.username}}">
-<ul class="nav nav-tabs">
-    <li>
+<ul class="nav nav-pills">
+    <li class="active">
       <a data-toggle="tab" href="#updateinfo">Update Information
       </a>
     </li>
@@ -25,34 +25,42 @@
   <div id="updateinfo" class="tab-pane fade in active">
         <form action="/updatepersonalinfo/" method="post" onsubmit="return validateForm()" name="myForm">
           {% csrf_token %}
-            <div class="form-group">
-              <label for="fname">First Name:</label>
+            <div class="form-group required col-xs-8">
+              <label for="fname">First Name:<span style="font-family: 'Glyphicons Halflings';
+font-weight: normal;
+font-size: 14px;
+color:red;
+">*</span></label>
               <input type="text" class="form-control" name="fname" id="fname" value='{{user.first_name}}' maxlength="50">
             </div>
-            <div class="form-group">
+            <div class="form-group col-xs-8">
               <label for="pwd">Last Name:</label>
               <input type="text" class="form-control" name="lname" id="lname" value='{{user.last_name}}'>
             </div>
-            <div class="form-group">
+            <div class="form-group col-xs-8">
               <label for ="pnumber">Phone Number:</label>
               <input type="text" class="form-control" name="phone_number" id="pnumber" value='{{profile.phone_number}}'>
             </div>
-            <div class="form-group">
+            <div class="form-group col-xs-8">
               <label for="mypost">Post:</label>
               <input type="text" class="form-control" name="mypost" id="mypost" value='{{profile.mypost}}'>
             </div>
-            <div class="form-group">
+            <div class="form-group col-xs-8">
               <label for="alt_email">Alternate Email:</label>
               <input type="text" class="form-control" name="alternate_email" id="alt_email" value='{{profile.alternate_email}}'>
-              
+
             </div>
-            
-            <div class="form-group">
+
+            <div class="form-group col-xs-8">
               <label for="oldp">Enter Password:</label>
               <input type="password" class="form-control" name="oldp" id="oldp" value=''>
-              
+
             </div>
-            <button type="submit" class="btn btn-default">Update</button>
+
+            <div class="col-xs-8">
+              <button type="submit" class="btn btn-default">Update</button>
+            </div>
+
           </form>
     <!--div update info ends here-->
   </div>
@@ -95,8 +103,7 @@
   <button type="button" class="btn btn-default" onclick="changepassword()">Submit</button>
   </div>
 
-        
+
 <!--div tab content ends here-->
- </div>         
+ </div>
 {% endblock content %}
-        

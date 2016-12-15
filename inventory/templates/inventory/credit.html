@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <title>{{static_info.orgname}} Inventory</title>
+  {% load static %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/jquery.dataTables.min.css' %}">
+
+
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/jquery-ui.js' %}"></script>
+
+  <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'mycss/common.css' %}">
+  {% block extraelements %}
+
+  {% endblock extraelements %}
+  <style>
+  div.img {
+    margin: 5px;
+    border: 1px solid #ccc;
+    float: left;
+    width: 215px;
+}
+
+div.img:hover {
+    border: 1px solid #777;
+}
+
+div.img img {
+    width: 100%;
+    height: auto;
+}
+
+div.desc {
+    padding: 15px;
+    text-align: center;
+}
+.widthSet {
+    max-width: 200px;
+}
+
+.heightSet {
+    max-height: 200px;
+}
+</style>
+</head>
+<body id="main-body">
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Product Description</h1>
+      <p>This Product was developed as academic project of CSE490. Backend was constructed
+      using Django-1.10 and frontend was written with bootstrap and lot of awesome stuffs. </p>
+    </div>
+    <h2>Team Members:</h2>
+
+
+    <div class="img">
+    <a target="_blank" href="">
+      <img src="{% static 'team/abir.png' %}" class="" alt="Ruhshan" width="300" height="200">
+    </a>
+    <div class="desc">Ruhshan Ahmed Abir
+        <p>ruhshan.ahmed@gmail.com</p>
+    </div>
+  </div>
+
+  <div class="img">
+    <a target="_blank" href="">
+      <img src="{% static 'team/asheq.jpg' %}" class="" alt="Asheq" width="300" height="200">
+    </a>
+    <div class="desc">Ashequl Haque
+    <p>ashequl.sust@gmail.com</p></div>
+
+  </div>
+
+  <div class="img">
+    <a target="_blank" href="">
+      <img src="{% static 'team/rabbee.jpg' %}" alt="Golam Mahmudunnabi" width="300" height="200">
+    </a>
+    <div class="desc">Golam Mahmudunnabi
+    <p>mahmudunnabi@gmail.com</p>
+  </div>
+  </div>
+
+  <div class="img">
+    <a target="_blank" href="">
+      <img src="{% static 'team/samir-sir.jpg' %}" class="" alt="Asif Mohammed Samir" width="300" height="200">
+    </a>
+    <div class="desc">Asif Mohammed Samir
+    <p>asifsamir.sust@gmail.com</p></div>
+
+  </div>
+  </div>
+
+
+
+</body>
+</html>

@@ -13,7 +13,7 @@ class InventoryTable(models.Model):
 	unit_price=models.DecimalField(max_digits=10, decimal_places=5)
 	description=models.TextField()
 	vendor=models.CharField(max_length=100,blank=True,null=True)
-	
+
 
 
 	def update(self):
@@ -76,7 +76,7 @@ class ProcessedRequest(models.Model):
 	action=models.CharField(max_length=10, blank=False, null=False)
 	acknowledgement=models.IntegerField(default=0)
 	delivered_price=models.DecimalField(max_digits=10, decimal_places=5)
-	
+
 
 	def update(self):
 		self.save()
@@ -153,6 +153,7 @@ class LoginHistory(models.Model):
 	timestamp = models.DateTimeField(auto_now_add=True, null=True)
 	action = models.CharField(max_length=10)
 	user_name = models.CharField(max_length=50, null=True, blank=True)
+	nick_name = models.CharField(max_length=50, null=True, blank=True)
 
 	def __str__(self):
 		return str(self.user_name)
@@ -170,5 +171,3 @@ class Issues(models.Model):
 
 	def __str__(self):
 		return str(self.id_no)
-
-

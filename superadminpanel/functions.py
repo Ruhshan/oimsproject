@@ -5,6 +5,7 @@ import os
 import subprocess
 from django.contrib.auth.models import Group
 
+from inventory.models import *
 
 def getinfo():
 	f=dict()
@@ -24,6 +25,7 @@ def setinfo(currency, orgname, refresh, timeout):
 	o.close()
 
 def import_from_json(path):
+	#empty_data()
 	user_and_group={}
 	for u in User.objects.all():
 		try:
@@ -53,8 +55,18 @@ def import_from_json(path):
 		g.save()
 	return ret
 
-		
 
-		
-
-	 
+def empty_data():
+	InventoryTable.objects.all().delete()
+	InventoryTableTemp.objects.all().delete()
+	PendingRequest.objects.all().delete()
+	ProcessedRequest.objects.all().delete()
+	UserProfile.objects.all().delete()
+	Vendor.objects.all().delete()
+	Temp.objects.all().delete()
+	ItemHistory.objects.all().delete()
+	SeccondaryPassword.objects.all().delete()
+	LoginHistory.objects.all().delete()
+	Issues.objects.all().delete()
+	Group.objects.all().delete()
+	User.objects.all().exclude(username="superuser").delete()

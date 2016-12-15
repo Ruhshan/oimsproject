@@ -2,7 +2,7 @@
   position:absolute;
   right:0;
 }
-/* make sidebar nav vertical */ 
+/* make sidebar nav vertical */
 @media (min-width: 0px) {
   .sidebar-nav .navbar .navbar-collapse {
       padding: 0;
@@ -33,7 +33,7 @@ body .modal-dialog {
     /* place center */
     right:5%;
     margin-left:auto;
-    margin-right:auto; 
+    margin-right:auto;
 }
 
 .popover {
@@ -46,3 +46,23 @@ body .modal-dialog {
       white-space: pre;
       width: 600px;
     }
+.mod a{
+  color: grey !important;
+  font-size: 1.2em !important;
+  }
+
+ul.mod a:hover { color: white !important; }
+
+
+html, body {height: 100%; padding: 0; margin: 0; }
+body { display: table; width: 100%; height: 100%; }
+.header, .footer, .content { display: table-row; }
+.header, .footer { height: 1px; }
+.content { height: auto; }
+
+.fstyle{
+  /*background: url('http://www.kikk.be/2012/files/templates/kikk/public/assets/images/bgBottomFooter.jpg') repeat-x scroll 0 0 #085a79;
+      */
+    text-align: center;
+  	text-transform: uppercase;
+}

@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
 from django.template import loader
 from django.core.exceptions import ObjectDoesNotExist
-from functions import * 
+from functions import *
 from django.views.static import serve
 from django.core.files.storage import FileSystemStorage
 
@@ -20,6 +20,16 @@ from inventory.models import SeccondaryPassword, UserProfile, LoginHistory
 #imported models
 import os
 # Create your views here.
+
+def activ_admin_count():
+	c=0
+	ids=User.objects.filter(is_active=True).exclude(username="superuser")
+	#print ids
+	for i in ids:
+		if str(i.groups.all()[0])=="admin":
+			c+=1
+	return c
+
 def superadmin_home(request):
 	if request.user.is_authenticated():
 		if request.user.username=="superuser":
@@ -29,8 +39,9 @@ def superadmin_home(request):
 				refresh=request.POST['refresh']
 				timeout=request.POST['timeout']
 				setinfo(currency, orgname, refresh, timeout)
-		
+
 			info=getinfo()
+
 			return render(request, 'superadminpanel/home.html',{'info':info})
 		else:
 			return HttpResponse("You are not superuser, You can't view this page")
@@ -45,11 +56,11 @@ def superadmin_login(request):
 		user=authenticate(username=uname,password=password)
 
 
-		if user is not None:	
+		if user is not None:
 			if user.is_active:
 				login(request,user)
-				l=LoginHistory(action="Login", user_name=request.user.username) 
-				return HttpResponseRedirect("/superadminpanel/")	
+				l=LoginHistory(action="Login", user_name=request.user.username)
+				return HttpResponseRedirect("/superadminpanel/")
 			else:
 				return HttpResponse("Your OIMS account is disabled.")
 		else:
@@ -66,6 +77,7 @@ def superadmin_export(request):
 		filepath = 'exports/inventory.json'
 		return serve(request, os.path.basename(filepath), os.path.dirname(filepath))
 
+@login_required
 def superadmin_flush(request):
 	os.system("python manage.py flush --noinput")
 	#print User.objects.get(username='superuser')
@@ -74,18 +86,18 @@ def superadmin_flush(request):
 	user.save()
 
 	return HttpResponseRedirect('/superadminlogin/')
-
+@login_required
 def superadmin_import(request):
 	if request.method == 'POST' and request.FILES['myfile']:
 		myfile = request.FILES['myfile']
 		fs = FileSystemStorage()
 		filename = fs.save(myfile.name, myfile)
 		uploaded_file_url = fs.url(filename)
-		
+
 		m=import_from_json(uploaded_file_url)
 		return render(request, 'superadminpanel/dbimport.html',{'message':m})
 	return render(request, 'superadminpanel/dbimport.html',{'info':getinfo()})
-
+@login_required
 def superadmin_changepass(request):
 	if request.method=="POST":
 		oldp=request.POST['oldp']
@@ -98,7 +110,7 @@ def superadmin_changepass(request):
 		u.set_password(newp)
 		u.save()
 		return HttpResponse("ok")
-
+@login_required
 def superadmin_create(request):
 	if request.method=="POST":
 		email=request.POST['email']
@@ -111,11 +123,13 @@ def superadmin_create(request):
 
 		if u.check_password(pwds)==False:
 			return HttpResponse("wrong password")
+		if activ_admin_count()>=2:
+			return HttpResponse("active_admin_exceeds")
 		try:
 			newuser= User.objects.create_user(username=email, email=email, password=pwd1,is_staff=True)
 			newuser.save()
 			print "New Admin object created!"
-			
+
 		except Exception as e:
 			if e=="UNIQUE constraint failed: auth_user.username":
 				print "This user already exists!"
@@ -124,7 +138,7 @@ def superadmin_create(request):
 				u=User.objects.get(username=email)
 				u.delete()
 				print "This previously existent user is deleted!"
-				return HttpResponse(e) 
+				return HttpResponse(e)
 
 
 		new=User.objects.get(username=email)
