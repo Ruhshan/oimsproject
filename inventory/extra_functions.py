@@ -5,8 +5,8 @@ from django.utils.dateparse import parse_date
 import datetime
 from django.core import serializers
 import json
-import sys  
-reload(sys)  
+import sys
+reload(sys)
 sys.setdefaultencoding('utf8')
 def get_location_names():
 	return ProcessedRequest.objects.all().values('location').distinct()
@@ -32,11 +32,11 @@ def get_ret_amount_ajax(request):
 	req_name=request.GET['req_name']
 	ret_location=request.GET['ret_location']
 
-	amount = ProcessedRequest.objects.filter(item_name=item, requestee=req_name, 
+	amount = ProcessedRequest.objects.filter(item_name=item, requestee=req_name,
 		action='approve',location=ret_location).values('approved_quantity')
-	ret=ProcessedRequest.objects.filter(item_name=item, requestee=req_name, 
+	ret=ProcessedRequest.objects.filter(item_name=item, requestee=req_name,
 		action='Returned',location=ret_location).values('approved_quantity')
-	
+
 	s=sum([a['approved_quantity'] for a in amount])
 
 	k=sum([a['approved_quantity'] for a in ret])
@@ -52,16 +52,16 @@ def process_return(request):
 	inv=InventoryTable.objects.get(item_name=item)
 	inv.quantity_inside+=int(amnt)
 	inv.quantity_outside-=int(amnt)
-	
+
 	u=User.objects.get(username=request.user.username)
-	p=ProcessedRequest(id_no=uuid.uuid4(), requestee=person, item_name=item, 
+	p=ProcessedRequest(id_no=uuid.uuid4(), requestee=person, item_name=item,
 			requested_quantity=amnt, approved_quantity=amnt,
 			store_manager=request.user.username, description="",
 			processed_by = u,action="Returned",delivered_price=inv.unit_price,
 			location=place,acknowledgement=1,category=category)
 	p.save()
 	inv.save()
-	return "ok"	
+	return "ok"
 
 
 def process_issue(request):
@@ -90,11 +90,11 @@ def issue_to_ajax(request):
 	ajax_format["data"]=list_data
 
 
-	
+
 	return json.dumps(ajax_format,indent=4, separators=(',', ': '))
 
 def get_static_info(request):
-	
+
 	f=dict()
 	with open("superadminpanel/.info","r") as info:
 		for line in info:
@@ -114,8 +114,8 @@ def history_ajax(request, s,e):
 	ajax_format={}
 	for d in data:
 		x=[str(d['date_of_request']),str(d['item_name']),str(d['category']),str(d['location']),
-		str(d['delivered_price']),str(d['approved_quantity']),str(d['action']),str(d['requestee']),
+		str(round(d['delivered_price'],3)),str(d['approved_quantity']),str(d['action']),str(d['requestee']),
 		str(d['processed_by'])]
 		list_data.append(x)
 	ajax_format["data"]=list_data
-	return json.dumps(ajax_format,indent=4, separators=(',', ': ')) 
+	return json.dumps(ajax_format,indent=4, separators=(',', ': '))

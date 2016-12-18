@@ -95,6 +95,9 @@
     	document.getElementById("newp").value="";
     	document.getElementById("oldp").value="";
     	document.getElementById("wperr").innerHTML="";
+      document.getElementById("errpwd").innerHTML="";
+      document.getElementById("wperr2").innerHTML="";
+      document.getElementById("errexst").innerHTML="";
 
     }
 
@@ -106,6 +109,10 @@
     	document.getElementById("pwds").value="";
     	document.getElementById("nick").value="";
       document.getElementById("errpwd").innerHTML="";
+      document.getElementById("errexst").innerHTML="";
+      document.getElementById("wperr2").innerHTML="";
+      document.getElementById("wperr").innerHTML="";
+      document.getElementById("errexceed").innerHTML="";
 
     }
 
@@ -158,7 +165,7 @@
           else if(this.responseText=="ok"){
           	$("#CreateAdminModal").modal('hide');
           	clear_admin_form();
-          	bootbox.alert("New admin "+email+"has been created");
+          	bootbox.alert("New admin "+email+" has been created");
           }
           else if(this.responseText=="exists"){
 
@@ -212,7 +219,7 @@
           <div class="col-sm-11">
             Hello,Superuser!
 
-            <a href="/logout/">Logout</a>
+            <a href="/logout/">  Logout</a>
             </div>
           </div>
 

@@ -131,14 +131,15 @@ def superadmin_create(request):
 			print "New Admin object created!"
 
 		except Exception as e:
-			if e=="UNIQUE constraint failed: auth_user.username":
+			if str(e)=="UNIQUE constraint failed: auth_user.username":
 				print "This user already exists!"
 				return HttpResponse("exists")
 			else:
+				print e
 				u=User.objects.get(username=email)
 				u.delete()
 				print "This previously existent user is deleted!"
-				return HttpResponse(e)
+
 
 
 		new=User.objects.get(username=email)

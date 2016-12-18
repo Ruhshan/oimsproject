@@ -26,7 +26,7 @@
             <td>{{items.category}}</td>
             <td>{{items.quantity_inside}}</td>
             <td>{{items.quantity_outside}}</td>
-            <td>{{items.unit_price}} {{static_info.currency}}</td>
+            <td>{{items.unit_price|floatformat:2 }} {{static_info.currency}}</td>
             <td>{{items.vendor}}</td>
         </tr>
         {% endfor %}
@@ -87,7 +87,7 @@
               <select name="requested_item_name_dropdown" class="form-control" id="requested_item_name_dropdown" onchange="showQuantity(this.value)">
             				<option selected="selected">Select..</option>
             				{%for item in item_names%}
-            				<option value="{{item.item_name}},{{item.category}}">{{item.item_name}} ({{item.category}})</option>
+            				<option value="{{item.item_name}}${{item.category}}">{{item.item_name}} ({{item.category}})</option>
             				{% endfor %}
           		</select>
           </div>

@@ -7,19 +7,19 @@
           $('#issue_table thead th').each( function () {
         var title = $(this).text();
         {
-          $(this).html( '<input type="text" placeholder="'+title+'" size="8"/>' );  
+          $(this).html( '<input type="text" placeholder="'+title+'" size="8"/>' );
         }
-        
+
     } );
 
           var issue_table=$('#issue_table').DataTable( {
           "ajax": '/home/issueajax/'
           } );
- 
+
     // App/*/*ly the search
     issue_table.columns().every( function () {
         var that = this;
- 
+
         $( 'input', this.header() ).on( 'keyup change', function () {
             if ( that.search() !== this.value ) {
                 that
@@ -34,10 +34,10 @@
         $('#historytable thead th').each( function () {
         var title = $(this).text();
         {
-          
-          $(this).html( '<input type="text" placeholder="'+title+'" size="8"/>' );  
+
+          $(this).html( '<input type="text" placeholder="'+title+'" size="8"/>' );
         }
-        
+
     } );
 
         //var htable=$('#historytable').DataTable({select: true});
@@ -49,11 +49,11 @@
           } );
 
 
- 
+
     // Apply the search
     htable.columns().every( function () {
         var that = this;
- 
+
         $( 'input', this.header() ).on( 'keyup change', function () {
             if ( that.search() !== this.value ) {
                 that
@@ -71,7 +71,7 @@
       });
 
       function req_close(){
-        
+
         document.getElementById('requested_item_name_dropdown').value="Select..";
         document.getElementById('item_quantity_dropdown').value="1";
         document.getElementById("requestee").value="";
@@ -79,7 +79,7 @@
         $('#modal_error').hide();
       };
 
-      
+
 
       function generateOptions(id, qty) {
           var xhttp;
@@ -98,7 +98,7 @@
       };
 
       function showQuantity(str) {
-          str=str.split(',')
+          str=str.split('$')
           var xhttp;
           if (str == "") {
               document.getElementById("item_quantity_dropdown").innerHTML = "";
@@ -136,12 +136,12 @@
               if (this.readyState == 4 && this.status == 200) {
                   //document.getElementById("demo").innerHTML = this.responseText;
                   document.getElementById("request_panel").innerHTML = this.responseText + document.getElementById("request_panel").innerHTML;
-                  
+
               }
           };
           xhttp.open("POST", "placerequest/", true);
           var csrftoken = getCookie('csrftoken');
-          selected_item=document.getElementById("requested_item_name_dropdown").value.split(',')
+          selected_item=document.getElementById("requested_item_name_dropdown").value.split('$')
 
           xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
           xhttp.setRequestHeader("X-CSRFToken", csrftoken);
@@ -163,11 +163,11 @@
             document.getElementById("requestee").value="";
             document.getElementById("description").value=" ";
             document.getElementById("location").value="";
-            
+
             xhttp.send(encodeURI(query));
             $('#myModal').modal('hide');
             /*$('#alert-success').show("drop", { direction: "up" }, "slow");
-            
+
             setTimeout(function(){
               $("#alert-success").alert("close");
             },2000);*/
@@ -176,14 +176,14 @@
             $('#myModal').effect('shake');
 
           }
-            
+
           }
           else{
             $('#modal_error').show();
             $('#myModal').effect('shake');
 
           }
-          
+
       };
 
 
@@ -197,7 +197,7 @@
             };
           xhttp.open("POST", "processrequest/", true);
           var csrftoken = getCookie('csrftoken');
-                    
+
           xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
           xhttp.setRequestHeader("X-CSRFToken", csrftoken);
           query="requested_id="+id;
@@ -223,11 +223,11 @@
             };
           xhttp.open("POST", "acknowledge/", true);
           var csrftoken = getCookie('csrftoken');
-                    
+
           xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
           xhttp.setRequestHeader("X-CSRFToken", csrftoken);
           query="requested_id="+id;
-          
+
           xhttp.send(query);
 
         tovanish="#"+id;
@@ -251,7 +251,7 @@
       }
 
 function passwordchangeok(uname,count){
-  
+
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
@@ -260,14 +260,14 @@ function passwordchangeok(uname,count){
     };
   xhttp.open("POST", "passwordchange/", true);
   var csrftoken = getCookie('csrftoken');
-            
+
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.setRequestHeader("X-CSRFToken", csrftoken);
   query="name="+uname;
   query+="&action=ok";
-  
+
   xhttp.send(query);
-  
+
   toclose="#passwordreq_req_panel"+count;
   console.log(toclose);
   $(toclose).hide("drop", { direction: "up" }, "slow");
@@ -275,7 +275,7 @@ function passwordchangeok(uname,count){
 }
 
 function passwordchangecancel(uname,count){
-  
+
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
@@ -284,19 +284,19 @@ function passwordchangecancel(uname,count){
     };
   xhttp.open("POST", "passwordchange/", true);
   var csrftoken = getCookie('csrftoken');
-            
+
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.setRequestHeader("X-CSRFToken", csrftoken);
   query="name="+uname;
   query+="&action=cancel";
-  
+
   xhttp.send(query);
-  
+
   toclose="#passwordreq_req_panel"+count;
   console.log(toclose);
   $(toclose).hide("drop", { direction: "up" }, "slow");
 
-}  
+}
 
 function itemactionok(req_id){
 
@@ -308,14 +308,14 @@ function itemactionok(req_id){
     };
   xhttp.open("POST", "itemadminaction/", true);
   var csrftoken = getCookie('csrftoken');
-            
+
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.setRequestHeader("X-CSRFToken", csrftoken);
   query="req_id="+req_id;
   query+="&action=ok";
-  
+
   xhttp.send(query);
-  
+
   toclose="#createitem_req_panel"+req_id;
   console.log(toclose);
   $(toclose).hide("drop", { direction: "up" }, "slow");
@@ -332,14 +332,14 @@ function itemactioncancel(req_id){
     };
   xhttp.open("POST", "itemadminaction/", true);
   var csrftoken = getCookie('csrftoken');
-            
+
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.setRequestHeader("X-CSRFToken", csrftoken);
   query="req_id="+req_id;
   query+="&action=cancel";
-  
+
   xhttp.send(query);
-  
+
   toclose="#createitem_req_panel"+req_id;
   console.log(toclose);
   $(toclose).hide("drop", { direction: "up" }, "slow");
@@ -356,14 +356,14 @@ function itemactionadd(req_id){
     };
   xhttp.open("POST", "itemadminaction/", true);
   var csrftoken = getCookie('csrftoken');
-            
+
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.setRequestHeader("X-CSRFToken", csrftoken);
   query="req_id="+req_id;
   query+="&action=add";
-  
+
   xhttp.send(query);
-  
+
   toclose="#createitem_req_panel"+req_id;
   console.log(toclose);
   $(toclose).hide("drop", { direction: "up" }, "slow");
@@ -380,14 +380,14 @@ function itemactionremove(req_id){
     };
   xhttp.open("POST", "itemadminaction/", true);
   var csrftoken = getCookie('csrftoken');
-            
+
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.setRequestHeader("X-CSRFToken", csrftoken);
   query="req_id="+req_id;
   query+="&action=remove";
-  
+
   xhttp.send(query);
-  
+
   toclose="#createitem_req_panel"+req_id;
   console.log(toclose);
   $(toclose).hide("drop", { direction: "up" }, "slow");
@@ -409,7 +409,7 @@ function popovercontent(id,rep){
 }
 
 function showretrequestee(item_name){
-  
+
   if(item_name!='Select Item'){
     selected=item_name.split(',')
     console.log(item_name);
@@ -426,7 +426,7 @@ function showretrequestee(item_name){
   }
   else{
     document.getElementById('ret_requestee').innerHTML=`<option>Select Requestee</option>`;
-    //document.getElementById('button-place').innerHTML=``; 
+    //document.getElementById('button-place').innerHTML=``;
   }
 }
 
@@ -444,9 +444,9 @@ function showretamounts(ret_location){
               document.getElementById('ret_amount').innerHTML='<option>'+i+'</option>';
             }
             else{
-              document.getElementById('ret_amount').innerHTML+='<option>'+i+'</option>';  
+              document.getElementById('ret_amount').innerHTML+='<option>'+i+'</option>';
             }
-            
+
           }
           document.getElementById('button-place').innerHTML=`<button type="button" onclick="returnbutton()">Update2</button>`;
         }
@@ -454,17 +454,17 @@ function showretamounts(ret_location){
     xhttp.open("GET", "showretamounts/?item=" + selected_item[0]
       +"&category="+selected_item[1]+"&req_name="+requestee+"&ret_location="+ret_location, true);
     xhttp.send();
-    
+
   }
   else{
-    document.getElementById('ret_amount').innerHTML=`<option></option>`; 
+    document.getElementById('ret_amount').innerHTML=`<option></option>`;
     //document.getElementById('button-place').innerHTML=``;
   }
 
 
 }
-  
-  
+
+
 
 function showlocation(){
   var req_name=document.getElementById("ret_requestee").value;
@@ -484,7 +484,7 @@ function showlocation(){
     xhttp.send();
   }
   else{
-    document.getElementById('ret_location').innerHTML=`<option>Select Location</option>`; 
+    document.getElementById('ret_location').innerHTML=`<option>Select Location</option>`;
     //document.getElementById('button-place').innerHTML=``;
   }
 }
@@ -511,7 +511,7 @@ function returnbutton(){
 }
 
 function showretrequestee_issue(item_name){
-  
+
   if(item_name!='Select Item'){
     selected=item_name.split(',')
     console.log(item_name);
@@ -528,7 +528,7 @@ function showretrequestee_issue(item_name){
   }
   else{
     document.getElementById('issue_requestee').innerHTML=`<option>Select Requestee</option>`;
-    //document.getElementById('button-place').innerHTML=``; 
+    //document.getElementById('button-place').innerHTML=``;
   }
 }
 
@@ -546,7 +546,7 @@ function showlocation_issue(req_name){
     xhttp.send();
   }
   else{
-    document.getElementById('issue_location').innerHTML=`<option>Select Location</option>`; 
+    document.getElementById('issue_location').innerHTML=`<option>Select Location</option>`;
     //document.getElementById('button-place').innerHTML=``;
   }
 }
@@ -566,9 +566,9 @@ function showretamounts_issue(ret_location){
               document.getElementById('issue_amount').innerHTML='<option>'+i+'</option>';
             }
             else{
-              document.getElementById('issue_amount').innerHTML+='<option>'+i+'</option>';  
+              document.getElementById('issue_amount').innerHTML+='<option>'+i+'</option>';
             }
-            
+
           }
           document.getElementById('issue-button-place').innerHTML=`<button class="btn btn-primary" type="button" onclick="issuebutton()">Make Issue</button>`;
         }
@@ -576,10 +576,10 @@ function showretamounts_issue(ret_location){
     xhttp.open("GET", "showretamounts/?item=" + selected_item[0]+"&category="+selected_item[1]+
       "&req_name="+requestee+"&ret_location="+ret_location, true);
     xhttp.send();
-    
+
   }
   else{
-    document.getElementById('issue_amount').innerHTML=`<option></option>`; 
+    document.getElementById('issue_amount').innerHTML=`<option></option>`;
     //document.getElementById('button-place').innerHTML=``;
   }
 
@@ -600,7 +600,7 @@ function issuebutton(){
   xhttp2 = new XMLHttpRequest();
     xhttp2.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-          
+
           console.log(this.responseText+"R");
           if(this.responseText=="ok"){
             $('#issue_table').DataTable().ajax.reload();
