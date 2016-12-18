@@ -1,4 +1,4 @@
-from .models import ProcessedRequest, InventoryTable, Issues
+from .models import ProcessedRequest, InventoryTable, Issues, UserProfile
 import uuid
 from django.contrib.auth.models import User
 from django.utils.dateparse import parse_date
@@ -8,6 +8,9 @@ import json
 import sys
 reload(sys)
 sys.setdefaultencoding('utf8')
+
+def get_nick(id):
+	return User.objects.get(id=id).userprofile.nick_name
 def get_location_names():
 	return ProcessedRequest.objects.all().values('location').distinct()
 
@@ -57,7 +60,7 @@ def process_return(request):
 	p=ProcessedRequest(id_no=uuid.uuid4(), requestee=person, item_name=item,
 			requested_quantity=amnt, approved_quantity=amnt,
 			store_manager=request.user.username, description="",
-			processed_by = u,action="Returned",delivered_price=inv.unit_price,
+			processed_by = u,action="RETURNED",delivered_price=inv.unit_price,
 			location=place,acknowledgement=1,category=category)
 	p.save()
 	inv.save()
@@ -115,7 +118,7 @@ def history_ajax(request, s,e):
 	for d in data:
 		x=[str(d['date_of_request']),str(d['item_name']),str(d['category']),str(d['location']),
 		str(round(d['delivered_price'],3)),str(d['approved_quantity']),str(d['action']),str(d['requestee']),
-		str(d['processed_by'])]
+		str(get_nick(d['processed_by']))]
 		list_data.append(x)
 	ajax_format["data"]=list_data
 	return json.dumps(ajax_format,indent=4, separators=(',', ': '))
