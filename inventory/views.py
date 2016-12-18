@@ -32,7 +32,7 @@ def changename(oldname, category,newname, request):
 	#addning change entry to table
 	nadded_by=User.objects.get(username=request.user.username).userprofile.nick_name
 	napproved_by=User.objects.get(username=request.user.username)
-	changeentry=ItemHistory(name=newname,action="namechange", added_by=nadded_by,
+	changeentry=ItemHistory(name=newname,action="NAMECHANGE", added_by=nadded_by,
 		approved_by=napproved_by,modified_name=oldname,quantity=0, category=category)
 	changeentry.save()
 
@@ -172,7 +172,7 @@ def view_home(request):
 		except:
 			date_range={'start':today(request),'end':today(request)}
 
-		ret_item=ProcessedRequest.objects.filter(action='approve').distinct().values('item_name','category')
+		ret_item=ProcessedRequest.objects.filter(action='APPROVED').distinct().values('item_name','category')
 
 		return render(request, 'inventory/home.html',{'inv':inv,'item_names':item_names,'pending':pending,
 			'processed':processed, 'group':g, 'requestee':requestee_suggestion,
@@ -266,13 +266,14 @@ def process_request(request):
 
 		p.delete()
 
-		if decesion=="approve":
+		if decesion=="APPROVED":
 			i=InventoryTable.objects.get(item_name=nitem_name, category=ncategory)
 			i.quantity_inside-=int(value)
 			i.quantity_outside+=int(value)
 			i.save()
 
 		print nrequestee
+		return HttpResponse("okay")
 
 
 
@@ -310,7 +311,7 @@ def item_details(request, name):
 
 	remaining=100*float(item.quantity_inside)/(float(item.quantity_inside)+float(item.quantity_outside))
 
-	details=ProcessedRequest.objects.filter(item_name=item.item_name, action='approve')
+	details=ProcessedRequest.objects.filter(item_name=item.item_name, action='APPROVED')
 	g=request.user.groups.all()[0]
 
 
@@ -523,7 +524,7 @@ def add_item(request):
 
 			i=InventoryTableTemp(item_name=name,quantity_inside=quantity,category=category,
 				quantity_outside=0,minimum_quantity=minquant,unit_price=price,
-				description=ndescription,vendor=nvendor,action='create',creator=request.user.username)
+				description=ndescription,vendor=nvendor,action='CREATED',creator=request.user.username)
 			i.save()
 			# h=ItemHistory(name=name,action="create", quantity=quantity,added_by=request.user.username, approved_by="admin")
 			# h.save()
@@ -574,9 +575,9 @@ def updateitem(request):
 			m.vendor=vendor
 		if quant:
 			if int(quant)>0:
-				action="add"
+				action="ADD"
 			if int(quant)<0:
-				action="remove"
+				action="REMOVE"
 				i.quantity_inside=int(quant)*(-1)
 			i.action=action
 			i.save()
@@ -621,7 +622,7 @@ def itemadminaction(request):
 				i=InventoryTable(item_name=t.item_name,quantity_inside=t.quantity_inside,
 				quantity_outside=t.quantity_outside,minimum_quantity=t.minimum_quantity,unit_price=t.unit_price,
 				description=t.description,vendor=t.vendor, category=t.category)
-				h=ItemHistory(name=i.item_name,action="create", quantity=i.quantity_inside,
+				h=ItemHistory(name=i.item_name,action="CREATED", quantity=i.quantity_inside,
 					added_by=nadded_by, approved_by=napproved_by,category=t.category)
 				h.save()
 
@@ -644,7 +645,7 @@ def itemadminaction(request):
 				nadded_by=User.objects.get(username=t.creator).userprofile.nick_name
 				napproved_by=User.objects.get(username=request.user.username)
 
-				h=ItemHistory(name=i.item_name,action="add", quantity=t.quantity_inside,
+				h=ItemHistory(name=i.item_name,action="ADDED", quantity=t.quantity_inside,
 					added_by=nadded_by, approved_by=napproved_by,category=t.category)
 				t.delete()
 				h.save()
@@ -657,7 +658,7 @@ def itemadminaction(request):
 				nadded_by=User.objects.get(username=t.creator).userprofile.nick_name
 				napproved_by=User.objects.get(username=request.user.username)
 
-				h=ItemHistory(name=i.item_name,action="remove", quantity=t.quantity_inside,
+				h=ItemHistory(name=i.item_name,action="REMOVED", quantity=t.quantity_inside,
 					added_by=nadded_by, approved_by=napproved_by,category=t.category)
 				t.delete()
 				h.save()

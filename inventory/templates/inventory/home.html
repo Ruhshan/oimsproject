@@ -194,10 +194,10 @@
           </div>
           <p>Description:{{p.description}}
           </p>
-          <button type="button" class="btn btn-default" onclick="processrequest('{{p.id_no}}','approve',
+          <button type="button" class="btn btn-default" onclick="processrequest('{{p.id_no}}','APPROVED',
                                                                  document.getElementById('approved_item_qty_dropdown{{p.id_no}}').value)">Approve
           </button>
-          <button type="button" class="btn btn-default" onclick="processrequest('{{p.id_no}}','reject','0')" data-dismiss="modal">Reject
+          <button type="button" class="btn btn-default" onclick="processrequest('{{p.id_no}}','REJECTED','0')" data-dismiss="modal">Reject
           </button>
         </div>
       </div>
@@ -316,7 +316,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-sm-6">is {{p.action}}ed on {{p.date_of_process}}
+				<div class="col-sm-6">is {{p.action}} on {{p.date_of_process}}
 				</div>
 				<div class="col-sm-6" align="right">
 					{% if group|stringformat:"s" == "user" %}
@@ -517,19 +517,29 @@
     <div class="panel-body">
 
       <div class="row">
-        <div class="col-sm-8">Item:{{i.item_name}},{{i.category}} Quantity:{{i.quantity_inside}} is requested to {{i.action}} by {{i.creator}}
+        <div class="col-sm-8">Item:{{i.item_name}},{{i.category}} Quantity:{{i.quantity_inside}} is requested to
+           {% if i.action|stringformat:"s" == "CREATED" %}
+           create
+           {% endif %}
+           {% if i.action|stringformat:"s" == "ADD" %}
+           add
+           {% endif %}
+           {% if i.action|stringformat:"s" == "REMOVE" %}
+           remove
+           {% endif %}
+          by {{i.creator}}
         </div>
         <div class="col-sm-4" align="right">
           {% if group|stringformat:"s" == "admin" or group|stringformat:"s" == "temporary-admin"%}
-            {% if i.action|stringformat:"s" == "create" %}
+            {% if i.action|stringformat:"s" == "CREATED" %}
             <button type="button" class="btn btn-default" onclick="itemactionok('{{i.id}}')">Okay
             </button>
             {% endif %}
-            {% if i.action|stringformat:"s" == "add" %}
+            {% if i.action|stringformat:"s" == "ADD" %}
             <button type="button" class="btn btn-default" onclick="itemactionadd('{{i.id}}')">Okay
             </button>
             {% endif %}
-            {% if i.action|stringformat:"s" == "remove" %}
+            {% if i.action|stringformat:"s" == "REMOVE" %}
             <button type="button" class="btn btn-default" onclick="itemactionremove('{{i.id}}')">Okay
             </button>
             {% endif %}

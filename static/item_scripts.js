@@ -241,7 +241,7 @@ function getCookie(name) {
 
 function check_num(num){
   try{
-  return /^[0-9]*\.?[0-9]*$/.test(num);
+  return /^\-?[0-9]*\.?[0-9]*$/.test(num);
   }
   catch(err){
     return false;
