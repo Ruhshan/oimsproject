@@ -23,7 +23,7 @@ def get_location_ajax(request):
 	if requestee=="Not":
 		requestee=requestee.replace("Not","Not Specified")
 	print requestee
-	locations=ProcessedRequest.objects.filter(requestee=requestee, item_name=item, category=category,action='approve').values('location').distinct()
+	locations=ProcessedRequest.objects.filter(requestee=requestee, item_name=item, category=category,action='APPROVED').values('location').distinct()
 	print locations
 	r=""
 	for l in locations:
@@ -36,7 +36,7 @@ def get_ret_amount_ajax(request):
 	ret_location=request.GET['ret_location']
 
 	amount = ProcessedRequest.objects.filter(item_name=item, requestee=req_name,
-		action='approve',location=ret_location).values('approved_quantity')
+		action='APPROVED',location=ret_location).values('approved_quantity')
 	ret=ProcessedRequest.objects.filter(item_name=item, requestee=req_name,
 		action='Returned',location=ret_location).values('approved_quantity')
 
@@ -61,7 +61,7 @@ def process_return(request):
 			requested_quantity=amnt, approved_quantity=amnt,
 			store_manager=request.user.username, description="",
 			processed_by = u,action="RETURNED",delivered_price=inv.unit_price,
-			location=place,acknowledgement=1,category=category)
+			location=place,acknowledgement=1,category=category,)
 	p.save()
 	inv.save()
 	return "ok"
@@ -110,13 +110,13 @@ def today(request):
 	return '/'.join((d[1],d[2],d[0]))
 
 def history_ajax(request, s,e):
-	data=ProcessedRequest.objects.filter(date_of_process__range=[s,e]).values('date_of_request',
+	data=ProcessedRequest.objects.filter(date_of_process__range=[s,e]).values('date_of_process',
 		'item_name','category','location','delivered_price','approved_quantity','action','requestee',
 		'processed_by')
 	list_data=[]
 	ajax_format={}
 	for d in data:
-		x=[str(d['date_of_request']),str(d['item_name']),str(d['category']),str(d['location']),
+		x=[str(d['date_of_process']),str(d['item_name']),str(d['category']),str(d['location']),
 		str(round(d['delivered_price'],3)),str(d['approved_quantity']),str(d['action']),str(d['requestee']),
 		str(get_nick(d['processed_by']))]
 		list_data.append(x)

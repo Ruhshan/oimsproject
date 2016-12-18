@@ -792,7 +792,7 @@ def changepassword(request):
 def show_requestee(request):
 	print "Show requestee"
 	item,category=request.GET['item_name'],request.GET['category']
-	reqs=ProcessedRequest.objects.filter(item_name=item,category=category,action="approve").distinct().values('requestee')
+	reqs=ProcessedRequest.objects.filter(item_name=item,category=category,action="APPROVED").distinct().values('requestee')
 	ret=""
 	for r in reqs:
 		ret+="<option value='{}'>{}</option>\n".format(r['requestee'],r['requestee'])

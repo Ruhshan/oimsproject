@@ -448,7 +448,7 @@ function showretamounts(ret_location){
             }
 
           }
-          document.getElementById('button-place').innerHTML=`<button type="button" onclick="returnbutton()">Update2</button>`;
+          document.getElementById('button-place').innerHTML=`<button type="button" class="btn btn-primary" onclick="returnbutton()">Submit</button>`;
         }
     };
     xhttp.open("GET", "showretamounts/?item=" + selected_item[0]
