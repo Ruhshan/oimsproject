@@ -427,6 +427,7 @@ function showretrequestee(item_name){
   }
   else{
     document.getElementById('ret_requestee').innerHTML=`<option>Select Requestee</option>`;
+    document.getElementById('button-place').innerHTML=``;
     //document.getElementById('button-place').innerHTML=``;
   }
 }
@@ -459,7 +460,7 @@ function showretamounts(ret_location){
   }
   else{
     document.getElementById('ret_amount').innerHTML=`<option></option>`;
-    //document.getElementById('button-place').innerHTML=``;
+    document.getElementById('button-place').innerHTML=``;
   }
 
 
@@ -486,6 +487,7 @@ function showlocation(){
   }
   else{
     document.getElementById('ret_location').innerHTML=`<option>Select Location</option>`;
+    document.getElementById('button-place').innerHTML=``;
     //document.getElementById('button-place').innerHTML=``;
   }
 }
@@ -531,12 +533,13 @@ function showretrequestee_issue(item_name){
   else{
     document.getElementById('issue_requestee').innerHTML=`<option>Select Requestee</option>`;
     //document.getElementById('button-place').innerHTML=``;
+    document.getElementById('issue-button-place').innerHTML=``;
   }
 }
 
 function showlocation_issue(req_name){
   if(req_name!="Select Requestee"){
-    selected_item=document.getElementById('issue_item_name').value.split(',');
+    selected_item=document.getElementById('issue_item_name').value.split('$');
     console.log(selected_item,req_name);
     xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -549,14 +552,14 @@ function showlocation_issue(req_name){
   }
   else{
     document.getElementById('issue_location').innerHTML=`<option>Select Location</option>`;
-    //document.getElementById('button-place').innerHTML=``;
+    document.getElementById('issue-button-place').innerHTML=``;
   }
 }
 
 
 function showretamounts_issue(ret_location){
   if(ret_location!='Select Location'){
-    selected_item=document.getElementById('issue_item_name').value.split(',');
+    selected_item=document.getElementById('issue_item_name').value.split('$');
     requestee=document.getElementById('issue_requestee').value;
     console.log(selected_item,requestee, ret_location);
     xhttp = new XMLHttpRequest();
@@ -582,7 +585,8 @@ function showretamounts_issue(ret_location){
   }
   else{
     document.getElementById('issue_amount').innerHTML=`<option></option>`;
-    //document.getElementById('button-place').innerHTML=``;
+    document.getElementById('issue-button-place').innerHTML=``;
+
   }
 
 
@@ -591,7 +595,7 @@ function showretamounts_issue(ret_location){
 
 function issuebutton(){
   console.log("issue called");
-  itm=document.getElementById("issue_item_name").value.split(',');
+  itm=document.getElementById("issue_item_name").value.split('$');
   person=document.getElementById("issue_requestee").value;
   loc=document.getElementById("issue_location").value;
   amnt=document.getElementById("issue_amount").value;

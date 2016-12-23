@@ -635,7 +635,7 @@
         <select class="form-control" id="issue_item_name" onchange="showretrequestee_issue(this.value)">
           <option selected="Select">Select Item</option>
           {% for name in ret_item %}
-          <option value={{name.item_name}},{{name.category}}>{{name.item_name}} ({{name.category}})</option>
+          <option value="{{name.item_name}}${{name.category}}">{{name.item_name}} ({{name.category}})</option>
           {% endfor %}
 
         </select>
