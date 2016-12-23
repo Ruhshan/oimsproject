@@ -60,9 +60,21 @@ body { display: table; width: 100%; height: 100%; }
 .header, .footer { height: 1px; }
 .content { height: auto; }
 
-.fstyle{
-  /*background: url('http://www.kikk.be/2012/files/templates/kikk/public/assets/images/bgBottomFooter.jpg') repeat-x scroll 0 0 #085a79;
-      */
+/*.fstyle{
+
     text-align: center;
-  	
-  }
+
+  }*/
+
+  .fstyle{
+    /*background: url('http://www.kikk.be/2012/files/templates/kikk/public/assets/images/bgBottomFooter.jpg') repeat-x scroll 0 0 #085a79;
+        */
+      text-align: center;
+      background: #D1CDBD;
+      color: black;
+      }
+
+    }
+    .fstyle a:link{
+      
+    }

@@ -29,15 +29,26 @@
     width: 215px;
 }
 
-div.img:hover {
+div.imgs {
+  margin: 5px;
+  border: 1px solid #ccc;
+
+  width: 215px;
+}
+
+div.img:hover,div.imgs:hover {
     border: 1px solid #777;
 }
 
-div.img img {
+div.img img{
     width: 100%;
     height: auto;
 }
 
+div.imgs img{
+    width: 100%;
+    height: auto;
+}
 div.desc {
     padding: 15px;
     text-align: center;
@@ -58,6 +69,18 @@ div.desc {
       <p>This Product was developed as academic project of CSE490. Backend was constructed
       using Django-1.10 and frontend was written with bootstrap and lot of awesome stuffs. </p>
     </div>
+
+    <h2>Advisor:</h2>
+
+    <div class="imgs">
+      <a target="_blank" href="">
+        <img src="{% static 'team/samir-sir.jpg' %}" class="" alt="Asif Mohammed Samir" width="300" height="200">
+      </a>
+      <div class="desc">Asif Mohammed Samir
+      <p>asifsamir-iict@sust.edu</p></div>
+
+    </div>
+    <br>
     <h2>Team Members:</h2>
 
 
@@ -88,17 +111,14 @@ div.desc {
   </div>
   </div>
 
-  <div class="img">
-    <a target="_blank" href="">
-      <img src="{% static 'team/samir-sir.jpg' %}" class="" alt="Asif Mohammed Samir" width="300" height="200">
-    </a>
-    <div class="desc">Asif Mohammed Samir
-    <p>asifsamir.sust@gmail.com</p></div>
+
+
 
   </div>
-  </div>
 
 
+  <div class="footer fstyle">
+  &copy: <a href="/credit/" style="">Tetrad OIMS</a>, 2016</div>
 
 </body>
 </html>
