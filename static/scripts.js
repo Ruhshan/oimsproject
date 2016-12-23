@@ -411,7 +411,8 @@ function popovercontent(id,rep){
 function showretrequestee(item_name){
 
   if(item_name!='Select Item'){
-    selected=item_name.split(',')
+    console.log(item_name);
+    var selected=item_name.split('$');
     console.log(item_name);
     xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -432,7 +433,7 @@ function showretrequestee(item_name){
 
 function showretamounts(ret_location){
   if(ret_location!='Select Location'){
-    selected_item=document.getElementById('ret_item_name').value.split(',');
+    selected_item=document.getElementById('ret_item_name').value.split('$');
     requestee=document.getElementById('ret_requestee').value;
     console.log(selected_item,requestee);
     xhttp = new XMLHttpRequest();
@@ -469,7 +470,7 @@ function showretamounts(ret_location){
 function showlocation(){
   var req_name=document.getElementById("ret_requestee").value;
   if(req_name!="Select Requestee"){
-    selected_item=document.getElementById('ret_item_name').value.split(',');
+    selected_item=document.getElementById('ret_item_name').value.split('$');
     xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -491,7 +492,7 @@ function showlocation(){
 
 function returnbutton(){
   console.log("Return called");
-  itm=document.getElementById("ret_item_name").value.split(',');
+  itm=document.getElementById("ret_item_name").value.split('$');
   person=document.getElementById("ret_requestee").value;
   loc=document.getElementById("ret_location").value;
   amnt=document.getElementById("ret_amount").value;
@@ -513,8 +514,9 @@ function returnbutton(){
 function showretrequestee_issue(item_name){
 
   if(item_name!='Select Item'){
-    selected=item_name.split(',')
-    console.log(item_name);
+    var selected=item_name.split('$');
+    console.log("before:"+item_name);
+    console.log("after:"+selected);
     xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
