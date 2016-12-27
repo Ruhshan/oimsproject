@@ -211,6 +211,11 @@
 
           toclose="#req_panel"+id;
           $(toclose).hide("drop", { direction: "up" }, "slow");
+          //Reload inventory table
+          $('#inventorytable').DataTable().ajax.reload();
+          //reload history table
+          range=document.getElementById("daterange").value;
+          $('#historytable').DataTable().ajax.url(encodeURI('/home/historybydate/?range='+range)).load();
       };
 
       function acknowledge(id){

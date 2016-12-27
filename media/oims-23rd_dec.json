@@ -1,0 +1,557 @@
+[
+    {
+        "fields": {
+            "category": "16gb",
+            "description": "",
+            "item_name": "Pendrive",
+            "minimum_quantity": 2,
+            "quantity_inside": 100,
+            "quantity_outside": 0,
+            "unit_price": "2000.00000",
+            "vendor": ""
+        },
+        "model": "inventory.inventorytable",
+        "pk": 40
+    },
+    {
+        "fields": {
+            "category": "Color",
+            "description": "",
+            "item_name": "Monitor_black",
+            "minimum_quantity": 20,
+            "quantity_inside": 364,
+            "quantity_outside": 16,
+            "unit_price": "230.00000",
+            "vendor": ""
+        },
+        "model": "inventory.inventorytable",
+        "pk": 41
+    },
+    {
+        "fields": {
+            "category": "Office, stationary",
+            "description": "s",
+            "item_name": "Stapler",
+            "minimum_quantity": 10,
+            "quantity_inside": 80,
+            "quantity_outside": 20,
+            "unit_price": "200.00000",
+            "vendor": ""
+        },
+        "model": "inventory.inventorytable",
+        "pk": 42
+    },
+    {
+        "fields": {
+            "user_name": "a@b.com",
+            "value": "16d7a4fca7442dda3ad93c9a726597e4"
+        },
+        "model": "inventory.seccondarypassword",
+        "pk": 35
+    },
+    {
+        "fields": {
+            "user_name": "c@d.com",
+            "value": "81dc9bdb52d04dc20036dbd8313ed055"
+        },
+        "model": "inventory.seccondarypassword",
+        "pk": 36
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "nick_name": "test",
+            "timestamp": "2016-12-18T10:28:44.802Z",
+            "user_name": "a@b.com"
+        },
+        "model": "inventory.loginhistory",
+        "pk": 363
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "nick_name": null,
+            "timestamp": "2016-12-18T10:29:52.638Z",
+            "user_name": "superuser"
+        },
+        "model": "inventory.loginhistory",
+        "pk": 364
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "nick_name": "user",
+            "timestamp": "2016-12-18T10:30:08.430Z",
+            "user_name": "user@u.com"
+        },
+        "model": "inventory.loginhistory",
+        "pk": 365
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "nick_name": "user",
+            "timestamp": "2016-12-18T11:44:40.508Z",
+            "user_name": "user@u.com"
+        },
+        "model": "inventory.loginhistory",
+        "pk": 366
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "nick_name": null,
+            "timestamp": "2016-12-18T13:17:04.200Z",
+            "user_name": "a@b.com"
+        },
+        "model": "inventory.loginhistory",
+        "pk": 367
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "nick_name": null,
+            "timestamp": "2016-12-23T16:09:57.921Z",
+            "user_name": "superuser"
+        },
+        "model": "inventory.loginhistory",
+        "pk": 368
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "nick_name": "nick1",
+            "timestamp": "2016-12-23T16:10:15.111Z",
+            "user_name": "c@d.com"
+        },
+        "model": "inventory.loginhistory",
+        "pk": 369
+    },
+    {
+        "fields": {
+            "action": "Login",
+            "nick_name": "user",
+            "timestamp": "2016-12-23T16:12:03.049Z",
+            "user_name": "user@u.com"
+        },
+        "model": "inventory.loginhistory",
+        "pk": 370
+    },
+    {
+        "fields": {
+            "action": "Logout",
+            "nick_name": null,
+            "timestamp": "2016-12-23T16:49:29.605Z",
+            "user_name": "c@d.com"
+        },
+        "model": "inventory.loginhistory",
+        "pk": 371
+    },
+    {
+        "fields": {
+            "amnt": 4,
+            "category": "Office, stationary",
+            "date_created": "2016-12-23",
+            "desc": "test1",
+            "item": "Stapler",
+            "occurance_date": "2016-12-23",
+            "person": "Giand",
+            "place": "Whole"
+        },
+        "model": "inventory.issues",
+        "pk": "4aef50c6-e88f-4af7-b486-0296c03247cc"
+    },
+    {
+        "fields": {
+            "amnt": 14,
+            "category": "16gb",
+            "date_created": "2016-12-18",
+            "desc": "",
+            "item": "Pendrive",
+            "occurance_date": "2016-12-18",
+            "person": "Requestee1",
+            "place": "110"
+        },
+        "model": "inventory.issues",
+        "pk": "a54e1a06-e7c9-464f-a5c6-d0fd3024fcb1"
+    },
+    {
+        "fields": {
+            "name": "admin",
+            "permissions": []
+        },
+        "model": "auth.group",
+        "pk": 42
+    },
+    {
+        "fields": {
+            "name": "user",
+            "permissions": []
+        },
+        "model": "auth.group",
+        "pk": 43
+    },
+    {
+        "fields": {
+            "date_joined": "2016-12-18T10:28:23.464Z",
+            "email": "a@b.com",
+            "first_name": "",
+            "groups": [
+                42
+            ],
+            "is_active": true,
+            "is_staff": true,
+            "is_superuser": false,
+            "last_login": "2016-12-18T10:28:44.614Z",
+            "last_name": "",
+            "password": "pbkdf2_sha256$30000$WdIjLVidPtUu$zRvjWS/OPiu+4+7kfiBAS7AwK9OdblFtrlaYZ4BkQGE=",
+            "user_permissions": [],
+            "username": "a@b.com"
+        },
+        "model": "auth.user",
+        "pk": 124
+    },
+    {
+        "fields": {
+            "date_joined": "2016-12-18T10:29:44.268Z",
+            "email": "user@u.com",
+            "first_name": "",
+            "groups": [
+                43
+            ],
+            "is_active": true,
+            "is_staff": true,
+            "is_superuser": false,
+            "last_login": "2016-12-23T16:12:02.882Z",
+            "last_name": "",
+            "password": "pbkdf2_sha256$30000$EA45O8fgNNNA$NAF8M76L3mP6FoDZTfMq3lnWg3h9EGSM4MyphnGqzHw=",
+            "user_permissions": [],
+            "username": "user@u.com"
+        },
+        "model": "auth.user",
+        "pk": 125
+    },
+    {
+        "fields": {
+            "date_joined": "2016-12-23T16:09:52.396Z",
+            "email": "c@d.com",
+            "first_name": "",
+            "groups": [
+                42
+            ],
+            "is_active": true,
+            "is_staff": true,
+            "is_superuser": false,
+            "last_login": "2016-12-23T16:10:14.888Z",
+            "last_name": "",
+            "password": "pbkdf2_sha256$30000$GmpVqPhdVIHh$Y4UG9ibnE6awUl1eZZ/VoS50zNLAPrwdF8XYmOOtFcs=",
+            "user_permissions": [],
+            "username": "c@d.com"
+        },
+        "model": "auth.user",
+        "pk": 126
+    },
+    {
+        "fields": {
+            "action": "create",
+            "added_by": "user",
+            "approved_by": 124,
+            "category": "16gb",
+            "date_added": "2016-12-18",
+            "modified_name": null,
+            "name": "Pendrive",
+            "quantity": 100
+        },
+        "model": "inventory.itemhistory",
+        "pk": 58
+    },
+    {
+        "fields": {
+            "action": "CREATED",
+            "added_by": "test",
+            "approved_by": 124,
+            "category": "Color",
+            "date_added": "2016-12-18",
+            "modified_name": null,
+            "name": "Monitor_black",
+            "quantity": 230
+        },
+        "model": "inventory.itemhistory",
+        "pk": 59
+    },
+    {
+        "fields": {
+            "action": "ADDED",
+            "added_by": "test",
+            "approved_by": 124,
+            "category": "Color",
+            "date_added": "2016-12-18",
+            "modified_name": null,
+            "name": "Monitor_black",
+            "quantity": 200
+        },
+        "model": "inventory.itemhistory",
+        "pk": 60
+    },
+    {
+        "fields": {
+            "action": "REMOVED",
+            "added_by": "test",
+            "approved_by": 124,
+            "category": "Color",
+            "date_added": "2016-12-18",
+            "modified_name": null,
+            "name": "Monitor_black",
+            "quantity": 50
+        },
+        "model": "inventory.itemhistory",
+        "pk": 61
+    },
+    {
+        "fields": {
+            "action": "NAMECHANGE",
+            "added_by": "test",
+            "approved_by": 124,
+            "category": "Color",
+            "date_added": "2016-12-18",
+            "modified_name": "Monitor",
+            "name": "Monitor_black",
+            "quantity": 0
+        },
+        "model": "inventory.itemhistory",
+        "pk": 62
+    },
+    {
+        "fields": {
+            "action": "CREATED",
+            "added_by": "nick1",
+            "approved_by": 126,
+            "category": "Office, stationary",
+            "date_added": "2016-12-23",
+            "modified_name": null,
+            "name": "Stapler",
+            "quantity": 100
+        },
+        "model": "inventory.itemhistory",
+        "pk": 63
+    },
+    {
+        "fields": {
+            "alternate_email": null,
+            "created_by": "superuser",
+            "is_deleted": 0,
+            "mypost": null,
+            "nick_name": "test",
+            "phone_number": null,
+            "uname": 124
+        },
+        "model": "inventory.userprofile",
+        "pk": 53
+    },
+    {
+        "fields": {
+            "alternate_email": null,
+            "created_by": "test",
+            "is_deleted": 0,
+            "mypost": null,
+            "nick_name": "user",
+            "phone_number": null,
+            "uname": 125
+        },
+        "model": "inventory.userprofile",
+        "pk": 54
+    },
+    {
+        "fields": {
+            "alternate_email": null,
+            "created_by": "superuser",
+            "is_deleted": 0,
+            "mypost": null,
+            "nick_name": "nick1",
+            "phone_number": null,
+            "uname": 126
+        },
+        "model": "inventory.userprofile",
+        "pk": 55
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "RETURNED",
+            "approved_quantity": 2,
+            "category": "16gb",
+            "date_of_process": "2016-12-18",
+            "date_of_request": null,
+            "delivered_price": "2000.00000",
+            "description": "",
+            "item_name": "Pendrive",
+            "location": "113",
+            "processed_by": 125,
+            "requested_quantity": 2,
+            "requestee": "Requestee1",
+            "store_manager": "user@u.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "04fa22be-ee5e-4c41-9eb0-857109c4e14b"
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "APPROVED",
+            "approved_quantity": 13,
+            "category": "16gb",
+            "date_of_process": "2016-12-18",
+            "date_of_request": "2016-12-18",
+            "delivered_price": "2000.00000",
+            "description": "",
+            "item_name": "Pendrive",
+            "location": "113",
+            "processed_by": 124,
+            "requested_quantity": 16,
+            "requestee": "Requestee1",
+            "store_manager": "user@u.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "0c3ca81f-df20-4c86-875e-fa674a174fb3"
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "APPROVED",
+            "approved_quantity": 14,
+            "category": "16gb",
+            "date_of_process": "2016-12-18",
+            "date_of_request": "2016-12-18",
+            "delivered_price": "2000.00000",
+            "description": "",
+            "item_name": "Pendrive",
+            "location": "110",
+            "processed_by": 124,
+            "requested_quantity": 14,
+            "requestee": "Requestee1",
+            "store_manager": "user@u.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "124935e6-2c74-4e9b-b4cf-490f7690c8f6"
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "APPROVED",
+            "approved_quantity": 9,
+            "category": "16gb",
+            "date_of_process": "2016-12-18",
+            "date_of_request": "2016-12-18",
+            "delivered_price": "2000.00000",
+            "description": "",
+            "item_name": "Pendrive",
+            "location": "113",
+            "processed_by": 124,
+            "requested_quantity": 9,
+            "requestee": "Requestee1",
+            "store_manager": "user@u.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "19991be1-856a-4b41-98b1-0596a16c73c5"
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "APPROVED",
+            "approved_quantity": 50,
+            "category": "Office, stationary",
+            "date_of_process": "2016-12-23",
+            "date_of_request": "2016-12-23",
+            "delivered_price": "200.00000",
+            "description": "",
+            "item_name": "Stapler",
+            "location": "Whole",
+            "processed_by": 126,
+            "requested_quantity": 83,
+            "requestee": "Giand",
+            "store_manager": "user@u.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "1d54ac04-bd4e-4057-9b6c-012ab298f9a5"
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "REJECTED",
+            "approved_quantity": 0,
+            "category": "16gb",
+            "date_of_process": "2016-12-18",
+            "date_of_request": "2016-12-18",
+            "delivered_price": "2000.00000",
+            "description": "",
+            "item_name": "Pendrive",
+            "location": "113",
+            "processed_by": 124,
+            "requested_quantity": 13,
+            "requestee": "Requestee2",
+            "store_manager": "user@u.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "592ea0a0-9a1f-4933-aee9-870eb5c28b77"
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "APPROVED",
+            "approved_quantity": 16,
+            "category": "Color",
+            "date_of_process": "2016-12-18",
+            "date_of_request": "2016-12-18",
+            "delivered_price": "230.00000",
+            "description": "",
+            "item_name": "Monitor_black",
+            "location": "220",
+            "processed_by": 124,
+            "requested_quantity": 16,
+            "requestee": "Non Specified",
+            "store_manager": "user@u.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "adecad57-51ac-4cb3-a27c-97389c2f2049"
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "RETURNED",
+            "approved_quantity": 7,
+            "category": "16gb",
+            "date_of_process": "2016-12-18",
+            "date_of_request": null,
+            "delivered_price": "2000.00000",
+            "description": "",
+            "item_name": "Pendrive",
+            "location": "110",
+            "processed_by": 125,
+            "requested_quantity": 7,
+            "requestee": "Requestee1",
+            "store_manager": "user@u.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "e17d55cb-e48b-47f0-8049-9f1a77131d7c"
+    },
+    {
+        "fields": {
+            "acknowledgement": 1,
+            "action": "RETURNED",
+            "approved_quantity": 30,
+            "category": "Office, stationary",
+            "date_of_process": "2016-12-23",
+            "date_of_request": null,
+            "delivered_price": "200.00000",
+            "description": "",
+            "item_name": "Stapler",
+            "location": "Whole",
+            "processed_by": 126,
+            "requested_quantity": 30,
+            "requestee": "Giand",
+            "store_manager": "c@d.com"
+        },
+        "model": "inventory.processedrequest",
+        "pk": "e8402479-f1d1-4be1-9adb-a13857422352"
+    }
+]

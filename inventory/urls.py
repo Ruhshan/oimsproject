@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^home/retitem/$',views.ret_item, name="ret_item"),
     url(r'^home/createissue/$',views.create_issue,name="create_issue"),
     url(r'^home/issueajax/$',views.issue_ajax,name="issue_ajax"),
+    url(r'^home/inventoryajax/$',views.inventory_ajax,name="inventory_ajax"),
     url(r'^logout/$',views.user_logout,name='logout'),
     url(r'^home/itemqty/$',views.itemqty,name='itemqty'),
     url(r'^home/availableqty/$',views.availqty,name='availqty'),

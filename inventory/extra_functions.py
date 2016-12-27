@@ -122,3 +122,15 @@ def history_ajax(request, s,e):
 		list_data.append(x)
 	ajax_format["data"]=list_data
 	return json.dumps(ajax_format,indent=4, separators=(',', ': '))
+
+def inventory_to_ajax(request):
+	data=InventoryTable.objects.all().values('item_name','category','quantity_inside','quantity_outside',
+		'unit_price','vendor','description')
+	list_data=[]
+	ajax_format={}
+	for d in data:
+		x=[str(d['item_name']),str(d['category']),str(d['quantity_inside']),str(d['quantity_outside']),
+		str(d['unit_price']),str(d['vendor']),str(d['description'])]
+		list_data.append(x)
+	ajax_format["data"]=list_data
+	return json.dumps(ajax_format,indent=4, separators=(',', ': '))

@@ -16,21 +16,11 @@
 	        </th>
 	        <th>Vendor
 	        </th>
+          <th>Description
+	        </th>
 	      </tr>
 	    </thead>
-        {% for items in inv %}
-        <tr>
-            <td >
-              <!--a href="{% url 'item_details' name=items.item_name %}">{{items.item_name}}</a-->
-              <a href="#" id="pop{{items.id}}">{{items.item_name}}</a>
-            </td>
-            <td>{{items.category}}</td>
-            <td>{{items.quantity_inside}}</td>
-            <td>{{items.quantity_outside}}</td>
-            <td>{{items.unit_price|floatformat:2 }} {{static_info.currency}}</td>
-            <td>{{items.vendor}}</td>
-        </tr>
-        {% endfor %}
+
     </table>
 	<script type="text/javascript">
 	    $(document).ready(function(){
@@ -42,7 +32,12 @@
 
     } );
 
-          var inventory_table=$('#inventorytable').DataTable();
+          var inventory_table=$('#inventorytable').DataTable(
+            {
+              "ajax":'/home/inventoryajax/'
+            }
+          );
+          
 
     // App/*/*ly the search
     inventory_table.columns().every( function () {

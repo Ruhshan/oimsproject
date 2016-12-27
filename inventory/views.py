@@ -827,3 +827,7 @@ def issue_ajax(request):
 
 def credit(request):
 	return render(request,'inventory/credit.html', {})
+
+def inventory_ajax(request):
+	execute=inventory_to_ajax(request)
+	return HttpResponse(execute)
