@@ -81,6 +81,11 @@
 	  </a>
 	</li>
 
+	<li>
+		<a data-toggle="tab" href="#update">Update Item's info
+		</a>
+	</li>
+
 </ul>
 
 <div class="tab-content">
@@ -143,7 +148,7 @@
 				<select class="form-control" id="iname2" name="iname2" onchange="information(this.value)">
 					<option>Select..</option>
 					{% for name in item_list %}
-					<option value="{{name.item_name}},{{name.category}}">{{name.item_name}} ({{name.category}})</option>
+					<option value="{{name.item_name}}${{name.category}}">{{name.item_name}} ({{name.category}})</option>
 					{% endfor %}
 				</select>
 			</div>
@@ -151,51 +156,61 @@
 			<div class="form-group">
 			  <label for="iquantity2">Add Quantity:<span style="color:red" id="iquantity2l"></label>
 			  <input type="text" class="form-control" name="iquantity2" id="iquantity2" placeholder="Enter Item quantity" maxlength="50" oninput="checking(this.id, this.value)">
-				<br>
-				<br>
 			</div>
 
 
-			<h1 style="text-align:center">Update if required</h1>
-			<div class="form-group">
-			  <label for="newname" >Change name:</label>
-			  <input type="text" class="form-control" name="newname" id="newname" placeholder="Enter New Name for this item" maxlength="50">
-			</div>
-
-			<div class="form-group">
-			  <label for="minquant2">Alert Quantity:<span style="color:red" id="minquant2l"></label>
-			  <input type="text" class="form-control" name="minquant2" id="minquant2" placeholder="Enter minimum quantity for alert" maxlength="50" oninput="checking(this.id, this.value)">
-			</div>
-
-			<div class="form-group">
-			  <label for="uprice2">Unit Price(Previous Price:<span style="color:red" id="uprice2l"></label>
-			  <input type="text" class="form-control" name="uprice2" id="uprice2" placeholder="Enter Unit price of this item" maxlength="50" oninput="checking(this.id, this.value)">
-			</div>
-
-			<div class="form-group">
-			  <label for="description2">Description:</label>
-			  <textarea type="text" class="form-control" name="description2" id="description2" placeholder="Enter Item name" maxlength="50" rows="5"></textarea>
-			</div>
-
-			<div class="form-group">
-			    <label for="vendor2">Vendor Name:</label>
-
-			    <datalist id="vendor_list">
-			      <option value="">
-			      {% for name in vendor_list %}
-			      <option value="{{name}}">
-			     {% endfor %}
-			    </datalist>
-
-			    <input type="text" class="form-control" name="vendor2" id="vendor2" list="vendor_list" maxlength="50">
-
-			</div>
 
 
 
 
 		</form>
 		<button class="btn btn-primary" onclick="updateitem()">Update</button>
+	</div>
+
+	<div id="update" class="tab-pane fade in">
+		<div class="form-group">
+			<label for="iname3">Item Name:</label>
+			<select class="form-control" id="iname3" name="iname3" onchange="information(this.value)">
+				<option>Select..</option>
+				{% for name in item_list %}
+				<option value="{{name.item_name}}${{name.category}}">{{name.item_name}} ({{name.category}})</option>
+				{% endfor %}
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="newname" >Change name:</label>
+			<input type="text" class="form-control" name="newname" id="newname" placeholder="Enter New Name for this item" maxlength="50">
+		</div>
+
+		<div class="form-group">
+			<label for="minquant2">Alert Quantity:<span style="color:red" id="minquant2l"></label>
+			<input type="text" class="form-control" name="minquant2" id="minquant2" placeholder="Enter minimum quantity for alert" maxlength="50" oninput="checking(this.id, this.value)">
+		</div>
+
+		<div class="form-group">
+			<label for="uprice2">Unit Price(Previous Price:<span style="color:red" id="uprice2l"></label>
+			<input type="text" class="form-control" name="uprice2" id="uprice2" placeholder="Enter Unit price of this item" maxlength="50" oninput="checking(this.id, this.value)">
+		</div>
+
+		<div class="form-group">
+			<label for="description2">Description:</label>
+			<textarea type="text" class="form-control" name="description2" id="description2" placeholder="Enter Item name" maxlength="50" rows="5"></textarea>
+		</div>
+
+		<div class="form-group">
+				<label for="vendor2">Vendor Name:</label>
+
+				<datalist id="vendor_list">
+					<option value="">
+					{% for name in vendor_list %}
+					<option value="{{name}}">
+				 {% endfor %}
+				</datalist>
+
+				<input type="text" class="form-control" name="vendor2" id="vendor2" list="vendor_list" maxlength="50">
+
+		</div>
+		<button class="btn btn-primary" onclick="updateitem2()">Update</button>
 	</div>
 </div>
 

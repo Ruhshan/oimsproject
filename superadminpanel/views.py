@@ -137,8 +137,9 @@ def superadmin_create(request):
 			else:
 				print e
 				u=User.objects.get(username=email)
-				u.delete()
+				#u.delete()
 				print "This previously existent user is deleted!"
+				return HttpResponse(e)
 
 
 
@@ -150,10 +151,14 @@ def superadmin_create(request):
 			sp=SeccondaryPassword(user_name=email,value=pwd2)
 			sp.save()
 			print "Seccondary Password stored!"
+		else:
+			print "SeccondaryPasword object exists!"
 		if UserProfile.objects.filter(uname=new).exists()==False:
 			profile=UserProfile(uname=new, created_by="superuser",nick_name=nick)
 			profile.save()
 			print "User Profile initiated!"
+		else:
+			print "User profile object exists!"
 
 		g.user_set.add(new)
 		print "Added to the admin group"

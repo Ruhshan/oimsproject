@@ -70,7 +70,7 @@ function getCookie(name) {
 
          name=document.getElementById('iname').value;
          name=process(name);
-
+         console.log("Name: "+name);
          category=document.getElementById('category').value;
          category=process(category);
           quantity=document.getElementById('iquantity').value;
@@ -115,7 +115,8 @@ function getCookie(name) {
           query+="&vendor="+vendor.trim();
 
           if(check_num(quantity)==true && check_num(minquant)==true && check_num(price)==true){
-            xhttp.send(query);
+            console.log(encodeURI(query));
+            xhttp.send(encodeURI(query));
           }
           else{
             bootbox.alert("Invalid Data: Only numerics and dot is allowed");
@@ -163,7 +164,7 @@ function getCookie(name) {
 
       function information(name){
         if(name!='Select..'){
-          name=name.split(',')
+          name=name.split('$')
           xhttp = new XMLHttpRequest();
           xhttp.onreadystatechange = function() {
               if (this.readyState == 4 && this.status == 200) {
@@ -183,8 +184,8 @@ function getCookie(name) {
       };
 
       function updateitem(){
-        name=document.getElementById('iname2').value.split(',')[0];
-        category=document.getElementById('iname2').value.split(',')[1];
+        name=document.getElementById('iname2').value.split('$')[0];
+        category=document.getElementById('iname2').value.split('$')[1];
         newname=document.getElementById('newname').value;
         quant=document.getElementById('iquantity2').value;
         minquant=document.getElementById('minquant2').value;
@@ -207,6 +208,62 @@ function getCookie(name) {
                   }
                   if(this.responseText=="namechange_itemupdate"){
                     document.getElementById('existing').innerHTML="<b> successfully name chaned and placed request to update</b>";
+
+                  }
+
+
+                }
+              };
+          xhttp.open("POST", "updateitem/", true);
+          var csrftoken = getCookie('csrftoken');
+
+          xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+          xhttp.setRequestHeader("X-CSRFToken", csrftoken);
+          query="name="+name.trim();
+          query+="&category="+category.trim();
+          query+="&quantity="+quant.trim();
+          query+="&minquant="+minquant.trim();
+          query+="&price="+price.trim();
+          query+="&description="+description.trim();
+          query+="&vendor="+vendor.trim();
+          query+="&newname="+newname.trim();
+
+          if(check_num(quant)==true && check_num(minquant)==true && check_num(price)==true){
+            xhttp.send(query);
+          }
+          else{
+            bootbox.alert("Invalid Data: Only numerics and dot is allowed");
+          }
+
+
+
+      };
+
+      function updateitem2(){
+        name=document.getElementById('iname3').value.split('$')[0];
+        category=document.getElementById('iname3').value.split('$')[1];
+        newname=document.getElementById('newname').value;
+        quant=document.getElementById('iquantity2').value;
+        minquant=document.getElementById('minquant2').value;
+        price=document.getElementById('uprice2').value;
+        description=document.getElementById('description2').value;
+        vendor=document.getElementById('vendor2').value;
+
+        var xhttp = new XMLHttpRequest();
+
+          xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                  console.log(this.responseText);
+                  if(this.responseText=="namechange"){
+                    document.getElementById('update').innerHTML="<b> successfully updated name changed</b>";
+
+                  }
+                  if(this.responseText=="_itemupdate"){
+                    document.getElementById('update').innerHTML="<b> successfully placed request to update</b>";
+
+                  }
+                  if(this.responseText=="namechange_itemupdate"){
+                    document.getElementById('update').innerHTML="<b> successfully name chaned and placed request to update</b>";
 
                   }
 

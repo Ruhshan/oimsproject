@@ -37,7 +37,7 @@
               "ajax":'/home/inventoryajax/'
             }
           );
-          
+
 
     // App/*/*ly the search
     inventory_table.columns().every( function () {
@@ -451,7 +451,7 @@
   {% for entry in historyitems %}
   <tr>
     <td>{{entry.date_added}}</td>
-    <td><!--a href="{% url 'item_details' name=entry.name %}">{{entry.name}}</a-->
+    <td>
       {{entry.name}}
     </td>
     <td>{{entry.category}}</td>

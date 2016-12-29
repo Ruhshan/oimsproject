@@ -96,7 +96,7 @@ function changepassword(){
     query+="&old2="+old2;
     query+="&new1="+new1;
     query+="&new2="+new2;
-    query+="&type="+'head';
+    query+="&type="+'admin';
     query+="&name="+name;
     bootbox.confirm("Your account will be automatically logged out!",
           function(result){
@@ -115,7 +115,7 @@ function changepassword(){
 
     query="old1="+old1;
     query+="&new1="+new1;
-    query+="&type="+'manager';
+    query+="&type="+'user';
     query+="&name="+name;
 
     bootbox.confirm("Your account will be locked until admin confirms!",

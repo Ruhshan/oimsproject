@@ -130,7 +130,7 @@ def inventory_to_ajax(request):
 	ajax_format={}
 	for d in data:
 		x=[str(d['item_name']),str(d['category']),str(d['quantity_inside']),str(d['quantity_outside']),
-		str(d['unit_price']),str(d['vendor']),str(d['description'])]
+		str(round(d['unit_price'],3)),str(d['vendor']),str(d['description'])]
 		list_data.append(x)
 	ajax_format["data"]=list_data
 	return json.dumps(ajax_format,indent=4, separators=(',', ': '))

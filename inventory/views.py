@@ -162,10 +162,11 @@ def view_home(request):
 		acknowledged=ProcessedRequest.objects.filter(acknowledgement=1)
 		l=acknowledged.count()
 		try:
-			d1=str(acknowledged[0].date_of_request).split('-')
-			d2=str(acknowledged[l-1].date_of_request).split('-')
+			d1=str(acknowledged[0].date_of_process).split('-')
+			d2=str(acknowledged[l-1].date_of_process).split('-')
 			s=min(d1,d2)
 			e=max(d1,d2)
+			print d1,d2
 			date_range={'start':'/'.join([s[1],s[2],s[0]]),
 		    	         'end':'/'.join([e[1],e[2],e[0]])}
 		   	print date_range
@@ -581,7 +582,7 @@ def updateitem(request):
 				i.quantity_inside=int(quant)*(-1)
 			i.action=action
 			i.save()
-		ret+="_itemupdate"
+			ret+="_itemupdate"
 		m.save()
 
 		return HttpResponse(ret)
@@ -728,6 +729,9 @@ def modifyuser(request):
 				profile=UserProfile.objects.get(uname=target_user)
 				profile.is_deleted=1
 				profile.save()
+				u=User.objects.get(username=target_user.username)
+				u.is_active=0
+				u.save()
 				return HttpResponse("okay")
 
 			else:
@@ -745,7 +749,9 @@ def modifyuser(request):
 @login_required
 def changepassword(request):
 	if request.method=='POST':
+		print request.POST
 		if request.POST['type']=="admin":
+			print "inside admin"
 			old1=request.POST['old1']
 			old2=request.POST['old2']
 			new1=request.POST['new1']
@@ -753,10 +759,12 @@ def changepassword(request):
 			name=request.POST['name']
 
 			if request.user.check_password(old1) and check_password2(request.user.username,old2):
-				request.user.set_password(new1)
 				sp=SeccondaryPassword.objects.get(user_name=request.user.username)
 				sp.value=new2
 				sp.save()
+				u=User.objects.get(username=request.user.username)
+				u.set_password(new1)
+				u.save()
 				return HttpResponse("okay")
 			else:
 				return HttpResponse("wrong password")
@@ -764,6 +772,7 @@ def changepassword(request):
 			print old1,old2,new1,new2,name
 
 		if request.POST['type']=="user":
+			print "Inside user"
 			oldp=request.POST['old1']
 			newp=request.POST['new1']
 			name=request.POST['name']
