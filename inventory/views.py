@@ -304,21 +304,19 @@ def acknowledge(request):
 		p.save()
 
 @login_required
-def item_details(request, name):
+def item_details(request, id):
 
-	item=InventoryTable.objects.get(id=name)
+	item=InventoryTable.objects.get(id=id)
 
 	remaining=100*float(item.quantity_inside)/(float(item.quantity_inside)+float(item.quantity_outside))
 
 	details=ProcessedRequest.objects.filter(item_name=item.item_name, action='APPROVED')
 	g=request.user.groups.all()[0]
-
-
-
-	#return render(request, 'inventory/item_details.html',{'item':item, 'details':details,
-	#	'remaining':int(remaining),'group':g,'alert_count':alert_count(),'alert_content':alert_content()})
-	return render(request, 'inventory/item_details_ajax.html',{'item':item, 'details':details,
-	'remaining':int(remaining),'group':g,})
+	return render(request, 'inventory/item_details.html',{'item':item, 'details':details,
+		'remaining':int(remaining),'group':g,'alert_count':alert_count(),'alert_content':alert_content(),
+		'static_info':get_static_info(request)})
+	# return render(request, 'inventory/item_details.html',{'item':item, 'details':details,
+	# 'remaining':int(remaining),'group':g,})
 
 
 def isadmin(request):

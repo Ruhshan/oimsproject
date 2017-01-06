@@ -116,7 +116,10 @@ def history_ajax(request, s,e):
 	list_data=[]
 	ajax_format={}
 	for d in data:
-		x=[str(d['date_of_process']),str(d['item_name']),str(d['category']),str(d['location']),
+		item_id=InventoryTable.objects.get(item_name=d['item_name']).id
+		details="<a href='item/{}' target='_blank'>{}</a>".format(item_id,d['item_name'])
+
+		x=[str(d['date_of_process']),str(details),str(d['category']),str(d['location']),
 		str(round(d['delivered_price'],3)),str(d['approved_quantity']),str(d['action']),str(d['requestee']),
 		str(get_nick(d['processed_by']))]
 		list_data.append(x)
@@ -124,12 +127,13 @@ def history_ajax(request, s,e):
 	return json.dumps(ajax_format,indent=4, separators=(',', ': '))
 
 def inventory_to_ajax(request):
-	data=InventoryTable.objects.all().values('item_name','category','quantity_inside','quantity_outside',
+	data=InventoryTable.objects.all().values('id','item_name','category','quantity_inside','quantity_outside',
 		'unit_price','vendor','remarks')
 	list_data=[]
 	ajax_format={}
 	for d in data:
-		x=[str(d['item_name']),str(d['category']),str(d['quantity_inside']),str(d['quantity_outside']),
+		details="<a href='item/{}' target='_blank'>{}</a>".format(d['id'],d['item_name'])
+		x=[str(details),str(d['category']),str(d['quantity_inside']),str(d['quantity_outside']),
 		str(round(d['unit_price'],3)),str(d['vendor']),str(d['remarks'])]
 		list_data.append(x)
 	ajax_format["data"]=list_data

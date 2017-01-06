@@ -1,229 +1,98 @@
-<!DOCTYPE html>
+{% extends "inventory/base2.html" %}
 
-<html>
+{% block content %}
+<div class="container">
+  <div class="row">
 
-<head>
-  <title>OIMS</title>
-  {% load static %}
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="//code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+    <div class="col-sm-10">
+      <div class="container-fluid">
+        <!--h2>Dynamic Tabs</h2-->
 
-  <script src="http://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap4.min.js"></script>
-  <link rel="stylesheet" href="http://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
-  <!--script type="text/javascript" src="{% static "scripts.js" %}"></script-->
-  
-  <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
-  <style type="text/css">
-   /* make sidebar nav vertical */ 
-   #log {
-
-            position:absolute;
-            right:0;
-          }
-   @media (min-width: 0px) {
-    .sidebar-nav .navbar .navbar-collapse {
-      padding: 0;
-      max-height: none;
-
-
-    }
-    .sidebar-nav .navbar ul {
-      float: none;
-      display: block;
-    }
-    .sidebar-nav .navbar li {
-      float: none;
-      display: block;
-    }
-    .sidebar-nav .navbar li a {
-      padding-top: 10px;
-      padding-bottom: 12px;
-      padding-left: 10px;
-      border-color: black;
-
-    }
-  }
-
-  body .modal-dialog {
-    width: 70%; /* desired relative width */
-    left: 5%; /* (100%-width)/2 */
-    /* place center */
-    right:5%;
-    margin-left:auto;
-    margin-right:auto; 
-  }
-  
-  #modal_error{
-    color:red;
-    text-align: center;
-  }
-
-
-</style>
-      </head>
-<body>
-
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-2">
-        <div class="sidebar-nav">
-          <div class="navbar navbar-default" role="navigation">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
-                <span class="sr-only">Toggle navigation
-                </span>
-                <span class="icon-bar">
-                </span>
-                <span class="icon-bar">
-                </span>
-                <span class="icon-bar">
-                </span>
-              </button>
-              <span class="visible-xs navbar-brand">Sidebar menu
-              </span>
-            </div>
-            <div class="navbar-collapse collapse sidebar-navbar-collapse">
-              <ul class="nav navbar-nav">
-                <li>
-                  <a href="/home/">Home
-                  </a>
-                </li>
-                <li>
-                  <a href="#">My Account
-                  </a>
-                </li>
-                {% if group|stringformat:"s" == "admin" %}
-                <li>
-                  <a href="/users/">User 
-                  </a>
-                </li>
-                {% endif %}
-                {% if group|stringformat:"s" == "temporary-admin" %}
-                <li>
-                  <a href="/users/">User 
-                  </a>
-                </li>
-                {% endif %}
-                <li>
-                  <a href="#">Vendor
-                  </a>
-                </li>
-                
-              </ul>
-            </div>
-            <!--/.nav-collapse -->
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-10">
-        <div class="container-fluid">
-          <!--h2>Dynamic Tabs</h2-->
-          <div id="log">
-            <a tabindex="0"
-            role="button" 
-            data-html="true" data-toggle="popover" 
-            data-trigger="focus" data-placement="bottom" data-content="{{alert_content}}">Alert
-              <span class="badge">{{alert_count}}
-              </span>
-            </a>
-            <a href="/logout/">Logout</a>  
-          </div>
-          <!--h2>Details for {{item.item_name}}</h2-->
-          <h3>Details for {{item.item_name}}</h3>
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <div class="row">
-                  <div class="col-sm-6">
-                    Item Name:{{item.item_name}}
-                  </div>
-
-                  <div class="col-sm-6" align="right">
-                    Unite Price:{{item.unit_price}} Taka
-                  </div>
-                  
-                </div>
-            </div>
-              <div class="panel-body">
-                <div>
-                  Stock Amount:{{item.quantity_inside}}
-                </div>
-                <div>
-                  Delivered Amount:{{item.quantity_outside}}
-                </div>
-                <div>
-                  Minimum Quantity For alert:{{item.minimum_quantity}}
-                </div>
-                <div>
-                  Vendor:{{item.vendor}}
+        <!--h2>Details for {{item.item_name}}</h2-->
+        <h3>Details for {{item.item_name}}</h3>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <div class="row">
+                <div class="col-sm-6">
+                  Item Name:{{item.item_name}}
                 </div>
 
-                <div>
-                  Description:<br>
-                  <div class="well">
-                    {{item.description}}
-                  </div>
+                <div class="col-sm-6" align="right">
+                  Unite Price:{{item.unit_price|floatformat:"3"}} {{static_info.currency}}
                 </div>
 
-                <div class="progress">
-                    <div class="progress-bar progress-bar-success progress-bar-striped" role="  progressbar"
-                    aria-valuenow="{{remaining}}"
-                    aria-valuemin="0" aria-valuemax="100" style="width:{{remaining}}%">
-                    <strong>{{remaining}}% Remaining..</strong>
-                    </div>
-                </div>
-                
               </div>
-            </div>
-            
-              
-            <h3>Delivery Entries</h3>  
-            <div class="table-responsive">
-              <table class="table table-striped" data-toggle="table">
-                <thead>
-                  <tr>
-                    <th data-sortable="true">User</th>
-                    <th data-sortable="true">Requested Quantity</th>
-                    <th data-sortable="true">Approved Quantity</th>
-                    <th data-sortable="true">Date approved</th>
-                    <th data-sortable="true">Details</th>
-                  </tr>
-                </thead>
+          </div>
+            <div class="panel-body">
+              <div>
+                Stock Amount:{{item.quantity_inside}}
+              </div>
+              <div>
+                Delivered Amount:{{item.quantity_outside}}
+              </div>
+              <div>
+                Minimum Quantity For alert:{{item.minimum_quantity}}
+              </div>
+              <div>
+                Vendor:{{item.vendor}}
+              </div>
+              <div>
+                Remarks: {{item.remarks}}
+              </div>
 
-                <tbody>
-                {% for d in details %}
-                  <tr>
-                    <td>{{d.requestee}}</td>
-                    <td>{{d.requested_quantity}}</td>
-                    <td>{{d.approved_quantity}}</td>
-                    <td>{{d.date_of_process}}</td>
-                    <td>{{d.description}}</td>
-                  </tr>
-                {% endfor %}
-                </tbody>
-              </table>
+              <div>
+                Description:<br>
+                <pre>{{item.description}}</pre>
+
+              </div>
+
+              <div class="progress">
+                  <div class="progress-bar progress-bar-success progress-bar-striped" role="  progressbar"
+                  aria-valuenow="{{remaining}}"
+                  aria-valuemin="0" aria-valuemax="100" style="width:{{remaining}}%">
+                  <strong>{{remaining}}% Remaining..</strong>
+                  </div>
+              </div>
+
             </div>
-              
-            
-          
-        </div>
+          </div>
+
+
+          <h3>Delivery Entries</h3>
+          <div class="table-responsive">
+            <table class="table table-striped" data-toggle="table">
+              <thead>
+                <tr>
+                  <th data-sortable="true">User</th>
+                  <th data-sortable="true">Location</th>
+                  <th data-sortable="true">Requested Quantity</th>
+                  <th data-sortable="true">Approved Quantity</th>
+                  <th data-sortable="true">Date approved</th>
+                  <th data-sortable="true">Details</th>
+                </tr>
+              </thead>
+
+              <tbody>
+              {% for d in details %}
+                <tr>
+                  <td>{{d.requestee}}</td>
+                  <td>{{d.location}}</td>
+                  <td>{{d.requested_quantity}}</td>
+                  <td>{{d.approved_quantity}}</td>
+                  <td>{{d.date_of_process}}</td>
+                  <td>{{d.description}}</td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+
+
       </div>
     </div>
-
   </div>
 
-</body>
-<script>
-$(document).ready(function(){
-    $('[data-toggle="popover"]').popover();
-});
-</script>
-</html>
+</div>
+
+{% endblock content %}
