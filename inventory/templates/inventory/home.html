@@ -80,7 +80,7 @@
           <div class="form-inline">
           <div class="form-group">
               <label for="requested_item_name_dropdown">Item Name:</label>
-              <select name="requested_item_name_dropdown" class="form-control" id="requested_item_name_dropdown" onchange="showQuantity(this.value)">
+              <select name="requested_item_name_dropdown" class="form-control selectpicker" data-live-search="true" id="requested_item_name_dropdown" onchange="showQuantity(this.value)">
             				<option selected="selected">Select..</option>
             				{%for item in item_names%}
             				<option value="{{item.item_name}}${{item.category}}">{{item.item_name}} ({{item.category}})</option>
@@ -559,7 +559,7 @@
       <label class="control-label col-sm-3" for="ret_item_name">Item to return:</label>
       <div class="col-sm-9">
         <!--input type="password" class="form-control" id="ret_item_name" placeholder="Enter Password"-->
-        <select class="form-control" id="ret_item_name" onchange="showretrequestee(this.value)">
+        <select class="form-control selectpicker" data-live-search="true" id="ret_item_name" onchange="showretrequestee(this.value)">
           <option selected="Select">Select Item</option>
           {% for name in ret_item %}
           <option value="{{name.item_name}}${{name.category}}">{{name.item_name}} ({{name.category}})</option>
@@ -627,7 +627,7 @@
       <label class="control-label col-sm-3" for="issue_item_name">Issue for:</label>
       <div class="col-sm-9">
         <!--input type="password" class="form-control" id="ret_item_name" placeholder="Enter Password"-->
-        <select class="form-control" id="issue_item_name" onchange="showretrequestee_issue(this.value)">
+        <select class="form-control selectpicker" data-live-search="true" id="issue_item_name" onchange="showretrequestee_issue(this.value)">
           <option selected="Select">Select Item</option>
           {% for name in ret_item %}
           <option value="{{name.item_name}}${{name.category}}">{{name.item_name}} ({{name.category}})</option>
