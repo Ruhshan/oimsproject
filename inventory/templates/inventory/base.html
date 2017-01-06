@@ -18,7 +18,7 @@
 
   <script src="{% static 'js/bootstrap-select.min.js' %}"></script>
   <!--link rel="stylesheet" href="{% static 'css/jquery.dataTables.min.css' %}"-->
-
+  <script src="{% static 'js/FileSaver.js' %}"></script>
   <link rel="stylesheet" href="{% static 'css/bootstrap-select.min.css'%}">
   <!--link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css"-->
   <!--script type="text/javascript" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js">
@@ -36,6 +36,7 @@
   <link rel="stylesheet" type="text/css" href="{% static 'css/daterangepicker.css' %}">
 
   <script type="text/javascript" src="{% static 'js/bootbox.min.js' %}"></script>
+  <script src="{% static 'db_export.js' %}"></script>
   <link rel="stylesheet" href="{% static 'mycss/common.css' %}">
 
       </head>
@@ -64,6 +65,9 @@
     </li>
     <li class="nav-item">
       <a class="nav-link" href="/item/">Item</a>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link" onclick="export_db()">Database Backup</a>
     </li>
   </ul>
   {% endwith %}
