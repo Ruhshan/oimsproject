@@ -74,6 +74,7 @@
           <div class="col-sm-11"style="color:white">
             Hello,{{request.user.first_name}}!
             <a tabindex="0"
+            href="#"
             role="button"
             data-html="true" data-toggle="popover"
             data-trigger="focus" data-placement="bottom" data-content="{{alert_content}}">Alert
@@ -92,7 +93,7 @@
   <br>
 
   <div class="well">
-    <h2>{{static_info.orgname}} Inventory</h2>
+    <h2 align="center">{{static_info.orgname}} Inventory</h2>
     <input type="hidden" id="reload" name="" value="{{static_info.refresh}}">
     <input type="hidden" id="tout" name="" value="{{static_info.timeout}}">
   </div>

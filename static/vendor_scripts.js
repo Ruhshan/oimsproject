@@ -1,3 +1,7 @@
+$(document).ready(function(){
+  $('#vendortable').DataTable();
+});
+
 function getCookie(name) {
           var cookieValue = null;
           if (document.cookie && document.cookie != '') {
@@ -23,17 +27,17 @@ function getCookie(name) {
     	description=document.getElementById('vdescription').value;
 
     	var xhttp = new XMLHttpRequest();
-          
+
         xhttp.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 200) {
-                console.log("vendor table updated");  
-                window.location="/vendor/";    
-              
+                console.log("vendor table updated");
+                window.location="/vendor/";
+
               }
             };
       xhttp.open("POST", "addvendor/", true);
       var csrftoken = getCookie('csrftoken');
-                
+
       xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       xhttp.setRequestHeader("X-CSRFToken", csrftoken);
       query="name="+name;
@@ -42,7 +46,7 @@ function getCookie(name) {
       query+="&contact="+contact;
       query+="&email="+email;
       query+="&description="+description;
-      
+
       xhttp.send(query);
 
     };

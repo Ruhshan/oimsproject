@@ -172,7 +172,7 @@ function getCookie(name) {
                   console.log(val);
                   document.getElementById('qty').innerHTML="Add Item(Existing "+val[0]+"):";
                   document.getElementById('minquant2').value=val[1];
-                  document.getElementById('uprice2').value=val[2];
+                  document.getElementById('uprice2').value=parseFloat(val[2]).toFixed(3);
                   document.getElementById('vendor2').value=val[3];
                   document.getElementById('description2').value=val[4];
 
@@ -199,15 +199,19 @@ function getCookie(name) {
             if (this.readyState == 4 && this.status == 200) {
                   console.log(this.responseText);
                   if(this.responseText=="namechange"){
-                    document.getElementById('existing').innerHTML="<b> successfully updated name changed</b>";
+                    document.getElementById('update').innerHTML="<b> successfully updated name changed</b>";
 
                   }
                   if(this.responseText=="_itemupdate"){
-                    document.getElementById('existing').innerHTML="<b> successfully placed request to update</b>";
+                    document.getElementById('update').innerHTML="<b> successfully placed request to update</b>";
 
                   }
                   if(this.responseText=="namechange_itemupdate"){
-                    document.getElementById('existing').innerHTML="<b> successfully name chaned and placed request to update</b>";
+                    document.getElementById('update').innerHTML="<b> successfully name chaned and placed request to update</b>";
+
+                  }
+                  if(this.responseText==""){
+                    document.getElementById('update').innerHTML="<b>Item updated!</b>";
 
                   }
 
@@ -255,16 +259,19 @@ function getCookie(name) {
             if (this.readyState == 4 && this.status == 200) {
                   console.log(this.responseText);
                   if(this.responseText=="namechange"){
-                    document.getElementById('update').innerHTML="<b> successfully updated name changed</b>";
+                    bootbox.alert("Successfully updated name changed");
 
                   }
                   if(this.responseText=="_itemupdate"){
-                    document.getElementById('update').innerHTML="<b> successfully placed request to update</b>";
+                    bootbox.alert("successfully placed request to update");
 
                   }
                   if(this.responseText=="namechange_itemupdate"){
-                    document.getElementById('update').innerHTML="<b> successfully name chaned and placed request to update</b>";
+                    bootbox.alert("successfully name chaned and placed request to update")
 
+                  }
+                  if(this.responseText==""){
+                    bootbox.alert("Item updated!");
                   }
 
 
