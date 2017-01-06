@@ -13,6 +13,7 @@ class InventoryTable(models.Model):
 	unit_price=models.DecimalField(max_digits=10, decimal_places=5)
 	description=models.TextField()
 	vendor=models.CharField(max_length=100,blank=True,null=True)
+	remarks=models.CharField(max_length=100, default="Default Remarks")
 
 
 
@@ -32,6 +33,7 @@ class InventoryTableTemp(models.Model):
 	creator=models.CharField(max_length=100,blank=True)
 	action=models.CharField(max_length=100,blank=True)
 	vendor=models.CharField(max_length=100,blank=True,null=True)
+	remarks=models.CharField(max_length=100, default="Default Remarks")
 
 
 	def update(self):
@@ -133,7 +135,8 @@ class ItemHistory(models.Model):
 	#added_by = models.ForeignKey(User, on_delete=models.CASCADE)
 	#approved_by = models.CharField(max_length=50,blank=False,null=False)
 	approved_by= models.ForeignKey(User, on_delete=models.CASCADE)
-	modified_name=models.CharField(max_length=50,blank=True,null=True)
+	modification_of=models.CharField(max_length=50,blank=True,null=True)
+	remarks=models.CharField(max_length=100,blank=True, null=True)
 
 	def __str__(self):
 		return str(self.name)

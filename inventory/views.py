@@ -33,7 +33,7 @@ def changename(oldname, category,newname, request):
 	nadded_by=User.objects.get(username=request.user.username).userprofile.nick_name
 	napproved_by=User.objects.get(username=request.user.username)
 	changeentry=ItemHistory(name=newname,action="NAMECHANGE", added_by=nadded_by,
-		approved_by=napproved_by,modified_name=oldname,quantity=0, category=category)
+		approved_by=napproved_by,modification_of=oldname,quantity=0, category=category)
 	changeentry.save()
 
 
@@ -129,7 +129,6 @@ def view_home(request):
 
 	if request.user.is_authenticated():
 		#static_info=get_static_info(request)
-		inv=InventoryTable.objects.all()
 		try:
 			g=request.user.groups.all()[0]
 		except:
@@ -137,7 +136,7 @@ def view_home(request):
 				login with a proper account.")
 		item_names=InventoryTable.objects.values('item_name','category')
 
-		processed=ProcessedRequest.objects.filter(acknowledgement=0)
+		#processed=ProcessedRequest.objects.filter(acknowledgement=0)
 
 		requestee_suggestion=ProcessedRequest.objects.values_list('requestee',flat=True).distinct()
 
@@ -175,8 +174,7 @@ def view_home(request):
 
 		ret_item=ProcessedRequest.objects.filter(action='APPROVED').distinct().values('item_name','category')
 
-		return render(request, 'inventory/home.html',{'inv':inv,'item_names':item_names,'pending':pending,
-			'processed':processed, 'group':g, 'requestee':requestee_suggestion,
+		return render(request, 'inventory/home.html',{'item_names':item_names,'pending':pending, 'group':g, 'requestee':requestee_suggestion,
 			'date_range':date_range, 'history':acknowledged,'passwordreq':passwordreq,
 			'alert_count':alert_count(),'alert_content':alert_content(),
 			'historyitems':historyitems,'itemcreate':itemcreate,'ret_item':ret_item,'locations':get_location_names(),
@@ -519,6 +517,7 @@ def add_item(request):
 		category=request.POST['category']
 		minquant=request.POST['minquant']
 		price=request.POST['price']
+		remarks=request.POST['remarks']
 		ndescription=request.POST['description']
 		nvendor=request.POST['vendor']
 
@@ -528,7 +527,7 @@ def add_item(request):
 
 			i=InventoryTableTemp(item_name=name,quantity_inside=quantity,category=category,
 				quantity_outside=0,minimum_quantity=minquant,unit_price=price,
-				description=ndescription,vendor=nvendor,action='CREATED',creator=request.user.username)
+				description=ndescription,vendor=nvendor,action='CREATED',creator=request.user.username,remarks=remarks)
 			i.save()
 			# h=ItemHistory(name=name,action="create", quantity=quantity,added_by=request.user.username, approved_by="admin")
 			# h.save()
@@ -542,7 +541,7 @@ def getinfo(request):
 	print name, category
 	blob=InventoryTable.objects.get(item_name=name,category=category)
 	print blob
-	r="{}-{}-{}-{}-{}".format(blob.quantity_inside,blob.minimum_quantity, blob.unit_price,blob.vendor,blob.description)
+	r="{}-{}-{}-{}-{}-{}".format(blob.quantity_inside,blob.minimum_quantity, blob.unit_price,blob.vendor,blob.remarks,blob.description)
 	return HttpResponse(r)
 
 
@@ -557,6 +556,7 @@ def updateitem(request):
 		desc=request.POST['description']
 		vendor=request.POST['vendor']
 		newname=request.POST['newname']
+		remarks=request.POST['remarks']
 
 		ret=""
 		if newname:
@@ -577,6 +577,8 @@ def updateitem(request):
 			m.description=desc
 		if vendor:
 			m.vendor=vendor
+		if remarks:
+			m.remarks=remarks
 		if quant:
 			if int(quant)>0:
 				action="ADD"
@@ -625,9 +627,9 @@ def itemadminaction(request):
 				napproved_by=User.objects.get(username=request.user.username)
 				i=InventoryTable(item_name=t.item_name,quantity_inside=t.quantity_inside,
 				quantity_outside=t.quantity_outside,minimum_quantity=t.minimum_quantity,unit_price=t.unit_price,
-				description=t.description,vendor=t.vendor, category=t.category)
+				description=t.description,vendor=t.vendor, category=t.category,remarks=t.remarks)
 				h=ItemHistory(name=i.item_name,action="CREATED", quantity=i.quantity_inside,
-					added_by=nadded_by, approved_by=napproved_by,category=t.category)
+					added_by=nadded_by, approved_by=napproved_by,category=t.category,remarks=t.remarks)
 				h.save()
 
 				i.save()

@@ -76,6 +76,7 @@ function getCookie(name) {
           quantity=document.getElementById('iquantity').value;
           minquant=document.getElementById('minquant').value;
           price=document.getElementById('uprice').value;
+          remarks=document.getElementById('remarks').value;
           description=document.getElementById('description').value;
           vendor=document.getElementById('vendor').value;
 
@@ -113,6 +114,7 @@ function getCookie(name) {
           query+="&price="+price.trim();
           query+="&description="+description.trim();
           query+="&vendor="+vendor.trim();
+          query+="&remarks="+remarks.trim();
 
           if(check_num(quantity)==true && check_num(minquant)==true && check_num(price)==true){
             console.log(encodeURI(query));
@@ -174,7 +176,8 @@ function getCookie(name) {
                   document.getElementById('minquant2').value=val[1];
                   document.getElementById('uprice2').value=parseFloat(val[2]).toFixed(3);
                   document.getElementById('vendor2').value=val[3];
-                  document.getElementById('description2').value=val[4];
+                  document.getElementById('remarks2').value=val[4];
+                  document.getElementById('description2').value=val[5];
 
               }
           };
@@ -251,6 +254,7 @@ function getCookie(name) {
         minquant=document.getElementById('minquant2').value;
         price=document.getElementById('uprice2').value;
         description=document.getElementById('description2').value;
+        remarks=document.getElementById('remarks2').value;
         vendor=document.getElementById('vendor2').value;
 
         var xhttp = new XMLHttpRequest();
@@ -290,6 +294,7 @@ function getCookie(name) {
           query+="&description="+description.trim();
           query+="&vendor="+vendor.trim();
           query+="&newname="+newname.trim();
+          query+="&remarks="+remarks.trim();
 
           if(check_num(quant)==true && check_num(minquant)==true && check_num(price)==true){
             xhttp.send(query);
