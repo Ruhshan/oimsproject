@@ -15,6 +15,8 @@ function getCookie(name) {
       };
 
     function createuser(){
+      //reseting error
+      document.getElementById("error").innerHTML="";
       var p1=document.getElementById('adminpassword1').value.trim();
       var p2=document.getElementById('adminpassword2').value.trim();
 
@@ -24,25 +26,32 @@ function getCookie(name) {
           if (this.readyState == 4 && this.status == 200) {
                 if(this.responseText=="admin_exceeded"){
                   document.getElementById("error").innerHTML="Aleready two admins are active!";
+                  $('#newuserModal').effect('shake');
                   console.log("exceed");
                   }
                 else if(this.responseText=="password_error"){
                   document.getElementById("error").innerHTML="You entered wrong password";
-                }      
+                  $('#newuserModal').effect('shake');
+                }
+                else if(this.responseText=="user_exists"){
+                  document.getElementById("error").innerHTML=("User with this email already exists!");
+                  $('#newuserModal').effect('shake');
+                }
                 else{
+                  $('#newuserModal').modal('hide');
                   location.reload();
-                }                      
-              
-              
-                       
+                }
+
+
+
               }
           };
           xhttp.open("POST", "adduser/", true);
           var csrftoken = getCookie('csrftoken');
-                    
+
           xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
           xhttp.setRequestHeader("X-CSRFToken", csrftoken);
-       //ajax initialization   
+       //ajax initialization
 
       type=document.getElementById('usertype').value;
       if(type=="User Type"){
@@ -65,7 +74,7 @@ function getCookie(name) {
               query+="&adminpassword2="+p2;
               query+="&nick_name="+nick_name;
               xhttp.send(encodeURI(query));
-            $('#newuserModal').modal('hide'); 
+            $('#newuserModal').modal('hide');
             }
             else{
               $('#newuserModal').effect('shake');
@@ -81,9 +90,9 @@ function getCookie(name) {
               query+="&adminpassword1="+p1;
               query+="&adminpassword2="+p2;
               query+="&nick_name="+nick_name;
-              
+
               xhttp.send(encodeURI(query));
-            $('#newuserModal').modal('hide'); 
+
             }
             else{
               $('#newuserModal').effect('shake');
@@ -92,13 +101,13 @@ function getCookie(name) {
 
           }
 
-          console.log(type, email,password); 
+          console.log(type, email,password);
 
-              
-          
+
+
 
       }
-      
+
 
     };
 
@@ -113,7 +122,7 @@ function changestatus(){
       var name=document.getElementById('id-carrier').value;
       p1=document.getElementById('cpassword').value.trim();
       p2=document.getElementById('cpassword2').value.trim();
-      
+
       var status;
       if(document.getElementById(name).checked){
         status="active";
@@ -127,13 +136,13 @@ function changestatus(){
             console.log(this.responseText);
             if(this.responseText=="admin_exceed"){
               //bootbox.alert("Aleready Two heads are active!")
-              
+
               $('#'+name).toggle(
-                  function () { 
-                      $('.check').attr('Checked','Checked'); 
+                  function () {
+                      $('.check').attr('Checked','Checked');
                   },
-                  function () { 
-                      $('.check').removeAttr('Checked'); 
+                  function () {
+                      $('.check').removeAttr('Checked');
                   }
               );
             }
@@ -150,15 +159,15 @@ function changestatus(){
               }
               /*$('input[id^="toggle"]').each(function(){
               $('#'+this.id).bootstrapToggle();
-              
+
             });*/
             }
-                                  
+
           }
         }
       xhttp.open("POST", "changestatus/", true);
       var csrftoken = getCookie('csrftoken');
-                
+
       xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       xhttp.setRequestHeader("X-CSRFToken", csrftoken);
       query="id="+name;
@@ -166,7 +175,7 @@ function changestatus(){
       query+="&p1="+p1;
       query+="&p2="+p2;
       xhttp.send(encodeURI(query));
-      
+
     };
 
 function new_user_close(){
@@ -240,7 +249,7 @@ function showinput(type){
     $("#hpwd2").replaceWith('<div id="hpwd2"></div>');
     $('#adminpassword').replaceWith('<div id="adminpassword"></div>');
   }
-  
+
 }
 
 
@@ -249,13 +258,13 @@ function showaction(action, is_active, email,id){
   var status_checked=`<div class="form-group" id='actiondiv`+id+`'>
                 <label class="control-label col-sm-2" for="toggle`+id+`">Status:</label>
                 <div class="col-sm-10">
-                  <input type="checkbox" checked id="toggle`+id+`" data-on="Active" data-off="Inactive"> 
+                  <input type="checkbox" checked id="toggle`+id+`" data-on="Active" data-off="Inactive">
                 </div>
               </div>`;
   var status_unchecked=`<div class="form-group" id='actiondiv`+id+`'>
                 <label class="control-label col-sm-2" for="toggle`+id+`">Status:</label>
                 <div class="col-sm-10">
-                  <input type="checkbox" id="toggle`+id+`" data-on="Active" data-off="Inactive"> 
+                  <input type="checkbox" id="toggle`+id+`" data-on="Active" data-off="Inactive">
                 </div>
               </div>`;
 
@@ -294,7 +303,7 @@ function showaction(action, is_active, email,id){
     }
     else{
      $("#actiondiv"+id).replaceWith(status_unchecked);
-     $("#passwordinput"+id).replaceWith(passwordinput); 
+     $("#passwordinput"+id).replaceWith(passwordinput);
     }
     $('#toggle'+id).bootstrapToggle();
   }
@@ -311,12 +320,12 @@ function showaction(action, is_active, email,id){
     $("#actiondiv"+id).replaceWith('<div id="actiondiv'+id+'"></div>');
     $("#passwordinput"+id).replaceWith('<div id="passwordinput'+id+'"></div>');
   }
-  
+
 }
 
 function moduser(id){
   var xhttp = new XMLHttpRequest();
-  
+
   xhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
       if(this.responseText=="okay"){
@@ -325,7 +334,7 @@ function moduser(id){
       }
       else if(this.responseText=="password_error"){
        $('#moduserModal'+id).effect('shake');
-       console.log("password error") 
+       console.log("password error")
       }
       else if(this.responseText=="to_delete_not_matched"){
         console.log("to_delete_not_matched");
@@ -338,7 +347,7 @@ function moduser(id){
 
       }
       else{
-       $('#moduserModal'+id).effect('shake'); 
+       $('#moduserModal'+id).effect('shake');
       }
 
     }
@@ -346,7 +355,7 @@ function moduser(id){
 
   xhttp.open("POST", "modifyuser/", true);
   var csrftoken = getCookie('csrftoken');
-            
+
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.setRequestHeader("X-CSRFToken", csrftoken);
   //var status=document.getElementById("toggle"+id).checked;

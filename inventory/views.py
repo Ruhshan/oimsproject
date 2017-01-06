@@ -432,8 +432,11 @@ def adduser(request):
 				return HttpResponse("admin_exceeded")
 
 		#createuser
-		newuser= User.objects.create_user(username=nuseremail, email=nuseremail, password=npassword,is_staff=True)
-		newuser.save()
+		try:
+			newuser= User.objects.create_user(username=nuseremail, email=nuseremail, password=npassword,is_staff=True)
+			newuser.save()
+		except:
+			return HttpResponse("user_exists")
 
 		#assigning group and seccondary password
 		if str(nusertype)=='admin':
