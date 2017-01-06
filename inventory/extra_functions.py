@@ -110,6 +110,7 @@ def today(request):
 	return '/'.join((d[1],d[2],d[0]))
 
 def history_ajax(request, s,e):
+	print s,e
 	data=ProcessedRequest.objects.filter(date_of_process__range=[s,e]).values('date_of_process',
 		'item_name','category','location','delivered_price','approved_quantity','action','requestee',
 		'processed_by')

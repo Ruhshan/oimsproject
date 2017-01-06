@@ -69,7 +69,7 @@ function changepassword(){
           xhttp.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 200) {
                 if(this.responseText=="wrong password"){
-                  console.log("wrong password");
+                  bootbox.alert("wrong password");
                 }
                 if(this.responseText=="okay"){
                   window.location="/login/";
