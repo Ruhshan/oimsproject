@@ -65,6 +65,39 @@
     //historytable end
 
 
+    //historyitemtable start
+    $('#historyitemtable thead th').each( function () {
+    var title = $(this).text();
+    {
+
+      $(this).html( '<input type="text" placeholder="'+title+'" size="8"/>' );
+    }
+
+} );
+    var range_item=document.getElementById('daterange_item').value;
+    console.log(encodeURI('/home/itemhistorybydate/?range='+range_item));
+    var hitable=$('#historyitemtable').DataTable({"ajax": encodeURI('/home/itemhistorybydate/?range='+range_item)});
+
+
+
+// Apply the search
+hitable.columns().every( function () {
+    var that = this;
+
+    $( 'input', this.header() ).on( 'keyup change', function () {
+        if ( that.search() !== this.value ) {
+            that
+                .search( this.value )
+                .draw();
+        }
+    } );
+    } );
+
+    //historyitemtable end
+
+
+
+
 
 
 
@@ -242,6 +275,7 @@
 
       $(function() {
     	$('input[name="daterange"]').daterangepicker();
+      $('input[name="daterange_item"]').daterangepicker();
 		});
 
       function showhistory(){
@@ -251,8 +285,18 @@
         $('#historytable').DataTable().ajax.url(encodeURI('/home/historybydate/?range='+range)).load();
       }
 
+      function showitemhistory(){
+        range=document.getElementById("daterange_item").value;
+        console.log(encodeURI('/home/itemhistorybydate/?range='+range));
+        $('#historyitemtable').DataTable().ajax.url(encodeURI('/home/itemhistorybydate/?range='+range)).load();
+      }
+
       function resethistory(range){
         document.getElementById("daterange").value=range;
+      }
+
+      function resetitemhistory(range){
+        document.getElementById("daterange_item").value=range;
       }
 
 function passwordchangeok(uname,count){

@@ -178,7 +178,7 @@ def view_home(request):
 			'date_range':date_range, 'history':acknowledged,'passwordreq':passwordreq,
 			'alert_count':alert_count(),'alert_content':alert_content(),
 			'historyitems':historyitems,'itemcreate':itemcreate,'ret_item':ret_item,'locations':get_location_names(),
-			'static_info':get_static_info(request)})
+			'static_info':get_static_info(request),'date_range_h':item_history_daterange(request)})
 	else:
 		return HttpResponseRedirect("/login/")
 
@@ -843,3 +843,17 @@ def credit(request):
 def inventory_ajax(request):
 	execute=inventory_to_ajax(request)
 	return HttpResponse(execute)
+def itemhistorybydate(request):
+	if request.method=="GET":
+		s,e=str(request.GET["range"]).split('-')
+
+		s=s.split('/')
+		e=e.split('/')
+
+		s='-'.join([s[2].replace(' ',''),s[0],s[1]])
+		e='-'.join([e[2],e[0].replace(' ',''),e[1]])
+
+		execute=item_history_ajax(request, s,e)
+
+
+		return HttpResponse(execute)

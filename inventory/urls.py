@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^home/generateoptions/$',views.generateoptions,name='generateoptions'),
     url(r'^home/acknowledge/$',views.acknowledge,name='acknowledge'),
     url(r'^home/historybydate/$',views.historybydate,name='historybydate'),
+    url(r'^home/itemhistorybydate/$',views.itemhistorybydate,name='itemhistorybydate'),
     url(r'^home/passwordchange/$',views.passwordchange,name='passwordchange'),
     url(r'^home/itemadminaction/$',views.itemadminaction,name='itemadminaction'),
     url(r'^login/isadmin/$',views.isadmin,name='isadmin'),

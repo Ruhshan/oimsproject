@@ -1,4 +1,4 @@
-from .models import ProcessedRequest, InventoryTable, Issues, UserProfile
+from .models import ProcessedRequest, InventoryTable, Issues, UserProfile, ItemHistory
 import uuid
 from django.contrib.auth.models import User
 from django.utils.dateparse import parse_date
@@ -136,6 +136,38 @@ def inventory_to_ajax(request):
 		details="<a href='item/{}' target='_blank'>{}</a>".format(d['id'],d['item_name'])
 		x=[str(details),str(d['category']),str(d['quantity_inside']),str(d['quantity_outside']),
 		str(round(d['unit_price'],3)),str(d['vendor']),str(d['remarks'])]
+		list_data.append(x)
+	ajax_format["data"]=list_data
+	return json.dumps(ajax_format,indent=4, separators=(',', ': '))
+
+def item_history_daterange(request):
+	history=ItemHistory.objects.all()
+	l=history.count()
+	try:
+		d1=str(history[0].date_added).split('-')
+		d2=str(history[l-1].date_added).split('-')
+		s=min(d1,d2)
+		e=max(d1,d2)
+		#print d1,d2
+		date_range={'start':'/'.join([s[1],s[2],s[0]]),
+					 'end':'/'.join([e[1],e[2],e[0]])}
+		print date_range
+	except:
+		date_range={'start':today(request),'end':today(request)}
+	return date_range
+def item_history_ajax(request, s,e):
+	print s,e
+	data = ItemHistory.objects.filter(date_added__range=[s,e]).values('date_added','name','category','quantity',
+	'action','modification_of','remarks','added_by','approved_by')
+
+	list_data=[]
+	ajax_format={}
+	for d in data:
+		item_id=InventoryTable.objects.get(item_name=d['name']).id
+		details="<a href='item/{}' target='_blank'>{}</a>".format(item_id,d['name'])
+		x=[str(d['date_added']),str(details),str(d['category']),str(d['quantity']),
+		str(d['action']),str(d['modification_of']),str(d['remarks']),str(d['added_by']),
+		str(get_nick(d['approved_by']))]
 		list_data.append(x)
 	ajax_format["data"]=list_data
 	return json.dumps(ajax_format,indent=4, separators=(',', ': '))
