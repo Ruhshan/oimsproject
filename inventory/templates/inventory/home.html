@@ -27,6 +27,7 @@
                 {
                     extend: 'colvis',
                     text:'Select Columns',
+                    class:'.btn'
                 },
                 {
                 extend: 'csv',
@@ -635,7 +636,7 @@
 {% endblock returnitem %}
 
 {% block issues %}
-<button class="btn btn-seccondary" data-toggle="collapse" data-target="#issue_form">New Issue</button>
+<button class="btn btn-default" data-toggle="collapse" data-target="#issue_form">New Issue</button>
 <br>
 <div class="form-horizontal collapse" id="issue_form">
     <div class="form-group">
