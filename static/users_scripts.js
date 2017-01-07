@@ -34,11 +34,13 @@ function getCookie(name) {
                   document.getElementById("error").innerHTML="You entered wrong password";
                   $('#newuserModal').modal('show');
                   $('#newuserModal').effect('shake');
+                  console.log("wrong password");
                 }
                 else if(this.responseText=="user_exists"){
                   document.getElementById("error").innerHTML=("User with this email already exists!");
                   $('#newuserModal').modal('show');
                   $('#newuserModal').effect('shake');
+                  console.log("user_exists");
                 }
                 else{
                   //$('#newuserModal').modal('hide');
