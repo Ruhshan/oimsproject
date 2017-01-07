@@ -50,6 +50,7 @@
             filename:'History_requests',
             extension:'.csv',
             header:false,
+            footer:true,
             fieldSeparator:';',
             exportOptions: {
                columns: ':visible'
@@ -61,7 +62,16 @@
            },
         }
       ],
-          "ajax": encodeURI('/home/historybydate/?range='+range)
+          "ajax": encodeURI('/home/historybydate/?range='+range),
+          'footerCallback': function ( row, data, start, end, display ) {
+              var api = this.api(), data;
+              var total = api.column(5).data();
+              var pagetotal=api.column(5,{ page: 'current'}).data();
+
+              $( api.column(5).footer() ).html(
+                colsum(pagetotal)+' of:'+colsum(total)
+              );
+            }
           } );
 
 
@@ -725,4 +735,19 @@ function get_visible_header(dtable,colnames){
     }
   }
   return h+"\n";
+}
+
+
+function colsum(data){
+  var ret=0;
+  try{
+      for(var i=0;i<data.length;i++){
+        ret+=parseFloat(data[i]);
+      }
+  }
+  catch(err){
+    console.log(err.message);
+  }
+  return ret;
+
 }

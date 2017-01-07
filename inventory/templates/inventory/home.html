@@ -22,7 +22,7 @@
           var inventory_table=$('#inventorytable').DataTable(
             {
 
-              dom: '<"top"Bf>rt<"bottom"lp><"clear">',
+              dom: '<"top"Bf>rt<"bottom"lip><"clear">',
               buttons: [
                 {
                     extend: 'colvis',
@@ -46,7 +46,10 @@
             }
           ],
           "ajax":'/home/inventoryajax/',
+          'footerCallback': function ( row, data, start, end, display ) {
+              //colsum(data,2);
             }
+          }
           );
 
           $('#inventorytable thead th').each( function () {
@@ -396,6 +399,19 @@
       <th>Processed by</th>
     </tr>
   </thead>
+  <tfoot>
+      <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th>Total:</th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+  </tfoot>
 
 
 </table>
