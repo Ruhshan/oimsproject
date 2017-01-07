@@ -426,6 +426,8 @@ function itemactionok(req_id){
   toclose="#createitem_req_panel"+req_id;
   console.log(toclose);
   $(toclose).hide("drop", { direction: "up" }, "slow");
+  reload_inventory();
+  reload_item_history();
 
 }
 
@@ -450,7 +452,8 @@ function itemactioncancel(req_id){
   toclose="#createitem_req_panel"+req_id;
   console.log(toclose);
   $(toclose).hide("drop", { direction: "up" }, "slow");
-
+  reload_inventory();
+  reload_item_history();
 }
 
 function itemactionadd(req_id){
@@ -474,7 +477,8 @@ function itemactionadd(req_id){
   toclose="#createitem_req_panel"+req_id;
   console.log(toclose);
   $(toclose).hide("drop", { direction: "up" }, "slow");
-
+  reload_inventory();
+  reload_item_history();
 }
 
 function itemactionremove(req_id){
@@ -498,7 +502,8 @@ function itemactionremove(req_id){
   toclose="#createitem_req_panel"+req_id;
   console.log(toclose);
   $(toclose).hide("drop", { direction: "up" }, "slow");
-
+  reload_inventory();
+  reload_item_history();
 }
 
 function popovercontent(id,rep){
@@ -612,7 +617,9 @@ function returnbutton(){
         if (this.readyState == 4 && this.status == 200) {
           //document.getElementById("ret_location").innerHTML='<option>Select Location</option>'+this.responseText;
           console.log(this.responseText+"R");
-          location.reload();
+          bootbox.alert("Item Returned, tables updated");
+          reload_inventory();
+          reload_history();
         }
     };
     xhttp2.open("GET","retitem/?item="+itm[0]+"&category="+itm[1]+"&person="+person+'&loc='+loc+'&amnt='+amnt,true);
@@ -750,4 +757,18 @@ function colsum(data){
   }
   return ret;
 
+}
+
+function reload_inventory(){
+  $('#inventorytable').DataTable().ajax.reload();
+}
+
+function reload_item_history(){
+  range=document.getElementById('daterange_item').value;
+  $('#historyitemtable').DataTable().ajax.url(encodeURI('/home/itemhistorybydate/?range='+range)).load();
+}
+
+function reload_history(){
+  range=document.getElementById("daterange").value;
+  $('#historytable').DataTable().ajax.url(encodeURI('/home/historybydate/?range='+range)).load();
 }
