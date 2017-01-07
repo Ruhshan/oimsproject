@@ -26,19 +26,22 @@ function getCookie(name) {
           if (this.readyState == 4 && this.status == 200) {
                 if(this.responseText=="admin_exceeded"){
                   document.getElementById("error").innerHTML="Aleready two admins are active!";
+                  $('#newuserModal').modal('show');
                   $('#newuserModal').effect('shake');
                   console.log("exceed");
                   }
                 else if(this.responseText=="password_error"){
                   document.getElementById("error").innerHTML="You entered wrong password";
+                  $('#newuserModal').modal('show');
                   $('#newuserModal').effect('shake');
                 }
                 else if(this.responseText=="user_exists"){
                   document.getElementById("error").innerHTML=("User with this email already exists!");
+                  $('#newuserModal').modal('show');
                   $('#newuserModal').effect('shake');
                 }
                 else{
-                  $('#newuserModal').modal('hide');
+                  //$('#newuserModal').modal('hide');
                   location.reload();
                 }
 
@@ -74,7 +77,7 @@ function getCookie(name) {
               query+="&adminpassword2="+p2;
               query+="&nick_name="+nick_name;
               xhttp.send(encodeURI(query));
-            $('#newuserModal').modal('hide');
+            //$('#newuserModal').modal('hide');
             }
             else{
               $('#newuserModal').effect('shake');
