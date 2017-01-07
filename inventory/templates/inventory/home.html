@@ -4,41 +4,58 @@
     <table id="inventorytable" class="table table-striped table-bordered" cellspacing="0", width="100%">
 	    <thead>
 	      <tr>
-	        <th>Item Name
-	        </th>
-          <th>Category
-          </th>
-	        <th >Stock
-	        </th>
-	        <th>Delivered
-	        </th>
-	        <th>Unit Price
-	        </th>
-	        <th>Vendor
-	        </th>
-          <th>Remarks
-	        </th>
+	        <th>Item Name</th>
+          <th>Category</th>
+	        <th>Stock</th>
+	        <th>Delivered</th>
+	        <th>Unit Price</th>
+	        <th>Vendor</th>
+          <th>Remarks</th>
 	      </tr>
 	    </thead>
 
     </table>
 	<script type="text/javascript">
 	    $(document).ready(function(){
-        $('#inventorytable thead th').each( function () {
-        var title = $(this).text();
-        {
-          $(this).html( '<input type="text" placeholder="'+title+'" size="8"/>' );
-        }
 
-    } );
 
           var inventory_table=$('#inventorytable').DataTable(
             {
-              "ajax":'/home/inventoryajax/'
+
+              dom: '<"top"Bf>rt<"bottom"lp><"clear">',
+              buttons: [
+                {
+                    extend: 'colvis',
+                    text:'Select Columns',
+                },
+                {
+                extend: 'csv',
+                text: 'Export to CSV',
+                filename:'Inventory_table',
+                extension:'.csv',
+                header:false,
+                fieldSeparator:';',
+                exportOptions: {
+                   columns: ':visible'
+               },
+               customize: function (csv) {
+                 var colnames='Item Name;Category;Stock;Deliverd;Unit Price;Vendor;Remarks'.split(';');
+                 var vh=get_visible_header(inventory_table,colnames);
+                 return vh + csv;
+              },
+            }
+          ],
+          "ajax":'/home/inventoryajax/',
             }
           );
 
+          $('#inventorytable thead th').each( function () {
+          var title = $(this).text();
+          {
+            $(this).html( '<input type="text" placeholder="'+title+'" size="8"/>' );
+          }
 
+      } );
     // App/*/*ly the search
     inventory_table.columns().every( function () {
         var that = this;

@@ -668,3 +668,13 @@ function issuebutton(){
     xhttp2.send();
 
 }
+
+function get_visible_header(dtable,colnames){
+  var h="";
+  for(var i=0;i<colnames.length;i++){
+    if(dtable.column(i).visible()==true){
+      h+=colnames[i]+";";
+    }
+  }
+  return h+"\n";
+}
