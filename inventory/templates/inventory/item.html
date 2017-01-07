@@ -23,6 +23,7 @@
 			<div class="modal-body">
 				<form class="form-horizontal">
 				  <div class="form-group">
+							<input type="hidden" class="form-control" id="update-flag" value="">
 				      <label class="control-label col-sm-2" for="vname">Organization:</label>
 				      <div class="col-sm-10">
 				        <input type="text" class="form-control" id="vname" placeholder="Enter Name">
@@ -206,14 +207,14 @@
 		<div class="form-group">
 				<label for="vendor2">Vendor Name:</label>
 
-				<datalist id="vendor_list">
+				<datalist id="vendor_list2">
 					<option value="">
 					{% for name in vendor_list %}
 					<option value="{{name}}">
 				 {% endfor %}
 				</datalist>
 
-				<input type="text" class="form-control" name="vendor2" id="vendor2" list="vendor_list" maxlength="50">
+				<input type="text" class="form-control" name="vendor2" id="vendor2" list="vendor_list2" maxlength="50">
 
 		</div>
 		<button class="btn btn-primary" onclick="updateitem2()">Update</button>

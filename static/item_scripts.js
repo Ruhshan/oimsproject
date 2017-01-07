@@ -44,7 +44,13 @@ function getCookie(name) {
       query+="&description="+description.trim();
 
       xhttp.send(query);
+      if(document.getElementById('update-flag').value=='on'){
+        send2();
+      }
+      else{
       send();
+      }
+
 
     }
     function is_alphabet(c){
@@ -194,7 +200,11 @@ function getCookie(name) {
         minquant=document.getElementById('minquant2').value;
         price=document.getElementById('uprice2').value;
         description=document.getElementById('description2').value;
-        vendor=document.getElementById('vendor2').value;
+        //vendor=document.getElementById('vendor2').value;
+
+        vendor=document.getElementById("vendor2").value;
+
+
 
         var xhttp = new XMLHttpRequest();
 
@@ -246,7 +256,7 @@ function getCookie(name) {
 
       };
 
-      function updateitem2(){
+      function send2(){
         name=document.getElementById('iname3').value.split('$')[0];
         category=document.getElementById('iname3').value.split('$')[1];
         newname=document.getElementById('newname').value;
@@ -257,52 +267,87 @@ function getCookie(name) {
         remarks=document.getElementById('remarks2').value;
         vendor=document.getElementById('vendor2').value;
 
-        var xhttp = new XMLHttpRequest();
 
-          xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                  console.log(this.responseText);
-                  if(this.responseText=="namechange"){
-                    bootbox.alert("Successfully updated name changed");
+
+
+          var xhttp = new XMLHttpRequest();
+
+            xhttp.onreadystatechange = function() {
+              if (this.readyState == 4 && this.status == 200) {
+                    console.log(this.responseText);
+                    if(this.responseText=="namechange"){
+                      bootbox.alert("Successfully updated name changed");
+
+                    }
+                    if(this.responseText=="_itemupdate"){
+                      bootbox.alert("successfully placed request to update");
+
+                    }
+                    if(this.responseText=="namechange_itemupdate"){
+                      bootbox.alert("successfully name chaned and placed request to update")
+
+                    }
+                    if(this.responseText==""){
+                      bootbox.alert("Item updated!");
+                    }
+
 
                   }
-                  if(this.responseText=="_itemupdate"){
-                    bootbox.alert("successfully placed request to update");
+                };
+            xhttp.open("POST", "updateitem/", true);
+            var csrftoken = getCookie('csrftoken');
 
-                  }
-                  if(this.responseText=="namechange_itemupdate"){
-                    bootbox.alert("successfully name chaned and placed request to update")
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.setRequestHeader("X-CSRFToken", csrftoken);
+            query="name="+name.trim();
+            query+="&category="+category.trim();
+            query+="&quantity="+quant.trim();
+            query+="&minquant="+minquant.trim();
+            query+="&price="+price.trim();
+            query+="&description="+description.trim();
+            query+="&vendor="+vendor.trim();
+            query+="&newname="+newname.trim();
+            query+="&remarks="+remarks.trim();
 
-                  }
-                  if(this.responseText==""){
-                    bootbox.alert("Item updated!");
-                  }
+            if(check_num(quant)==true && check_num(minquant)==true && check_num(price)==true){
+              xhttp.send(query);
+            }
+            else{
+              bootbox.alert("Invalid Data: Only numerics and dot is allowed");
+            }
 
 
-                }
-              };
-          xhttp.open("POST", "updateitem/", true);
-          var csrftoken = getCookie('csrftoken');
+      };
 
-          xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-          xhttp.setRequestHeader("X-CSRFToken", csrftoken);
-          query="name="+name.trim();
-          query+="&category="+category.trim();
-          query+="&quantity="+quant.trim();
-          query+="&minquant="+minquant.trim();
-          query+="&price="+price.trim();
-          query+="&description="+description.trim();
-          query+="&vendor="+vendor.trim();
-          query+="&newname="+newname.trim();
-          query+="&remarks="+remarks.trim();
+      function updateitem2(){
 
-          if(check_num(quant)==true && check_num(minquant)==true && check_num(price)==true){
-            xhttp.send(query);
+        vendor=document.getElementById('vendor2').value;
+
+        var array = $('#vendor_list option').map(function () {
+              return this.value;
+              }).get();
+
+
+        if(array.indexOf(vendor)==-1){
+          console.log('add vendor first');
+          document.getElementById('vname').value=vendor;
+          document.getElementById('update-flag').value="on";
+          $('#newvendorModal').modal('show');
+
+        }
+
+        else{
+          if(vendor.length==0){
+            bootbox.confirm("Proceed with empty vendor?", function(result){
+            if(result==true){
+              send2();
+              }
+            });
           }
           else{
-            bootbox.alert("Invalid Data: Only numerics and dot is allowed");
+            send2();
           }
-
+        }
 
 
       };
