@@ -135,7 +135,7 @@ LOGIN_REDIRECT_URL = 'home'
 # SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 # SESSION_EXPIRE_AT_BROWSER_CLOSE= True
 # SESSION_COOKIE_AGE = TIME    #change expired session
-# SESSION_IDLE_TIMEOUT = TIME 
+# SESSION_IDLE_TIMEOUT = TIME
 
 #for autologout
 #Handle session is not Json Serializable
@@ -149,6 +149,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     '/var/www/static/',
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, '')
 #STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # SESSION_EXPIRE_AT_BROWSER_CLOSE=True
 # SESSION_SECURITY_WARN_AFTER=60
