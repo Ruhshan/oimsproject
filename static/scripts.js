@@ -60,8 +60,32 @@
               var vh=get_visible_header(htable,colnames);
               return vh + csv;
            },
+        },
+        {
+          extend:'print',
+          title:document.title+" transactions",
+          footer:true,
+          customize: function ( win ) {
+            var colnames='Date;Item Name;Category;Location;Price;Quantity;Action;Requestee;Processed by'.split(';');
+            var vh=get_header_for_print(htable,colnames);
+            var removed=0;
+            for(var i=0;i<colnames.length;i++){
+              if(htable.column(i).visible()==false){
+                  var toremove=parseInt(i)-parseInt(removed);
+                  $(win.document.body).find("table").find("tr").find("td:eq("+toremove+")").remove();
+                  removed+=parseInt(1);
+              }
+            }
+
+
+            $(win.document.body).find("table").find("thead").html(vh);
+            $(win.document.body).find( 'table' ).addClass('compact');
+
+            //return win;
+          }
         }
       ],
+
           "ajax": encodeURI('/home/historybydate/?range='+range),
           'footerCallback': function ( row, data, start, end, display ) {
               var api = this.api(), data;
@@ -120,10 +144,32 @@
            columns: ':visible'
        },
         customize: function (csv) {
-          var colnames='Date;Item Name;Category;Quantity;Action;Modification of;Remarsk;Added by;Approved by'.split(';');
+          var colnames='Date;Item Name;Category;Quantity;Action;Modification of;Remarks;Added by;Approved by'.split(';');
           var vh=get_visible_header(htable,colnames);
           return vh + csv;
        },
+    },
+    {
+      extend:'print',
+      title:document.title+" histories",
+      customize: function ( win ) {
+        var colnames='Date;Item Name;Category;Quantity;Action;Modification of;Remarks;Added by;Approved by'.split(';');
+        var vh=get_header_for_print(hitable,colnames);
+        var removed=0;
+        for(var i=0;i<colnames.length;i++){
+          if(hitable.column(i).visible()==false){
+              var toremove=parseInt(i)-parseInt(removed);
+              $(win.document.body).find("table").find("tr").find("td:eq("+toremove+")").remove();
+              removed+=parseInt(1);
+          }
+        }
+
+
+        $(win.document.body).find("table").find("thead").html(vh);
+        $(win.document.body).find( 'table' ).addClass('compact');
+
+        //return win;
+      }
     }
     ],
 
@@ -744,6 +790,15 @@ function get_visible_header(dtable,colnames){
   return h+"\n";
 }
 
+function get_header_for_print(dtable,colnames){
+  var h="";
+  for(var i=0;i<colnames.length;i++){
+    if(dtable.column(i).visible()==true){
+      h+="<th>"+colnames[i]+"</th>";
+    }
+  }
+  return "<tr>"+h+"</tr>";
+}
 
 function colsum(data){
   var ret=0;

@@ -45,6 +45,28 @@
                    return vh + csv;
                 },
               },
+              {
+                extend:'print',
+                title:document.title+" assets",
+                customize: function ( win ) {
+                  var colnames='Item Name;Category;Stock;Deliverd;Unit Price;Vendor;Remarks'.split(';');
+                  var vh=get_header_for_print(inventory_table,colnames);
+                  var removed=0;
+                  for(var i=0;i<colnames.length;i++){
+                    if(inventory_table.column(i).visible()==false){
+                        var toremove=parseInt(i)-parseInt(removed);
+                        $(win.document.body).find("table").find("tr").find("td:eq("+toremove+")").remove();
+                        removed+=parseInt(1);
+                    }
+                  }
+
+
+                  $(win.document.body).find("table").find("thead").html(vh);
+                  $(win.document.body).find( 'table' ).addClass('compact');
+
+                  //return win;
+                }
+              }
 
           ],
           "ajax":'/home/inventoryajax/',
