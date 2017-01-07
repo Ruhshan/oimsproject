@@ -38,12 +38,13 @@
                 exportOptions: {
                    columns: ':visible'
                },
-               customize: function (csv) {
-                 var colnames='Item Name;Category;Stock;Deliverd;Unit Price;Vendor;Remarks'.split(';');
-                 var vh=get_visible_header(inventory_table,colnames);
-                 return vh + csv;
+                 customize: function (csv) {
+                   var colnames='Item Name;Category;Stock;Deliverd;Unit Price;Vendor;Remarks'.split(';');
+                   var vh=get_visible_header(inventory_table,colnames);
+                   return vh + csv;
+                },
               },
-            }
+
           ],
           "ajax":'/home/inventoryajax/',
           'footerCallback': function ( row, data, start, end, display ) {
