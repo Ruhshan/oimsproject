@@ -31,25 +31,48 @@
 
 
       //historytable start
-        $('#historytable thead th').each( function () {
-        var title = $(this).text();
-        {
 
-          $(this).html( '<input type="text" placeholder="'+title+'" size="8"/>' );
-        }
-
-    } );
 
         //var htable=$('#historytable').DataTable({select: true});
 
         range=document.getElementById("daterange").value;
         console.log(encodeURI('/home/historybydate/?range='+range));
         var htable=$('#historytable').DataTable( {
+          dom: '<"top"Bf>rt<"bottom"lp><"clear">',
+          buttons: [
+            {
+                extend: 'colvis',
+                text:'Select Columns',
+            },
+            {
+            extend: 'csv',
+            text: 'Export to CSV',
+            filename:'History_requests',
+            extension:'.csv',
+            header:false,
+            fieldSeparator:';',
+            exportOptions: {
+               columns: ':visible'
+           },
+            customize: function (csv) {
+              var colnames='Date;Item Name;Category;Location;Price;Quantity;Action;Requestee;Processed by'.split(';');
+              var vh=get_visible_header(htable,colnames);
+              return vh + csv;
+           },
+        }
+      ],
           "ajax": encodeURI('/home/historybydate/?range='+range)
           } );
 
 
+          $('#historytable thead th').each( function () {
+          var title = $(this).text();
+          {
 
+            $(this).html( '<input type="text" placeholder="'+title+'" size="8"/>' );
+          }
+
+      } );
     // Apply the search
     htable.columns().every( function () {
         var that = this;
@@ -66,20 +89,45 @@
 
 
     //historyitemtable start
-    $('#historyitemtable thead th').each( function () {
-    var title = $(this).text();
-    {
 
-      $(this).html( '<input type="text" placeholder="'+title+'" size="8"/>' );
-    }
-
-} );
     var range_item=document.getElementById('daterange_item').value;
     console.log(encodeURI('/home/itemhistorybydate/?range='+range_item));
-    var hitable=$('#historyitemtable').DataTable({"ajax": encodeURI('/home/itemhistorybydate/?range='+range_item)});
+    var hitable=$('#historyitemtable').DataTable({
+      dom: '<"top"Bf>rt<"bottom"lp><"clear">',
+      buttons: [
+        {
+            extend: 'colvis',
+            text:'Select Columns',
+        },
+        {
+        extend: 'csv',
+        text: 'Export to CSV',
+        filename:'History_items',
+        extension:'.csv',
+        header:false,
+        fieldSeparator:';',
+        exportOptions: {
+           columns: ':visible'
+       },
+        customize: function (csv) {
+          var colnames='Date;Item Name;Category;Quantity;Action;Modification of;Remarsk;Added by;Approved by'.split(';');
+          var vh=get_visible_header(htable,colnames);
+          return vh + csv;
+       },
+    }
+    ],
+
+      "ajax": encodeURI('/home/itemhistorybydate/?range='+range_item),});
 
 
+      $('#historyitemtable thead th').each( function () {
+      var title = $(this).text();
+      {
 
+        $(this).html( '<input type="text" placeholder="'+title+'" size="8"/>' );
+      }
+
+      } );
 // Apply the search
 hitable.columns().every( function () {
     var that = this;
