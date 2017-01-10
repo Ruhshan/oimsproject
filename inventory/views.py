@@ -568,6 +568,8 @@ def updateitem(request):
 			i=InventoryTableTemp(item_name=name,category=category,creator=request.user.username)
 			i.quantity_inside=int(quant)
 		if minquant:
+			# if m.minimum_quantity!=int(minquant):
+			# 	changeminquant(name, category, minquant, request)
 			m.minimum_quantity=int(minquant)
 		if price:
 			m.unit_price=float(price)

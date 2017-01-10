@@ -597,10 +597,11 @@ function showretamounts(ret_location){
     console.log(selected_item,requestee);
     xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
+        console.log(this.responseText);
         if (this.readyState == 4 && this.status == 200) {
-          for(var i=1;i<=this.responseText;i++){
+          for(var i=0;i<=this.responseText;i++){
             //console.log(i);
-            if(i==1){
+            if(i==0){
               document.getElementById('ret_amount').innerHTML='<option>'+i+'</option>';
             }
             else{
@@ -611,6 +612,8 @@ function showretamounts(ret_location){
           document.getElementById('button-place').innerHTML=`<button type="button" class="btn btn-primary" onclick="returnbutton()">Submit</button>`;
         }
     };
+    console.log("showretamounts/?item=" + selected_item[0]
+      +"&category="+selected_item[1]+"&req_name="+requestee+"&ret_location="+ret_location);
     xhttp.open("GET", "showretamounts/?item=" + selected_item[0]
       +"&category="+selected_item[1]+"&req_name="+requestee+"&ret_location="+ret_location, true);
     xhttp.send();
@@ -662,10 +665,14 @@ function returnbutton(){
     xhttp2.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
           //document.getElementById("ret_location").innerHTML='<option>Select Location</option>'+this.responseText;
+          document.getElementById("ret_requestee").selectedIndex=0;
+          document.getElementById("ret_location").selectedIndex=0;
+          document.getElementById("ret_amount").selectedIndex=0;
           console.log(this.responseText+"R");
           bootbox.alert("Item Returned, tables updated");
           reload_inventory();
           reload_history();
+
         }
     };
     xhttp2.open("GET","retitem/?item="+itm[0]+"&category="+itm[1]+"&person="+person+'&loc='+loc+'&amnt='+amnt,true);

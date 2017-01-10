@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.utils.dateparse import parse_date
 import datetime
 from django.core import serializers
+from django.db.models import Q
 import json
 import sys
 reload(sys)
@@ -23,11 +24,29 @@ def get_location_ajax(request):
 	if requestee=="Not":
 		requestee=requestee.replace("Not","Not Specified")
 	print requestee
-	locations=ProcessedRequest.objects.filter(requestee=requestee, item_name=item, category=category,action='APPROVED').values('location').distinct()
-	print locations
-	r=""
+	locations=ProcessedRequest.objects.filter(Q(action='APPROVED') | Q(action='RETURNED'),requestee=requestee, item_name=item, category=category).values('location','action','approved_quantity')
+	approved={}
+	returned={}
+	#print locations
 	for l in locations:
-		r+="<option>{}</option>\n".format(l['location'])
+		if l['action']=='APPROVED':
+			try:
+				approved[l['location']]+=l['approved_quantity']
+			except:
+				approved[l['location']]=l['approved_quantity']
+		if l['action']=='RETURNED':
+			try:
+				returned[l['location']]+=l['approved_quantity']
+			except:
+				returned[l['location']]=l['approved_quantity']
+	locations_left=[]
+	for a in approved.keys():
+		if approved[a]-returned[a]>0:
+			locations_left.append(a)
+	r=""
+	for l in locations_left:
+		r+="<option>{}</option>\n".format(l)
+	print r
 	return r
 
 def get_ret_amount_ajax(request):
@@ -38,7 +57,7 @@ def get_ret_amount_ajax(request):
 	amount = ProcessedRequest.objects.filter(item_name=item, requestee=req_name,
 		action='APPROVED',location=ret_location).values('approved_quantity')
 	ret=ProcessedRequest.objects.filter(item_name=item, requestee=req_name,
-		action='Returned',location=ret_location).values('approved_quantity')
+		action='RETURNED',location=ret_location).values('approved_quantity')
 
 	s=sum([a['approved_quantity'] for a in amount])
 
@@ -171,3 +190,32 @@ def item_history_ajax(request, s,e):
 		list_data.append(x)
 	ajax_format["data"]=list_data
 	return json.dumps(ajax_format,indent=4, separators=(',', ': '))
+#
+# def changename(oldname, category,newname, request):
+# 	#changin names in already existing table
+# 	it=InventoryTable.objects.filter(item_name=oldname, category=category)
+# 	it.update(item_name=newname)
+#
+#
+# 	pr=ProcessedRequest.objects.filter(item_name=oldname, category=category)
+# 	pr.update(item_name=newname)
+#
+# 	ih=ItemHistory.objects.filter(name=oldname, category=category)
+# 	ih.update(name=newname)
+#
+# 	#addning change entry to table
+# 	nadded_by=User.objects.get(username=request.user.username).userprofile.nick_name
+# 	napproved_by=User.objects.get(username=request.user.username)
+# 	changeentry=ItemHistory(name=newname,action="NAMECHANGE", added_by=nadded_by,
+# 		approved_by=napproved_by,modification_of=oldname,quantity=0, category=category)
+# 	changeentry.save()
+
+
+def changeminquant(name, category, minquant, request):
+	it=InventoryTable.objects.filter(item_name=oldname, category=category)
+
+	nadded_by=User.objects.get(username=request.user.username).userprofile.nick_name
+	napproved_by=User.objects.get(username=request.user.username)
+	changeentry=ItemHistory(name=name,action="MINQUANTECHANGE", added_by=nadded_by,
+		approved_by=napproved_by,modification_of=it.minimum_quantity, quantity=0, category=category)
+	changeentry.save()

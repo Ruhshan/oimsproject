@@ -7,6 +7,7 @@
   {% load static %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'css/hover.css' %}"/>
   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/bootstrap-select.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/dataTables.bootstrap.min.css' %}">
@@ -35,26 +36,26 @@
     {% with request.resolver_match.url_name as url_name %}
     <ul class="nav navbar-nav mod">
       <li class="nav-item">
-        <a class="nav-link" href="/home/">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link hvr-underline-from-center" href="/home/">Home <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item {% if url_name == 'myaccount' %}active{% endif %}">
-        <a class="nav-link" href="/myaccount">My Account</a>
+      <li class="nav-item">
+        <a class="nav-link hvr-underline-from-center" id="{% if url_name == 'myaccount' %}ac{% endif %}" href="/myaccount">My Account</a>
       </li>
 
       {% if group|stringformat:"s" == "admin" %}
-        <li class="nav-item {% if url_name == 'users' %}active{% endif %}">
-          <a class="nav-link" href="/users/">User
+        <li class="nav-item">
+          <a class="nav-link hvr-underline-from-center" id="{% if url_name == 'users' %}ac{% endif %}" href="/users/">User
           </a>
         </li>
       {% endif %}
-      <li class="nav-item {% if url_name == 'vendor_view' %}active{% endif %}">
-        <a class="nav-link" href="/vendor/">Vendor</a>
+      <li class="nav-item">
+        <a class="nav-link hvr-underline-from-center" id="{% if url_name == 'vendor-view' %}ac{% endif %}" href="/vendor/">Vendor</a>
       </li>
-      <li class="nav-item {% if url_name == 'item_view' %}active{% endif %}">
-        <a class="nav-link" href="/item/">Item</a>
+      <li class="nav-item ">
+        <a class="nav-link hvr-underline-from-center" id="{% if url_name == 'item_view' %}ac{% endif %}" href="/item/">Item</a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link" onclick="export_db()">Database Backup</a>
+        <a href="#" class="nav-link hvr-underline-from-center" onclick="export_db()">Database Backup</a>
       </li>
     </ul>
     {% endwith %}
