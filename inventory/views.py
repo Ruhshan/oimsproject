@@ -806,12 +806,13 @@ def changepassword(request):
 def show_requestee(request):
 	print "Show requestee"
 	item,category=request.GET['item_name'],request.GET['category']
-	reqs=ProcessedRequest.objects.filter(item_name=item,category=category,action="APPROVED").distinct().values('requestee')
-	ret=""
-	for r in reqs:
-		ret+="<option value='{}'>{}</option>\n".format(r['requestee'],r['requestee'])
+	# reqs=ProcessedRequest.objects.filter(item_name=item,category=category,action="APPROVED").distinct().values('requestee')
+	# ret=""
+	# for r in reqs:
+	# 	ret+="<option value='{}'>{}</option>\n".format(r['requestee'],r['requestee'])
+	# print get_requestee_ajax(item, category, request)
 
-	return HttpResponse(ret)
+	return HttpResponse(get_requestee_ajax(item, category, request))
 
 @login_required
 def show_ret_amounts(request):

@@ -219,3 +219,35 @@ def changeminquant(name, category, minquant, request):
 	changeentry=ItemHistory(name=name,action="MINQUANTECHANGE", added_by=nadded_by,
 		approved_by=napproved_by,modification_of=it.minimum_quantity, quantity=0, category=category)
 	changeentry.save()
+
+def get_requestee_ajax(item, category, request):
+	reqs=ProcessedRequest.objects.filter(Q(action="APPROVED")|Q(action="RETURNED"),item_name=item,category=category).distinct().values('requestee','action','approved_quantity')
+	approved={}
+	returned={}
+	#print locations
+	for r in reqs:
+		if r['action']=='APPROVED':
+			try:
+				approved[r['requestee']]+=r['approved_quantity']
+			except:
+				approved[r['requestee']]=r['approved_quantity']
+		if r['action']=='RETURNED':
+			try:
+				returned[r['requestee']]+=r['approved_quantity']
+			except:
+				returned[r['requestee']]=r['approved_quantity']
+	# print approved
+	# print returned
+	requestees_left=[]
+	for a in approved.keys():
+		if approved[a]-returned[a]>0:
+			requestees_left.append(a)
+	print requestees_left
+	r=""
+	for n in requestees_left:
+		print n
+		r+="<option value='{}'>{}</option>\n".format(n,n)
+
+	#return "<option value='legend'>legend</option>\n<option value='wrath'>wrath</option>"
+	print r
+	return r
