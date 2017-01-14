@@ -33,7 +33,7 @@ def changename(oldname, category,newname, request):
 	nadded_by=User.objects.get(username=request.user.username).userprofile.nick_name
 	napproved_by=User.objects.get(username=request.user.username)
 	changeentry=ItemHistory(name=newname,action="NAMECHANGE", added_by=nadded_by,
-		approved_by=napproved_by,modification_of=oldname,quantity=0, category=category)
+		approved_by=napproved_by,previous_value=oldname,new_value=newname,quantity=0, category=category)
 	changeentry.save()
 
 
@@ -568,16 +568,24 @@ def updateitem(request):
 			i=InventoryTableTemp(item_name=name,category=category,creator=request.user.username)
 			i.quantity_inside=int(quant)
 		if minquant:
-			# if m.minimum_quantity!=int(minquant):
-			# 	changeminquant(name, category, minquant, request)
+			if m.minimum_quantity!=int(minquant):
+				changeminquant(name, category, minquant, request)
 			m.minimum_quantity=int(minquant)
 		if price:
+			if m.unit_price!=float(price):
+				pricechange(name,category, price,request)
 			m.unit_price=float(price)
 		if desc:
+			if m.description!=desc:
+				changedescription(name, category, desc,request)
 			m.description=desc
 		if vendor:
+			if m.vendor!=vendor:
+				changevendor(name, category, vendor, request)
 			m.vendor=vendor
 		if remarks:
+			if m.remarks!=remarks:
+				changeremarks(name, category, remarks, request)
 			m.remarks=remarks
 		if quant:
 			if int(quant)>0:
@@ -629,7 +637,7 @@ def itemadminaction(request):
 				quantity_outside=t.quantity_outside,minimum_quantity=t.minimum_quantity,unit_price=t.unit_price,
 				description=t.description,vendor=t.vendor, category=t.category,remarks=t.remarks)
 				h=ItemHistory(name=i.item_name,action="CREATED", quantity=i.quantity_inside,
-					added_by=nadded_by, approved_by=napproved_by,category=t.category,remarks=t.remarks)
+					added_by=nadded_by, approved_by=napproved_by,category=t.category)
 				h.save()
 
 				i.save()

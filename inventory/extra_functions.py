@@ -177,7 +177,7 @@ def item_history_daterange(request):
 def item_history_ajax(request, s,e):
 	print s,e
 	data = ItemHistory.objects.filter(date_added__range=[s,e]).values('date_added','name','category','quantity',
-	'action','modification_of','remarks','added_by','approved_by')
+	'action','new_value','previous_value','added_by','approved_by')
 
 	list_data=[]
 	ajax_format={}
@@ -185,7 +185,7 @@ def item_history_ajax(request, s,e):
 		item_id=InventoryTable.objects.get(item_name=d['name']).id
 		details="<a href='item/{}' target='_blank'>{}</a>".format(item_id,d['name'])
 		x=[str(d['date_added']),str(details),str(d['category']),str(d['quantity']),
-		str(d['action']),str(d['modification_of']),str(d['remarks']),str(d['added_by']),
+		str(d['action']),str(d['new_value']),str(d['previous_value']),str(d['added_by']),
 		str(get_nick(d['approved_by']))]
 		list_data.append(x)
 	ajax_format["data"]=list_data
@@ -212,13 +212,50 @@ def item_history_ajax(request, s,e):
 
 
 def changeminquant(name, category, minquant, request):
-	it=InventoryTable.objects.filter(item_name=oldname, category=category)
+	it=InventoryTable.objects.get(item_name=name, category=category)
 
 	nadded_by=User.objects.get(username=request.user.username).userprofile.nick_name
 	napproved_by=User.objects.get(username=request.user.username)
 	changeentry=ItemHistory(name=name,action="MINQUANTECHANGE", added_by=nadded_by,
-		approved_by=napproved_by,modification_of=it.minimum_quantity, quantity=0, category=category)
+		approved_by=napproved_by,previous_value=it.minimum_quantity, new_value=minquant,quantity=0, category=category)
 	changeentry.save()
+
+def pricechange(name,category, price,request):
+	it=InventoryTable.objects.get(item_name=name, category=category)
+
+	nadded_by=User.objects.get(username=request.user.username).userprofile.nick_name
+	napproved_by=User.objects.get(username=request.user.username)
+	changeentry=ItemHistory(name=name,action="PRICECHANGE", added_by=nadded_by,
+		approved_by=napproved_by,previous_value=it.unit_price, new_value=price,quantity=0, category=category)
+	changeentry.save()
+
+def changedescription(name, category, desc,request):
+	it=InventoryTable.objects.get(item_name=name, category=category)
+
+	nadded_by=User.objects.get(username=request.user.username).userprofile.nick_name
+	napproved_by=User.objects.get(username=request.user.username)
+	changeentry=ItemHistory(name=name,action="DESCRIPCHANGE", added_by=nadded_by,
+		approved_by=napproved_by,previous_value=it.description, new_value=desc,quantity=0, category=category)
+	changeentry.save()
+
+def changevendor(name, category, vendor,request):
+	it=InventoryTable.objects.get(item_name=name, category=category)
+
+	nadded_by=User.objects.get(username=request.user.username).userprofile.nick_name
+	napproved_by=User.objects.get(username=request.user.username)
+	changeentry=ItemHistory(name=name,action="VENDORCHANGE", added_by=nadded_by,
+		approved_by=napproved_by,previous_value=it.vendor, new_value=vendor,quantity=0, category=category)
+	changeentry.save()
+def changeremarks(name, category, remarks, request):
+	it=InventoryTable.objects.get(item_name=name, category=category)
+
+	nadded_by=User.objects.get(username=request.user.username).userprofile.nick_name
+	napproved_by=User.objects.get(username=request.user.username)
+	changeentry=ItemHistory(name=name,action="REMARKSCHANGE", added_by=nadded_by,
+		approved_by=napproved_by,previous_value=it.remarks, new_value=remarks, quantity=0, category=category)
+	changeentry.save()
+
+
 
 def get_requestee_ajax(item, category, request):
 	reqs=ProcessedRequest.objects.filter(Q(action="APPROVED")|Q(action="RETURNED"),item_name=item,category=category).distinct().values('requestee','action','approved_quantity')

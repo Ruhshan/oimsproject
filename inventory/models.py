@@ -135,8 +135,8 @@ class ItemHistory(models.Model):
 	#added_by = models.ForeignKey(User, on_delete=models.CASCADE)
 	#approved_by = models.CharField(max_length=50,blank=False,null=False)
 	approved_by= models.ForeignKey(User, on_delete=models.CASCADE)
-	modification_of=models.CharField(max_length=50,blank=True,null=True)
-	remarks=models.CharField(max_length=100,blank=True, null=True)
+	new_value=models.TextField(default="Deflault")
+	previous_value=models.TextField(default="Deflault")
 
 	def __str__(self):
 		return str(self.name)
