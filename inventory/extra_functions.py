@@ -174,9 +174,16 @@ def item_history_daterange(request):
 	except:
 		date_range={'start':today(request),'end':today(request)}
 	return date_range
+def decide_style(id,x):
+	if len(x)<=16:
+		return x
+	else:
+		pref=x[:14]+' '
+		suf="<a href='#' onclick='showchangedetails({})'><span class='glyphicon glyphicon-info-sign'></span></a>".format(id)
+		return pref+suf
 def item_history_ajax(request, s,e):
 	print s,e
-	data = ItemHistory.objects.filter(date_added__range=[s,e]).values('date_added','name','category','quantity',
+	data = ItemHistory.objects.filter(date_added__range=[s,e]).values('id','date_added','name','category','quantity',
 	'action','new_value','previous_value','added_by','approved_by')
 
 	list_data=[]
@@ -185,7 +192,10 @@ def item_history_ajax(request, s,e):
 		item_id=InventoryTable.objects.get(item_name=d['name']).id
 		details="<a href='item/{}' target='_blank'>{}</a>".format(item_id,d['name'])
 		x=[str(d['date_added']),str(details),str(d['category']),str(d['quantity']),
-		str(d['action']),str(d['new_value']),str(d['previous_value']),str(d['added_by']),
+		str(d['action']),
+		decide_style(d['id'],str(d['new_value'])),
+		decide_style(d['id'],str(d['previous_value'])),
+		str(d['added_by']),
 		str(get_nick(d['approved_by']))]
 		list_data.append(x)
 	ajax_format["data"]=list_data
@@ -288,3 +298,15 @@ def get_requestee_ajax(item, category, request):
 	#return "<option value='legend'>legend</option>\n<option value='wrath'>wrath</option>"
 	print r
 	return r
+
+def getchangedetailsjson(id,request):
+	data=ItemHistory.objects.get(id=id)
+	#values('name','category','action','new_value','previous_value')
+	ajax_format={}
+	ajax_format["name"]=data.name
+	ajax_format["category"]=data.category
+	ajax_format["action"]=data.action
+	ajax_format["new_value"]=data.new_value
+	ajax_format["previous_value"]=data.previous_value
+	return json.dumps(ajax_format,indent=4, separators=(',', ': '))
+	#return "ok"

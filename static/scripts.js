@@ -834,3 +834,34 @@ function reload_history(){
   range=document.getElementById("daterange").value;
   $('#historytable').DataTable().ajax.url(encodeURI('/home/historybydate/?range='+range)).load();
 }
+
+
+function getchangedetails(id){
+
+}
+
+function showchangedetails(id){
+  xhttp2 = new XMLHttpRequest();
+  xhttp2.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+
+        obj=JSON.parse(this.responseText);
+        console.log(obj.action);
+        $("#changeheader").html("Changes in: "+obj.name+'('+obj.category+')');
+        var pval=$("#changeprevval").html();
+        pval=pval.replace('anchor',obj.previous_value);
+        console.log(pval);
+        $("#changeprevval").html(pval)
+
+        var nval=$("#changenewval").html();
+        nval=nval.replace('anchor',obj.new_value);
+        console.log(nval);
+        $("#changenewval").html(nval);
+
+        $("#detailsModal").modal('show');
+
+      }
+  };
+  xhttp2.open("GET","getchangedetails/?id="+id,true);
+  xhttp2.send();
+}

@@ -851,6 +851,7 @@ def issue_ajax(request):
 def credit(request):
 	return render(request,'inventory/credit.html', {})
 
+
 def inventory_ajax(request):
 	execute=inventory_to_ajax(request)
 	return HttpResponse(execute)
@@ -868,3 +869,7 @@ def itemhistorybydate(request):
 
 
 		return HttpResponse(execute)
+def getchangedetails(request):
+	id=request.GET["id"]
+	execute=getchangedetailsjson(id,request)
+	return HttpResponse(execute)
