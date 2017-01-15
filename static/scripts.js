@@ -51,7 +51,7 @@
             extension:'.csv',
             header:false,
             footer:true,
-            fieldSeparator:';',
+            fieldSeparator:',',
             exportOptions: {
                columns: ':visible'
            },
@@ -139,7 +139,7 @@
         filename:'History_items',
         extension:'.csv',
         header:false,
-        fieldSeparator:';',
+        fieldSeparator:',',
         exportOptions: {
            columns: ':visible'
        },
