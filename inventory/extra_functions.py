@@ -41,7 +41,10 @@ def get_location_ajax(request):
 				returned[l['location']]=l['approved_quantity']
 	locations_left=[]
 	for a in approved.keys():
-		if approved[a]-returned[a]>0:
+		try:
+			if approved[a]-returned[a]>=0:
+				locations_left.append(a)
+		except:
 			locations_left.append(a)
 	r=""
 	for l in locations_left:
@@ -287,7 +290,10 @@ def get_requestee_ajax(item, category, request):
 	# print returned
 	requestees_left=[]
 	for a in approved.keys():
-		if approved[a]-returned[a]>0:
+		try:
+			if approved[a]-returned[a]>=0:
+				requestees_left.append(a)
+		except:
 			requestees_left.append(a)
 	print requestees_left
 	r=""

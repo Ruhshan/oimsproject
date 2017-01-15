@@ -136,7 +136,7 @@ def view_home(request):
 				login with a proper account.")
 		item_names=InventoryTable.objects.values('item_name','category')
 
-		#processed=ProcessedRequest.objects.filter(acknowledgement=0)
+		processed=ProcessedRequest.objects.filter(acknowledgement=0)
 
 		requestee_suggestion=ProcessedRequest.objects.values_list('requestee',flat=True).distinct()
 
@@ -178,7 +178,7 @@ def view_home(request):
 			'date_range':date_range, 'history':acknowledged,'passwordreq':passwordreq,
 			'alert_count':alert_count(),'alert_content':alert_content(),
 			'historyitems':historyitems,'itemcreate':itemcreate,'ret_item':ret_item,'locations':get_location_names(),
-			'static_info':get_static_info(request),'date_range_h':item_history_daterange(request)})
+			'static_info':get_static_info(request),'date_range_h':item_history_daterange(request),'processed':processed})
 	else:
 		return HttpResponseRedirect("/login/")
 
