@@ -88,7 +88,7 @@ body { display: table; width: 100%; height: 100%; }
     .fstyle a:link{
 
     }
-
+/*
 .dt-button-collection a.buttons-columnVisibility:before,
 .dt-button-collection a.buttons-columnVisibility.active span:before {
     display:block;
@@ -137,7 +137,7 @@ a.dt-button {
 	border:1px solid #dcdcdc;
 	display:inline-block;
 	cursor:pointer;
-	/*color:#666666;*/
+
   color:#1C1C1C;
 	font-family:Arial;
 	font-size:15px;
@@ -153,10 +153,107 @@ a.dt-button:hover {
 	background:-ms-linear-gradient(top, #337ab7 5%, #337ab7 100%);
 	background:linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f6f6f6', endColorstr='#ffffff',GradientType=0);
-	/*background-color:#337ab7;*/
+	background-color:#337ab7;
+
 
 }
 a.dt-button:active {
 	position:relative;
 	top:1px;
+}*/
+
+a.dt-button.select_column {
+        background: url('https://s27.postimg.org/d7lwwyxxf/select_column_r.png') no-repeat;
+        background-size: 30px 30px;
+        cursor:pointer;
+        border:none;
+        width:30px;
+        height:30px;
+
+    }
+
+a.dt-button.select_column:hover {
+        background: url('https://s27.postimg.org/d7lwwyxxf/select_column_r.png') no-repeat;
+        background-size: 30px 30px;
+        cursor:pointer;
+        border:none;
+        width:30px;
+        height:30px;
+
+}
+
+a.dt-button.select_column:active {
+      background: url('https://s27.postimg.org/d7lwwyxxf/select_column_r.png') no-repeat;
+      background-size: 30px 30px;
+      cursor:pointer;
+      border:none;
+      width:30px;
+      height:30px;
+
+
+}
+
+
+
+a.dt-button.csv_export {
+        background: url('https://s24.postimg.org/bi2kvpw9h/csv_r.png') no-repeat;
+        background-size: 30px 30px;
+        cursor:pointer;
+        border:none;
+        width:30px;
+        height:30px;
+
+    }
+
+a.dt-button.csv_export:hover {
+        background: url('https://s24.postimg.org/bi2kvpw9h/csv_r.png') no-repeat;
+        background-size: 30px 30px;
+        cursor:pointer;
+        border:none;
+        width:30px;
+        height:30px;
+
+}
+
+a.dt-button.csv_export:active {
+      background: url('https://s24.postimg.org/bi2kvpw9h/csv_r.png') no-repeat;
+      background-size: 30px 30px;
+      cursor:pointer;
+      border:none;
+      width:30px;
+      height:30px;
+
+
+}
+
+
+a.dt-button.print {
+        background: url('https://s30.postimg.org/5gobaby1d/printer_icon_b.png') no-repeat;
+        background-size: 30px 30px;
+        cursor:pointer;
+        border:none;
+        width:30px;
+        height:30px;
+
+    }
+
+a.dt-button.print:hover {
+        background: url('https://s30.postimg.org/5gobaby1d/printer_icon_b.png') no-repeat;
+        background-size: 30px 30px;
+        cursor:pointer;
+        border:none;
+        width:30px;
+        height:30px;
+
+}
+
+a.dt-button.print:active {
+      background: url('https://s30.postimg.org/5gobaby1d/printer_icon_b.png') no-repeat;
+      background-size: 30px 30px;
+      cursor:pointer;
+      border:none;
+      width:30px;
+      height:30px;
+
+
 }

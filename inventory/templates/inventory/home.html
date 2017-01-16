@@ -26,15 +26,16 @@
               buttons: [
                 {
                     extend: 'colvis',
-                    text:'Select Columns',
-                    class:'.btn'
+                    text:'',
+                    className:'select_column',
                 },
                 {
                 extend: 'csv',
-                text: 'Export to CSV',
+                text: '',
                 filename:'Inventory_table',
                 extension:'.csv',
                 header:false,
+                className:'csv_export',
                 fieldSeparator:',',
                 exportOptions: {
                    columns: ':visible'
@@ -47,6 +48,8 @@
               },
               {
                 extend:'print',
+                text: '',
+                className:'print',
                 title:document.title+" assets",
                 customize: function ( win ) {
                   var colnames='Item Name;Category;Stock;Deliverd;Unit Price;Vendor;Remarks'.split(';');

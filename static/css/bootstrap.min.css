@@ -4401,7 +4401,9 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 }
 
 .nav-pills>li>a {
-  border: solid 1px #aaaad8;
+  border: solid 1px #337ab0;
+  /*border: .5px groove #337ab0;*/
+
   border-radius: 4px
 }
 
