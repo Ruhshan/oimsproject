@@ -42,13 +42,15 @@
           buttons: [
             {
                 extend: 'colvis',
-                text:'Select Columns',
+                text:'',
+                className:'select_column',
             },
             {
             extend: 'csv',
-            text: 'Export to CSV',
+            text: '',
             filename:'History_requests',
             extension:'.csv',
+            className:'csv_export',
             header:false,
             footer:true,
             fieldSeparator:',',
@@ -63,6 +65,8 @@
         },
         {
           extend:'print',
+          text:'',
+          className:'print',
           title:document.title+" transactions",
           footer:true,
           customize: function ( win ) {
@@ -131,29 +135,37 @@
       buttons: [
         {
             extend: 'colvis',
-            text:'Select Columns',
+            text:'',
+            className:'select_column',
         },
         {
         extend: 'csv',
-        text: 'Export to CSV',
+        text: '',
         filename:'History_items',
         extension:'.csv',
+        className:'csv_export',
         header:false,
         fieldSeparator:',',
         exportOptions: {
            columns: ':visible'
        },
         customize: function (csv) {
-          var colnames='Date;Item Name;Category;Quantity;Action;Modification of;Remarks;Added by;Approved by'.split(';');
+          column5=column_normalize(hitable.column(5).data());
+          console.log(column5);
+
+
+          var colnames='Date;Item Name;Category;Quantity;Action;New Value;Previous Value;Added by;Approved by'.split(';');
           var vh=get_visible_header(htable,colnames);
           return vh + csv;
        },
     },
     {
       extend:'print',
+      className:'print',
+      text:'',
       title:document.title+" histories",
       customize: function ( win ) {
-        var colnames='Date;Item Name;Category;Quantity;Action;Modification of;Remarks;Added by;Approved by'.split(';');
+        var colnames='Date;Item Name;Category;Quantity;Action;New Value;Previous Value;Added by;Approved by'.split(';');
         var vh=get_header_for_print(hitable,colnames);
         var removed=0;
         for(var i=0;i<colnames.length;i++){
@@ -174,6 +186,8 @@
     ],
 
       "ajax": encodeURI('/home/itemhistorybydate/?range='+range_item),});
+
+
 
 
       $('#historyitemtable thead th').each( function () {
@@ -864,4 +878,15 @@ function showchangedetails(id){
   };
   xhttp2.open("GET","getchangedetails/?id="+id,true);
   xhttp2.send();
+}
+
+function column_normalize(col){
+  for(var i=0;i<col.length;i++){
+    if(col[i].visible()==true){
+      s=String(col[i]);
+      console.log(s.indexOf('showchangedetails'));
+    }
+
+  };
+  return col;
 }
