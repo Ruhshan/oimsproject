@@ -163,7 +163,7 @@ a.dt-button:active {
 }*/
 
 a.dt-button.select_column {
-        background: url('https://s27.postimg.org/d7lwwyxxf/select_column_r.png') no-repeat;
+        background: url('../icons/select_column_r.png') no-repeat;
         background-size: 30px 30px;
         cursor:pointer;
         border:none;
@@ -173,7 +173,7 @@ a.dt-button.select_column {
     }
 
 a.dt-button.select_column:hover {
-        background: url('https://s27.postimg.org/d7lwwyxxf/select_column_r.png') no-repeat;
+        background: url('../icons/select_column_r.png') no-repeat;
         background-size: 30px 30px;
         cursor:pointer;
         border:none;
@@ -183,7 +183,7 @@ a.dt-button.select_column:hover {
 }
 
 a.dt-button.select_column:active {
-      background: url('https://s27.postimg.org/d7lwwyxxf/select_column_r.png') no-repeat;
+      background: url('../icons/select_column_r.png') no-repeat;
       background-size: 30px 30px;
       cursor:pointer;
       border:none;
@@ -196,7 +196,7 @@ a.dt-button.select_column:active {
 
 
 a.dt-button.csv_export {
-        background: url('https://s24.postimg.org/bi2kvpw9h/csv_r.png') no-repeat;
+        background: url('../icons/csv_r.png') no-repeat;
         background-size: 30px 30px;
         cursor:pointer;
         border:none;
@@ -206,7 +206,7 @@ a.dt-button.csv_export {
     }
 
 a.dt-button.csv_export:hover {
-        background: url('https://s24.postimg.org/bi2kvpw9h/csv_r.png') no-repeat;
+        background: url('../icons/csv_r.png') no-repeat;
         background-size: 30px 30px;
         cursor:pointer;
         border:none;
@@ -216,7 +216,7 @@ a.dt-button.csv_export:hover {
 }
 
 a.dt-button.csv_export:active {
-      background: url('https://s24.postimg.org/bi2kvpw9h/csv_r.png') no-repeat;
+      background: url('../icons/csv_r.png') no-repeat;
       background-size: 30px 30px;
       cursor:pointer;
       border:none;
@@ -228,7 +228,7 @@ a.dt-button.csv_export:active {
 
 
 a.dt-button.print {
-        background: url('https://s30.postimg.org/5gobaby1d/printer_icon_b.png') no-repeat;
+        background: url('../icons/printer_icon_b.png') no-repeat;
         background-size: 30px 30px;
         cursor:pointer;
         border:none;
@@ -238,7 +238,7 @@ a.dt-button.print {
     }
 
 a.dt-button.print:hover {
-        background: url('https://s30.postimg.org/5gobaby1d/printer_icon_b.png') no-repeat;
+        background: url('../icons/printer_icon_b.png') no-repeat;
         background-size: 30px 30px;
         cursor:pointer;
         border:none;
@@ -248,7 +248,7 @@ a.dt-button.print:hover {
 }
 
 a.dt-button.print:active {
-      background: url('https://s30.postimg.org/5gobaby1d/printer_icon_b.png') no-repeat;
+      background: url('../icons/printer_icon_b.png') no-repeat;
       background-size: 30px 30px;
       cursor:pointer;
       border:none;
@@ -257,3 +257,4 @@ a.dt-button.print:active {
 
 
 }
+/**/

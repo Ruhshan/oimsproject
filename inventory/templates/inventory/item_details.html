@@ -14,34 +14,34 @@
             <div class="panel-heading">
               <div class="row">
                 <div class="col-sm-6">
-                  Item Name:{{item.item_name}}
+                  <b>Item Name: </b>{{item.item_name}}
                 </div>
 
                 <div class="col-sm-6" align="right">
-                  Unite Price:{{item.unit_price|floatformat:"3"}} {{static_info.currency}}
+                  <b>Unit Price: </b>{{item.unit_price|floatformat:"3"}} {{static_info.currency}}
                 </div>
 
               </div>
           </div>
             <div class="panel-body">
               <div>
-                Stock Amount:{{item.quantity_inside}}
+                <b>Stock Amount: </b>{{item.quantity_inside}}
               </div>
               <div>
-                Delivered Amount:{{item.quantity_outside}}
+                <b>Delivered Amount: </b>{{item.quantity_outside}}
               </div>
               <div>
-                Minimum Quantity For alert:{{item.minimum_quantity}}
+                <b>Minimum Quantity For alert: </b>{{item.minimum_quantity}}
               </div>
               <div>
-                Vendor:{{item.vendor}}
+                <b>Vendor: </b>{{item.vendor|default:"None" }}
               </div>
               <div>
-                Remarks: {{item.remarks}}
+                <b>Remarks: </b>{{item.remarks}}
               </div>
 
               <div>
-                Description:<br>
+                <b>Description:</b><br>
                 <pre>{{item.description}}</pre>
 
               </div>

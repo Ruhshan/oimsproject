@@ -673,24 +673,31 @@ function returnbutton(){
   person=document.getElementById("ret_requestee").value;
   loc=document.getElementById("ret_location").value;
   amnt=document.getElementById("ret_amount").value;
-  console.log(itm,person,loc, amnt);
+  if(amnt==0){
+    bootbox.alert("Can't return 0 item!");
+  }
+  else{
+    console.log(itm,person,loc, amnt);
 
-  xhttp2 = new XMLHttpRequest();
-    xhttp2.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-          //document.getElementById("ret_location").innerHTML='<option>Select Location</option>'+this.responseText;
-          document.getElementById("ret_requestee").selectedIndex=0;
-          document.getElementById("ret_location").selectedIndex=0;
-          document.getElementById("ret_amount").selectedIndex=0;
-          console.log(this.responseText+"R");
-          bootbox.alert("Item Returned, tables updated");
-          reload_inventory();
-          reload_history();
+    xhttp2 = new XMLHttpRequest();
+      xhttp2.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            //document.getElementById("ret_location").innerHTML='<option>Select Location</option>'+this.responseText;
+            document.getElementById("ret_requestee").selectedIndex=0;
+            document.getElementById("ret_location").selectedIndex=0;
+            document.getElementById("ret_amount").selectedIndex=0;
+            console.log(this.responseText+"R");
+            bootbox.alert("Item Returned, tables updated");
+            reload_inventory();
+            reload_history();
 
-        }
-    };
-    xhttp2.open("GET","retitem/?item="+itm[0]+"&category="+itm[1]+"&person="+person+'&loc='+loc+'&amnt='+amnt,true);
-    xhttp2.send();
+          }
+      };
+      xhttp2.open("GET","retitem/?item="+itm[0]+"&category="+itm[1]+"&person="+person+'&loc='+loc+'&amnt='+amnt,true);
+      xhttp2.send();
+
+  }
+
 
 }
 
