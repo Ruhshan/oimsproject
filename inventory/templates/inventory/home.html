@@ -28,17 +28,20 @@
                     extend: 'colvis',
                     text:'',
                     className:'select_column',
+                    titleAttr: 'Set column visibility',
+
                 },
                 {
-                extend: 'csv',
-                text: '',
-                filename:'Inventory_table',
-                extension:'.csv',
-                header:false,
-                className:'csv_export',
-                fieldSeparator:',',
-                exportOptions: {
-                   columns: ':visible'
+                  extend: 'csv',
+                  titleAttr: 'Export this table to csv',
+                  text: '',
+                  filename:'Inventory_table',
+                  extension:'.csv',
+                  header:false,
+                  className:'csv_export',
+                  fieldSeparator:',',
+                  exportOptions: {
+                     columns: ':visible'
                },
                  customize: function (csv) {
                    var colnames='Item Name;Category;Stock;Deliverd;Unit Price;Vendor;Remarks'.split(';');
@@ -48,6 +51,7 @@
               },
               {
                 extend:'print',
+                titleAttr: 'Print this table',
                 text: '',
                 className:'print',
                 title:document.title+" assets",

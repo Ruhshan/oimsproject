@@ -292,7 +292,7 @@ def get_requestee_ajax(item, category, request):
 	requestees_left=[]
 	for a in approved.keys():
 		try:
-			if approved[a]-returned[a]>=0:
+			if approved[a]-returned[a]>0:
 				requestees_left.append(a)
 		except:
 			requestees_left.append(a)

@@ -45,6 +45,7 @@
                 extend: 'colvis',
                 text:'',
                 className:'select_column',
+                titleAttr: 'Set column visibility',
             },
             {
             extend: 'csv',
@@ -52,6 +53,7 @@
             filename:'History_requests',
             extension:'.csv',
             className:'csv_export',
+            titleAttr: 'Export this table to csv',
             header:false,
             footer:true,
             fieldSeparator:',',
@@ -67,6 +69,7 @@
         {
           extend:'print',
           text:'',
+          titleAttr: 'Print this table',
           className:'print',
           title:document.title+" transactions",
           footer:true,
@@ -139,6 +142,7 @@
             extend: 'colvis',
             text:'',
             className:'select_column',
+            titleAttr: 'Set column visibility',
         },
         {
         extend: 'csv',
@@ -146,6 +150,7 @@
         filename:'History_items',
         extension:'.csv',
         className:'csv_export',
+        titleAttr: 'Export this table to csv',
         header:false,
         fieldSeparator:',',
         exportOptions: {
@@ -164,6 +169,7 @@
     {
       extend:'print',
       className:'print',
+      titleAttr: 'Print this table',
       text:'',
       title:document.title+" histories",
       customize: function ( win ) {
