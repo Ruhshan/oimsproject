@@ -178,12 +178,14 @@ def item_history_daterange(request):
 		date_range={'start':today(request),'end':today(request)}
 	return date_range
 def decide_style(id,x):
-	if len(x)<=16:
+	if len(x)<10:
 		return x
 	else:
-		pref=x[:14]+' '
-		suf="<a href='#' onclick='showchangedetails({})'><span class='glyphicon glyphicon-info-sign'></span></a>".format(id)
-		return pref+suf
+		pref=x[:10]+' '
+		suf=' '+x[11:]
+		mid="<a href='#' onclick='showchangedetails({})'><span class='glyphicon glyphicon-info-sign'></span></a>".format(id)
+		#print '<divclas="overflow:hidden">'+pref+mid+suf+'</div>'
+		return "<div style='overflow:hidden;width: 100px;height: 20px;'>"+pref+mid+suf+"</div>"
 def item_history_ajax(request, s,e):
 	print s,e
 	data = ItemHistory.objects.filter(date_added__range=[s,e]).values('id','date_added','name','category','quantity',

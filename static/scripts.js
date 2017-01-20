@@ -150,8 +150,8 @@
            columns: ':visible'
        },
         customize: function (csv) {
-          column5=column_normalize(hitable.column(5).data());
-          console.log(column5);
+          // column5=column_normalize(hitable.column(5).data());
+          // console.log(column5);
 
 
           var colnames='Date;Item Name;Category;Quantity;Action;New Value;Previous Value;Added by;Approved by'.split(';');
@@ -869,15 +869,15 @@ function showchangedetails(id){
         obj=JSON.parse(this.responseText);
         console.log(obj.action);
         $("#changeheader").html("Changes in: "+obj.name+'('+obj.category+')');
-        var pval=$("#changeprevval").html();
-        pval=pval.replace('anchor',obj.previous_value);
-        console.log(pval);
-        $("#changeprevval").html(pval)
+        // var pval=$("#changeprevval").html();
+        // pval=pval.replace('anchor',obj.previous_value);
+        // console.log(pval);
+        $("#changeprevval").html(obj.previous_value)
 
-        var nval=$("#changenewval").html();
-        nval=nval.replace('anchor',obj.new_value);
-        console.log(nval);
-        $("#changenewval").html(nval);
+        // var nval=$("#changenewval").html();
+        // nval=nval.replace('anchor',obj.new_value);
+        // console.log(nval);
+        $("#changenewval").html(obj.new_value);
 
         $("#detailsModal").modal('show');
 
