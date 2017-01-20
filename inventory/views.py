@@ -167,8 +167,8 @@ def view_home(request):
 			s=min(d1,d2)
 			e=max(d1,d2)
 			print d1,d2
-			date_range={'start':'/'.join([s[1],s[2],s[0]]),
-		    	         'end':'/'.join([e[1],e[2],e[0]])}
+			date_range={'start':'/'.join([s[2],s[1],s[0]]),
+		    	         'end':'/'.join([e[2],e[1],e[0]])}
 		   	print date_range
 		except:
 			date_range={'start':today(request),'end':today(request)}

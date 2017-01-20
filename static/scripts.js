@@ -36,6 +36,7 @@
         //var htable=$('#historytable').DataTable({select: true});
 
         range=document.getElementById("daterange").value;
+        range=date_formater(range);
         console.log(encodeURI('/home/historybydate/?range='+range));
         var htable=$('#historytable').DataTable( {
           dom: '<"top"Bf>rt<"bottom"lp><"clear">',
@@ -129,6 +130,7 @@
     //historyitemtable start
 
     var range_item=document.getElementById('daterange_item').value;
+    range_item=date_formater(range_item);
     console.log(encodeURI('/home/itemhistorybydate/?range='+range_item));
     var hitable=$('#historyitemtable').DataTable({
       dom: '<"top"Bf>rt<"bottom"lp><"clear">',
@@ -366,6 +368,7 @@ hitable.columns().every( function () {
           $('#inventorytable').DataTable().ajax.reload();
           //reload history table
           range=document.getElementById("daterange").value;
+          range=date_formater(range);
           $('#historytable').DataTable().ajax.url(encodeURI('/home/historybydate/?range='+range)).load();
       };
 
@@ -392,19 +395,43 @@ hitable.columns().every( function () {
       };
 
       $(function() {
-    	$('input[name="daterange"]').daterangepicker();
-      $('input[name="daterange_item"]').daterangepicker();
-		});
+    	$('input[name="daterange"]').daterangepicker({
+          locale: {
+              format: 'DD/MM/YYYY'
+            },
+            });
+
+      $('input[name="daterange_item"]').daterangepicker({
+        locale: {
+            format: 'DD/MM/YYYY'
+          },
+          });
+		  });
+      function date_formater(d){
+        d_split=d.split(' - ');
+        d1=d_split[0].split('/')
+        d1f=d1[1]+'/'+d1[0]+'/'+d1[2];
+
+        d2=d_split[1].split('/');
+        d2f=d2[1]+'/'+d2[0]+'/'+d2[2];
+
+        console.log(d1f+'-'+d2f);
+
+        return d1f+'-'+d2f;
+
+      }
 
       function showhistory(){
 
       	range=document.getElementById("daterange").value;
+        range=date_formater(range);
         console.log(encodeURI('/home/historybydate/?range='+range));
         $('#historytable').DataTable().ajax.url(encodeURI('/home/historybydate/?range='+range)).load();
       }
 
       function showitemhistory(){
         range=document.getElementById("daterange_item").value;
+        range=date_formater(range);
         console.log(encodeURI('/home/itemhistorybydate/?range='+range));
         $('#historyitemtable').DataTable().ajax.url(encodeURI('/home/itemhistorybydate/?range='+range)).load();
       }
@@ -848,11 +875,13 @@ function reload_inventory(){
 
 function reload_item_history(){
   range=document.getElementById('daterange_item').value;
+  range=date_formater(range);
   $('#historyitemtable').DataTable().ajax.url(encodeURI('/home/itemhistorybydate/?range='+range)).load();
 }
 
 function reload_history(){
   range=document.getElementById("daterange").value;
+  range=date_formater(range);
   $('#historytable').DataTable().ajax.url(encodeURI('/home/historybydate/?range='+range)).load();
 }
 
