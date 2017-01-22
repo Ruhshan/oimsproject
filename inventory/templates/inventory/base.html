@@ -66,23 +66,26 @@
       <a class="nav-link hvr-underline-from-center" id="{% if url_name == 'home_view' %}ac{% endif %}" href="/home/">Home <span class="sr-only">(current)</span></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link hvr-underline-from-center" href="/myaccount">My Account</a>
+      <a class="nav-link hvr-underline-from-center" href="/item/">Item</a>
     </li>
-
     {% if group|stringformat:"s" == "admin" %}
       <li class="nav-item">
         <a class="nav-link hvr-underline-from-center" href="/users/">User
         </a>
       </li>
     {% endif %}
+
     <li class="nav-item">
       <a class="nav-link hvr-underline-from-center" href="/vendor/">Vendor</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link hvr-underline-from-center" href="/item/">Item</a>
+      <a class="nav-link hvr-underline-from-center" href="/myaccount">My Account</a>
     </li>
+
+
+
     <li class="nav-item">
-      <a href="#" class="nav-link hvr-underline-from-center" onclick="export_db()">Database Backup</a>
+      <a href="#" class="nav-link hvr-underline-from-center" onclick="export_db()">DB Backup</a>
     </li>
   </ul>
   {% endwith %}
@@ -100,7 +103,7 @@
               <span class="badge">{{alert_count}}
               </span>
             </a>
-            <a href="/logout/">Logout</a>
+            <a style="color:white" href="/logout/">Logout</a>
             </div>
           </div>
 
@@ -141,6 +144,10 @@
                   </a>
                 </li>
                 <li>
+                  <a href="/item/">Item
+                  </a>
+                </li>
+                <li>
                   <a href="/myaccount">My Account
                   </a>
                 </li>
@@ -150,15 +157,11 @@
                   </a>
                 </li>
                 {% endif %}
-
                 <li>
                   <a href="/vendor/">Vendor
                   </a>
                 </li>
-                <li>
-                  <a href="/item/">Item
-                  </a>
-                </li>
+
 
 
               </ul>

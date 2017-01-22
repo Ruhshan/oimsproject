@@ -38,10 +38,9 @@
       <li class="nav-item">
         <a class="nav-link hvr-underline-from-center" href="/home/">Home <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link hvr-underline-from-center" id="{% if url_name == 'myaccount' %}ac{% endif %}" href="/myaccount">My Account</a>
+      <li class="nav-item ">
+        <a class="nav-link hvr-underline-from-center" id="{% if url_name == 'item_view' %}ac{% endif %}" href="/item/">Item</a>
       </li>
-
       {% if group|stringformat:"s" == "admin" %}
         <li class="nav-item">
           <a class="nav-link hvr-underline-from-center" id="{% if url_name == 'users' %}ac{% endif %}" href="/users/">User
@@ -51,11 +50,11 @@
       <li class="nav-item">
         <a class="nav-link hvr-underline-from-center" id="{% if url_name == 'vendor-view' %}ac{% endif %}" href="/vendor/">Vendor</a>
       </li>
-      <li class="nav-item ">
-        <a class="nav-link hvr-underline-from-center" id="{% if url_name == 'item_view' %}ac{% endif %}" href="/item/">Item</a>
+      <li class="nav-item">
+        <a class="nav-link hvr-underline-from-center" id="{% if url_name == 'myaccount' %}ac{% endif %}" href="/myaccount">My Account</a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link hvr-underline-from-center" onclick="export_db()">Database Backup</a>
+        <a href="#" class="nav-link hvr-underline-from-center" onclick="export_db()">DB Backup</a>
       </li>
     </ul>
     {% endwith %}

@@ -5,16 +5,22 @@ function getdate(){
 }
 
 function export_db(){
+  bootbox.confirm("Confirm Database Export?",
+      function(result){
+        if(result==true){
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
 
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
 
-  if (this.readyState == 4 && this.status == 200) {
+            var blob = new Blob([this.responseText], {type: "application/json;charset=utf-8"});
+            saveAs(blob, "backup-"+getdate()+".json");
+          }
+          };
+        xhttp.open("GET", "/superadminexport", true);
+        xhttp.send();
 
-    var blob = new Blob([this.responseText], {type: "application/json;charset=utf-8"});
-    saveAs(blob, "backup-"+getdate()+".json");
-  }
-  };
-xhttp.open("GET", "/superadminexport", true);
-xhttp.send();
+        };
+      });
+
 }

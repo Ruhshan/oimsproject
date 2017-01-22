@@ -4,17 +4,74 @@
           $('#modal_error').hide();
           $('#alert-success').hide();
 
-          $('#issue_table thead th').each( function () {
-        var title = $(this).text();
-        {
-          $(this).html( '<input type="text" placeholder="'+title+'" size="8"/>' );
-        }
 
-    } );
 
           var issue_table=$('#issue_table').DataTable( {
+          dom: '<"top"Bf>rt<"bottom"lp><"clear">',
+          buttons: [
+            {
+                extend: 'colvis',
+                text:'',
+                className:'select_column',
+                titleAttr: 'Select Columns',
+            },
+            {
+            extend: 'csv',
+            text: '',
+            filename:'Issues',
+            extension:'.csv',
+            className:'csv_export',
+            titleAttr: 'Export csv',
+            header:false,
+            footer:true,
+            fieldSeparator:',',
+            exportOptions: {
+               columns: ':visible'
+           },
+            customize: function (csv) {
+              var colnames='Date;Item;Category;Requestee;Place;Quantity;Occurance Date;Description'.split(';');
+              var vh=get_visible_header(issue_table,colnames);
+              return vh + csv;
+           },
+        },
+        {
+          extend:'print',
+          text:'',
+          titleAttr: 'Print',
+          className:'print',
+          title:document.title+" transactions",
+          footer:true,
+          customize: function ( win ) {
+            var colnames='Date;Item;Category;Requestee;Place;Quantity;Occurance Date;Description'.split(';');
+            var vh=get_header_for_print(issue_table,colnames);
+            var removed=0;
+            for(var i=0;i<colnames.length;i++){
+              if(issue_table.column(i).visible()==false){
+                  var toremove=parseInt(i)-parseInt(removed);
+                  $(win.document.body).find("table").find("tr").find("td:eq("+toremove+")").remove();
+                  removed+=parseInt(1);
+              }
+            }
+
+
+            $(win.document.body).find("table").find("thead").html(vh);
+            $(win.document.body).find( 'table' ).addClass('compact');
+
+            //return win;
+          }
+        }
+      ],
+
           "ajax": '/home/issueajax/'
           } );
+          $('#issue_table thead th').each( function () {
+          var title = $(this).text();
+          {
+
+            $(this).html( '<input type="text" placeholder="'+title+'" size="8"/>' );
+          }
+
+      } );
 
     // App/*/*ly the search
     issue_table.columns().every( function () {
@@ -45,7 +102,7 @@
                 extend: 'colvis',
                 text:'',
                 className:'select_column',
-                titleAttr: 'Set column visibility',
+                titleAttr: 'Select Columns',
             },
             {
             extend: 'csv',
@@ -53,7 +110,7 @@
             filename:'History_requests',
             extension:'.csv',
             className:'csv_export',
-            titleAttr: 'Export this table to csv',
+            titleAttr: 'Export csv',
             header:false,
             footer:true,
             fieldSeparator:',',
@@ -69,7 +126,7 @@
         {
           extend:'print',
           text:'',
-          titleAttr: 'Print this table',
+          titleAttr: 'Print',
           className:'print',
           title:document.title+" transactions",
           footer:true,
@@ -142,7 +199,7 @@
             extend: 'colvis',
             text:'',
             className:'select_column',
-            titleAttr: 'Set column visibility',
+            titleAttr: 'Select Columns',
         },
         {
         extend: 'csv',
@@ -150,7 +207,7 @@
         filename:'History_items',
         extension:'.csv',
         className:'csv_export',
-        titleAttr: 'Export this table to csv',
+        titleAttr: 'Export to csv',
         header:false,
         fieldSeparator:',',
         exportOptions: {
@@ -162,14 +219,14 @@
 
 
           var colnames='Date;Item Name;Category;Quantity;Action;New Value;Previous Value;Added by;Approved by'.split(';');
-          var vh=get_visible_header(htable,colnames);
+          var vh=get_visible_header(hitable,colnames);
           return vh + csv;
        },
     },
     {
       extend:'print',
       className:'print',
-      titleAttr: 'Print this table',
+      titleAttr: 'Print',
       text:'',
       title:document.title+" histories",
       customize: function ( win ) {
@@ -845,7 +902,7 @@ function get_visible_header(dtable,colnames){
   var h="";
   for(var i=0;i<colnames.length;i++){
     if(dtable.column(i).visible()==true){
-      h+=colnames[i]+";";
+      h+=colnames[i]+",";
     }
   }
   return h+"\n";

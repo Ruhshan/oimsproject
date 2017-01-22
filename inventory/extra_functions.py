@@ -107,10 +107,10 @@ def process_issue(request):
 
 def issue_to_ajax(request):
 	ajax_format ={"data":[['1'],['2']]}
-	data=Issues.objects.all().values('item','category','person','place','amnt','occurance_date','desc')
+	data=Issues.objects.all().values('date_created','item','category','person','place','amnt','occurance_date','desc')
 	list_data=[]
 	for d in data:
-		x=[str(d['item']),str(d['category']),str(d['person']),str(d['place']),str(d['amnt']),str(d['occurance_date']),str(d['desc']).encode('utf-8')]
+		x=[str(d['date_created']),str(d['item']),str(d['category']),str(d['person']),str(d['place']),str(d['amnt']),str(d['occurance_date']),str(d['desc']).encode('utf-8')]
 		list_data.append(x)
 	ajax_format["data"]=list_data
 
