@@ -150,7 +150,7 @@
           <div class="form-group">
               <label for="requestee">Requestee:</label>
               <datalist id="requestee_names">
-                <option value="Non Specified">
+                <option value="Not Specified">
             		{% for name in requestee %}
             			<option value="{{name}}">
             		{% endfor %}
@@ -162,6 +162,7 @@
         <div class="form-group">
           <label for="location">Location:</label>
           <datalist id="locations">
+            <option value="Not Specified">
             {% for names in locations %}
             <option>{{names.location}}</option>
             {% endfor %}

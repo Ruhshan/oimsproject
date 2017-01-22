@@ -87,6 +87,8 @@ def user_login(request):
 		email=request.POST['email']
 		password=request.POST['password']
 		password2=request.POST['password2']
+		next=request.POST['next']
+		#print "inside",next
 
 		u=User.objects.get(username=email)
 		g=str(u.groups.all()[0])
@@ -113,12 +115,14 @@ def user_login(request):
 
 		if user is not None:
 			if user.is_active:
-				request.session.set_expiry(3600)
+				request.session.set_expiry(1800)
 				login(request,user)
 				l=LoginHistory(action="Login", user_name=email, nick_name=user.userprofile.nick_name)
 				l.save()
-
-				return HttpResponseRedirect("/home/")
+				if next:
+					return HttpResponseRedirect(next)
+				else:
+					return HttpResponseRedirect("/home/")
 			else:
 				return HttpResponse("Your OIMS account is disabled.")
 		else:
@@ -181,14 +185,16 @@ def view_home(request):
 			'historyitems':historyitems,'itemcreate':itemcreate,'ret_item':ret_item,'locations':get_location_names(),
 			'static_info':get_static_info(request),'date_range_h':item_history_daterange(request),'processed':processed})
 	else:
-		return HttpResponseRedirect("/login/")
+		return render(request,'inventory/login.html', {'next':"/home/"})
 
 @login_required
 def user_logout(request):
+	next=request.GET['next']
+	print "In logout",next
 	l=LoginHistory(action="Logout", user_name=request.user.username)
 	l.save()
 	logout(request)
-	return HttpResponseRedirect("/login/")
+	return HttpResponseRedirect("/accounts/login/?next={}".format(next))
 
 @login_required
 def itemqty(request):
@@ -874,3 +880,7 @@ def getchangedetails(request):
 	id=request.GET["id"]
 	execute=getchangedetailsjson(id,request)
 	return HttpResponse(execute)
+
+def red_login(request):
+	next=request.GET["next"]
+	return render(request,'inventory/login.html', {'next':next})

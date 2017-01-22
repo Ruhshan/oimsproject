@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #'session_security',
     'inventory',
-    'superadminpanel'
+    'superadminpanel',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -169,3 +170,8 @@ try:
     from .local_settings import *
 except ImportError:
     pass
+
+GRAPH_MODELS = {
+  'all_applications': True,
+  'group_models': True,
+}

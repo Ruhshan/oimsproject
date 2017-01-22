@@ -20,7 +20,7 @@ def get_location_ajax(request):
 	category=request.GET['category']
 	requestee=request.GET['req_name']
 	if requestee=="Non":
-		requestee=requestee.replace("Non","Non Specified")
+		requestee=requestee.replace("Non","Not Specified")
 	if requestee=="Not":
 		requestee=requestee.replace("Not","Not Specified")
 	print requestee

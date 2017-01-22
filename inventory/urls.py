@@ -27,6 +27,8 @@ urlpatterns = [
     url(r'^home/passwordchange/$',views.passwordchange,name='passwordchange'),
     url(r'^home/itemadminaction/$',views.itemadminaction,name='itemadminaction'),
     url(r'^login/isadmin/$',views.isadmin,name='isadmin'),
+    url(r'^accounts/login/isadmin/$',views.isadmin,name='isadmin'),
+    url(r'^home/isadmin/$',views.isadmin,name='isadmin'),
     url(r'^myaccount/$',views.myaccount,name='myaccount'),
     url(r'^updatepersonalinfo/$',views.updatepersonalinfo,name='updatepersonalinfo'),
     url(r'^myaccount/login/$',views.user_login,name='user_login'),
@@ -43,6 +45,7 @@ urlpatterns = [
     url(r'^item/information/$',views.getinfo,name='getinfo'),
     url(r'^item/updateitem/$',views.updateitem,name='updateitem'),
     url(r'^credit/$',views.credit,name='credit'),
+    url(r'^accounts/login/$', views.red_login,name="red_login"),
 
 
 

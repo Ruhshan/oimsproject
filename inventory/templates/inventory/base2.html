@@ -71,7 +71,20 @@
                 <span class="badge">{{alert_count}}
                 </span>
               </a>
-              <a href="/logout/">Logout</a>
+              {% with request.resolver_match.url_name as url_name %}
+                {% if url_name == 'item_view' %}
+                  <a style="color:white" href="/logout/?next=/item/">Logout</a>
+                {% endif %}
+                {% if url_name == 'users' %}
+                  <a style="color:white" href="/logout/?next=/users/">Logout</a>
+                {% endif %}
+                {% if url_name == 'vendor_view' %}
+                  <a style="color:white" href="/logout/?next=/vendor/">Logout</a>
+                {% endif %}
+                {% if url_name == 'myaccount' %}
+                  <a style="color:white" href="/logout/?next=/myaccount/">Logout</a>
+                {% endif %}
+              {% endwith %}
               </div>
             </div>
 

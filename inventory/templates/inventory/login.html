@@ -31,12 +31,13 @@
 
             function login(){
                 email=document.getElementById("email").value;
-                pwd=document.getElementById("pwd").value
-                isadmin(email, pwd);
+                pwd=document.getElementById("pwd").value;
+                next=document.getElementById("next").value;
+                isadmin(email, pwd,next);
 
             }
 
-            function isadmin(email,pwd){
+            function isadmin(email,pwd,next){
                 var xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function() {
 
@@ -48,6 +49,7 @@
                     {% csrf_token %}
 
                     <label><b>Email</b></label>
+                    <input type="hidden" name="next" id="next" value="`+next+`">
                     <input type="text" placeholder="Enter Email" name="email" id="email" value="`+email+`" required>
                      <input type="hidden" placeholder="Enter Password" name="password" id="pwd" value="`+pwd+`" required>
 
@@ -62,7 +64,9 @@
                         form.setAttribute("method", "post");
                         form.setAttribute("action", "/login/");
 
-                        var data = {csrfmiddlewaretoken:getCookie('csrftoken'), email:document.getElementById("email").value, password:document.getElementById("pwd").value, password2:"xxx"};
+                        var data = {csrfmiddlewaretoken:getCookie('csrftoken'), email:document.getElementById("email").value,
+                        password:document.getElementById("pwd").value, password2:"xxx",
+                      next:document.getElementById("next").value};
 
                         for(var key in data) {
                             if(data.hasOwnProperty(key)) {
@@ -206,9 +210,12 @@ span.psw {
 
 <div class="jumbotron center">
 <h1>Login to OIMS</h1>
+
   <div class="container" id="login_form">
     {% csrf_token %}
+    <input type="hidden" name="next" id="next" value={{next}}>
     <label><b>Email</b></label>
+
     <input type="text" placeholder="Enter Email" name="email" id="email" required>
 
     <label><b>Password</b></label>
