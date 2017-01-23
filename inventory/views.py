@@ -194,6 +194,8 @@ def user_logout(request):
 	l=LoginHistory(action="Logout", user_name=request.user.username)
 	l.save()
 	logout(request)
+	if next=="/superadminlogin/":
+		return HttpResponseRedirect(next)
 	return HttpResponseRedirect("/accounts/login/?next={}".format(next))
 
 @login_required
