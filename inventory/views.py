@@ -177,6 +177,7 @@ def view_home(request):
 		except:
 			date_range={'start':today(request),'end':today(request)}
 
+
 		ret_item=ProcessedRequest.objects.filter(action='APPROVED').distinct().values('item_name','category')
 
 		return render(request, 'inventory/home.html',{'item_names':item_names,'pending':pending, 'group':g, 'requestee':requestee_suggestion,
@@ -360,7 +361,7 @@ def updatepersonalinfo(request):
 		alt_email = request.POST['alternate_email']
 		oldp = request.POST['oldp']
 
-		print "*****",alt_email
+		#print "*****",alt_email
 		uname = request.user.username
 		user = User.objects.get(username = uname)
 		if user.check_password(oldp)==True:

@@ -129,7 +129,7 @@ def get_static_info(request):
 
 def today(request):
 	d=str(datetime.datetime.today()).split()[0].split('-')
-	return '/'.join((d[1],d[2],d[0]))
+	return '/'.join((d[2],d[1],d[0]))
 
 def history_ajax(request, s,e):
 	print s,e
