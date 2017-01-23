@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^login/isadmin/$',views.isadmin,name='isadmin'),
     url(r'^accounts/login/isadmin/$',views.isadmin,name='isadmin'),
     url(r'^home/isadmin/$',views.isadmin,name='isadmin'),
+    url(r'^isadmin/$',views.isadmin,name='isadmin'),
     url(r'^myaccount/$',views.myaccount,name='myaccount'),
     url(r'^updatepersonalinfo/$',views.updatepersonalinfo,name='updatepersonalinfo'),
     url(r'^myaccount/login/$',views.user_login,name='user_login'),
