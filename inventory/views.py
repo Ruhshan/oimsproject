@@ -57,6 +57,8 @@ def alert_count():
 	quan=InventoryTable.objects.values('quantity_inside')
 	minq=InventoryTable.objects.values('minimum_quantity')
 
+	ret_date= len(ProcessedRequest.objects.filter(date_of_return=datetime.date.today()))
+
 
 
 	count =0
@@ -69,7 +71,7 @@ def alert_count():
 
 
 
-	return count
+	return count+ret_date
 def alert_content():
 	val=InventoryTable.objects.values('item_name','quantity_inside','minimum_quantity')
 
@@ -77,6 +79,11 @@ def alert_content():
 	for v in val:
 		if int(v['quantity_inside'])<=int(v['minimum_quantity']):
 			content+=v['item_name']+" is left "+str(v['quantity_inside'])+"<br>"
+
+	ret=ProcessedRequest.objects.filter(date_of_return=datetime.date.today())
+	for r in ret:
+		m="Returning date of "+r.item_name+'s by '+r.requestee+'<br>'
+		content+=m
 	return content
 
 
@@ -220,10 +227,11 @@ def place_request(request):
 		nstore_manager=request.user.username
 		ndescription=request.POST['description']
 		nlocation=request.POST['location']
+		nret_date=request.POST['return_date']
 
 		p=PendingRequest(item_name=nitem_name, category=ncategory,requested_quantity=nrequested_quantity,
 			requestee=nrequestee,store_manager=nstore_manager, description=ndescription,
-			location=nlocation)
+			location=nlocation, date_of_return=nret_date)
 		p.save()
 
 		quantity_inside=InventoryTable.objects.get(item_name=nitem_name).quantity_inside
@@ -236,7 +244,7 @@ def place_request(request):
 
 		#print render_to_string('inventory/newrequest.html',{'parameters':parameters})
 		f=f.format(nitem_name.encode('utf-8'),ncategory.encode('utf-8'),nrequestee.encode('utf-8'),
-			nrequested_quantity,quantity_inside,ndescription.encode('utf-8'))
+			nrequested_quantity,nret_date,quantity_inside,ndescription.encode('utf-8'))
 
 
 		return HttpResponse(f)
@@ -262,6 +270,7 @@ def process_request(request):
 		ndescription=p.description
 		ndate_of_request=p.date_of_request
 		nlocation=p.location
+		nret_date=p.date_of_return
 
 		nprocessed_by=User.objects.get(username=request.user.username)
 		ndelivered_price=InventoryTable.objects.get(item_name=nitem_name).unit_price
@@ -270,7 +279,7 @@ def process_request(request):
 			requested_quantity=nrequested_quantity, approved_quantity=value,
 			store_manager=nstore_manager, description=ndescription, date_of_request=ndate_of_request,
 			processed_by = nprocessed_by,action=decesion,delivered_price=ndelivered_price,
-			location=nlocation)
+			location=nlocation,date_of_return=nret_date)
 		q.save()
 
 		p.delete()

@@ -1,5 +1,26 @@
 
       $( document ).ready(function() {
+
+          $('#return_date_checkbox').change(function() {
+            if($(this).is(':checked')){
+                     $('#return_date').prop('disabled',false);
+                     $("#return_date").val(moment().format('DD-MM-YYYY'));
+                     $('input[name="return_date"]').daterangepicker({
+                       locale: {
+                         format: 'DD-MM-YYYY'
+                       },
+                         singleDatePicker: true,
+                         showDropdowns: true
+                     });
+                }
+                 else
+                     {
+                      $('#return_date').prop('disabled',true);
+                      $("#return_date").val("Date not set");
+
+            }
+           });
+
           console.log( "ready!" );
           $('#modal_error').hide();
           $('#alert-success').hide();
@@ -368,30 +389,42 @@ hitable.columns().every( function () {
           query += "&description=" + document.getElementById("description").value;
           query +="&location="+document.getElementById("location").value.trim();
 
+          if($('#return_date_checkbox').is(':checked')){
+            var t_date=$("#return_date").val().split('-');
+            query+="&return_date="+t_date[2]+'-'+t_date[1]+'-'+t_date[0];
+            console.log(query);
+          }
+          else{
+            query+="&return_date=2050-01-01";
+          }
+
           var req=document.getElementById("requestee").value.trim();
           var item=document.getElementById("requested_item_name_dropdown").value;
           var location=document.getElementById("location").value.trim();
 
-          if(req.length>0 & item!='Select..' & location.length>0){
-            if(req!="Not Specified" || location!="Not Specified"){
-            document.getElementById('requested_item_name_dropdown').value="Select..";
-            document.getElementById('item_quantity_dropdown').value="1";
-            document.getElementById("requestee").value="";
-            document.getElementById("description").value=" ";
-            document.getElementById("location").value="";
 
-            xhttp.send(encodeURI(query));
-            $('#myModal').modal('hide');
-            /*$('#alert-success').show("drop", { direction: "up" }, "slow");
 
-            setTimeout(function(){
-              $("#alert-success").alert("close");
-            },2000);*/
-          }else{
-            $('#modal_error').show();
-            $('#myModal').effect('shake');
+          if(req.length>0 & item!='Select..' & location.length>0 & is_valid_date()==1){
+              if(req!="Not Specified" || location!="Not Specified"){
+              document.getElementById('requested_item_name_dropdown').value="Select..";
+              document.getElementById('item_quantity_dropdown').value="1";
+              document.getElementById("requestee").value="";
+              document.getElementById("description").value=" ";
+              document.getElementById("location").value="";
 
-          }
+
+              xhttp.send(encodeURI(query));
+              $('#myModal').modal('hide');
+              /*$('#alert-success').show("drop", { direction: "up" }, "slow");
+
+              setTimeout(function(){
+                $("#alert-success").alert("close");
+              },2000);*/
+            }else{
+              $('#modal_error').show();
+              $('#myModal').effect('shake');
+
+            }
 
           }
           else{
@@ -988,4 +1021,26 @@ function column_normalize(col){
 
   };
   return col;
+}
+
+function is_valid_date(){
+  var x=document.getElementById("return_date").value;
+  var r;
+  if(x=="Date not set"){
+    r=1;
+  }
+  else{
+    var d=$("#return_date").val().split('-');
+    var f=d[1]+'-'+d[0]+'-'+d[2];
+    var d1 = new Date(f);
+    var today = new Date(moment().format('MM-DD-YYYY'));
+
+    if(d1.getTime()>today.getTime()){
+      r=1;
+    }
+    else{
+      r=0;
+    }
+  }
+  return r;
 }

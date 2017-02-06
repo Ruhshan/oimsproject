@@ -129,48 +129,59 @@
         </div>
         <div class="modal-body">
           <div class="form-inline">
-          <div class="form-group">
-              <label for="requested_item_name_dropdown">Item Name:</label>
-              <select name="requested_item_name_dropdown" class="form-control selectpicker" data-live-search="true" id="requested_item_name_dropdown" onchange="showQuantity(this.value)">
-            				<option selected="selected">Select..</option>
-            				{%for item in item_names%}
-            				<option value="{{item.item_name}}${{item.category}}">{{item.item_name}} ({{item.category}})</option>
-            				{% endfor %}
-          		</select>
+            <div class="form-group">
+                <label for="requested_item_name_dropdown">Item Name:</label>
+                <select name="requested_item_name_dropdown" class="form-control selectpicker" data-live-search="true" id="requested_item_name_dropdown" onchange="showQuantity(this.value)">
+              				<option selected="selected">Select..</option>
+              				{%for item in item_names%}
+              				<option value="{{item.item_name}}${{item.category}}">{{item.item_name}} ({{item.category}})</option>
+              				{% endfor %}
+            		</select>
+            </div>
+
+            <div class="form-group">
+                <label for="item_quantity_dropdown">Requested Quantity:</label>
+                <select id="item_quantity_dropdown" class="form-control" name="requested_quantity">
+            			<option >1</option>
+            		</select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="requestee">Requestee:</label>
+                <datalist id="requestee_names">
+                  <option value="Not Specified">
+              		{% for name in requestee %}
+              			<option value="{{name}}">
+              		{% endfor %}
+            		</datalist>
+            		<input type="text" list="requestee_names" class="form-control" name="requestee" id="requestee"/>
+            </div>
           </div>
 
           <div class="form-group">
-              <label for="item_quantity_dropdown">Requested Quantity:</label>
-              <select id="item_quantity_dropdown" class="form-control" name="requested_quantity">
-          			<option >1</option>
-          		</select>
-          </div>
+            <label for="location">Location:</label>
+            <datalist id="locations">
+              <option value="Not Specified">
+              {% for names in locations %}
+              <option>{{names.location}}</option>
+              {% endfor %}
 
+            </datalist>
+            <input type="text" class="form-control" list="locations" name="location" id="location">
+          </div>
 
           <div class="form-group">
-              <label for="requestee">Requestee:</label>
-              <datalist id="requestee_names">
-                <option value="Not Specified">
-            		{% for name in requestee %}
-            			<option value="{{name}}">
-            		{% endfor %}
-          		</datalist>
-          		<input type="text" list="requestee_names" class="form-control" name="requestee" id="requestee"/>
+            <label for ="return_date"><input type="checkbox" value="" id="return_date_checkbox">Tentative Returning Date:</label>
+
+              <input type="text" class="form-control"  name="return_date" id="return_date" value="Date not set" disabled>
+              <script>$(function() {
+
+              });
+
+              </script>
+
           </div>
-        </div>
-
-        <div class="form-group">
-          <label for="location">Location:</label>
-          <datalist id="locations">
-            <option value="Not Specified">
-            {% for names in locations %}
-            <option>{{names.location}}</option>
-            {% endfor %}
-
-          </datalist>
-          <input type="text" class="form-control" list="locations" name="location" id="location">
-        </div>
-
 
 
             <div class="form-group">
@@ -214,7 +225,7 @@
           <div class="row">
             <div class="col-sm-4">Request of {{p.item_name}},{{p.category}}
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-4">Will return on: {{p.date_of_return}}
             </div>
             <div class="col-sm-4">Request for {{p.requestee}}
             </div>
@@ -263,7 +274,7 @@
           <div class="row">
             <div class="col-sm-4">Request of {{p.item_name}},{{p.category}}
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-4">Will return on: {{p.date_of_return}}
             </div>
             <div class="col-sm-4">Request for {{p.requestee}}
             </div>
@@ -314,7 +325,7 @@
           <div class="row">
             <div class="col-sm-4">Request of {{p.item_name}},{{p.category}}
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-4">Will return on: {{p.date_of_return}}
             </div>
             <div class="col-sm-4">Request for {{p.requestee}}
             </div>

@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db import models
 import uuid
 import hashlib
+import datetime
 # Create your models here.
 class InventoryTable(models.Model):
 	item_name=models.CharField(max_length=100,blank=False,null=False)
@@ -52,6 +53,7 @@ class PendingRequest(models.Model):
 	store_manager=models.CharField(max_length=100,blank=False,null=False)
 	description=models.TextField()
 	date_of_request=models.DateField(auto_now=True)
+	date_of_return=models.DateField(default=datetime.date(2050,1,1))
 
 	def update(self):
 		self.save()
@@ -71,6 +73,7 @@ class ProcessedRequest(models.Model):
 	store_manager=models.CharField(max_length=100,blank=False,null=False)
 	description=models.TextField()
 	date_of_request=models.DateField(blank=True,null=True)
+	date_of_return=models.DateField(default=datetime.date(2050,1,1))
 
 	#processed_by=models.CharField(max_length=100,blank=False,null=False)
 	processed_by=models.ForeignKey(User, on_delete=models.CASCADE)
