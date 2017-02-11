@@ -179,6 +179,7 @@
             <th>Role</th>
             <th>Date Joined</th>
             <th>Created By</th>
+            <th>Status</th>
             <th>Modify</th>
 
 
@@ -193,6 +194,7 @@
           <td>{{u.groups.all.0}}</td>
           <td>{{u.date_joined}}</td>
           <td>{{u.userprofile.created_by}}</td>
+          <td>{% if u.is_active == True %} Active {% else %} Inactive {% endif %}</td>
           <!--td>
           {% if u.is_active|stringformat:"s" == "True" %}
             <input type="checkbox" onchange="changestatus('toggle{{u.id}}')"

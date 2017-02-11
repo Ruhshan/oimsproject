@@ -433,7 +433,7 @@ def adduser(request):
 		try:
 			npassword2= request.POST['password2']
 		except:
-			print "my be user"
+			print "may be user"
 
 		pcheck=0
 		if request.user.check_password(adminp1) and check_password2(request.user.username,adminp2):
@@ -462,7 +462,7 @@ def adduser(request):
 			Group.objects.get_or_create(name='user')
 			g = Group.objects.get(name='user')
 		else:
-			Group.objects.get(name='temporary-admin')
+			Group.objects.get_or_create(name='temporary-admin')
 			g = Group.objects.get(name="temporary-admin")
 			sp=SeccondaryPassword(user_name=nuseremail,value=npassword2)
 			sp.save()
