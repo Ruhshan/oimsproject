@@ -810,7 +810,14 @@ function returnbutton(){
             document.getElementById("ret_location").selectedIndex=0;
             document.getElementById("ret_amount").selectedIndex=0;
             console.log(this.responseText+"R");
-            bootbox.alert("Item Returned, tables updated");
+            bootbox.alert(
+            {
+              message: "Item Returned, tables updated",
+              callback: function () {
+                  location.reload();
+                }
+              }
+            );
             reload_inventory();
             reload_history();
 
@@ -921,6 +928,14 @@ function issuebutton(){
           console.log(this.responseText+"R");
           if(this.responseText=="ok"){
             $('#issue_table').DataTable().ajax.reload();
+            bootbox.alert(
+            {
+              message: "Issue created, tables updated",
+              callback: function () {
+                  location.reload();
+                }
+              }
+            );
           }
           //location.reload();
         }

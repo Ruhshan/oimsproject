@@ -276,19 +276,45 @@ function getCookie(name) {
               if (this.readyState == 4 && this.status == 200) {
                     console.log(this.responseText);
                     if(this.responseText=="namechange"){
-                      bootbox.alert("Successfully updated name changed");
+                      bootbox.alert(
+                        {
+                          message: "Successfully updated name changed",
+                          callback: function () {
+                              location.reload();
+                            }
+                          }
+                    );
 
                     }
                     if(this.responseText=="_itemupdate"){
-                      bootbox.alert("successfully placed request to update");
+                      bootbox.alert({
+                        message: "successfully placed request to update",
+                        callback: function () {
+                            location.reload();
+                          }
+                        }
+
+                        );
 
                     }
                     if(this.responseText=="namechange_itemupdate"){
-                      bootbox.alert("successfully name chaned and placed request to update")
+                      bootbox.alert(
+                        {
+                          message: "successfully name chaned and placed request to update",
+                          callback: function () {
+                              location.reload();
+                            }
+                          });
 
                     }
                     if(this.responseText==""){
-                      bootbox.alert("Item updated!");
+                      bootbox.alert(
+                      {
+                        message: "Item updated!",
+                        callback: function () {
+                            location.reload();
+                          }
+                        });
                     }
 
 
