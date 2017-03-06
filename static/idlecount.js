@@ -74,7 +74,7 @@ function CheckIdleTime() {
         setCookie("logout_after", 0, 2);
         console.log("logging out!");
         setTimeout(function(){
-            window.location="/logout/";
+            window.location="/logout/?next="+document.location['pathname'];
         }, 10);
               
     }
@@ -103,7 +103,7 @@ function CheckIdleTime() {
                 }
                 if(result==true){
                     setTimeout(function(){
-                    window.location="/logout/";
+                    window.location="/logout/?next="+document.location['pathname'];
                      }, 10);
                 }
             }

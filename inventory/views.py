@@ -122,7 +122,7 @@ def user_login(request):
 
 		if user is not None:
 			if user.is_active:
-				request.session.set_expiry(1800)
+				request.session.set_expiry(100)
 				login(request,user)
 				l=LoginHistory(action="Login", user_name=email, nick_name=user.userprofile.nick_name)
 				l.save()
@@ -197,7 +197,10 @@ def view_home(request):
 
 @login_required
 def user_logout(request):
-	next=request.GET['next']
+	try:
+		next=request.GET['next']
+	except:
+		next='/home/'
 	print "In logout",next
 	l=LoginHistory(action="Logout", user_name=request.user.username)
 	l.save()

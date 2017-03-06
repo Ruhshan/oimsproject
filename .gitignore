@@ -4,4 +4,3 @@ venv
 inventory/migrations
 superadminpanel/migrations
 media/.json
-
