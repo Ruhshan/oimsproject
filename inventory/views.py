@@ -122,7 +122,7 @@ def user_login(request):
 
 		if user is not None:
 			if user.is_active:
-				request.session.set_expiry(100)
+				request.session.set_expiry(1000)
 				login(request,user)
 				l=LoginHistory(action="Login", user_name=email, nick_name=user.userprofile.nick_name)
 				l.save()

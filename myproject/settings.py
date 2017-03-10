@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     #'session_security',
     'inventory',
     'superadminpanel',
-    #'django_extensions',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
