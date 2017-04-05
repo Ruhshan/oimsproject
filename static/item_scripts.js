@@ -95,6 +95,15 @@ function getCookie(name) {
                     bootbox.alert({
                       message: "Item created in the database, waiting for admin approval",
                       callback: function () {
+                        console.log('Clearing form');
+                        document.getElementById('iname').value='';
+                        document.getElementById('category').value='';
+                        document.getElementById('iquantity').value='';
+                        document.getElementById('minquant').value='';
+                        document.getElementById('uprice').value='';
+                        document.getElementById('remarks').value='';
+                        document.getElementById('description').value='';
+                        document.getElementById('vendor').value='';
                           location.reload();
                         }
                       });

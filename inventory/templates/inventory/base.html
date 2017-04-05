@@ -65,9 +65,11 @@
     <li class="nav-item">
       <a class="nav-link hvr-underline-from-center" id="{% if url_name == 'home_view' %}ac{% endif %}" href="/home/">Home <span class="sr-only">(current)</span></a>
     </li>
+    {% if group|stringformat:"s" == "user" %}
     <li class="nav-item">
       <a class="nav-link hvr-underline-from-center" href="/item/">Item</a>
     </li>
+    {% endif %}
     {% if group|stringformat:"s" == "admin" %}
       <li class="nav-item">
         <a class="nav-link hvr-underline-from-center" href="/users/">User
@@ -142,10 +144,12 @@
               <a data-toggle="tab" href="#requests">Requests
               </a>
             </li>
+            {% if group|stringformat:"s" == "user" %}
             <li>
               <a data-toggle="tab" href="#return">Return
               </a>
             </li>
+            {% endif %}
             <li>
               <a data-toggle="tab" href="#history">History:Requests
               </a>

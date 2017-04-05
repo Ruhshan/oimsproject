@@ -525,9 +525,12 @@ def item_view(request):
 	item_list=InventoryTable.objects.values('item_name','category')
 	categories=InventoryTable.objects.values_list('category',flat=True).distinct()
 	g=request.user.groups.all()[0]
-	return render(request, 'inventory/item.html',{'vendor_list':vendor_list,'group':g,
+	if str(g)=='user':
+		return render(request, 'inventory/item.html',{'vendor_list':vendor_list,'group':g,
 		'item_list':item_list,'alert_count':alert_count(),'alert_content':alert_content()
 		,'categories':categories,'static_info':get_static_info(request)})
+	else:
+		return HttpResponse("You don't have permission!")
 
 @login_required
 def add_item(request):
@@ -650,6 +653,7 @@ def passwordchange(request):
 def itemadminaction(request):
 	if request.method=="POST":
 		if str(request.user.groups.all()[0])=="admin" or str(request.user.groups.all()[0])=="temporary-admin":
+			print request.user.groups.all()[0]
 
 			if request.POST['action']=="ok":
 				t=InventoryTableTemp.objects.get(id=request.POST['req_id'])

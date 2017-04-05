@@ -421,6 +421,7 @@ hitable.columns().every( function () {
                 $("#alert-success").alert("close");
               },2000);*/
             }else{
+              console.log("why?? "+req.length+' '+item+' '+location.length +' ' +is_valid_date);
               $('#modal_error').show();
               $('#myModal').effect('shake');
 
@@ -428,6 +429,7 @@ hitable.columns().every( function () {
 
           }
           else{
+            console.log("why?? "+req.length+' '+item+' '+location.length +' ' +is_valid_date);
             $('#modal_error').show();
             $('#myModal').effect('shake');
 
